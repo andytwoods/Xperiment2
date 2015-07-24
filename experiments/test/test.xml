@@ -1,0 +1,144 @@
+<expt exptType="WEB">
+
+ <SETUP>  
+              <info id="0a66f64fd9c648c3ae92889aa66040a0" />
+              <results mock="false" id="bristol"  save="webfile" saveDataURL = "http://www.opensourcesci.com/experiments/Bristol/fullness" />
+              <screen BGcolour="black" orientation="vertical" ></screen>                          
+			  <computer  encrypt='false' sstimuliFolder="SG_Words" stimuliFolder="fullness" />
+			  <style BUTTON_DOWN="0xff5656"  />
+			  <variables practice='0' />
+</SETUP>
+
+
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+
+	 <addText  drawBox="true" autoSize="false" align="centre" wordWrap="true"  width="85%" height="20%" x="50%" y="10%" vertical="top" text=
+			"{b}Volume Judgement Experiment.{/b}"timeStart="0"  timeEnd="forever" fontSize="50"/>
+	
+	<addButton width="140" key=" " timeStart="0"  enabled="false" height="40" peg="next" text="Continue"   x="75%" vertical="top" y="87%"/>
+	
+	<addLoadingIndicator behaviours='onFinish:next.enabled=true' width="50%" height="5%" x="40%" y="90.5%" />
+
+</TRIAL>
+
+<TRIAL TYPE="Trial" block="1" order="fixed" trials="1">
+	<fullScreen timeStart="0" if="this.onFinish?next.start()"/>
+	<behavNextTrial peg="next" />
+	
+</TRIAL>
+
+<TRIAL TYPE="Trial" trialName="ethics1;ethics2" hideResults="true" block="1" order="fixed" trials="2">
+	
+	 <addText drawBox="true" autoSize="false" align="left" selectable="false" wordWrap="true"  width="85%" height="90%" x="50%" y="10%" verticalAlign="top" vertical="top" 
+	 text=
+"Before we begin, please read the following: 
+This is an experiment concerned with perceived volume judgements of liquids.
+If you decide to take part, you will be asked for your age and sex on the opening page.
+You will then be asked to make volume judgements of liquid in a straight or curved glass. The required volume will be clearly stated at the top of the page and the liquid can be adjusted up or down the glass by using the scroll on your mouse/mousepad or the up and down arrow keys on your keyboard. When you are happy with your judgement, hit spacebar and another judgement on the next screen will be requested. Please continue until the experiment finishes. It should last no more than 10 minutes. You will be reimbursed $1 for your time.  
+You will be told more about the study and why we are doing this research at the end of the experiment. You may also contact the researcher - David Troy (David.Troy@bristol.ac.uk) - at a later time if you wish.
+-Continued on the next page-; 
+Please read the below consent statement and indicate whether you consent.
+{u}Statement of Informed Consent{/u}
+-	I have read and understood the information above, and understand the general purpose of the experiment
+-	I understand that I can withdraw during the study without giving a reason and that by doing so, we will destroy your data. (NB - Please be aware that the data we collect is anonymous - if you decide you do not want your data in the study after giving your final consent, we will be unable to trace your specific data to remove it)
+-	I understand my responses are anonymous
+-	I agree to take part in this online experiment
+-	I agree to the University of Bristol keeping and processing the data I have provided during the course of this study.
+By clicking ‘I consent’, you are agreeing to the above statements."
+		timeStart="0"  timeEnd="forever" fontSize="20"></addText> 
+	
+	<addButton width="140"  height="40" text="next page;previous page" goto="ethics2;ethics1" resultFileName="continue" timeStart="0" timeEnd="forever" y="80%"  />
+	<addButton width="140" present="0;1" height="40" text="I consent" resultFileName="continue" timeStart="0" timeEnd="forever" y="3%" vertical="top" />
+
+</TRIAL>
+
+
+<TRIAL TYPE="Trial" block="3" order="fixed" trials="1">
+
+	<addUrlVariable  _ip="notGiven" />
+
+	<addText   x="50%" y="12%" height="20%"
+	text = "some questions"
+	timeStart="0"  width="80%" timeEnd="forever" fontSize="20"></addText> 
+	
+	<addText howMany="2" width="60" height="10%" x="20%" y="23%---40%" 
+	text="sex---age"
+	timeStart="0"  timeEnd="forever" autoSize="false" align="right" fontSize="20"/> 
+
+ 	<addMultipleChoice peg="sex" distanceApart="5" width="25%" height="10%" horizontalDistanceApart="210" 
+ 	labels="male,female"
+ 	x="50%" y="20%" timeStart="0"  timeEnd="forever" /> 	
+	
+	<addMultiNumberSelector peg="age" width="25%" height="20%" startingVal="00"  x="50%" y="40%" timeStart="0" timeEnd="forever" />
+
+	<addComboBox peg="origin" 
+	label="where do you come from?"
+	timeStart="0" width="70%" height="40%" vertical="top" timeEnd="forever" x="50%" y="58%"/>
+	
+	<addInput text="what is your native language? Please type your answer into this box." timeStart="0" peg="language" height="7%" y="76%" width="70%"/>
+
+	<behavNextTrial peg='nextTrial'/>
+	
+	<addButton timeStart='0' hideResults="true" width="340" goto='' height="40" peg='next' 
+	text="next"
+	if="this.click?this.text='please answer the questions',this.click&&language.result!=''&&origin.result!=''&&age.result!=''?nextTrial.start()"  
+	timeEnd="forever" x="50%" vertical="top" y="90%"/>
+	
+
+</TRIAL>
+
+<TRIAL template="myTemplate" trialName="Cu">
+<addJPG copyOverID="jpg" filename="101---102---etc---" />
+</TRIAL>
+
+<TRIAL template="myTemplate" trialName="St">
+</TRIAL>
+
+<TRIAL TYPE="Trial" hideResults="true" block="15" trials="1">
+	<addText text="Over the last two weeks, how often have you been bothered by any of the following problems?" y="5%" align="center" height="10%" width="100%" vertrical="top" fontSize="35" />
+	
+	<addText howMany="9" y="15%---24%---etc---" horizontal="right" align="right" height="10%" width="50%" text="Little interest or pleasure in doing things?---Feeling down, depressed, or hopeless?---Trouble falling or staying asleep, or sleeping too much?---Feeling tired or having little energy?---Poor appetite or overeating?---Feeling bad about yourself - or that you are a failure or have let yourself or your family down?---Trouble concentrating on things, such as reading the newspaper or watching television?---Moving or speaking so slowly that other people could have noticed? Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual?---Thoughts that you would be better off dead, or of hurting yourself in some way?" />
+	
+	<addMultipleChoice required="" peg="dep" timeStart="0" y="15%---24%---etc---" x="100%" horizontal="right" howMany="9" seperation="horizontal" height="7%" labels="Not at all,several days,more than half the days, nearly every day"/>
+	
+	<addButton hideResults="true" text="continue" width="200" height="40" y="100%" vertical="bottom" goto="" if="this.click?this.text='please answer all the questions',this.click&&required==true?nextTrial.start()"/>
+	<behavNextTrial peg='nextTrial'/>
+</TRIAL>
+
+<TRIAL TYPE="Trial" hideResults="true" order="random" block="15" trials="1">
+<addText text="Please answer the following questions about yourself. Be as honest as you can throughout, and try not to let your responses to one question influence your response to other questions. There are no right or wrong answers." y="6%" align="center" height="10%" width="100%" vertrical="top" fontSize="28" />
+	
+	<addText howMany="10" y="17%---25%---etc---" horizontal="right" align="right" height="10%" width="50%" text="In uncertain times, I usually expect the best.---It's easy for me to relax.---If something can go wrong for me, it will.---I'm always optimistic about my future.---I enjoy my friends a lot.---It's important for me to keep busy.---I hardly ever expect things to go my way.---I don't get upset too easily.---I rarely count on good things happening to me.---Overall, I expect more good things to happen to me than bad." />
+	
+	<addMultipleChoice required="" peg="opt" timeStart="0" y="17%---25%---etc---" x="100%" horizontal="right" howMany="10" seperation="horizontal" height="7%" labels="strongly disagree,disagree,neutral,agree,strongly agree"/>
+	
+	
+	<addButton hideResults="true" text="continue" width="200" height="40" y="100%" vertical="bottom" goto="" if="this.click?this.text='please answer all the questions',this.click&&required==true?nextTrial.start()"/>
+	<behavNextTrial peg='nextTrial'/>
+</TRIAL>
+
+
+<TRIAL TYPE="Trial" hideResults="true" block="20" trials="1">
+	<behavSaveData timeStart='0'/>
+	<addText  wordWrap="true" text="Our research at the University of Bristol Tobacco and Alcohol Research Group (TARG) has been observing that people misjudge the midpoint of beer glasses and have found this to be connected to faster drinking times. This experiment will add to other research we have been conducting on volume judgements from the general public. It is our hope that we can put measures in place (e.g. marking the midpoint) to make it easier for people to judge the volume change in their drink and better tailor their drinking rate accordingly. You can follow our research at http://www.bris.ac.uk/expsych/research/brain/targ/ . DO NOT FORGET TO ENTER THE BELOW CODE INTO MECHANICAL TURK."	y="10%" vertical="top" timeStart="0" width="80%"  align="left" timeEnd="forever" fontSize="30"></addText>
+	
+	<addMechanicalTurk fontSize="40" align="middle" y="80%"/>
+</TRIAL>
+  	
+
+<myTemplate TYPE="Trial"  hideResults="true" block="10"  order="random" trials="11">
+	<behavSequence sortBy="seqID" usePegs="images" peg="mySeq" timeStart="0" />
+	<behavResults peg="results" timeStart="0" />
+	<addText text="Please fill the liquid to {b}" if="this.doNow?results.percent=this.text1" text1="10;20;30;40;50;60;70;80;90;25;75" text2="%{/b} of the glass." align="center" width="100%" verticalAlign="top" height="10%" fontSize="40" y="10%" />
+	<addJPG copyOverID="jpg" howMany="60" exactSize="true" timeStart="0" extension="jpg" seqID="1---2---etc---" filename="1---2---etc---" peg="images"/>
+	<addText text="Please use the scroll button on your mouse to change how much liquid is in the glass. Press SPACE to continue." align="center" fontSize="20" y="95%" />
+	<behavNextTrial peg="next"/>
+	<addText peg="info" text="press SPACE when you have filled the glass" align="center" timeStart="0" fontSize="20" y="15%" />
+	<addButton hideResults="true" visible="false" key=" " y="15%" width="200" goto='' if="this.click?info.text='please fill the glass',this.click&&scroll.result!=''?next.start()" height="40"/>
+	<behavScroll  timeStart="0" if="this.moved?mySeq.itemFromPercent=this.result" peg="scroll"/>
+	<aaddLineScale y="80%" if="this.moved?mySeq.itemFromPercent=this.result" />
+
+</myTemplate>
+
+
+</expt>	
