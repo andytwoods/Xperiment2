@@ -19,7 +19,6 @@ class SlotInForcePositions
 			//if (forcePosition == null) throw "this error arises as you have specified a forceBlockDepthPositions for a trial that is the only trial in a given block";
 //trace(forcePosition, forcePosition.positionStr, 34);
 			forcePosition.position = getPosition(forcePosition.positionStr, trials.length);
-
 		}
 
 		forcePositions.sort( 
@@ -66,19 +65,19 @@ class SlotInForcePositions
 			case 'LAST':
 				return length;
 			case 'MIDDLE'|'CENTER'| 'CENTRE' :
-				return Std.int(length/2); // as position is int, rounds down
+				return Math.round(length/2); // as position is int, rounds down
 			case 'MIDDLE+1' | 'CENTER+1' | 'CENTRE+1':
-				return Std.int(length / 2 + 1); // as position is int, rounds down		
+				return Math.round(length / 2 + 1); // as position is int, rounds down		
 			case "1/2":
-				return Std.int(length / 2); // as position is int, rounds down	
+				return Math.round(length / 2); // as position is int, rounds down	
 			case "1/4":
-				return Std.int(length / 4 );
+				return Math.round(length / 4 );
 			case "3/4":
-				return Std.int(length / 4 * 3 );	
+				return Math.round(length / 4 * 3 );	
 			case "1/3":
-				return Std.int(length / 3 );
+				return Math.round(length / 3 );
 			case "2/3":
-				return Std.int(length / 3 * 2  );
+				return Math.round(length / 3 * 2  );
 		}
 		
 		throw 'You have asked to force the position of some trials but I do not understand where to slot them in (e.g. first, last, middle, middle+1 [to help with rounding up where the centre is; nb centre+2 is not valid] 1/2, 1/3, more complex math (use the word length to specify the length of the current block): '+forcePosition;

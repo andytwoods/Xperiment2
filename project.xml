@@ -20,6 +20,8 @@
 	<haxelib name="assetsmanager" />
 	<haxelib name="stablexui" />
 	<haxelib name="utest" />
+	<haxelib name="thx.core" />
+	
 	<haxedef name="fdb" if="flash"/>
 	<haxedef name="dom" if="html5" />
 	

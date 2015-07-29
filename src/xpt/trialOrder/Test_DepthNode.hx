@@ -14,7 +14,7 @@ class Test_DepthNode
 	
 	
 
-	public function test_a():Void {
+	public function test_8_5():Void {
 	
 		var dn:DepthNode;
 		

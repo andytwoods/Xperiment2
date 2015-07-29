@@ -48,7 +48,18 @@ class XTools
 		return arr;
 	}
 
+	public static function multiCorrection(s:String,seperator:String,dup:Int):String {
 
+		if (s.indexOf(seperator)!=-1) {
+			var tempArray:Array<String> = s.split(seperator);
+			s=Std.string(tempArray[dup%tempArray.length]);
+		}
+
+		return s;
+
+	}
+
+	
 	public static function iteratorToArray <T>(iterator:Iterator<T>):Array<T>{ 
 		var arr:Array<T> = [];
 		

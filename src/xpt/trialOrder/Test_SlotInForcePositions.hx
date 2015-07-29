@@ -10,14 +10,14 @@ class Test_SlotInForcePositions
 		
 	}
 	
-	public function test_do() {
+	public function test_10() {
 		Assert.isTrue(SlotInForcePositions.getPosition("1",5)==1);
 		Assert.isTrue(SlotInForcePositions.getPosition("6", 5) == 6);
 		Assert.isTrue(SlotInForcePositions.getPosition("first",5)==0);
 		Assert.isTrue(SlotInForcePositions.getPosition("last",5)==5);
-		Assert.isTrue(SlotInForcePositions.getPosition("center",5)==2);
-		Assert.isTrue(SlotInForcePositions.getPosition("center+1",5)==3);
-		Assert.isTrue(SlotInForcePositions.getPosition("1/2", 5) == 2);
+		Assert.isTrue(SlotInForcePositions.getPosition("center",5)==3);
+		Assert.isTrue(SlotInForcePositions.getPosition("center+1",5)==4);
+		Assert.isTrue(SlotInForcePositions.getPosition("1/2", 5) == 3);
 		Assert.isTrue(SlotInForcePositions.getPosition("1/4",8)==2);	
 	}
 	

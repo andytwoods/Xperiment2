@@ -9,6 +9,7 @@ import utest.Runner;
 import utest.ui.Report;
 import utest.ui.common.HeaderDisplayMode;
 import xpt.tools.Test_XTools;
+import xpt.trial.Test_NextTrialBoss;
 import xpt.trialOrder.Test_DepthNode;
 import xpt.trialOrder.Test_DepthNodeBoss;
 import xpt.trialOrder.Test_SlotInForcePositions;
@@ -32,6 +33,7 @@ class Tests
 		runner.addCase(new Test_DepthNodeBoss());
 		runner.addCase(new Test_SlotInForcePositions());
 		runner.addCase(new Test_TrialOrderTools());
+		runner.addCase(new Test_NextTrialBoss());
 		
 		Report.create(runner,NeverShowSuccessResults,AlwaysShowHeader);
 		runner.run();

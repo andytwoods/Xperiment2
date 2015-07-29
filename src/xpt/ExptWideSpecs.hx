@@ -8,6 +8,7 @@ class ExptWideSpecs
 {
 
 	public static var trial_sep:String = ";";
+	public static var stim_sep:String = "---";
 	public static var trialName:String = "trialName";	
 	static private var hack:Map<String,Dynamic>;
 	
@@ -16,9 +17,7 @@ class ExptWideSpecs
 	
 	
 	public static function IS(what:String):Dynamic {
-		
-		
-		
+			
 		if (hack[what] != null) return hack[what];
 		
 		
@@ -33,6 +32,7 @@ class ExptWideSpecs
 	{
 		hack= new Map<String,Dynamic>();
 		//hack['blockDepthOrder'] = "";
+		
 	}
 	
 }

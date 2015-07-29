@@ -37,6 +37,13 @@ class Test_XTools
 	}
 	
 	
+	public function test_multiCorrection() {
+	
+		Assert.isTrue("hello" == XTools.multiCorrection("hello;123", ";", 0));
+		Assert.isTrue("123" == XTools.multiCorrection("hello;123", ";", 1));
+		Assert.isTrue("hello" == XTools.multiCorrection("hello;123", ";", 2));		
+	}
+	
 }
 /*
 class Test {

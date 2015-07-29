@@ -13,7 +13,7 @@ class Test_DepthNodeBoss
 	}
 	
 
-	public function test8() 
+	public function test8_6() 
 	{
 		
 		var dnb:DepthNodeBoss = new DepthNodeBoss("9=fixed 10=random 10,*=fixed 10,*,*=random");

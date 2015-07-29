@@ -9,18 +9,20 @@ import xmlTools.E4X;
 class XML_tools
 {
 
-/*	public function new() 
-	{
-		
+	/*
+	findAttr cannot deal with xml with children. This is to be used for those rare occurences.
+	*/
+/*	static public function findAttr_ignoreChildren(xml:Xml, attrib:String):String
+	{	
+		var str = xml.get(attrib);
+		if (str == null) return "";
+		return str;
 	}*/
-	
 	
 	static public function findAttr(xml:Xml, attrib:String):String
 	{	
-		var val = find(xml, attrib, null);
-		if (val.hasNext() == false) return "";
-		var str:String = simpleXML(val.next()).get(attrib);
-		if (str == null) str = "";
+		var str = simpleXML(xml).get(attrib);
+		if (str == null) return "";
 		return str;
 	}
 	
@@ -38,7 +40,9 @@ class XML_tools
 		return E4X.x(xml.desc(name));
 	}
 	
-	
+	static public function getChildren(xml:Xml):Iterator<Xml> {
+		return E4X.x(xml.child());
+	}
 	
 	static public function flatten(xml:Xml,recurseOn:Array<String>):Xml {
 	
@@ -208,6 +212,16 @@ class XML_tools
 			
 			
 		return xml1;
+	}
+	
+	static public function AttribsToMap(xml:Xml):Map<String,String> {
+		xml = simpleXML(xml);
+		var myMap:Map<String,String> = new Map<String,String>();
+		for (attrib in xml.attributes()) {
+			var val = xml.get(attrib);
+				myMap.set(attrib, val);
+		}
+		return myMap;
 	}
 	
 	

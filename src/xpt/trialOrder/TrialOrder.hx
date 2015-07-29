@@ -1,6 +1,8 @@
 package xpt.trialOrder;
 import script.XML_tools;
+import thx.Tuple.Tuple2;
 import xpt.tools.XTools;
+import xpt.trial.TrialSkeleton;
 
 /**
  * ...
@@ -8,7 +10,7 @@ import xpt.tools.XTools;
  */
 class TrialOrder
 {
-	static public function DO(script:Xml):Array<Int>
+	static public function COMPOSE(script:Xml):Tuple2<	Array<Int>,	Array<TrialSkeleton>	>
 	{
 		var trialBlocks:Array<TrialBlock> = [];
 		
@@ -18,7 +20,14 @@ class TrialOrder
 		
 		var i:Int = 0;
 		var counter:Int = 0;
+		
+		var skeletons:Array<TrialSkeleton> = [];
+		var block:Xml;
 		for (block in blockXMLs) {
+			
+			//not happy about the below. But keeps independence from the overall script I guess. 
+			//this method may work: xml.elementsNamed("TRIAL")
+			block = Xml.parse(block.toString()); 
 			
 			trialBlock = new TrialBlock();
 
@@ -29,10 +38,14 @@ class TrialOrder
 				counter += trialBlock.numTrials;
 			}
 			
+			skeletons[skeletons.length] = new TrialSkeleton(trialBlock);
+			
 		}
 		
+		var trialOrder:Array<Int> = TrialOrderTools.composeOrder(trialBlocks);
 		
-		return TrialOrderTools.composeOrder(trialBlocks);
+		
+		return new Tuple2(trialOrder, skeletons);
 		
 	}
 

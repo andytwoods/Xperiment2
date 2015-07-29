@@ -13,11 +13,11 @@ using xpt.trialOrder.ForcePositionType;
 class TrialBlock
 {
 
-	var xml:Xml;
-	var blockPosition:Int;
+	public var xml:Xml;
+	public var blockPosition:Int;
 	public var numTrials:Int = 0;
 	public var trialNames:Array<String>;
-	
+	public var bind_id:String;
 
 	public var order:String;
 	public var blockDepthOrder:String;
@@ -34,7 +34,9 @@ class TrialBlock
 	
 	public var currentDepthID:Int;
 	
-	public var trials:Array<Int>= [];
+	public var trials:Array<Int> = [];
+	
+	public var runTrial:Bool;
 	
 	public var preterminedSortOnOrder:Int; //used for SortOn, in another class
 	
@@ -68,8 +70,6 @@ class TrialBlock
 	}
 		
 	public function setBlock(str:String):Void{
-
-		if(str == '')throw 'you MUST set the block of each of your trials';
 		blocksIdent=str;
 		var arr:Array<String>=str.split(",");
 		for(i in 0 ... arr.length){
@@ -79,7 +79,9 @@ class TrialBlock
 	}
 	
 	private function sortBlock(xml:Xml):Void {
-		var blo:String = XML_tools.findAttr(xml, "block"); 
+		//var blo:String = XML_tools.findAttr_ignoreChildren(xml,"block"); 
+		var blo:String = XML_tools.findAttr(xml,"block"); 
+		if(blo == '')throw 'you MUST set the block of each of your trials. Not done so here: '+xml.toString();
 		setBlock(blo);
 	}
 	
@@ -150,7 +152,17 @@ class TrialBlock
 		order = getOrder(xml, "order");
 
 		blockDepthOrders = getBlockDepthOrder(xml);
+		
+		runTrial = sortRunTrial();
+	
 
+	}
+	
+	function sortRunTrial():Bool
+	{
+		var str:String = XML_tools.findAttr(xml, "runTrial").toLowerCase();
+		
+		return str == 'false';
 	}
 	
 	function getTrials(t:Int, counter:Int):Array<Int>
@@ -275,7 +287,7 @@ class TrialBlock
 	public static function getNames(xml:Xml,trials:Int, nam:String):Array<String>
 	{
 		var names:String = XML_tools.findAttr(xml, nam);
-		
+		//trace(names, 2323233232,XML_tools.findAttr_ignoreChildren(xml, nam));
 		var namesArr:Array<String> = names.split(ExptWideSpecs.trial_sep);
 		var notUniqueTrialNames:Array<String> = [];
 		
@@ -318,7 +330,8 @@ class TrialBlock
 	{
 		var str:String = XML_tools.findAttr(xml,"trials");
 		if (str == null)	return 1;
-		if (Std.parseInt(str) == null || str.indexOf(".")!=-1)	throw ("must specify number of trials as a whole number");
+		if (Std.parseInt(str) == null)	return 1;
+		if (str.indexOf(".")!=-1)	throw ("must specify number of trials as a whole number, not" + str);
 		return Std.parseInt(str);
 	}
 	

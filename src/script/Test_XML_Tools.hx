@@ -249,4 +249,76 @@ public function new() { }
 		
 	
 	}
+	
+	public function test_AttribsToMap() {
+		
+		var myTest = function(x:Map<String,String>, map:Map<String,String>):Bool {
+			
+			for (key in x.keys()) {
+				if (map.exists(key) == false) return false;
+				if (x.get(key) != map.get(key)) return false;
+				x.remove(key);
+				map.remove(key);
+			}
+			for (key in map.keys()) {
+				return false; //should be none left!
+			}
+			
+			
+			return true;
+		}
+		
+	
+		var xml = Xml.parse("<xml a='a' b='2'><a>aa</a><b></b></xml>");
+		var result = XML_tools.AttribsToMap(xml);
+		
+		Assert.isTrue( myTest(result, ["a"=>"a", "b"=>"2"]) );
+		
+		
+	}
+	
+	public function test_findAttr():Void {
+	
+		var xml = Xml.parse("<xml a='a' b='2'><a>aa</a><b></b></xml>");
+		var result = XML_tools.findAttr(xml, "a");
+
+		Assert.isTrue(result == "a");
+		
+		xml = Xml.parse("<xml a='a' b='2'><a a='b'>aa</a><b></b></xml>");
+		result = XML_tools.findAttr(xml, "a");
+
+		Assert.isTrue(result == "a");
+		
+		xml = Xml.parse("<TRIAL block='20' trials='4' order='fixed' trialName='v'><testStim test='a; b; c; d'/></TRIAL>");
+		result = XML_tools.findAttr(xml, "block");
+		Assert.isTrue(result == "20");
+
+		xml = Xml.parse("<TRIAL block='20' order='fixed' trials='1'  trialName='v'><d></d></TRIAL>");
+		result = XML_tools.findAttr(xml, "block");
+		Assert.isTrue(result == "20");
+		
+		xml = Xml.parse("<TRIAL block='20' order='fixed' trials='1' trialName='v'><d/></TRIAL>");
+		result = XML_tools.findAttr(xml, "block");
+		Assert.isTrue(result == "20");
+
+		
+		xml = Xml.parse("<BOSS><TRIAL block='20' order='fixed' trials='1'  trialName='v'><d></d></TRIAL><TRIAL block='20' order='fixed' trials='1'  trialName='v'><d></d></TRIAL></BOSS>");
+		var blockXMLs:Iterator<Xml> = XML_tools.findNode(xml, "TRIAL") 	;
+		
+		for(block in blockXMLs) {
+			block = Xml.parse(block.toString());
+			result = XML_tools.findAttr(block, "block");
+			Assert.isTrue(result == "20");
+		}
+		
+		for (block in xml.elementsNamed("TRIAL")) {
+			//block = Xml.parse(block.toString());
+			result = XML_tools.findAttr(block, "block");
+			Assert.isTrue(result == "20");
+		}
+		
+	
+		
+	}
+	
 }
