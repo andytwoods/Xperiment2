@@ -1,6 +1,8 @@
 package xpt.trial;
+import thx.Arrays;
 import xpt.stimuli.BaseStimuli;
 import xpt.stimuli.BaseStimuli.BaseStimulus;
+import xpt.tools.XTools;
 import xpt.trialOrder.TrialBlock;
 
 /**
@@ -23,11 +25,13 @@ class TrialSkeleton
 		if (trialBlock == null) return; //for testing
 		
 		this.blockPosition = trialBlock.blockPosition;
-		this.trials = trialBlock.trials;
+		this.trials = XTools.copyArrInt(trialBlock.trials);
 		this.runTrial = trialBlock.runTrial;
 		this.bind_id = trialBlock.bind_id;
 		this.names = trialBlock.trialNames;
 		this.xml = trialBlock.xml;
 	}
+	
+	
 	
 }

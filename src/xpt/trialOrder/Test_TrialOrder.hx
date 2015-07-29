@@ -116,6 +116,7 @@ class Test_TrialOrder
 
 				//testing names
 				if (skeleton.names[i] != labels[i])	{
+					trace("failed here:", skeleton.names[i] , labels[i]);
 					return false;
 				}
 				
@@ -124,7 +125,10 @@ class Test_TrialOrder
 				var testStim:Stimulus = expt.runningTrial.stimuli[0];
 				
 				//testing properties
-				if(testStim.get('test')!=ident[i])	return false;
+				if (testStim.get('test') != ident[i]) {
+					trace("failed here:", testStim.get('test') , ident[i]);
+					return false;
+				}
 			}
 			
 			return true;

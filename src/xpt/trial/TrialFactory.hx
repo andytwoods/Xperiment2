@@ -25,6 +25,8 @@ class TrialFactory
 		trial.iteration = iteration;
 		trial.trialNum  = trialNum;
 		trial.name      = skeleton.names[iteration];
+		
+		trace(trial.name, 232323, skeleton.names[iteration],iteration);
 	}
 	
 	static private function getIteration(skeleton:TrialSkeleton, trialNum:Int):Int

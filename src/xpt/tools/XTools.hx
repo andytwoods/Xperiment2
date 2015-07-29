@@ -102,4 +102,13 @@ class XTools
 		
 		return arr;
 	}
+	
+	static public function copyArrInt(trials:Array<Int>):Array<Int> 
+	{
+		var arr:Array<Int> = [];
+		for (i in 0...trials.length) {
+			arr[arr.length] = trials[i];
+		}
+		return arr;
+	}
 }

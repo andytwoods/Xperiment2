@@ -287,7 +287,7 @@ class TrialBlock
 	public static function getNames(xml:Xml,trials:Int, nam:String):Array<String>
 	{
 		var names:String = XML_tools.findAttr(xml, nam);
-		//trace(names, 2323233232,XML_tools.findAttr_ignoreChildren(xml, nam));
+		//trace(names, 2323233232,XML_tools.findAttr(xml, nam));
 		var namesArr:Array<String> = names.split(ExptWideSpecs.trial_sep);
 		var notUniqueTrialNames:Array<String> = [];
 		
