@@ -1,4 +1,5 @@
 package xpt.tools;
+import thx.Arrays;
 import utest.Assert;
 /**
  * ...
@@ -44,12 +45,12 @@ class Test_XTools
 		Assert.isTrue("hello" == XTools.multiCorrection("hello;123", ";", 2));		
 	}
 	
-}
-/*
-class Test {
-	public var a:Int;
-	
-	public function new(val:Int) {
-		a = val;
+	public function test_sort() {
+		
+		Assert.isTrue( Arrays.equals(XTools.sort([3, 2, 1]), [1, 2, 3]));
+		Assert.isTrue( Arrays.equals(XTools.sort(["c", "b", "a"]),["a", "b", "c"]));
 	}
-}*/
+	
+}
+
+

@@ -167,6 +167,20 @@ class Test_TrialOrderTools
 			
 		}
 
+	
+	private function myTest(result:Array<Int>, answer:Array<Int>):Bool{
+		
+		if (result.length != answer.length) {
+			return false;
+		}
+		
+		for(i in 0...result.length){
+			if (result[i] != answer[i]) {
+				return false;
+			}
+		}
+		return true;
+	}
 		
 		
 	public function test12() 
@@ -180,10 +194,7 @@ class Test_TrialOrderTools
 
 			result = TrialOrder.COMPOSE(
 				Xml.parse("<CBCondition1><TRIAL block='20' order='fixed' forcePositionInBlock = '0' trials='2'/><TRIAL block='0' order='fixed' trials='1'/></CBCondition1>"))._0;
-
-
 			Assert.isTrue(myTest(result,[2,0,1]));
-			
 
 			result = TrialOrder.COMPOSE(
 			Xml.parse("<CBCondition1><TRIAL block='20,2' order='fixed' forceBlockDepthPositions = '0' trials='2'/><TRIAL block='20,1' order='fixed' trials='1'/></CBCondition1>"))._0;
@@ -219,19 +230,7 @@ class Test_TrialOrderTools
 	}
 				
 		
-		private function myTest(result:Array<Int>, answer:Array<Int>):Bool{
-			
-			if (result.length != answer.length) {
-				return false;
-			}
-			
-			for(i in 0...result.length){
-				if (result[i] != answer[i]) {
-					return false;
-				}
-			}
-			return true;
-		}
+
 		
 		public function test13() 
 		{

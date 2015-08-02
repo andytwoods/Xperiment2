@@ -3,7 +3,8 @@ import code.Code;
 import openfl.display.Sprite;
 import openfl.display.Stage;
 import openfl.utils.Object;
-import script.ProcessScript;
+import xpt.script.ProcessBetweenSJs;
+import xpt.script.ProcessScript;
 import xpt.experiment.Experiment;
 
 /**
@@ -25,7 +26,11 @@ class Runner extends Sprite
 
 		
 		initiateOverExperimentStuff();
-		ProcessScript.DO(script);
+		
+		
+		//ProcessScript.DO(script);
+		
+		ProcessBetweenSJs.DO(script);
 		
 		var expt:Experiment = new Experiment(script, url, params);
 		

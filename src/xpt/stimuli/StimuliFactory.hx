@@ -1,5 +1,5 @@
 package xpt.stimuli;
-import script.XML_tools;
+import xpt.tools.XML_tools;
 import xpt.tools.XTools;
 import xpt.trial.Trial;
 import xpt.trial.TrialSkeleton;

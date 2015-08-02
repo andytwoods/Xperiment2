@@ -111,4 +111,13 @@ class XTools
 		}
 		return arr;
 	}
+	
+	static public function sort <T>(arr:Array <T>):Array<T> {
+		arr.sort( function(a:T, b:T):Int
+				{
+					return Reflect.compare(a, b);
+				}
+			);	
+		return arr;
+	}
 }

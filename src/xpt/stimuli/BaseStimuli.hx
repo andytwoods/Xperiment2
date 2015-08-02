@@ -1,5 +1,5 @@
 package xpt.stimuli;
-import script.XML_tools;
+import xpt.tools.XML_tools;
 import thx.Tuple.Tuple2;
 import xpt.trial.TrialSkeleton;
 

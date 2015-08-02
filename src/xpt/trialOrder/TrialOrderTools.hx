@@ -75,9 +75,14 @@ class TrialOrderTools
 	public static function __doSort(trialBlocks:Array<TrialBlock>):Void
 		{
 			trialBlocks.sort(__sortF);
-
-			for(i in 0...trialBlocks.length){
-				if(trialBlocks[i].alive)	trialBlocks[i].doOrdering();
+			
+			var trialBlock:TrialBlock;
+			for (i in 0...trialBlocks.length) {
+				trialBlock = trialBlocks[i];
+				if (trialBlock.alive) {
+					trialBlock.doOrdering();
+					trialBlock.forcePositions();
+				}
 			}
 
 		}

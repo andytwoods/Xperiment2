@@ -1,5 +1,5 @@
 package xpt.trial;
-import script.XML_tools;
+import xpt.tools.XML_tools;
 import thx.Ints;
 import thx.Tuple.Tuple2;
 import xpt.trial.TrialInfo;
@@ -38,7 +38,6 @@ class NextTrialBoss
 		var s = new Map<Int,TrialSkeleton>();
 		
 		for (skeleton in __trialSkeletons) {
-			trace(skeleton.trials, 22);
 			for (t in skeleton.trials) {
 				if (s.exists(t)) throw "devel err";
 				s.set(t, skeleton);
@@ -60,9 +59,7 @@ class NextTrialBoss
 		
 			case Next:
 				currentTrial++;
-				return computeRunningTrial();	
-			
-			
+				
 			case Previous:
 				currentTrial--;
 				if(currentTrial<0)currentTrial=0;
@@ -123,17 +120,18 @@ class NextTrialBoss
 
 		if (__trialOrder.length < currentTrial) throw "You have asked to go to a trial number that is bigger than the total number of trials stored: "+currentTrial+"/"+Std.string(__trialOrder.length-1);
 		else if (currentTrial < 0) throw "You have asked to go to a negative trial number: " + Std.string(currentTrial);
+				
 		
-
 		if (forceTrial != -1) {
 				currentTrial = forceTrial;
 		}
-		
+				
 		var lookup:Int = __trialOrder[currentTrial];
+		//trace(__trialOrder, currentTrial,111,lookup);
 		
 		var skeleton:TrialSkeleton = skeletonLookup.get(lookup);
 		
-		return new Tuple2(skeleton, currentTrial);
+		return new Tuple2(skeleton, lookup);
 	}
 	
 }

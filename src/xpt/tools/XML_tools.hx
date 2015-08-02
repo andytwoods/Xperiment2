@@ -1,4 +1,4 @@
-package script;
+package xpt.tools;
 import assets.manager.FolderTree.Error;
 import xmlTools.E4X;
 
@@ -26,6 +26,7 @@ class XML_tools
 		return str;
 	}
 	
+	
 	static public function find(xml:Xml, attrib:String = null, value:String = null):Iterator<Xml>
 	{	
 		if (value == null && attrib!=null)	return E4X.x(xml._(a(attrib) ));
@@ -33,6 +34,10 @@ class XML_tools
 		if (value != null && attrib==null)	return E4X.x(xml._(a() == value));	
 		throw "";
 		return null;
+	}
+	
+	static public function nodeName(xml:Xml):String {
+		return simpleXML(xml).nodeName.toLowerCase();
 	}
 	
 	static public function findNode(xml:Xml, name:String):Iterator<Xml>
@@ -157,6 +162,15 @@ class XML_tools
 		else 							return xml;
 	}
 	
+	/*
+		adds attribs to the boss node, despite there being no 'param' specified for this node.
+	*/
+	static public function extendXML_inclBossNodeParams(xml1:Xml, xml2:Xml, param:String):Xml {
+		extendAttribs(xml1, xml2);
+		return extendXML(xml1, xml2, param);
+	}
+	
+	
 	//such that xml1 is the protected
 	static public function extendXML(xml1:Xml, xml2:Xml, param:String):Xml {
 		
@@ -169,7 +183,7 @@ class XML_tools
 
 			if (paramVal != null) {
 				var bossNodes = find(xml1, param, paramVal);
-				nodes_extendAttribs(bossNodes, child, param);
+				nodes_extendAttribs(bossNodes, child);
 			}
 			else {
 				xml1.addChild(child);
@@ -179,7 +193,7 @@ class XML_tools
 		return xml1;
 	}
 	
-	@:extern static private inline function nodes_extendAttribs(bossNodes:Iterator<Xml>, child:Xml, param:String) 
+	@:extern static private inline function nodes_extendAttribs(bossNodes:Iterator<Xml>, child:Xml) 
 	{
 		for (bossNode in bossNodes) {
 			extendAttribs(bossNode, child);

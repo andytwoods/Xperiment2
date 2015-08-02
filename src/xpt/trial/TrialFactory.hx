@@ -13,6 +13,7 @@ class TrialFactory
 
 	static public function GET(skeleton:TrialSkeleton, trialNum:Int):Trial
 	{		
+		//trace(111, skeleton.trials);
 		var trial = new Trial();
 		compose(trial, skeleton, trialNum);
 		StimuliFactory.generate(trial, skeleton);
@@ -21,19 +22,16 @@ class TrialFactory
 	
 	static function compose(trial:Trial, skeleton:TrialSkeleton, trialNum:Int) 
 	{
-		var iteration:Int = getIteration(skeleton, trialNum);
-		trial.iteration = iteration;
+		//trace(iteration,skeleton.names);
+		trial.iteration = getIteration(skeleton, trialNum);
 		trial.trialNum  = trialNum;
-		trial.name      = skeleton.names[iteration];
-		
-		trace(trial.name, 232323, skeleton.names[iteration],iteration);
+		trial.trialName      = skeleton.names[trial.iteration];
 	}
 	
 	static private function getIteration(skeleton:TrialSkeleton, trialNum:Int):Int
 	{
 		var i = skeleton.trials.indexOf(trialNum);
-		if (i == -1) throw "";
-		//trace(1111111, trialNum, skeleton.trials);
+		if (i == -1) throw "devel err";
 		return i;
 	}
 	

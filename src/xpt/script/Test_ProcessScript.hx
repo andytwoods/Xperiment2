@@ -1,4 +1,4 @@
-package script;
+package xpt.script;
 import utest.Assert;
 
 /**

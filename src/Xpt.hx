@@ -8,6 +8,7 @@ import ru.stablex.ui.UIBuilder;
 import xpt.error.ErrorMessage;
 import xpt.runner.Runner;
 import xpt.start.WebStart;
+import xpt.Tests;
 
 
 class Xpt extends Sprite 
@@ -30,7 +31,7 @@ class Xpt extends Sprite
 		var dir:String = '';
 		#if debug
 			dir = localExptDirectory;
-			var tests:tests.Tests = new tests.Tests();
+			var tests:xpt.Tests = new xpt.Tests();
 		#end
 		
 		var webStart:WebStart = new WebStart(dir,expt);

@@ -13,7 +13,7 @@ class Trial extends Sprite
 	public var stimuli:Array<Stimulus> = [];
 	public var iteration:Int;
 	public var trialNum:Int;
-	
+	public var trialName:String;
 	
 	public function new() 
 	{

@@ -1,7 +1,7 @@
 package xpt.trialOrder;
 
 import haxe.Json;
-import script.XML_tools;
+import xpt.tools.XML_tools;
 import xpt.tools.XTools;
 import xpt.trialOrder.TrialBlock.ForceBlockPosition;
 import xpt.trialOrder.OrderType;
@@ -142,7 +142,7 @@ class TrialBlock
 		this.blockPosition = blockPosition;
 		
 		trials = getTrials(numTrials, counter);
-		
+
 
 
 		sortBlock(xml);
@@ -155,7 +155,7 @@ class TrialBlock
 		
 		runTrial = sortRunTrial();
 	
-
+		//doOrdering();
 	}
 	
 	function sortRunTrial():Bool
@@ -238,18 +238,19 @@ class TrialBlock
 	}
 	
 	public function doOrdering():Void{
-		
+		//trace(1212112, order,trials);
 		if(order=='' || order=='RANDOM')trials = XTools.arrayShuffle(trials);
 		else if(order=="FIXED"){
 			//do nothing}
 		}
 		else if(order=="REVERSED" || order=="REVERSE") trials.reverse();
 		else throw "You have specifed trial order wrongly: "+order+" (should be either fixed, random, reversed or left blank).";
-
-		
+		//trace(222, trials);
+	}
+	
+	public function forcePositions() {
 		//note similar function above called do_forcePositionInBlockDepth();
 		if (forceBlockPositions != null) {
-			
 			SlotInForcePositions.DO(trials,forceBlockPositions);
 		}
 	}

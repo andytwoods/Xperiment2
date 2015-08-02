@@ -1,5 +1,6 @@
-package script;
+package xpt.tools;
 import utest.Assert;
+import xpt.tools.XML_tools;
 
 /**
  * ...
@@ -316,9 +317,37 @@ public function new() { }
 			result = XML_tools.findAttr(block, "block");
 			Assert.isTrue(result == "20");
 		}
-		
+	}
 	
+	public function test_extendXML_inclBossNodeParams() {
+	
+		var xml1 = Xml.parse("<xml/>");
+		var xml2 = Xml.parse("<a/>");
+		XML_tools.extendXML_inclBossNodeParams(xml1, xml2,"bla");
+		Assert.isTrue(xml1.toString() == "<xml/>");
+		
+		
+		xml1 = Xml.parse("<xml/>");
+		xml2 = Xml.parse("<a a='1'/>");
+		XML_tools.extendXML_inclBossNodeParams(xml1, xml2,"bla");
+		Assert.isTrue(xml1.toString() == "<xml a=\"1\"/>");
+		
+		xml1 = Xml.parse("<xml b='1'/>");
+		xml2 = Xml.parse("<a a='1' b='2'/>");
+		XML_tools.extendXML_inclBossNodeParams(xml1, xml2,"bla");
+		Assert.isTrue(xml1.toString() == "<xml b=\"1\" a=\"1\"/>");
+		
+		
+		var xml1:Xml = Xml.parse("<xml b='2'><a copyOverId='a' a='1' /><b copyOverId='b' a='1' /> <c                a='1' /> </xml> ");
+		var xml2:Xml = Xml.parse("<xml a='a' b='2'><a copyOverId='a' a='wrong' aa='1'/><b copyOverId='b' aa='1'/> <c copyOverId='b' aa='1'/><banana b='bbb'/> </xml> ");
+		
+		var result:Xml = XML_tools.extendXML_inclBossNodeParams(xml1, xml2, 'copyOverId');
+		
+		Assert.isTrue(result.toString() == "<xml b=\"2\" a=\"a\"><a copyOverId=\"a\" a=\"1\" aa=\"1\"/><b copyOverId=\"b\" a=\"1\" aa=\"1\"/> <c a=\"1\"/> <banana b=\"bbb\"/></xml>");
 		
 	}
+	
+	
+	
 	
 }

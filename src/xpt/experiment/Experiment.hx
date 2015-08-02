@@ -1,6 +1,7 @@
 package xpt.experiment;
 import openfl.utils.Object;
-import script.XML_tools;
+import xpt.script.ProcessScript;
+import xpt.tools.XML_tools;
 import thx.Tuple.Tuple2;
 import xpt.stimuli.BaseStimuli;
 import xpt.stimuli.StimuliFactory;
@@ -16,7 +17,7 @@ import xpt.trialOrder.TrialOrder;
  */
 class Experiment
 {
-	public var runningTrial:Trial;
+
 	public var __nextTrialBoss:NextTrialBoss;
 	public var __script:Xml;
 	public var __runningTrial:Trial;
@@ -30,6 +31,8 @@ class Experiment
 		this.__script = script;
 		
 		//var b:Behaviour = new Behaviour();
+		
+		ProcessScript.DO(script);
 		
 		//TrialOrder.DO(script);
 		
@@ -58,7 +61,7 @@ class Experiment
 	
 	public function __startTrial() {
 		var skeleton_trialOrder = __nextTrialBoss.nextTrial();
-		runningTrial = TrialFactory.GET(skeleton_trialOrder._0, skeleton_trialOrder._1);
+		__runningTrial = TrialFactory.GET(skeleton_trialOrder._0, skeleton_trialOrder._1);
 	}
 	
 }

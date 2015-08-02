@@ -30,6 +30,8 @@ class TrialSkeleton
 		this.bind_id = trialBlock.bind_id;
 		this.names = trialBlock.trialNames;
 		this.xml = trialBlock.xml;
+		
+		//trace(trialBlock.trials, 111111,this.trials);
 	}
 	
 	
