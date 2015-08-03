@@ -1,5 +1,4 @@
 package xpt.tools;
-import assets.manager.FolderTree.Error;
 import xmlTools.E4X;
 
 /**
@@ -22,7 +21,14 @@ class XML_tools
 	static public function findAttr(xml:Xml, attrib:String):String
 	{	
 		var str = simpleXML(xml).get(attrib);
-		if (str == null) return "";
+		if (str == null) str = "";
+		return str;
+	}
+	
+	static public function findParentAttr(xml:Xml, attrib:String):String
+	{	
+		var str = xml.parent.get(attrib);
+		if (str == null) str = "";
 		return str;
 	}
 	
@@ -97,12 +103,53 @@ class XML_tools
 		return xml;
 	}
 	
-
 	
-	static public function findInVal(xml, findArr:Array<String>):Map<String,Array<Xml>> {
+	static public function find_inVal(xml, findArr:Array<String>):Map<String,Array<NodesWithFilteredAttribs>> {
+		
+		var map:Map<String, Array<NodesWithFilteredAttribs>> = new Map<	String, Array<NodesWithFilteredAttribs>	>();
+		for (findNam in findArr) {
+			map.set(findNam, new Array<NodesWithFilteredAttribs>()	);
+		}
+		
+	/*	var index:Int;
+		var find = function(attName:String, attValue:String, xml:Xml):Bool {
+			index = findArr.indexOf(attValue);
+			map.get(findArr[index]).push(xml);
+			return index != -1;
+		}*/
+		
+		//var nodes:Iterator<Xml> = E4X.x(xml._(a(function(attName:String, attValue:String, xml:Xml):Bool{return attName=="id";})));
+		//E4X.x(xml._(a(find)));
+		
+		
+		var index:Int;
+		var nodes:Iterator<Xml> = E4X.x(xml._(a()));
+		var val:String;
+		for (node in nodes) {
+		
+			for ( att in node.attributes() ) {
+				val = node.get(att);
+				for (split in findArr) {
+					if (val.split(split).length > 1) {
+						var nodesWithFilteredAttribs = new NodesWithFilteredAttribs();
+						nodesWithFilteredAttribs.attribName = att;
+						nodesWithFilteredAttribs.attribVal = val;
+						nodesWithFilteredAttribs.xml = node;
+						map.get(split).push(nodesWithFilteredAttribs);
+					}
+				}
+			}
+		}
+		
+		return map;
+	}
+	
+	
+	
+	static public function find_val(xml, findArr:Array<String>):Map<String,Array<Xml>> {
 		
 		//n.b. if the node has no attributes, is not included.
-		var nodes:Iterator<Xml> = E4X.x(xml._(a()));	
+		var nodes:Iterator<Xml> = getAttribs(xml);	
 		
 		var map:Map<String, Array<Xml>> = new Map<	String, Array<Xml>	>();
 		for (findNam in findArr) {
@@ -123,10 +170,10 @@ class XML_tools
 		return map;
 	}
 	
-	
+	static private inline function getAttribs(xml:Xml):Iterator<Xml> {
+		return E4X.x(xml._(a()));
+	}
 
-	
-	
 	
 	static public function addAttrib(xml:Xml, name:String, newValue:String):Xml {
 		return modifyAttrib(xml, name, newValue);	
@@ -241,3 +288,11 @@ class XML_tools
 	
 }
 
+
+class NodesWithFilteredAttribs {
+	public var attribName:String;
+	public var attribVal:String;
+	public var xml:Xml;
+	
+	public function new(){}
+}

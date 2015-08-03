@@ -168,14 +168,14 @@ public function new() { }
 		);
 	}
 	
-	public function test_findInVal():Void {
+	public function test_findVal():Void {
 		
 		
 		var xml1:Xml = Xml.parse("<xml a='a' b='2'><a copyOverId='a' a='1' /><b copyOverId='b' a='1' /> <c                a='1' ><d d='' /></c></xml> ");
 		
 		var arr:Array<String> = ['a','b'];
 		
-		var map:Map<String, Array<Xml>> = XML_tools.findInVal(xml1, arr);
+		var map:Map<String, Array<Xml>> = XML_tools.find_val(xml1, arr);
 		
 		Assert.isTrue(map.exists("a") && map.exists("b"));
 		
@@ -183,6 +183,31 @@ public function new() { }
 		var b:Array<Xml> = map.get("b");
 		
 		Assert.isTrue(a.length==4 && b.length==1);
+	}
+	
+	
+		public function test_find_inVal():Void {
+		
+		
+		var xml1:Xml = Xml.parse("<xml a='aa[]aetcaa' b='2'><a copyOverId='a' a='1' /><b copyOverId='aaaaetca' a='1'><c bbb='etc'/></b> <c a='1' ><d d='' /></c></xml> ");
+		
+		var arr:Array<String> = ['etc'];
+		
+		var map:Map<String, Array<NodesWithFilteredAttribs>>  = XML_tools.find_inVal(xml1, arr);
+		
+		Assert.isTrue(map.exists("etc"));
+		
+		
+		
+		Assert.isTrue(map.get("etc").length == 3);
+		
+		var nodeA:NodesWithFilteredAttribs = map.get("etc")[0];
+		var nodeB:NodesWithFilteredAttribs = map.get("etc")[1];
+		var nodeC:NodesWithFilteredAttribs = map.get("etc")[2];
+		
+		Assert.isTrue(nodeA.attribName == "a" && nodeA.attribVal=="aa[]aetcaa");
+		Assert.isTrue(nodeB.attribName=="copyOverId" && nodeB.attribVal=="aaaaetca");
+		Assert.isTrue(nodeC.attribName=="bbb" && nodeC.attribVal=="etc");
 	}
 
 

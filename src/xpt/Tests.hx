@@ -4,6 +4,7 @@ package xpt;
  * ...
  * @author 
  */
+import xpt.script.Test_ETCs;
 import xpt.script.Test_ProcessBetweenSJs;
 import xpt.script.templateHelpers.Test_templateList;
 import xpt.script.Test_Templates;
@@ -40,6 +41,7 @@ class Tests
 		runner.addCase(new Test_ProcessBetweenSJs());
 		runner.addCase(new Test_templateList());
 		runner.addCase(new Test_Templates());
+		runner.addCase(new Test_ETCs());
 		
 		Report.create(runner,NeverShowSuccessResults,AlwaysShowHeader);
 		runner.run();
