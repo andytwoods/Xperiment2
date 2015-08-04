@@ -24,7 +24,8 @@ class BaseStimuli
 				stim = new BaseStimulus(stimXML.nodeName.toLowerCase());
 				if (permittedStimuli.indexOf(stim.name) != -1) {
 					props = XML_tools.AttribsToMap(stimXML);
-					ETCs.compose(props,skeleton.trials.length, stim.howMany);
+					ETCs.compose(props, skeleton.trials.length, stim.howMany);
+					
 					stim.setProps(	props	);
 					skeleton.baseStimuli[skeleton.baseStimuli.length] = stim;
 				}

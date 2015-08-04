@@ -54,6 +54,8 @@ class Experiment
 		
 		var trialOrder_skeletons  = TrialOrder.COMPOSE(script);
 		BaseStimuli.createSkeletonParams(trialOrder_skeletons._1);
+		
+		
 		__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 	}
 	
