@@ -1,4 +1,5 @@
 package xpt.stimuli;
+import thx.Ints;
 import xpt.tools.XML_tools;
 import thx.Tuple.Tuple2;
 import xpt.trial.TrialSkeleton;
@@ -23,6 +24,7 @@ class BaseStimuli
 				stim = new BaseStimulus(stimXML.nodeName.toLowerCase());
 				if (permittedStimuli.indexOf(stim.name) != -1) {
 					props = XML_tools.AttribsToMap(stimXML);
+					ETCs.compose(props,skeleton.trials.length, stim.howMany);
 					stim.setProps(	props	);
 					skeleton.baseStimuli[skeleton.baseStimuli.length] = stim;
 				}
@@ -40,7 +42,7 @@ class BaseStimulus {
 	
 	public var name:String;
 	public var props:Map<String,String>;
-	
+	public var howMany:Int = 1;
 	
 	
 	
@@ -52,6 +54,13 @@ class BaseStimulus {
 	public function setProps(_props:Map<String, String>) 
 	{
 		props = _props;
+		if (props.exists("howMany")) {
+			if (Ints.canParse(props.get("howMany"))) {
+				howMany = Ints.parse(props.get("howMany"));
+			}
+			else throw "You must specify 'howMany' as a number";
+		}
+		
 	}
 	
 }

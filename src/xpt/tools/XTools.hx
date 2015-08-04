@@ -1,4 +1,5 @@
 package xpt.tools;
+import thx.Floats;
 
 /**
  * ...
@@ -118,6 +119,30 @@ class XTools
 					return Reflect.compare(a, b);
 				}
 			);	
+		return arr;
+	}
+	
+	static public function strArr_to_FloatArr(strArr:Array<String>):Array<Float>
+	{
+		var arr:Array<Float> = [];
+		
+		for (i in 0...strArr.length) {
+			var str = strArr[i];
+			if (Floats.canParse(str)) {
+				arr[i] = Floats.parse(str);
+			}
+			else return null;
+		}
+		return arr;
+	}
+	
+	static public function xArr_to_StrArr <T>(strArr:Array<T>):Array<String>
+	{
+		var arr:Array<String> = [];
+		
+		for (i in 0...strArr.length) {
+			arr[arr.length] = Std.string(strArr[i]);
+		}
 		return arr;
 	}
 }

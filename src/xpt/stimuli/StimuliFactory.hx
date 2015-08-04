@@ -20,20 +20,15 @@ class StimuliFactory
 		var stim:Stimulus;
 		for (base_stim in skeleton.baseStimuli) {
 			stim = getStim(base_stim.name);
-			setProps(stim, base_stim.props,trial);
+			setProps(stim, base_stim.howMany, base_stim.props,trial);
 		}
 	}
 	
-	static private function setProps(stim:Stimulus, props:Map<String,String>, trial:Trial) 
+	static private function setProps(stim:Stimulus, howMany:Int, props:Map<String,String>, trial:Trial) 
 	{
-		var howMany:Int = 1;
+		//var howMany:Int = 1;
 		var trialIteration:Int = trial.iteration;
-		
-		//trace("iteration:", trialIteration);
-		if (props.exists("howMany")) {
-			howMany = Std.parseInt(props.get("howMany"));
-		}
-		
+
 		for(count in 0...howMany){
 		
 			for (key in props.keys()) {

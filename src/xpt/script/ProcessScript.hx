@@ -14,7 +14,9 @@ class ProcessScript
 		
 		
 		Templates.compose(script);
-		ETCs.compose(script);
+		
+		//done via TrialSkeletons now
+		//ETCs.compose(script);
 	
 		
 		/*		
