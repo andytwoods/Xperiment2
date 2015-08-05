@@ -12,11 +12,21 @@ import xpt.tools.XML_tools;
 class Templates
 {
 	
-	public static var COPYOVER_ID = "copyOverId";
+	public static inline var Trial_copyOverId:String = "copyOverId";
+	public static inline var Trial_TemplateId:String = "template";
 	
+	public static inline var BetweenSJs_copyOverId:String = "multiCopyOverId";
+	public static inline var BetweenSJs_TemplateId:String = "multiTemplate";	
+	
+	public static inline var betweenSJ_nodeName = "multi";
+	
+	
+	
+
 	static public function compose(script:Xml) 
 	{
-		var requireTemplatingIterator = XML_tools.find(script, "template");
+		
+		var requireTemplatingIterator = XML_tools.find(script, Trial_TemplateId);
 		if (requireTemplatingIterator.hasNext() == false) return;
 		
 		var requireTemplatingList:Array<RequireTemplating> = TemplateList.compose(script,requireTemplatingIterator); 
@@ -24,12 +34,17 @@ class Templates
 		var templateMap:Map<String, RequireTemplating> = __generateTemplatesMap(requireTemplatingList);
 		
 		for (requireTemplate in requireTemplatingList) {
-			__applyTemplates(requireTemplate, templateMap);
+			__applyTemplates(requireTemplate, templateMap, Trial_copyOverId);
 		}
 		
 	}
 	
-	static public function __applyTemplates(require:RequireTemplating, templateMap:Map<String, RequireTemplating>) 
+	static private inline function checkRequired(script:Xml) 
+	{
+		return betweenSJ_nodeName == XML_tools.nodeName_lowercase(script);
+	}
+	
+	static public function __applyTemplates(require:RequireTemplating, templateMap:Map<String, RequireTemplating>,copyOverTag:String) 
 	{
 		if (require.templates.length == 0) return;
 		if (require.hasBeenTemplated) return;
@@ -45,10 +60,11 @@ class Templates
 					throw "Problem with your templates: infinitely looped.";
 				}
 				template.requested++;
-				__applyTemplates(template, templateMap);
+				__applyTemplates(template, templateMap,copyOverTag);
 			}
 			
-			XML_tools.extendXML_inclBossNodeParams(require.xml, template.xml, COPYOVER_ID);
+			XML_tools.extendXML_inclBossNodeParams(require.xml, template.xml, copyOverTag);
+			
 			require.hasBeenTemplated = true;
 		}
 	}
@@ -67,7 +83,6 @@ class Templates
 			}
 		}
 		return templateMap;
-	}
-	
-	
+	}	
 }
+

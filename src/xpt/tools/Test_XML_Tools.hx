@@ -372,6 +372,32 @@ public function new() { }
 		
 	}
 	
+	public function test__augment() {
+		var boss:Xml, donator:Xml;
+		boss = Xml.parse("<xml><a aa='aaa'/></xml>");
+		donator = Xml.parse("<xml><a aa='a' aaaa='aaaaa'/><b test='' test1=''/></xml>");
+		
+		
+		
+		//trace(XML_tools.augment(boss, donator));
+		
+		Assert.isTrue(true);
+		
+		
+	}
+	
+	public function test__addChildCopy() {
+	
+		var a:Xml = Xml.parse("<a/>");
+		var b:Xml = Xml.parse("<b  c='1' d='1'/>");
+		
+		var result:Xml = XML_tools.addChildCopy(a, b,"ddd");
+		
+		trace(result);
+		
+		Assert.isTrue(true);
+		
+	}
 	
 	
 	

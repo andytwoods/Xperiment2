@@ -5,7 +5,7 @@ package xpt;
  * @author 
  */
 import xpt.script.Test_ETCs;
-import xpt.script.Test_ProcessBetweenSJs;
+import xpt.script.Test_BetweenSJs;
 import xpt.script.templateHelpers.Test_templateList;
 import xpt.script.Test_Templates;
 import xpt.tools.Test_XML_Tools;
@@ -38,7 +38,7 @@ class Tests
 		runner.addCase(new Test_SlotInForcePositions());
 		runner.addCase(new Test_TrialOrderTools());
 		runner.addCase(new Test_NextTrialBoss());
-		runner.addCase(new Test_ProcessBetweenSJs());
+		runner.addCase(new Test_BetweenSJs());
 		runner.addCase(new Test_templateList());
 		runner.addCase(new Test_Templates());
 		runner.addCase(new Test_ETCs());

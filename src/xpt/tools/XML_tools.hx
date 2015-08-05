@@ -42,7 +42,7 @@ class XML_tools
 		return null;
 	}
 	
-	static public function nodeName(xml:Xml):String {
+	static public function nodeName_lowercase(xml:Xml):String {
 		return simpleXML(xml).nodeName.toLowerCase();
 	}
 	
@@ -218,6 +218,27 @@ class XML_tools
 	}
 	
 	
+	/*
+		Achieves the same purpose as extendXML but does so in the inverse fashion by copying over existing attributes and nodes. Probably more efficient for the scenario of of a small 'bossXml' and a much larger 'toCopyOver' xml.
+	*/
+	static public function extendXML_multi(bossXML:Xml, xml2:Xml, param:String):Xml {
+		bossXML = simpleXML(bossXML);
+		xml2 = simpleXML(xml2);
+		
+		for (child in xml2.elements()) {
+			child = simpleXML(child);
+			var paramVal:String = child.get(param);
+
+			if (paramVal != null) {
+				var bossNodes = find(bossXML, param, paramVal);
+				nodes_overrideAttribs(bossNodes, xml2);
+			}
+		}
+
+		return bossXML;
+	}
+	
+	
 	//such that xml1 is the protected
 	static public function extendXML(xml1:Xml, xml2:Xml, param:String):Xml {
 		
@@ -240,10 +261,17 @@ class XML_tools
 		return xml1;
 	}
 	
-	@:extern static private inline function nodes_extendAttribs(bossNodes:Iterator<Xml>, child:Xml) 
+	static private inline function nodes_extendAttribs(bossNodes:Iterator<Xml>, child:Xml) 
 	{
 		for (bossNode in bossNodes) {
 			extendAttribs(bossNode, child);
+		}
+	}
+	
+	static private inline function nodes_overrideAttribs(bossNodes:Iterator<Xml>, child:Xml) 
+	{
+		for (bossNode in bossNodes) {
+			overrideAttribs(bossNode, child);
 		}
 	}
 	
@@ -267,12 +295,21 @@ class XML_tools
 			if (xml1.exists(attrib) == false) {
 					xml1.set(	attrib, xml2.get(attrib).toString()	);
 			}
-		}
-		
-		
-			
-			
+		}	
 		return xml1;
+	}
+	
+	static public function overrideAttribs(bossNode:Xml, childNode:Xml):Xml {
+		
+		bossNode = simpleXML(bossNode);
+		childNode = simpleXML(childNode);
+		
+		for (attrib in childNode.attributes()) {
+			if (bossNode.exists(attrib) == false) {
+					bossNode.set(	attrib, childNode.get(attrib).toString()	);
+			}
+		}	
+		return bossNode;
 	}
 	
 	static public function AttribsToMap(xml:Xml):Map<String,String> {
@@ -285,6 +322,54 @@ class XML_tools
 		return myMap;
 	}
 	
+	static public inline function nodeName(xml:Xml):String {
+		return simpleXML(xml).nodeName;
+	}
+	
+	static public inline function nodeValue(xml:Xml):String {
+		return simpleXML(xml).nodeValue;
+	}
+	
+	static public function augment(boss:Xml, donator:Xml):Xml {
+		
+		var nam:String, val:String;
+		
+		var bossChild:Xml;
+		
+		for (child in getChildren(donator)) {
+			
+			nam = nodeName(child);
+			val = nodeValue(child);
+		
+			var bossFound = findNode(boss, nam);
+			
+			if (bossFound.hasNext() == true) {
+				extendAttribs(bossFound.next(), child);
+			}
+			else {
+				addChildCopy(boss,child,nam);
+			}
+			
+		}
+		return boss;
+	}
+	
+	static public inline function addChildCopy(boss:Xml, toCopy:Xml, nam:String):Xml
+	{
+		var copy:Xml = Xml.parse("<" + nam + "/>");
+		var nam:String, val:String;
+		
+
+			for (nam in toCopy.attributes()) {
+				val = toCopy.get(nam);
+				//addAttrib(copy, attrib.nodeName, attrib.nodeValue);
+				trace(nam, val);
+			}
+			//boss.addChild(copy);
+		
+		
+		return boss;
+	}
 	
 }
 

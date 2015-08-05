@@ -83,10 +83,19 @@ class Test_Templates
 		var templateMap:Map<String, RequireTemplating> = Templates.__generateTemplatesMap(requireTemplatingList);
 		
 		var req:RequireTemplating = getReq("a");
-		Templates.__applyTemplates(req, templateMap);
+		Templates.__applyTemplates(req, templateMap, Templates.Trial_copyOverId);
 		
 
 		Assert.isTrue(req.xml.toString() == "<a dd=\"dd\"><ddd dddd=\"dddd\"/></a>");
+	}
+	
+	public function test__compose__overSJs() {
+	
+		var xml:Xml = Xml.parse("<multi></multi>");
+		
+		
+		Assert.isTrue(true);
+		
 	}
 	
 }

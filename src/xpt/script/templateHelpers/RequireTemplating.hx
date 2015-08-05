@@ -18,7 +18,7 @@ class RequireTemplating {
 		
 		var instance = new RequireTemplating();
 		//instance.templates.reverse();
-		instance.name = XML_tools.nodeName(xml);
+		instance.name = XML_tools.nodeName_lowercase(xml);
 		instance.xml = xml;
 		
 		return instance;
