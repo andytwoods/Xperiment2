@@ -39,6 +39,7 @@ class NextTrialBoss
 		
 		for (skeleton in __trialSkeletons) {
 			for (t in skeleton.trials) {
+				//trace(1111, t);
 				if (s.exists(t)) throw "devel err";
 				s.set(t, skeleton);
 			}
@@ -118,6 +119,8 @@ class NextTrialBoss
 	
 	public function computeRunningTrial(forceTrial:Int = -1):Tuple2<TrialSkeleton,Int>{
 
+
+		
 		if (__trialOrder.length < currentTrial) throw "You have asked to go to a trial number that is bigger than the total number of trials stored: "+currentTrial+"/"+Std.string(__trialOrder.length-1);
 		else if (currentTrial < 0) throw "You have asked to go to a negative trial number: " + Std.string(currentTrial);
 				
@@ -127,8 +130,8 @@ class NextTrialBoss
 		}
 				
 		var lookup:Int = __trialOrder[currentTrial];
-		//trace(__trialOrder, currentTrial,111,lookup);
-		
+		//trace(__trialOrder, currentTrial,111,lookup,__trialOrder);
+		//trace(111, skeletonLookup);
 		var skeleton:TrialSkeleton = skeletonLookup.get(lookup);
 		
 		return new Tuple2(skeleton, lookup);

@@ -31,7 +31,7 @@ class Runner extends Sprite
 		
 		
 		//ProcessScript.DO(script);
-		BetweenSJs.compose(script);
+		script = BetweenSJs.compose(script);
 	
 		
 		var expt:Experiment = new Experiment(script, url, params);

@@ -79,6 +79,7 @@ class TemplateList
 		var arr:Array<RequireTemplating> = [];
 		
 		for (xml in requireTemplatingIterator) {
+
 			var requireTemplating = RequireTemplating.make(xml);
 			if (requireTemplating != null) arr[arr.length] = requireTemplating;
 		}

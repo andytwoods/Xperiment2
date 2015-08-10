@@ -13,7 +13,6 @@ class TrialFactory
 
 	static public function GET(skeleton:TrialSkeleton, trialNum:Int):Trial
 	{		
-		//trace(111, skeleton.trials);
 		var trial = new Trial();
 		compose(trial, skeleton, trialNum);
 		StimuliFactory.generate(trial, skeleton);

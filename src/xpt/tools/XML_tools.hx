@@ -20,10 +20,29 @@ class XML_tools
 	
 	static public function findAttr(xml:Xml, attrib:String):String
 	{	
-		var str = simpleXML(xml).get(attrib);
+		var str:Null<String> = simpleXML(xml).get(attrib);
 		if (str == null) str = "";
 		return str;
 	}
+	
+	static public function findAttr_templates(xml:Xml, attrib:String):String
+	{		
+		var str:Null<String> = findAttr(xml, attrib);
+		
+		if (str == "") {
+
+			try {
+				str = xml.firstChild().get(attrib);
+			}
+			catch (e:String) {
+				str = "";
+			}
+		}
+		
+		if(str == null) return "";
+		return str;
+	}
+	
 	
 	static public function findParentAttr(xml:Xml, attrib:String):String
 	{	
@@ -54,6 +73,11 @@ class XML_tools
 	static public function getChildren(xml:Xml):Iterator<Xml> {
 		return E4X.x(xml.child());
 	}
+		
+	/*differing from getChildren in that in only returns the immediate children and not children of children etc*/
+	/*static public function getImmediateChildren(xml:Xml):Iterator<Xml> {
+		return xml.firstChild().iterator();
+	}*/
 	
 	static public function flatten(xml:Xml,recurseOn:Array<String>):Xml {
 	
@@ -195,7 +219,7 @@ class XML_tools
 
 
 	
-	static public function many_modifyAttrib(xmls:Iterator<Xml>, name:String, newValue:String):Iterator<Xml> {
+	static public inline function many_modifyAttrib(xmls:Iterator<Xml>, name:String, newValue:String):Iterator<Xml> {
 		var arr = [];
 		for (xml in xmls) {
 			arr[arr.length] = XML_tools.modifyAttrib(xml, name, newValue);
@@ -204,8 +228,8 @@ class XML_tools
 		return xmls = arr.iterator();
 	}
 	
-	@:extern public static inline function simpleXML(xml:Xml ) {
-		if (xml.firstChild() !=null) 	return xml.firstChild()
+	public static inline function simpleXML(xml:Xml ) {
+		if (xml.firstChild() != null) 	return xml.firstChild();
 		else 							return xml;
 	}
 	
@@ -214,6 +238,7 @@ class XML_tools
 	*/
 	static public function extendXML_inclBossNodeParams(xml1:Xml, xml2:Xml, param:String):Xml {
 		extendAttribs(xml1, xml2);
+		//trace(xml1, xml2);
 		return extendXML(xml1, xml2, param);
 	}
 	
@@ -323,7 +348,7 @@ class XML_tools
 	}
 	
 	static public inline function nodeName(xml:Xml):String {
-		return simpleXML(xml).nodeName;
+		return xml.nodeName;
 	}
 	
 	static public inline function nodeValue(xml:Xml):String {
@@ -332,46 +357,91 @@ class XML_tools
 	
 	static public function augment(boss:Xml, donator:Xml):Xml {
 		
-		var nam:String, val:String;
-		
-		var bossChild:Xml;
+		var nam:String;
+		var bossChild:Xml, found:Xml;
 		
 		for (child in getChildren(donator)) {
-			
 			nam = nodeName(child);
-			val = nodeValue(child);
-		
 			var bossFound = findNode(boss, nam);
 			
 			if (bossFound.hasNext() == true) {
-				extendAttribs(bossFound.next(), child);
+				found = bossFound.next();
+				extendAttribs(found, child);
 			}
 			else {
-				addChildCopy(boss,child,nam);
+				addChildCopy(boss,child);
 			}
 			
 		}
 		return boss;
 	}
 	
-	static public inline function addChildCopy(boss:Xml, toCopy:Xml, nam:String):Xml
+	/*inefficiently copies node and children*/
+	static public inline function copy(toCopy:Xml):Xml
 	{
-		var copy:Xml = Xml.parse("<" + nam + "/>");
-		var nam:String, val:String;
-		
-
-			for (nam in toCopy.attributes()) {
-				val = toCopy.get(nam);
-				//addAttrib(copy, attrib.nodeName, attrib.nodeValue);
-				trace(nam, val);
-			}
-			//boss.addChild(copy);
-		
+		return Xml.parse(toCopy.toString());
+	}
+	
+	/*adds a copy of toCopy to within the boss xml*/
+	static public inline function addChildCopy(boss:Xml, toCopy:Xml):Xml
+	{
+		var copy:Xml = Xml.parse(toCopy.toString());
+		boss.firstElement().addChild(copy.firstChild());
 		
 		return boss;
 	}
 	
+	static public inline function overwriteAttribs(found:Iterator<Xml>, map:Map<String, String>) 
+	{
+		var val:String;
+		
+		for (key in map.keys()) {
+			trace(key, 22);
+			val = map.get(key);
+			for (xml in found) {	
+				xml.set(key, val);
+			}
+		}
+	}
+	
+	
+	
+	static public inline function addAbsentChildren(bossList:Iterator<Xml>, slave:Xml) {
+		var nam:String;
+		for (boss in bossList) {
+			boss = simpleXML(boss);
+			for (child in getChildren(slave)) {			
+				boss.addChild(copy(child).firstChild());
+			}
+		}	
+	}
+	
+	static public inline function overwriteAttribs_addAbsentChildren(found:Iterator<Xml>, map:Map<String, String>, children:Iterator<Xml>) 
+	{
+		var val:String;
+		
+		var childrenArr:Array<Xml> = [];
+		
+		for (child in children) {
+			childrenArr[childrenArr.length] = child;	
+		}
+		
+		for (key in map.keys()) {
+			val = map.get(key);
+			for (xml in found) {	
+				xml.set(key, val);				
+				for (child in childrenArr) {			
+					xml.addChild(copy(child).firstChild());
+				}				
+			}
+		}
+	}
 }
+
+			
+
+
+
 
 
 class NodesWithFilteredAttribs {

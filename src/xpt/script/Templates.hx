@@ -23,20 +23,23 @@ class Templates
 	
 	
 
-	static public function compose(script:Xml) 
+	static public function compose(script:Xml):Xml
 	{
 		
 		var requireTemplatingIterator = XML_tools.find(script, Trial_TemplateId);
-		if (requireTemplatingIterator.hasNext() == false) return;
-		
+		if (requireTemplatingIterator.hasNext() == false) {
+			return script;
+		}
+
 		var requireTemplatingList:Array<RequireTemplating> = TemplateList.compose(script,requireTemplatingIterator); 
-		
+
 		var templateMap:Map<String, RequireTemplating> = __generateTemplatesMap(requireTemplatingList);
 		
 		for (requireTemplate in requireTemplatingList) {
+			
 			__applyTemplates(requireTemplate, templateMap, Trial_copyOverId);
 		}
-		
+		return script;
 	}
 	
 	static private inline function checkRequired(script:Xml) 
@@ -50,7 +53,7 @@ class Templates
 		if (require.hasBeenTemplated) return;
 		
 		var template:RequireTemplating;
-		
+	
 		for (templateNam in require.templates) {
 			//trace(111, templateNam,222,require.templates,require.templates.length,require.templates[0].length,require.name);
 			template = templateMap.get(templateNam);
@@ -60,7 +63,7 @@ class Templates
 					throw "Problem with your templates: infinitely looped.";
 				}
 				template.requested++;
-				__applyTemplates(template, templateMap,copyOverTag);
+				__applyTemplates(template, templateMap, copyOverTag);
 			}
 			
 			XML_tools.extendXML_inclBossNodeParams(require.xml, template.xml, copyOverTag);

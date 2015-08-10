@@ -1,10 +1,12 @@
 package xpt.trialOrder;
 
+import xpt.script.BetweenSJs;
 import xpt.script.ProcessScript;
 import thx.Arrays;
 import thx.Tuple.Tuple2;
 import utest.Assert;
 import xpt.experiment.Experiment;
+import xpt.script.Templates;
 import xpt.stimuli.BaseStimuli;
 import xpt.stimuli.Stimulus;
 import xpt.trial.GotoTrial;
@@ -195,11 +197,73 @@ class Test_TrialOrder
 	
 	
 	//return to this later
-	public function ___test3() {
+	public function test3() {
+		
+/*	<Taste exptType="WEB">
+   <SETUP>
+      <trials blockDepthOrder="20,*=random 20,*,*=random" />
+   </SETUP>
+   <TRIAL TYPE="Trial" hideResults="true" block="0" order="fixed" trials="1">
+      <testStim test="e;f;g;h" />
+   </TRIAL>
+   <TRIAL TYPE="Trial" block="3" order="fixed" trials="1">
+      <testStim test="e;f;g;h" />
+   </TRIAL>
+   <TRIAL template="templatePause" TYPE="Trial" block="20,2" order="fixed" forceBlockDepthPositions="0" />
+   <TRIAL template="templatePause" TYPE="Trial" block="20,2" order="fixed" forceBlockDepthPositions="11" />
+   <TRIAL template="templatePause" TYPE="Trial" block="20,2" order="fixed" forceBlockDepthPositions="22" />
+   <TRIAL template="templatePause" TYPE="Trial" block="20,2" order="fixed" forceBlockDepthPositions="33" />
+   <TRIAL block="20,4,1" template="templateLineScale" trialName="A_sour;B_sour;C_sour;D_sour;E_sour;F_sour;G_sour;H_sour">
+      <testStim copyOverID="taste" text1="991" />
+   </TRIAL>
+   <TRIAL block="20,4,2" template="templatePackage" trialName="Csour">
+      <testStim copyOverID="taste" text1="991" />
+   </TRIAL>
+   <TRIAL block="20,4,3" template="templateJam" trialName="Jsour">
+      <testStim copyOverID="taste" text1="991" />
+   </TRIAL>
+   <TRIAL block="20,4,4" template="templateLiking" trialName="Liking_sour">
+      <testStim copyOverID="taste" text1="991" />
+   </TRIAL>
+   <TRIAL block="20,5,1" template="templateLineScale" trialName="A_sweet;B_sweet;C_sweet;D_sweet;E_sweet;F_sweet;G_sweet;H_sweet">
+      <testStim copyOverID="taste" text1="523" />
+   </TRIAL>
+   <TRIAL block="20,5,2" template="templatePackage" trialName="Csweet">
+      <testStim copyOverID="taste" text1="523" />
+   </TRIAL>
+   <TRIAL block="20,5,3" template="templateJam" trialName="Jsweet">
+      <testStim copyOverID="taste" text1="523" />
+   </TRIAL>
+   <TRIAL block="20,5,4" template="templateLiking" trialName="Liking_sweet">
+      <testStim copyOverID="taste" text1="523" />
+   </TRIAL>
+   <templatePause order="fixed" trials="1" />
+   <templateLiking order="random" trials="1">
+      <testStim copyOverID="taste" test="l1" />
+   </templateLiking>
+   <templateLineScale order="random" trials="8">
+      <testStim copyOverID="taste" test="a;b;c;d;e;f;g;h" />
+   </templateLineScale>
+   <templatePackage order="random" trials="1">
+      <testStim copyOverID="taste" test="p1" />
+   </templatePackage>
+   <templateJam order="random" trials="1">
+      <testStim copyOverID="taste" test="j1" />
+   </templateJam>
+   <TRIAL TYPE="Trial" hideResults="true" block="100" order="fixed" trials="1" test="l1">
+      <testStim test="e;f;g;h" />
+   </TRIAL>
+</Taste>
+*/
+
 		
 		var tt = function():Bool{
 			var script:Xml = Xml.parse("<Taste exptType='WEB'><SETUP><trials blockDepthOrder='20,*=random 20,*,*=random' /></SETUP><TRIAL TYPE='Trial'  hideResults='true' block='0' order='fixed' trials='1'><testStim test='e;f;g;h'/></TRIAL><TRIAL TYPE='Trial' block='3' order='fixed' trials='1'><testStim test='e;f;g;h'/></TRIAL><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='0'/><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='11'/><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='22'/><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='33'/><TRIAL block='20,4,1' template='templateLineScale' trialName='A_sour;B_sour;C_sour;D_sour;E_sour;F_sour;G_sour;H_sour'><testStim copyOverID='taste' text1='991'/></TRIAL><TRIAL block='20,4,2' template='templatePackage' trialName='Csour'><testStim copyOverID='taste' text1='991'/></TRIAL><TRIAL block='20,4,3' template='templateJam' trialName='Jsour'><testStim copyOverID='taste' text1='991' /></TRIAL><TRIAL block='20,4,4' template='templateLiking' trialName='Liking_sour'><testStim copyOverID='taste' text1='991' /></TRIAL><TRIAL block='20,5,1' template='templateLineScale' trialName='A_sweet;B_sweet;C_sweet;D_sweet;E_sweet;F_sweet;G_sweet;H_sweet'><testStim copyOverID='taste' text1='523'/></TRIAL><TRIAL block='20,5,2' template='templatePackage' trialName='Csweet'><testStim copyOverID='taste' text1='523'/></TRIAL><TRIAL block='20,5,3' template='templateJam' trialName='Jsweet'><testStim copyOverID='taste' text1='523' /></TRIAL><TRIAL block='20,5,4' template='templateLiking' trialName='Liking_sweet'><testStim copyOverID='taste' text1='523' /></TRIAL><templatePause  order='fixed' trials='1'></templatePause><templateLiking order='random' trials='1'><testStim copyOverID='taste' test='l1' /> </templateLiking><templateLineScale order='random' trials='8'><testStim copyOverID='taste' test='a;b;c;d;e;f;g;h' /> </templateLineScale>  <templatePackage order='random' trials='1'><testStim copyOverID='taste' test='p1' /> </templatePackage>  <templateJam order='random' trials='1'>	<testStim copyOverID='taste' test='j1' /> </templateJam>  	<TRIAL TYPE='Trial' hideResults='true' block='100' order='fixed' trials='1' test='l1'><testStim test='e;f;g;h'/></TRIAL></Taste>");
-			ProcessScript.DO(script);
+			
+			//script = BetweenSJs.compose(script);
+trace(script);
+			Templates.compose(script);
+			trace(script);
 			
 			var expt:Experiment = new Experiment(null);
 			BaseStimuli.setPermitted(['teststim']);
@@ -212,18 +276,21 @@ class Test_TrialOrder
 			var testProps:Array<String>=[];
 			var testTrialNames:Array<String> = [];
 			var skeleton_trialOrder:Tuple2<TrialSkeleton,Int>;
+			BaseStimuli.createSkeletonParams(trialOrder_skeletons._1);
+			
 			var __nextTrialBoss = expt.__nextTrialBoss;
+
+			//trace(__nextTrialBoss.__trialOrder, __nextTrialBoss.__trialOrder.length, 22,"------------------");
 			
-			
-			trace(__nextTrialBoss.__trialOrder, 22);
 			for (i in 0...__nextTrialBoss.__trialOrder.length) {
-				
+				trace(i);
 				if (i == 0) skeleton_trialOrder = __nextTrialBoss.getTrial(GotoTrial.First, null);
 				else skeleton_trialOrder = __nextTrialBoss.getTrial(GotoTrial.Next, null);
-				//trace(111, __nextTrialBoss.currentTrial,skeleton_trialOrder._1);
+				if (skeleton_trialOrder._0 == null) return false;
+				//trace(111, i,skeleton_trialOrder,__nextTrialBoss.currentTrial,skeleton_trialOrder._1);
 		
 				expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder._0, skeleton_trialOrder._1);
-				
+
 				testProps.push(expt.__runningTrial.stimuli[0].get('test'));
 				testTrialNames.push(expt.__runningTrial.trialName);
 			}
@@ -234,9 +301,10 @@ class Test_TrialOrder
 			
 			return true;		
 		}
-		
+trace("-----");
 		Assert.isTrue(tt());
-			
+		trace("----------");
+
 	}
 
 

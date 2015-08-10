@@ -18,6 +18,7 @@ class StimuliFactory
 	static public function generate(trial:Trial, skeleton:TrialSkeleton) {
 	
 		var stim:Stimulus;
+		
 		for (base_stim in skeleton.baseStimuli) {
 			stim = getStim(base_stim.name);
 			setProps(stim, base_stim.howMany, base_stim.props,trial);

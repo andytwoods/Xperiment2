@@ -32,6 +32,7 @@ class Experiment
 		
 		//var b:Behaviour = new Behaviour();
 		
+		//consider remove direct class below and replace purely with Templates.compose(script);
 		ProcessScript.DO(script);
 		
 		//TrialOrder.DO(script);

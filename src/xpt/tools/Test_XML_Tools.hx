@@ -297,10 +297,11 @@ public function new() { }
 	
 		var xml = Xml.parse("<xml a='a' b='2'><a>aa</a><b></b></xml>");
 		var result = XML_tools.AttribsToMap(xml);
-		
 		Assert.isTrue( myTest(result, ["a"=>"a", "b"=>"2"]) );
 		
-		
+		xml = Xml.parse("<trials t=\"tt\"><a/></trials>");
+		var result = XML_tools.AttribsToMap(xml);
+		Assert.isTrue( myTest(result, ["t"=>"tt"]) );
 	}
 	
 	public function test_findAttr():Void {
@@ -376,13 +377,15 @@ public function new() { }
 		var boss:Xml, donator:Xml;
 		boss = Xml.parse("<xml><a aa='aaa'/></xml>");
 		donator = Xml.parse("<xml><a aa='a' aaaa='aaaaa'/><b test='' test1=''/></xml>");
+		Assert.isTrue(XML_tools.augment(boss, donator).toString()=="<xml><a aa=\"aaa\" aaaa=\"aaaaa\"/><b test=\"\" test1=\"\"/></xml>");
 		
+		boss = Xml.parse("<xml><a aa='aaa'/></xml>");
+		donator = Xml.parse("<xml><a aa='a' aaaa='aaaaa'/></xml>");
+		Assert.isTrue(XML_tools.augment(boss, donator).toString() == "<xml><a aa=\"aaa\" aaaa=\"aaaaa\"/></xml>");
 		
-		
-		//trace(XML_tools.augment(boss, donator));
-		
-		Assert.isTrue(true);
-		
+		boss = Xml.parse("<xml></xml>");
+		donator = Xml.parse("<xml><b test='' test1=''/></xml>");
+		Assert.isTrue(XML_tools.augment(boss, donator).toString()=="<xml><b test=\"\" test1=\"\"/></xml>");
 		
 	}
 	
@@ -391,14 +394,51 @@ public function new() { }
 		var a:Xml = Xml.parse("<a/>");
 		var b:Xml = Xml.parse("<b  c='1' d='1'/>");
 		
-		var result:Xml = XML_tools.addChildCopy(a, b,"ddd");
+		var result:Xml = XML_tools.addChildCopy(a, b);
 		
-		trace(result);
+		Assert.isTrue(result.toString()=="<a><b c=\"1\" d=\"1\"/></a>");
+		
+	}
+	
+	public function test__addAbsentChildren() {
+	
+		var boss:Xml = Xml.parse("<a><b bb='bb'/></a>");
+		var slave:Xml = Xml.parse("<a><b/><c/></a>");
+		
+		XML_tools.addAbsentChildren([boss].iterator(), slave);
+
+		Assert.isTrue(boss.toString() == "<a><b bb=\"bb\"/><b/><c/></a>");
+	}
+	
+	/*public function test_getImmediateChildren() {
+	
+		var xml:Xml = Xml.parse("<a><b/><c/><d><e/></d></a>");
+		var result = XML_tools.getImmediateChildren(xml);
+
+		Assert.isTrue(XTools.iteratorToArray(result).length==3);
+	}*/
+	
+/*	public function test__xmlCopyScope() {
+	
+		var xml:Xml = Xml.parse("<xml><a><b bb='bb'><c/></b></a></xml>");
+		var d:Xml = Xml.parse("<d dd='dd'><e/></d>");
+		trace(d);//<d dd="dd"><e/></d>
+		
+		
+		 xml.addChild(d); //traces: <xml><a><b bb="bb"><c/></b></a></xml><__document><d dd="dd"><e/></d></__document>
+						  //no idea where __document is coming from!
+		
+						  
+		xml.addChild(d.firstChild()); //traces: <xml><a><b bb="bb"><c/></b></a></xml><d dd="dd"><e/></d>
+		
+		d.firstChild().set("dd", "modded");
+		trace(d); //trace: ---blank---
+		
+		trace(xml);
 		
 		Assert.isTrue(true);
 		
 	}
-	
-	
+	*/
 	
 }
