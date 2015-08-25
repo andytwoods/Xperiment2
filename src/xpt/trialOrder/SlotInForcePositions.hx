@@ -58,7 +58,7 @@ class SlotInForcePositions
 			if (val == 0) throw "problem forcing a trial position. Values start from 1, NOT 0.";
 			return val-1;
 		}
-		
+		//trace(1111, forcePosition.toUpperCase());
 		switch(forcePosition.toUpperCase()){
 			case 'FIRST':
 				return 0;

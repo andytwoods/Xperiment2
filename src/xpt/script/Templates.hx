@@ -42,6 +42,7 @@ class Templates
 			//trace(requireTemplate.requested);
 			__applyTemplates(requireTemplate, templateMap, Trial_copyOverId);
 		}
+
 		return script;
 	}
 	

@@ -208,10 +208,11 @@ class TrialBlock
 		
 		if (forceBlockStr != "" && forceDepthStr != "") throw "you cannot set both forcePositionInBlock and forceBlockDepthPositions in the same trial";
 			
-		
+
 		if (forceBlockStr != "") {
 				
 				if (forceBlockPositions == null) forceBlockPositions = new Array<ForceBlockPosition>();
+
 				forceBlockPositions.push(	get_ForBlockPosition(XTools.cloneArr(trials),forceBlockStr)	);	
 				
 				trials=[];
@@ -219,16 +220,16 @@ class TrialBlock
 				return;
 			
 			}
-			
-		forcePositionInBlockDepth = Std.parseInt(forceDepthStr);
-		
+
 		if (forceDepthStr != "") {
 
-			if (forceBlockDepthPositions == null)	forceBlockDepthPositions =new Array<ForceBlockPosition>();
-			forceBlockDepthPositions.push(	get_ForBlockPosition(XTools.cloneArr(trials), forceDepthStr)	);
-		
-			trials = [];
+			if (forceBlockDepthPositions == null)	forceBlockDepthPositions = new Array<ForceBlockPosition>();
+			var forceBlockPosition:ForceBlockPosition = get_ForBlockPosition(XTools.cloneArr(trials), forceDepthStr);
+			
+			forceBlockDepthPositions.push(	forceBlockPosition	);
+			forcePositionInBlockDepth = forceBlockPosition.position;
 
+			trials = [];
 		}
 	}
 	
