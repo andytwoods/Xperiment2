@@ -145,7 +145,7 @@ class Action {
 	
 	public function new(xml:Xml) {
 		
-		map = XML_tools.AttribsToMap(XML_tools.copy(xml)); //crazyness
+		map = XML_tools.attribsToMap(XML_tools.copy(xml)); //crazyness
 		name = XML_tools.nodeName(xml);
 		
 		children = XML_tools.getChildren(xml);		

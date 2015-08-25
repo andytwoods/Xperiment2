@@ -18,6 +18,8 @@ class SlotInForcePositions
 			//below is wrong in orig code
 			//if (forcePosition == null) throw "this error arises as you have specified a forceBlockDepthPositions for a trial that is the only trial in a given block";
 //trace(forcePosition, forcePosition.positionStr, 34);
+
+
 			forcePosition.position = getPosition(forcePosition.positionStr, trials.length);
 		}
 
@@ -51,8 +53,10 @@ class SlotInForcePositions
 	{
 		//trace(forcePosition, length, 34);
 		
-		if(Std.parseInt(forcePosition) !=null && forcePosition.indexOf("/")==-1){
-			return Std.parseInt(forcePosition);
+		if (Std.parseInt(forcePosition) != null && forcePosition.indexOf("/") == -1) {
+			var val:Int = Std.parseInt(forcePosition);
+			if (val == 0) throw "problem forcing a trial position. Values start from 1, NOT 0.";
+			return val-1;
 		}
 		
 		switch(forcePosition.toUpperCase()){

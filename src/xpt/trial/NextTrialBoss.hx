@@ -14,8 +14,8 @@ class NextTrialBoss
 	
 
 	
-	var __trialSkeletons:Array<TrialSkeleton>;
-	var skeletonLookup:Map<Int,TrialSkeleton>;
+	public var __trialSkeletons:Array<TrialSkeleton>;
+	public var __skeletonLookup:Map<Int,TrialSkeleton>;
 	public var __trialOrder:Array<Int>;
 	public var currentTrial:Int;
 
@@ -24,7 +24,7 @@ class NextTrialBoss
 	{
 		this.__trialOrder = trialOrder_skeletons._0;
 		this.__trialSkeletons = trialOrder_skeletons._1;
-		skeletonLookup = __generateLookup(__trialSkeletons);
+		__skeletonLookup = __generateLookup(__trialSkeletons);
 		
 		currentTrial = 0;
 		//this.progressDict = ProgressFactory.make(script);
@@ -132,7 +132,7 @@ class NextTrialBoss
 		var lookup:Int = __trialOrder[currentTrial];
 		//trace(__trialOrder, currentTrial,111,lookup,__trialOrder);
 		//trace(111, skeletonLookup);
-		var skeleton:TrialSkeleton = skeletonLookup.get(lookup);
+		var skeleton:TrialSkeleton = __skeletonLookup.get(lookup);
 		
 		return new Tuple2(skeleton, lookup);
 	}

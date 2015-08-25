@@ -18,15 +18,17 @@ class Templates
 	public static inline var BetweenSJs_copyOverId:String = "multiCopyOverId";
 	public static inline var BetweenSJs_TemplateId:String = "multiTemplate";	
 	
-	public static inline var betweenSJ_nodeName = "multi";
+	public static inline var betweenSJ_nodeName:String = "multi";
 	
 	
 	
 
 	static public function compose(script:Xml):Xml
 	{
-		
+	
 		var requireTemplatingIterator = XML_tools.find(script, Trial_TemplateId);
+		
+
 		if (requireTemplatingIterator.hasNext() == false) {
 			return script;
 		}
@@ -34,9 +36,10 @@ class Templates
 		var requireTemplatingList:Array<RequireTemplating> = TemplateList.compose(script,requireTemplatingIterator); 
 
 		var templateMap:Map<String, RequireTemplating> = __generateTemplatesMap(requireTemplatingList);
-		
+
+		var requireTemplate:RequireTemplating;
 		for (requireTemplate in requireTemplatingList) {
-			
+			//trace(requireTemplate.requested);
 			__applyTemplates(requireTemplate, templateMap, Trial_copyOverId);
 		}
 		return script;
@@ -66,7 +69,8 @@ class Templates
 				__applyTemplates(template, templateMap, copyOverTag);
 			}
 			
-			XML_tools.extendXML_inclBossNodeParams(require.xml, template.xml, copyOverTag);
+			XML_tools.extendXML_inclBossNodeParams(require.xml, template.xml, copyOverTag, true);
+			//trace(require.xml,"	",template.xml);
 			
 			require.hasBeenTemplated = true;
 		}

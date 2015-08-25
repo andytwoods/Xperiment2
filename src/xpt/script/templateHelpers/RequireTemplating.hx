@@ -11,10 +11,11 @@ class RequireTemplating {
 	public var hasBeenTemplated:Bool = false;
 	public var requested:Int = 0;
 	
-	static public function make(xml:Xml):RequireTemplating
+	static public inline function make(xml:Xml):RequireTemplating
 	{
-		var requiredTemplatesStr:Null<String> = XML_tools.findAttr_templates(xml, "template");
-
+		var requiredTemplatesStr:Null<String> = XML_tools.findAttr_templates(xml, Templates.Trial_TemplateId);
+		//trace(requiredTemplatesStr, 222, xml);
+		
 		if (requiredTemplatesStr == '') return null;
 		
 		var instance = new RequireTemplating();
@@ -26,6 +27,8 @@ class RequireTemplating {
 		return instance;
 	}
 	
+	public function new() { }
+	
 	/*public function setTemplates(str:String) {
 		var arr:Array<String> = str.split(",");
 		for (i in 0...arr.length) {
@@ -36,10 +39,6 @@ class RequireTemplating {
 		}
 		
 	}*/
-	
-	public function new() { }
-	
-	
 
 	
 	

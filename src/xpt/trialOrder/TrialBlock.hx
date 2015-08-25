@@ -1,6 +1,7 @@
 package xpt.trialOrder;
 
 import haxe.Json;
+import thx.Arrays;
 import xpt.tools.XML_tools;
 import xpt.tools.XTools;
 import xpt.trialOrder.TrialBlock.ForceBlockPosition;
@@ -35,6 +36,7 @@ class TrialBlock
 	public var currentDepthID:Int;
 	
 	public var trials:Array<Int> = [];
+	public var original_trials:Array<Int> = [];
 	
 	public var runTrial:Bool;
 	
@@ -93,8 +95,12 @@ class TrialBlock
 	
 	
 	public function pass_forcePositionInBlockDepth(arr:Array<ForceBlockPosition>):Void {
-			if(forceBlockDepthPositions==null)  forceBlockDepthPositions = [];
-			forceBlockDepthPositions = forceBlockDepthPositions.concat(arr);
+			if (arr == null) return;
+			if (forceBlockDepthPositions == null)  forceBlockDepthPositions = [];
+			
+			for (force in arr) {
+				forceBlockDepthPositions[forceBlockDepthPositions.length] = force;
+			}
 		}
 		
 		public function getMaxTrial():Int
@@ -137,24 +143,25 @@ class TrialBlock
 		if (numTrials == 0) return;
 		
 
-		//trace(trials, 23232);
+
 		this.xml = xml;
 		this.blockPosition = blockPosition;
 		
 		trials = getTrials(numTrials, counter);
-
-
+		original_trials = XTools.cloneArr(trials);
 
 		sortBlock(xml);
 		trialNames = getNames(xml, numTrials, ExptWideSpecs.trialName);
-		
+		//trace(trials, 222);
 		getForced(xml, numTrials);
+		//trace(trials, 22222);
 		order = getOrder(xml, "order");
 
 		blockDepthOrders = getBlockDepthOrder(xml);
 		
 		runTrial = sortRunTrial();
 	
+
 		//doOrdering();
 	}
 	
@@ -205,9 +212,12 @@ class TrialBlock
 		if (forceBlockStr != "") {
 				
 				if (forceBlockPositions == null) forceBlockPositions = new Array<ForceBlockPosition>();
-				forceBlockPositions.push(	get_ForBlockPosition(trials,forceBlockStr)	);	
+				forceBlockPositions.push(	get_ForBlockPosition(XTools.cloneArr(trials),forceBlockStr)	);	
+				
 				trials=[];
+				
 				return;
+			
 			}
 			
 		forcePositionInBlockDepth = Std.parseInt(forceDepthStr);
@@ -215,10 +225,10 @@ class TrialBlock
 		if (forceDepthStr != "") {
 
 			if (forceBlockDepthPositions == null)	forceBlockDepthPositions =new Array<ForceBlockPosition>();
-			forceBlockDepthPositions.push(	get_ForBlockPosition(trials, forceDepthStr)	);		
-			
-			
-			trials=[];
+			forceBlockDepthPositions.push(	get_ForBlockPosition(XTools.cloneArr(trials), forceDepthStr)	);
+		
+			trials = [];
+
 		}
 	}
 	
@@ -332,7 +342,7 @@ class TrialBlock
 		var str:String = XML_tools.findAttr(xml,"trials");
 		if (str == null)	return 1;
 		if (Std.parseInt(str) == null)	return 1;
-		if (str.indexOf(".")!=-1)	throw ("must specify number of trials as a whole number, not" + str);
+		if (str.indexOf(".") != -1)	throw ("must specify number of trials as a whole number, not" + str);
 		return Std.parseInt(str);
 	}
 	

@@ -25,7 +25,7 @@ class TrialSkeleton
 		if (trialBlock == null) return; //for testing
 		
 		this.blockPosition = trialBlock.blockPosition;
-		this.trials = XTools.copyArrInt(trialBlock.trials);
+		this.trials = trialBlock.original_trials;
 		this.runTrial = trialBlock.runTrial;
 		this.bind_id = trialBlock.bind_id;
 		this.names = trialBlock.trialNames;

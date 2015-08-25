@@ -27,10 +27,17 @@ class XML_tools
 	
 	static public function findAttr_templates(xml:Xml, attrib:String):String
 	{		
+		try{
+			if (xml.exists(attrib)) {
+				return xml.get(attrib);	
+			}
+		}
+		catch(e:String){}
+		
+		
 		var str:Null<String> = findAttr(xml, attrib);
 		
-		if (str == "") {
-
+		if (str == "") {	
 			try {
 				str = xml.firstChild().get(attrib);
 			}
@@ -54,7 +61,7 @@ class XML_tools
 	
 	static public function find(xml:Xml, attrib:String = null, value:String = null):Iterator<Xml>
 	{	
-		if (value == null && attrib!=null)	return E4X.x(xml._(a(attrib) ));
+		if (value == null && attrib!=null)	return E4X.x(xml.desc(a(attrib) ));
 		if (value != null && attrib!=null)	return E4X.x(xml._(a(attrib) == value));
 		if (value != null && attrib==null)	return E4X.x(xml._(a() == value));	
 		throw "";
@@ -236,10 +243,11 @@ class XML_tools
 	/*
 		adds attribs to the boss node, despite there being no 'param' specified for this node.
 	*/
-	static public function extendXML_inclBossNodeParams(xml1:Xml, xml2:Xml, param:String):Xml {
-		extendAttribs(xml1, xml2);
+	static public function extendXML_inclBossNodeParams(xml1:Xml, xml2:Xml, param:String, _override:Bool = false ):Xml {
+		extendAttribs(xml1, xml2, _override);
 		//trace(xml1, xml2);
-		return extendXML(xml1, xml2, param);
+		var xml:Xml = extendXML(xml1, xml2, param);
+		return xml;
 	}
 	
 	
@@ -267,23 +275,35 @@ class XML_tools
 	//such that xml1 is the protected
 	static public function extendXML(xml1:Xml, xml2:Xml, param:String):Xml {
 		
-		xml1 = simpleXML(xml1);
-		xml2 = simpleXML(xml2);
+		var xml1_:Xml = simpleXML(xml1);
+		var xml2_:Xml = simpleXML(xml2);
+		//trace(xml2_, xml2_.elements().hasNext());
+		var elements:Iterator<Xml>;
 		
-		for (child in xml2.elements()) {
+		try {
+			elements = xml2_.elements();
+		}
+		catch (e:String) {
+			xml2_ = xml2;
+			elements = xml2_.elements();
+
+		}
+		
+		for (child in elements) {
+			
 			child = simpleXML(child);
 			var paramVal:String = child.get(param);
 
 			if (paramVal != null) {
-				var bossNodes = find(xml1, param, paramVal);
+				var bossNodes = find(xml1_, param, paramVal);
 				nodes_extendAttribs(bossNodes, child);
 			}
 			else {
-				xml1.addChild(child);
+			xml1_.addChild(child);
 			}
 		}
 
-		return xml1;
+		return xml1_;
 	}
 	
 	static private inline function nodes_extendAttribs(bossNodes:Iterator<Xml>, child:Xml) 
@@ -300,6 +320,34 @@ class XML_tools
 		}
 	}
 	
+	//such that xml1 paras are the protected
+	static public function extendAttribs(xml1:Xml, xml2:Xml, _override:Bool = false):Xml {		
+		var xml1_ = (xml1);
+		var xml2_ = (xml2);
+
+		var attribs:Iterator<String>;
+		
+		try {
+			attribs = xml2_.attributes();
+		}
+		catch (str:String) {
+			xml1_ = simpleXML(xml1);
+			xml2_ = simpleXML(xml2);
+			attribs = xml2_.attributes();
+		}
+	
+		for (attrib in attribs) {
+			
+			if (_override == true || xml1_.exists(attrib) == false) {
+					xml1_.set(	attrib, xml2_.get(attrib).toString()	);
+			}
+		}	
+
+		return xml1_;
+	
+		
+	}
+	
 	static public function iteratorToMap(found1:Iterator<Xml>, param:String): Map<String, Xml>
 	{
 		var map:Map<String, Xml> = new Map<String, Xml>();
@@ -310,19 +358,7 @@ class XML_tools
 		return map;
 	}
 	
-	//such that xml1 paras are the protected
-	static public function extendAttribs(xml1:Xml, xml2:Xml):Xml {
-		
-		xml1 = simpleXML(xml1);
-		xml2 = simpleXML(xml2);
-		
-		for (attrib in xml2.attributes()) {
-			if (xml1.exists(attrib) == false) {
-					xml1.set(	attrib, xml2.get(attrib).toString()	);
-			}
-		}	
-		return xml1;
-	}
+
 	
 	static public function overrideAttribs(bossNode:Xml, childNode:Xml):Xml {
 		
@@ -337,7 +373,7 @@ class XML_tools
 		return bossNode;
 	}
 	
-	static public function AttribsToMap(xml:Xml):Map<String,String> {
+	static public function attribsToMap(xml:Xml):Map<String,String> {
 		xml = simpleXML(xml);
 		var myMap:Map<String,String> = new Map<String,String>();
 		for (attrib in xml.attributes()) {

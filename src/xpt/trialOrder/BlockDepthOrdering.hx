@@ -15,10 +15,13 @@ class BlockDepthOrdering
 
 	public static function DO(trialBlocks:Array<TrialBlock>):Void
 	{
-
 		
-		__depthNodes = new DepthNodeBoss(ExptWideSpecs.IS("blockDepthOrder"));
-
+		var depths:String = ExptWideSpecs.IS("blockDepthOrder");
+		
+		__depthNodes = new DepthNodeBoss(depths);
+		
+		
+		
 		//generated outside of orderDepths as orderDepths is iterative, calling tiself
 		var deepestDepth:Int = getDeepest(trialBlocks);
 
@@ -174,6 +177,8 @@ class BlockDepthOrdering
 			atDepth_trialBlocks[0].addTrials(atDepth_trialBlocks[i].trials);
 			
 			if (atDepth_trialBlocks[i].forcePositionInBlockDepth != null) {
+				
+				//trace(111, atDepth_trialBlocks[i].forcePositionInBlockDepth);
 				atDepth_trialBlocks[0].pass_forcePositionInBlockDepth(atDepth_trialBlocks[i].forceBlockDepthPositions);
 			}
 			atDepth_trialBlocks[i].alive = false;

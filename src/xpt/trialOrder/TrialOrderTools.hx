@@ -16,11 +16,13 @@ class TrialOrderTools
 
 		
 		__combineIdentical(trialBlocks);
+		
 		__removeEmpty(trialBlocks);
+		
 		__doSort(trialBlocks);
 
 		BlockDepthOrdering.DO(trialBlocks);		
-		
+	
 		return composition(trialBlocks);
 	}
 	

@@ -10,12 +10,13 @@ class DepthNodeBoss extends DepthNode
 
 	
 		public static var SEPERATER:String = " ";
-		private var active:Bool = true;
+		public var active:Bool = true;
 		
 		public function new(str:String)
 		{
 			
 			super();
+
 			if(str=="") active=false;
 			else{
 				var commands:Array<String> = str.split(SEPERATER);

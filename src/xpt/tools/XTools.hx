@@ -93,7 +93,7 @@ class XTools
 		return true;
 	}
 	
-	static public function duplicateArr <T>(items:Array<T>) :Array<T>	
+	static public function cloneArr <T>(items:Array<T>) :Array<T>	
 	{
 		var arr:Array<T> = [];
 		
@@ -104,14 +104,14 @@ class XTools
 		return arr;
 	}
 	
-	static public function copyArrInt(trials:Array<Int>):Array<Int> 
+/*	static public function copyArrInt(trials:Array<Int>):Array<Int> 
 	{
 		var arr:Array<Int> = [];
 		for (i in 0...trials.length) {
 			arr[arr.length] = trials[i];
 		}
 		return arr;
-	}
+	}*/
 	
 	static public function sort <T>(arr:Array <T>):Array<T> {
 		arr.sort( function(a:T, b:T):Int

@@ -50,7 +50,12 @@ public function new() { }
 		xml = Xml.parse("<xml attrib1='123'><b attrib1='123'></b><c ><d attrib1='123'><a attrib1='123' /></d></c></xml>");
 		var result = XML_tools.find(xml, "attrib1");
 		Assert.isTrue(len(result) == 4);
-				
+		
+		
+		xml = Xml.parse("<Taste exptType='WEB'><SETUP><trials blockDepthOrder='20,*=random 20,*,*=random' /></SETUP><TRIAL TYPE='Trial'  hideResults='true' block='0' order='fixed' trials='1'><testStim test='e;f;g;h'/></TRIAL><TRIAL TYPE='Trial' block='3' order='fixed' trials='1'><testStim test='e;f;g;h'/></TRIAL><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='0'/><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='11'/><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='22'/><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='33'/><TRIAL block='20,4,1' template='templateLineScale' trialName='A_sour;B_sour;C_sour;D_sour;E_sour;F_sour;G_sour;H_sour'><testStim copyOverID='taste' text1='991'/></TRIAL><TRIAL block='20,4,2' template='templatePackage' trialName='Csour'><testStim copyOverID='taste' text1='991'/></TRIAL><TRIAL block='20,4,3' template='templateJam' trialName='Jsour'><testStim copyOverID='taste' text1='991' /></TRIAL><TRIAL block='20,4,4' template='templateLiking' trialName='Liking_sour'><testStim copyOverID='taste' text1='991' /></TRIAL><TRIAL block='20,5,1' template='templateLineScale' trialName='A_sweet;B_sweet;C_sweet;D_sweet;E_sweet;F_sweet;G_sweet;H_sweet'><testStim copyOverID='taste' text1='523'/></TRIAL><TRIAL block='20,5,2' template='templatePackage' trialName='Csweet'><testStim copyOverID='taste' text1='523'/></TRIAL><TRIAL block='20,5,3' template='templateJam' trialName='Jsweet'><testStim copyOverID='taste' text1='523' /></TRIAL><TRIAL block='20,5,4' template='templateLiking' trialName='Liking_sweet'><testStim copyOverID='taste' text1='523' /></TRIAL><templatePause  order='fixed' trials='1'></templatePause><templateLiking order='random' trials='1'><testStim copyOverID='taste' test='l1' /> </templateLiking><templateLineScale order='random' trials='8'><testStim copyOverID='taste' test='a;b;c;d;e;f;g;h' /> </templateLineScale>  <templatePackage order='random' trials='1'><testStim copyOverID='taste' test='p1' /> </templatePackage>  <templateJam order='random' trials='1'>	<testStim copyOverID='taste' test='j1' /> </templateJam>  	<TRIAL TYPE='Trial' hideResults='true' block='100' order='fixed' trials='1' test='l1'><testStim test='e;f;g;h'/></TRIAL></Taste>");		
+		
+		var result = XML_tools.find(xml, "template");
+		Assert.isTrue(len(result) == 12);				
 	}
 	
 	public function test_findNodes() {
@@ -296,11 +301,11 @@ public function new() { }
 		
 	
 		var xml = Xml.parse("<xml a='a' b='2'><a>aa</a><b></b></xml>");
-		var result = XML_tools.AttribsToMap(xml);
+		var result = XML_tools.attribsToMap(xml);
 		Assert.isTrue( myTest(result, ["a"=>"a", "b"=>"2"]) );
 		
 		xml = Xml.parse("<trials t=\"tt\"><a/></trials>");
-		var result = XML_tools.AttribsToMap(xml);
+		var result = XML_tools.attribsToMap(xml);
 		Assert.isTrue( myTest(result, ["t"=>"tt"]) );
 	}
 	

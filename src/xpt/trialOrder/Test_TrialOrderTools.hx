@@ -193,20 +193,13 @@ class Test_TrialOrderTools
 			var result:Array<Int>;
 
 			result = TrialOrder.COMPOSE(
-				Xml.parse("<CBCondition1><TRIAL block='20' order='fixed' forcePositionInBlock = '0' trials='2'/><TRIAL block='0' order='fixed' trials='1'/></CBCondition1>"))._0;
+				Xml.parse("<CBCondition1><TRIAL block='20' order='fixed' forcePositionInBlock = '1' trials='2'/><TRIAL block='0' order='fixed' trials='1'/></CBCondition1>"))._0;
 			Assert.isTrue(myTest(result,[2,0,1]));
 
 			result = TrialOrder.COMPOSE(
-			Xml.parse("<CBCondition1><TRIAL block='20,2' order='fixed' forceBlockDepthPositions = '0' trials='2'/><TRIAL block='20,1' order='fixed' trials='1'/></CBCondition1>"))._0;
-
-
+			Xml.parse("<CBCondition1><TRIAL block='20,2' order='fixed' forceBlockDepthPositions = '1' trials='2'/><TRIAL block='20,1' order='fixed' trials='1'/></CBCondition1>"))._0;
 			Assert.isTrue(myTest(result,[0,1,2]));
 			
-			
-			result = TrialOrder.COMPOSE(
-				Xml.parse("<CBCondition1><TRIAL block='20,2' order='fixed' forceBlockDepthPositions = '1' trials='2'/><TRIAL block='20,1' order='fixed' trials='3'/></CBCondition1>"))._0;
-			
-			Assert.isTrue(myTest(result,[2,0,1,3,4]));
 
 			result = TrialOrder.COMPOSE(
 				Xml.parse("<CBCondition1><TRIAL block='20,6' order='fixed' forceBlockDepthPositions = '1/3' trials='1'/><TRIAL block='20,6' order='fixed' forceBlockDepthPositions = '2/3' trials='1'/><TRIAL block='20,3' order='fixed' trials='5'/><TRIAL block='20,2' order='fixed' trials='5'/><TRIAL block='20,1' order='fixed' trials='5'/></CBCondition1>"))._0;

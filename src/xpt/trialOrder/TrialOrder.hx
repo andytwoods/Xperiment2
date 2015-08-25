@@ -24,7 +24,7 @@ class TrialOrder
 		var skeletons:Array<TrialSkeleton> = [];
 		var block:Xml;
 		for (block in blockXMLs) {
-			
+
 			//not happy about the below. But keeps independence from the overall script I guess. 
 			//this method may work: xml.elementsNamed("TRIAL")
 			block = Xml.parse(block.toString()); 
@@ -33,12 +33,13 @@ class TrialOrder
 
 			trialBlock.setup(block, counter, i++);
 
-			if(trialBlock.numTrials>0){
+			if (trialBlock.numTrials > 0) {
 				trialBlocks[trialBlocks.length] = trialBlock;
 				counter += trialBlock.numTrials;
 			}
-
+			//trace("---", trialBlock.trials,block);
 			skeletons[skeletons.length] = new TrialSkeleton(trialBlock);
+			//trace("---", skeletons[skeletons.length - 1].trials);
 			
 		}
 		

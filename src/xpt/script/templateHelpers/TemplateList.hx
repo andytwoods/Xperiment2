@@ -15,6 +15,7 @@ class TemplateList
 		
 		var requireTemplatingList:Array<RequireTemplating> = __generateList(requireTemplatingIterator);
 		var templateNameList:Array<String> = __getTemplateNames(requireTemplatingList);
+
 		markTemplatesInList(requireTemplatingList, templateNameList);
 		templateNameList = __removeDuplicates(templateNameList, requireTemplatingList);
 		
@@ -71,6 +72,7 @@ class TemplateList
 		for (requiresTemplating in arr) {
 			arr2 = arr2.concat(requiresTemplating.templates);
 		}
+		
 		return arr2;
 	}
 	
