@@ -1,4 +1,6 @@
 package xpt.experiment;
+import code.CheckIsCode.Checks;
+import code.Code;
 import openfl.utils.Object;
 import xpt.script.ProcessScript;
 import xpt.tools.XML_tools;
@@ -30,10 +32,11 @@ class Experiment
 		if (script == null) return; //used for testing
 		this.__script = script;
 		
-		//var b:Behaviour = new Behaviour();
+		Code.DO(script, Checks.BeforeExperiment);
 		
 		//consider remove direct class below and replace purely with Templates.compose(script);
 		ProcessScript.DO(script);
+		
 		
 		//TrialOrder.DO(script);
 		
@@ -43,7 +46,10 @@ class Experiment
 	
 	function linkups() 
 	{
-		BaseStimuli.setPermitted(['set later']);
+		var permittedStimuli:Array<String> = ['set later'];
+
+		BaseStimuli.setPermitted(permittedStimuli);
+		
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 	}
 	
@@ -55,16 +61,48 @@ class Experiment
 		
 		var trialOrder_skeletons  = TrialOrder.COMPOSE(script);
 		BaseStimuli.createSkeletonParams(trialOrder_skeletons._1);
-		
-		
 		__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
+
 	}
 	
 
 	
 	public function __startTrial() {
-		var skeleton_trialOrder = __nextTrialBoss.nextTrial();
-		__runningTrial = TrialFactory.GET(skeleton_trialOrder._0, skeleton_trialOrder._1);
+		
+		var info:NextTrialInfo = __nextTrialBoss.nextTrial();
+		
+		__runningTrial = TrialFactory.GET(info.skeleton, info.trialOrder);
+		
+		if(info.action !=null) {
+			switch(info.action) {
+				
+				case NextTrialBoss_actions.BeforeLastTrial:
+					Code.DO(__script, Checks.BeforeLastTrial,__runningTrial);
+					
+				case NextTrialBoss_actions.BeforeFirstTrial:
+					Code.DO(__script, Checks.BeforeFirstTrial,__runningTrial);
+				
+			}
+		}
+		
+		
+		__runningTrial.callBack = function(action:Trial_Action) {
+			
+			switch(action) {
+			
+				case Trial_Action.End:
+					//get results
+					__runningTrial.kill();			
+				
+			}
+			
+			
+		}
+		
+		
+		__runningTrial.start();
+		
+
 	}
 	
 }

@@ -86,8 +86,8 @@ class XML_tools
 		return xml.firstChild().iterator();
 	}*/
 	
-	static public function flatten(xml:Xml,recurseOn:Array<String>):Xml {
-	
+/*	static public function flatten(xml:Xml,recurseOn:Array<String>):Xml {
+		if (recurseOn == null) return xml;
 		var safeXML:Xml = simpleXML(xml);
 		
 
@@ -133,6 +133,8 @@ class XML_tools
 		
 		return xml;
 	}
+	*/
+
 	
 	
 	static public function find_inVal(xml, findArr:Array<String>):Map<String,Array<NodesWithFilteredAttribs>> {
@@ -343,9 +345,7 @@ class XML_tools
 			}
 		}	
 
-		return xml1_;
-	
-		
+		return xml1_;		
 	}
 	
 	static public function iteratorToMap(found1:Iterator<Xml>, param:String): Map<String, Xml>
@@ -375,11 +375,29 @@ class XML_tools
 	
 	static public function attribsToMap(xml:Xml):Map<String,String> {
 		xml = simpleXML(xml);
+		return _attribsToMap(xml);
+	}
+	
+	static private inline function _attribsToMap(xml:Xml):Map<String,String> {
 		var myMap:Map<String,String> = new Map<String,String>();
 		for (attrib in xml.attributes()) {
 			var val = xml.get(attrib);
 				myMap.set(attrib, val);
 		}
+		return myMap;
+	}
+	
+	static public function flattened_attribsToMap(xml:Xml):Map<String,String> {
+		xml = simpleXML(xml);
+		var myMap:Map<String,String> = _attribsToMap(xml);
+		
+		for (	child in xml.iterator()	) {
+			var nam:String = nodeName(child);
+			var val:String = nodeValue(child);
+			
+			myMap.set(nam, val);
+		}
+		
 		return myMap;
 	}
 	
@@ -472,6 +490,8 @@ class XML_tools
 			}
 		}
 	}
+	
+
 }
 
 			

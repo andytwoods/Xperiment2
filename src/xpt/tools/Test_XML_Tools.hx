@@ -1,4 +1,5 @@
 package xpt.tools;
+import thx.Maps;
 import utest.Assert;
 import xpt.tools.XML_tools;
 
@@ -216,7 +217,7 @@ public function new() { }
 	}
 
 
-	public function test_flatten():Void {
+/*	public function test_flatten():Void {
 		
 		var protected:Array<String> = ['c'];
 		var xml:Xml;
@@ -276,9 +277,21 @@ public function new() { }
 			Assert.isTrue(true);
 		}
 		
+	}
+	*/
 		
-		
+	public function test_flattended_attribsToMap() {
 	
+		var myMap:Map<String,String>;
+		var xml:Xml = Xml.parse("<xml a='a' b='bb'><a>aa</a><c>cc</c></xml>");
+		
+		myMap = XML_tools.flattened_attribsToMap(xml);
+		Assert.isTrue(myMap.exists("a") && myMap.get("a") == "aa");
+		Assert.isTrue(myMap.exists("b") && myMap.get("b") == "bb");
+		Assert.isTrue(myMap.exists("c") && myMap.get("c") == "cc");
+		
+		Assert.isTrue(XTools.iteratorToArray(myMap.keys()).length == 3);
+		
 	}
 	
 	public function test_AttribsToMap() {

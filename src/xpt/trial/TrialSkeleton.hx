@@ -2,13 +2,11 @@ package xpt.trial;
 import thx.Arrays;
 import xpt.stimuli.BaseStimuli;
 import xpt.stimuli.BaseStimuli.BaseStimulus;
+import xpt.tools.XML_tools;
 import xpt.tools.XTools;
 import xpt.trialOrder.TrialBlock;
 
-/**
- * ...
- * @author 
- */
+
 class TrialSkeleton
 {
 	public var trials:Array<Int>;
@@ -18,6 +16,8 @@ class TrialSkeleton
 	public var names:Array<String>;
 	public var xml:Xml;
 	public var baseStimuli:Array<BaseStimulus>;
+	
+	private static var permittedStimuli;
 	
 
 	public function new(trialBlock:TrialBlock) 
@@ -33,7 +33,7 @@ class TrialSkeleton
 		
 		//trace(trialBlock.trials, 111111,this.trials);
 	}
-	
+		
 	
 	
 }

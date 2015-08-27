@@ -22,4 +22,7 @@ class Stimulus
 		__properties.set(what, val);
 	}
 	
+	public function kill() {
+		__properties = null;
+	}
 }

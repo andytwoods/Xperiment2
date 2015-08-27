@@ -1,4 +1,5 @@
 package xpt.runner;
+import code.CheckIsCode;
 import code.Code;
 import openfl.display.Sprite;
 import openfl.display.Stage;
@@ -25,10 +26,9 @@ class Runner extends Sprite
 	
 	public function run(script:Xml, url:String = null, params:Object = null) 
 	{
-
-		
 		initiateOverExperimentStuff();
-		
+			
+		Code.DO(script, Checks.BeforeEverything);
 		
 		//ProcessScript.DO(script);
 		script = BetweenSJs.compose(script);

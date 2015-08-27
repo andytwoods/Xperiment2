@@ -4,6 +4,7 @@ package xpt;
  * ...
  * @author 
  */
+import code.Test_CheckIsCode;
 import xpt.script.Test_ETCs;
 import xpt.script.Test_BetweenSJs;
 import xpt.script.templateHelpers.Test_templateList;
@@ -42,6 +43,7 @@ class Tests
 		runner.addCase(new Test_templateList());
 		runner.addCase(new Test_Templates());
 		runner.addCase(new Test_ETCs());
+		runner.addCase(new Test_CheckIsCode());
 		
 		Report.create(runner,NeverShowSuccessResults,AlwaysShowHeader);
 		runner.run();

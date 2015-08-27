@@ -1,23 +1,34 @@
 package xpt.trial;
+import haxe.Constraints.Function;
+import thx.Tuple.Tuple2;
 import xpt.tools.XML_tools;
 import thx.Ints;
-import thx.Tuple.Tuple2;
+import xpt.trial.NextTrialBoss.NextTrialInfo;
 import xpt.trial.TrialInfo;
 using xpt.trial.GotoTrial;
 
-/**
- * ...
- * @author 
- */
+
+enum NextTrialBoss_actions{
+	BeforeLastTrial;	
+	BeforeFirstTrial;
+}
+
+typedef NextTrialInfo = {
+	var skeleton:TrialSkeleton;
+	var trialOrder:Int;
+	@:optional var action:NextTrialBoss_actions;
+}
+
+
 class NextTrialBoss
 {
-	
-
 	
 	public var __trialSkeletons:Array<TrialSkeleton>;
 	public var __skeletonLookup:Map<Int,TrialSkeleton>;
 	public var __trialOrder:Array<Int>;
 	public var currentTrial:Int;
+	
+	public var callBack:NextTrialBoss_actions->Void;
 
 	
 	public function new(trialOrder_skeletons:Tuple2<	Array<Int>,	Array<TrialSkeleton>	> )
@@ -25,12 +36,17 @@ class NextTrialBoss
 		this.__trialOrder = trialOrder_skeletons._0;
 		this.__trialSkeletons = trialOrder_skeletons._1;
 		__skeletonLookup = __generateLookup(__trialSkeletons);
-		
+
 		currentTrial = 0;
 		//this.progressDict = ProgressFactory.make(script);
 		
 	}
 	
+	
+	function action(action:NextTrialBoss_actions) 
+	{
+		if (callBack != null) callBack(action);
+	}
 
 	
 	static public function __generateLookup(__trialSkeletons:Array<TrialSkeleton>):Map<Int,TrialSkeleton>
@@ -47,7 +63,7 @@ class NextTrialBoss
 		return s;
 	}
 	
-	public function getTrial(nextCommand:GotoTrial,prevTrial:Trial):Tuple2<TrialSkeleton,Int>{
+	public function getTrial(nextCommand:GotoTrial,prevTrial:Trial):NextTrialInfo{
 
 		//var nextTrialNum:Int = -1;
 /*		if(progressDict && prevTrial.trialOrderScheme && progressDict.hasOwnProperty(prevTrial.trialOrderScheme) && [GotoTrialEvent.NEXT_TRIAL,GotoTrialEvent.PREV_TRIAL].indexOf(nextCommand)!=-1){
@@ -97,13 +113,13 @@ class NextTrialBoss
 	}
 	
 	
-	public function nextTrial():Tuple2<TrialSkeleton,Int>
+	public function nextTrial():NextTrialInfo
 	{	
 		currentTrial++;
 		return computeRunningTrial();
 	}
 	
-	public function firstTrial():Tuple2<TrialSkeleton,Int>
+	public function firstTrial():NextTrialInfo
 	{	
 		return computeRunningTrial(0);
 	}
@@ -117,7 +133,7 @@ class NextTrialBoss
 		return 0;
 	}*/
 	
-	public function computeRunningTrial(forceTrial:Int = -1):Tuple2<TrialSkeleton,Int>{
+	public function computeRunningTrial(forceTrial:Int = -1):NextTrialInfo{
 
 
 		
@@ -128,13 +144,23 @@ class NextTrialBoss
 		if (forceTrial != -1) {
 				currentTrial = forceTrial;
 		}
-				
+		
+
 		var lookup:Int = __trialOrder[currentTrial];
 		//trace(__trialOrder, currentTrial,111,lookup,__trialOrder);
 		//trace(111, skeletonLookup);
 		var skeleton:TrialSkeleton = __skeletonLookup.get(lookup);
 		
-		return new Tuple2(skeleton, lookup);
+		var info:NextTrialInfo = { skeleton: skeleton,  trialOrder: lookup };
+		
+		if (currentTrial == __trialOrder.length) info.action = BeforeLastTrial;
+		else if (currentTrial == 0) info.action = BeforeFirstTrial;
+				
+
+		
+		return info;
 	}
+	
+
 	
 }

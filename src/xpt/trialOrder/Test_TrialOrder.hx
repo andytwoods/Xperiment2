@@ -112,7 +112,7 @@ class Test_TrialOrder
 			for (i in 0...trialOrder.length) {
 
 				var skeleton_trialNum = expt.__nextTrialBoss.computeRunningTrial(i);
-				var skeleton = skeleton_trialNum._0;
+				var skeleton = skeleton_trialNum.skeleton;
 				
 				expt.__runningTrial = TrialFactory.GET(skeleton, i);
 				
@@ -153,7 +153,7 @@ class Test_TrialOrder
 		
 		var testProps:Array<String>=[];
 		var testTrialNames:Array<String> = [];
-		var skeleton_trialOrder:Tuple2<TrialSkeleton,Int>;
+		var skeleton_trialOrder:NextTrialInfo;
 		var __nextTrialBoss = expt.__nextTrialBoss;
 		
 		for (i in 0...__nextTrialBoss.__trialOrder.length) {
@@ -162,7 +162,7 @@ class Test_TrialOrder
 			else skeleton_trialOrder = __nextTrialBoss.getTrial(GotoTrial.Next, null);
 			//trace(111, __nextTrialBoss.currentTrial,skeleton_trialOrder._1);
 	
-			expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder._0, skeleton_trialOrder._1);
+			expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder);
 			
 			testProps.push(expt.__runningTrial.stimuli[0].get('test'));
 			testTrialNames.push(expt.__runningTrial.trialName);
@@ -218,7 +218,7 @@ class Test_TrialOrder
 			
 			var testProps:Array<String>=[];
 			var testTrialNames:Array<String> = [];
-			var skeleton_trialOrder:Tuple2<TrialSkeleton,Int>;
+			var skeleton_trialOrder:NextTrialInfo;
 			BaseStimuli.createSkeletonParams(trialOrder_skeletons._1);
 			
 			/*
@@ -236,11 +236,11 @@ class Test_TrialOrder
 				if (i == 0) skeleton_trialOrder = expt.__nextTrialBoss.getTrial(GotoTrial.First, null);
 				else skeleton_trialOrder = expt.__nextTrialBoss.getTrial(GotoTrial.Next, null);
 				
-				if (skeleton_trialOrder._0 == null) Assert.isTrue(false);
+				if (skeleton_trialOrder.skeleton == null) Assert.isTrue(false);
 				//trace(111, i,skeleton_trialOrder,skeleton_trialOrder._1);
 				//var skel = skeleton_trialOrder._0;
 				//trace(skel.xml);
-				expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder._0, skeleton_trialOrder._1);
+				expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder);
 
 				if (expt.__runningTrial.stimuli.length > 0) {
 					var stim:Stimulus = expt.__runningTrial.stimuli[0];
@@ -265,9 +265,6 @@ class Test_TrialOrder
 
 	public function test4() {
 
-
-		trace("------------------------------------------------------");
-
 		var script:Xml = Xml.parse("<Taste exptType='WEB'><SETUP></SETUP><TRIAL TYPE='Trial'  hideResults='true' block='0' order='fixed' trials='1'><testStim test='1'/></TRIAL><TRIAL TYPE='Trial' block='3' order='fixed' trials='1'><testStim test='2---3'/></TRIAL><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='1'/><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='centre'/><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='center+1'/><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='last'/><TRIAL block='20,4,1' template='templateLineScale' trialName='A;B;C;D;E;F;G;H;I'><testStim copyOverID='taste' text1='A;B;C;D;E;F;G;H;I'/></TRIAL><TRIAL block='20,4,2' template='templatePackage' trialName='Csour'><testStim copyOverID='taste' text1='991'/></TRIAL><TRIAL block='20,4,3' template='templateJam' trialName='Jsour'><testStim copyOverID='taste' text1='991' /></TRIAL><TRIAL block='20,4,4' template='templateLiking' trialName='Liking_sour'><testStim copyOverID='taste' text1='991' /></TRIAL><TRIAL block='20,5,1' template='templateLineScale' trialName='m;n;o;p;q;r;s;t'><testStim copyOverID='taste' text1='m;n;o;p;q;r;s;t'/></TRIAL><TRIAL block='20,5,2' template='templatePackage' trialName='Csweet'><testStim copyOverID='taste' text1='523'/></TRIAL><TRIAL block='20,5,3' template='templateJam' trialName='Jsweet'><testStim copyOverID='taste' text1='524' /></TRIAL><TRIAL block='20,5,4' template='templateLiking' trialName='Liking_sweet'><testStim copyOverID='taste' text1='525' /></TRIAL><templatePause  order='fixed' trials='1'></templatePause><templateLiking order='fixed' trials='1'><testStim copyOverID='taste' test='l1' /> </templateLiking><templateLineScale order='fixed' trials='8'><testStim copyOverID='taste' test='a;b;c;d;e;f;g;h' /> </templateLineScale>  <templatePackage order='random' trials='1'><testStim copyOverID='taste' test='p1' /> </templatePackage>  <templateJam order='fixed' trials='1'>	<testStim copyOverID='taste' test='jam' /> </templateJam>  	<TRIAL TYPE='Trial' hideResults='true' block='100' order='fixed' trials='1' test='l1'><testStim test='3'/></TRIAL></Taste>");
 			
 			//script = BetweenSJs.compose(script);
@@ -285,7 +282,7 @@ class Test_TrialOrder
 			
 			var testProps:Array<String>=[];
 			var testTrialNames:Array<String> = [];
-			var skeleton_trialOrder:Tuple2<TrialSkeleton,Int>;
+			var skeleton_trialOrder:NextTrialInfo;
 			BaseStimuli.createSkeletonParams(trialOrder_skeletons._1);
 			
 			/*
@@ -303,11 +300,11 @@ class Test_TrialOrder
 				if (i == 0) skeleton_trialOrder = expt.__nextTrialBoss.getTrial(GotoTrial.First, null);
 				else skeleton_trialOrder = expt.__nextTrialBoss.getTrial(GotoTrial.Next, null);
 				
-				if (skeleton_trialOrder._0 == null) Assert.isTrue(false);
+				if (skeleton_trialOrder.skeleton == null) Assert.isTrue(false);
 				//trace(111, i,skeleton_trialOrder,skeleton_trialOrder._1);
 				//var skel = skeleton_trialOrder._0;
 				//trace(skel.xml);
-				expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder._0, skeleton_trialOrder._1);
+				expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder);
 
 				if (expt.__runningTrial.stimuli.length > 0) {
 					var stim:Stimulus = expt.__runningTrial.stimuli[0];
