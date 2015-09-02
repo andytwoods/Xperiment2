@@ -14,30 +14,55 @@ class BaseStimuli
 	
 	static public function createSkeletonParams(skeletons:Array<TrialSkeleton>	)
 	{
-		var baseStim:BaseStimulus;
-		var props:Map<String,String>;
-		
-		for (skeleton in skeletons) {
-			skeleton.baseStimuli = new Array<BaseStimulus>();
-			
-			for (stimXML in XML_tools.getChildren(skeleton.xml)) {
-				baseStim = new BaseStimulus(stimXML.nodeName.toLowerCase());
 
-				if (permittedStimuli.indexOf(baseStim.name) != -1) {
-					props = XML_tools.flattened_attribsToMap(stimXML);
-					ETCs.compose(props, skeleton.trials.length, baseStim.howMany);
+		for (skeleton in skeletons) {
+			skeleton.baseStimuli = _generateStimuli(XML_tools.getChildren(skeleton.xml), skeleton.trials.length); 
+			}
+		}
+		
+	static public function _generateStimuli(xmlList:Iterator<Xml>,numTrials:Int):Array<BaseStimulus>
+	{
+		var baseStimuli = new Array<BaseStimulus>();
+		var baseStim:BaseStimulus;
+		var nam:String;
+				
+		for (stimXML in xmlList) {
+						
+			if(stimXML.nodeType == Xml.Element){
+			
+				nam = XML_tools.nodeName(stimXML).toLowerCase();
+
+				if (permittedStimuli.indexOf(nam) != -1) {
 					
-					baseStim.setProps(	props	);
-					skeleton.baseStimuli[skeleton.baseStimuli.length] = baseStim;
+					baseStim = _composeBaseStim(nam, stimXML,numTrials);
+					
+					if(baseStim!=null)	baseStimuli[baseStimuli.length] = baseStim;
 				}
 				/*else {
 					trace('asking for unknown stimulus:', baseStim.name);
 				}*/
 			}
 		}
+		return baseStimuli;
 	}
 	
-	static public function setPermitted(permitted:Array<String>) {
+	
+	
+	
+	static public inline function _composeBaseStim(nam:String, stimXML:Xml, numTrials:Int):BaseStimulus
+	{
+		var baseStim = new BaseStimulus(nam);
+		
+		baseStim.children = _generateStimuli(XML_tools.getChildren(stimXML) , numTrials);
+		
+		var props:Map<String,String> = XML_tools.flattened_attribsToMap(stimXML,permittedStimuli);
+		ETCs.compose(props, numTrials, baseStim.howMany);
+		baseStim.setProps(	props	);
+		return baseStim;
+	}
+	
+	
+	static public function setPermittedStimuli(permitted:Array<String>) {
 		for (str in permitted) {
 			if (str.toLowerCase() != str) throw "permitted stimuli must all be specified in lowercase";
 		}
@@ -51,6 +76,7 @@ class BaseStimulus {
 	public var name:String;
 	public var props:Map<String,String>;
 	public var howMany:Int = 1;
+	public var children:Array<BaseStimulus> = [];
 	
 	
 	

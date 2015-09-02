@@ -68,8 +68,14 @@ class XML_tools
 		return null;
 	}
 	
-	static public function nodeName_lowercase(xml:Xml):String {
-		return simpleXML(xml).nodeName.toLowerCase();
+	static public function nodeName_lowercase(xml:Xml):String {		
+		try {
+			return simpleXML(xml).nodeName.toLowerCase(); 
+		}
+		catch (e:String) {
+			return xml.nodeName;
+		}
+		return '';
 	}
 	
 	static public function findNode(xml:Xml, name:String):Iterator<Xml>
@@ -301,7 +307,12 @@ class XML_tools
 				nodes_extendAttribs(bossNodes, child);
 			}
 			else {
-			xml1_.addChild(child);
+				try {
+					xml1_.addChild(child);
+				}
+				catch (e:String) {
+					xml1.addChild(child);
+				}
 			}
 		}
 
@@ -387,15 +398,44 @@ class XML_tools
 		return myMap;
 	}
 	
-	static public function flattened_attribsToMap(xml:Xml):Map<String,String> {
+	static public function flattened_attribsToMap(xml:Xml,ignore:Array<String>):Map<String,String> {
 		xml = simpleXML(xml);
 		var myMap:Map<String,String> = _attribsToMap(xml);
+		var isElement:Bool;
 		
 		for (	child in xml.iterator()	) {
-			var nam:String = nodeName(child);
-			var val:String = nodeValue(child);
 			
-			myMap.set(nam, val);
+			var nam:String;
+
+			if(child.nodeType == Xml.Element){		
+				nam = nodeName(child);
+
+				if(ignore.indexOf(nam) ==-1){
+					var val:String;
+					try {
+						val = nodeValue(child);
+					}
+					catch (e:String) {
+						val = "";
+					}
+					myMap.set(nam, val);
+				}
+			}
+			
+			else if (child.nodeType == Xml.PCData) {
+				nam = child.parent.nodeName;
+				
+				if(ignore.indexOf(nam) ==-1){
+					var val:String;
+					try {
+						val = child.toString();
+					}
+					catch (e:String) {
+						val = "";
+					}
+					myMap.set(nam, val);
+				}
+			}
 		}
 		
 		return myMap;

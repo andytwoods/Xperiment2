@@ -18,7 +18,7 @@
 	<haxelib name="actuate" />
 	<haxelib name="hscript" />
 	<haxelib name="assetsmanager" />
-	<haxelib name="stablexui" />
+	<haxelib name="haxeui" />
 	<haxelib name="utest" />
 	<haxelib name="thx.core" />
 	

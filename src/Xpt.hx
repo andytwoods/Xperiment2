@@ -4,7 +4,6 @@ import hscript.Interp;
 import hscript.Parser;
 import openfl.display.Sprite;
 import openfl.system.System;
-import ru.stablex.ui.UIBuilder;
 import xpt.error.ErrorMessage;
 import xpt.runner.Runner;
 import xpt.start.WebStart;
@@ -21,7 +20,6 @@ class Xpt extends Sprite
 
 		super();
 			
-		UIBuilder.init();
 		
 		ErrorMessage.setup(stage);
 		WebStart.setup(stage);
@@ -36,6 +34,9 @@ class Xpt extends Sprite
 		
 		var webStart:WebStart = new WebStart(dir,expt);
 
+		
+	
+       
 		
 		System.exit(0);
 	}

@@ -285,7 +285,7 @@ public function new() { }
 		var myMap:Map<String,String>;
 		var xml:Xml = Xml.parse("<xml a='a' b='bb'><a>aa</a><c>cc</c></xml>");
 		
-		myMap = XML_tools.flattened_attribsToMap(xml);
+		myMap = XML_tools.flattened_attribsToMap(xml,[]);
 		Assert.isTrue(myMap.exists("a") && myMap.get("a") == "aa");
 		Assert.isTrue(myMap.exists("b") && myMap.get("b") == "bb");
 		Assert.isTrue(myMap.exists("c") && myMap.get("c") == "cc");

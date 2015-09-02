@@ -5,15 +5,20 @@ package xpt;
  * @author 
  */
 import code.Test_CheckIsCode;
+import xpt.results.Test_Results;
 import xpt.script.Test_ETCs;
 import xpt.script.Test_BetweenSJs;
 import xpt.script.templateHelpers.Test_templateList;
 import xpt.script.Test_Templates;
+import xpt.stimuli.Test_BaseStimuli;
+import xpt.timing.Test_TickTimer;
+import xpt.timing.Test_TimingBoss;
 import xpt.tools.Test_XML_Tools;
 import utest.Runner;
 import utest.ui.Report;
 import utest.ui.common.HeaderDisplayMode;
 import xpt.tools.Test_XTools;
+import xpt.trial.Test_ExtractResults;
 import xpt.trial.Test_NextTrialBoss;
 import xpt.trialOrder.Test_DepthNode;
 import xpt.trialOrder.Test_DepthNodeBoss;
@@ -30,6 +35,8 @@ class Tests
 	{
 				
 		var runner = new Runner();
+		
+		//trial setup related
 		runner.addCase(new Test_XML_Tools());
 		runner.addCase(new Test_XTools());
 		runner.addCase(new Test_TrialOrder());
@@ -45,8 +52,25 @@ class Tests
 		runner.addCase(new Test_ETCs());
 		runner.addCase(new Test_CheckIsCode());
 		
+		//stimuli related
+		runner.addCase(new Test_BaseStimuli());
+		
+		//timing related
+		//runner.addCase(new Test_TickTimer());
+		//runner.addCase(new Test_TimingBoss());
+		
+		//results related
+		runner.addCase(new Test_ExtractResults());
+		runner.addCase(new Test_Results());
+		
+		
+		//miscel
+		runner.addCase(new Test_ExptWideSpecs());
+		
 		Report.create(runner,NeverShowSuccessResults,AlwaysShowHeader);
 		runner.run();
+		
+		
 	}
 	
 }

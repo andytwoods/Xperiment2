@@ -93,7 +93,7 @@ class Test_TrialOrder
 		var trialOrder_skeletons = TrialOrder.COMPOSE(myScript);
 		
 		
-		BaseStimuli.setPermitted(['teststim']);
+		BaseStimuli.setPermittedStimuli(['teststim']);
 		BaseStimuli.createSkeletonParams(trialOrder_skeletons._1);
 		expt.__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 		expt.__startTrial();
@@ -207,7 +207,7 @@ class Test_TrialOrder
 
 			
 			var expt:Experiment = new Experiment(null);
-			BaseStimuli.setPermitted(['teststim']);
+			BaseStimuli.setPermittedStimuli(['teststim']);
 			ExptWideSpecs.__init();
 			//ExptWideSpecs.__testSet("blockDepthOrder","20,*=fixed 20,*,*=fixed");
 			
@@ -273,7 +273,7 @@ class Test_TrialOrder
 
 			
 			var expt:Experiment = new Experiment(null);
-			BaseStimuli.setPermitted(['teststim']);
+			BaseStimuli.setPermittedStimuli(['teststim']);
 			ExptWideSpecs.__init();
 			ExptWideSpecs.__testSet("blockDepthOrder","");
 			var trialOrder_skeletons:Tuple2<	Array<Int>,	Array<TrialSkeleton>> = TrialOrder.COMPOSE(script);
