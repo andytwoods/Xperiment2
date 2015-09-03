@@ -5,6 +5,8 @@ package xpt;
  * @author 
  */
 import code.Test_CheckIsCode;
+import openfl.events.Event;
+import openfl.system.System;
 import xpt.results.Test_Results;
 import xpt.script.Test_ETCs;
 import xpt.script.Test_BetweenSJs;
@@ -56,8 +58,8 @@ class Tests
 		runner.addCase(new Test_BaseStimuli());
 		
 		//timing related
-		//runner.addCase(new Test_TickTimer());
-		//runner.addCase(new Test_TimingBoss());
+		runner.addCase(new Test_TickTimer());
+		runner.addCase(new Test_TimingBoss());
 		
 		//results related
 		runner.addCase(new Test_ExtractResults());
@@ -67,10 +69,14 @@ class Tests
 		//miscel
 		runner.addCase(new Test_ExptWideSpecs());
 		
-		Report.create(runner,NeverShowSuccessResults,AlwaysShowHeader);
+		Report.create(runner, NeverShowSuccessResults, AlwaysShowHeader);
+		
+		runner.onComplete.add(function(h) { 
+			//System.exit(0);
+		} );
 		runner.run();
 		
-		
+	
 	}
 	
 }

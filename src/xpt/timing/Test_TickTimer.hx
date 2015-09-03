@@ -1,4 +1,5 @@
 package xpt.timing;
+import openfl.display.FPS;
 import utest.Assert;
 
 /**
@@ -13,23 +14,39 @@ class Test_TickTimer
 		
 	}
 	
-	public function test_getTime() {
+	public function _test_getTime() {
 	
-		var tickTimer:TickTimer;
+		var done = Assert.createAsync(200);		
+		var ticks:Array<Float> = [];
 		
 		
-		tickTimer = new TickTimer(0);
-		tickTimer.start();
-		var time = tickTimer.initTime;
+		var tickTimer = new TickTimer(1);
+
+
+		var init_time = tickTimer.initTime;
+		
+		var count:Int = 2;
+		var prev:Float =-1; 
 		
 		tickTimer.callBack = function(_time:Float) {
-			//Assert.isTrue(tickTimer._getTime() > time);
-			tickTimer.stop();
-		};
+			if (prev != -1 ) ticks[ticks.length] = _time -prev;
+			prev = _time;
+			
+			Assert.isTrue(init_time < _time);
+			
+			if (count <= 1) {
+				tickTimer.stop();
+				//trace(ticks);
+				done();
+			}
+			count--;	
+		};	
 		
-		Assert.isTrue(true);
-		TickTimer._instance = null;
+		tickTimer.start();
+
 		
 	}
+	
+	
 	
 }

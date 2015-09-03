@@ -2,7 +2,7 @@ package xpt.runner;
 import code.CheckIsCode;
 import code.Code;
 import openfl.display.Sprite;
-import openfl.display.Stage;
+import openfl.events.Event;
 import openfl.utils.Object;
 import xpt.script.BetweenSJs;
 
@@ -14,14 +14,15 @@ import xpt.script.Templates;
  * ...
  * @author ...
  */
-class Runner extends Sprite
+class Runner
 {	
 	
 	public var script:Xml;
+	public var currentExpt:Experiment;
 	
 	public function new() 
 	{
-		super();		
+		
 	}
 	
 	public function run(script:Xml, url:String = null, params:Object = null) 
@@ -33,8 +34,8 @@ class Runner extends Sprite
 		//ProcessScript.DO(script);
 		script = BetweenSJs.compose(script);
 	
+		currentExpt = new Experiment(script, url, params);
 		
-		var expt:Experiment = new Experiment(script, url, params);
 		
 	}
 	

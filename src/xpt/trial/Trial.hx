@@ -4,7 +4,10 @@ import haxe.ui.toolkit.core.Root;
 import haxe.ui.toolkit.core.Toolkit;
 import haxe.ui.toolkit.events.UIEvent;
 import openfl.display.Sprite;
+import openfl.display.Stage;
+import openfl.Lib;
 import xpt.stimuli.Stimulus;
+import xpt.timing.TimingBoss;
 //import xpt.behaviour.Behaviour;
 
 
@@ -17,7 +20,7 @@ enum Trial_Action {
 
 
 
-class Trial extends Sprite
+class Trial 
 {
 
 	public var stimuli:Array<Stimulus> = [];
@@ -27,6 +30,11 @@ class Trial extends Sprite
 	public var trialBlock:Int;
 	public var specialTrial:Special_Trial;
 	public var hideResults:Bool = false;
+	public var timingBoss:TimingBoss;
+	
+	public static var testing:Bool = false;
+	
+	public static var stage = Lib.current.stage;
 	
 	public var callBack:Trial_Action -> Void;
 	
@@ -43,7 +51,11 @@ class Trial extends Sprite
 	
 	public function new() 
 	{
-		super();
+		if (testing == false) {
+			timingBoss = new TimingBoss();
+		}
+		//stage.addChild(timingBoss);
+		
 	
 		
 		//Behaviour.addTrial(this);
@@ -73,6 +85,12 @@ class Trial extends Sprite
 				
             });
             root.addChild(button);
+			
+		//var fps_mem = new FPS_mem();
+		
+		
+		//stage.addChild(fps_mem);
+
 		
 	}
 	

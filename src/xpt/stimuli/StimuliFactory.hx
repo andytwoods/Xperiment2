@@ -1,4 +1,5 @@
 package xpt.stimuli;
+import xpt.stimuli.BaseStimuli.BaseStimulus;
 import xpt.tools.XML_tools;
 import xpt.tools.XTools;
 import xpt.trial.Trial;
@@ -18,11 +19,20 @@ class StimuliFactory
 	static public function generate(trial:Trial, skeleton:TrialSkeleton) {
 	
 		var stim:Stimulus;
+		var baseStimulus:BaseStimulus;
 		
-		for (base_stim in skeleton.baseStimuli) {
-			stim = getStim(base_stim.name);
-			setProps(stim, base_stim.howMany, base_stim.props,trial);
+		var unknown:Int = 1;
+		
+		for (i in 0...skeleton.baseStimuli.length) {
+			baseStimulus = skeleton.baseStimuli[i];
+			stim = getStim(baseStimulus.name);
+			setProps(stim, baseStimulus.howMany, baseStimulus.props, trial);
+			if (stim.id == null) {
+				stim.id = "id" + Std.string(unknown++);
+			}
+			trial.stimuli.push(stim);
 		}
+		
 	}
 	
 	static private function setProps(stim:Stimulus, howMany:Int, props:Map<String,String>, trial:Trial) 

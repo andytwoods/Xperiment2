@@ -2,6 +2,9 @@ package xpt.experiment;
 import code.CheckIsCode.Checks;
 import code.Code;
 import haxe.ui.toolkit.core.Toolkit;
+import openfl.display.Stage;
+import openfl.events.Event;
+import openfl.Lib;
 import openfl.utils.Object;
 import xpt.results.Results;
 import xpt.script.ProcessScript;
@@ -52,7 +55,13 @@ class Experiment
 		//TrialOrder.DO(script);
 		
 		__setupTrials(script);
+		
+
+
 		__startTrial();
+		
+
+	
 	}
 	
 	public function linkups_exptWideSpecs() 
@@ -73,6 +82,7 @@ class Experiment
 		BaseStimuli.setPermittedStimuli(permittedStimuli);
 		
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
+
 	}
 	
 	

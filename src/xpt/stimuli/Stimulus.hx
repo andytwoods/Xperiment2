@@ -1,19 +1,24 @@
 package xpt.stimuli;
+import openfl.display.Sprite;
 
 /**
  * ...
  * @author 
  */
-class Stimulus
+class Stimulus extends Sprite
 {
 	public var __properties:Map<String,Dynamic>;
-	public var start:Int = -1;
-	public var stop:Int = -1;
-	public var duration:Int = -1;
+	public var start:Float = -1;
+	public var stop:Float = -1;
+	public var duration:Float = -1;
 	public var hideResults:Bool = false;
+	public var id:String;
+	public var depth:Int;
+	public var ran:Bool = false;
 
 	public function new() 
 	{
+		super();
 		__properties = new Map<String, Dynamic>();
 	}
 	
@@ -37,14 +42,18 @@ class Stimulus
 	public function set(what:String, val:Dynamic) {
 		switch(what.toLowerCase()) {
 			case 'start':
-				start = Std.parseInt(val);
+				start = Std.parseFloat(val);
 			case 'stop':
-				stop = Std.parseInt(val);
+				stop = Std.parseFloat(val);
 			case 'duration':
-				duration = Std.parseInt(val);
+				duration = Std.parseFloat(val);
 			case 'hideresults':
 				var str:String = Std.string(val).toLowerCase();
 				if (str == 'true') hideResults = true;
+			case 'id':
+				id = Std.string(val);
+			case 'depth':
+				depth = Std.parseInt(val);
 			default:
 				__properties.set(what, val);
 		}

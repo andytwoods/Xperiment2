@@ -2,7 +2,6 @@ package xpt.start;
 import assets.manager.FileLoader;
 import assets.manager.misc.FileInfo;
 import assets.manager.misc.LoaderStatus;
-import openfl.display.Stage;
 import openfl.utils.Dictionary;
 import openfl.utils.Object;
 import xpt.error.ErrorMessage;
@@ -14,11 +13,6 @@ import xpt.runner.Runner;
  */
 class WebStart 
 {
-	private static var stage:Stage;
-	
-	public static function setup(s:Stage):Void {
-		stage = s;
-	}
 	
 	public function kill():Void {
 		
@@ -74,7 +68,6 @@ class WebStart
 	
 	public function exptPlatform():Runner {
 		var runner:Runner = new Runner();
-		stage.addChild(runner);
 		return runner;
 	}
 	

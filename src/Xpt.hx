@@ -8,6 +8,7 @@ import xpt.error.ErrorMessage;
 import xpt.runner.Runner;
 import xpt.start.WebStart;
 import xpt.Tests;
+import xpt.trial.Trial;
 
 
 class Xpt extends Sprite 
@@ -22,22 +23,22 @@ class Xpt extends Sprite
 			
 		
 		ErrorMessage.setup(stage);
-		WebStart.setup(stage);
 		
 		
 		var expt:String = "test";
-		var dir:String = '';
+		var dir:String = localExptDirectory;
+		
 		#if debug
-			dir = localExptDirectory;
+			Trial.testing = true;
 			var tests:xpt.Tests = new xpt.Tests();
+			Trial.testing = false;
 		#end
 		
 		var webStart:WebStart = new WebStart(dir,expt);
 
-		
-	
+
        
-		
-		System.exit(0);
+		//below now in Tests.hx
+		//System.exit(0);
 	}
 }

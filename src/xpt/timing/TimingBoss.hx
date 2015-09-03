@@ -1,91 +1,78 @@
 package xpt.timing;
+import openfl.display.Sprite;
+import thx.Floats;
+import thx.Ints;
 import xpt.stimuli.Stimulus;
+import xpt.tools.XTools;
 
 /**
  * ...
  * @author 
  */
-class TimingBoss
+class TimingBoss extends Sprite
 {
-
-/*	public static var BOTTOM:Int=int.MAX_VALUE;
-	public static var TOP:Int=int.MIN_VALUE;
-	static var MAX_CHILDREN:Int=int.MAX_VALUE;
-	public static inline var FOREVER:Float=int.MAX_VALUE;
 	
-	public var _startTimeSorted:Array<Stimulus>;
-	public var _endTimeSorted:Array<Stimulus>;
-	public var _mainTimer:TickTimer;
+	
+	public static var MAX:Int = 10000000;
+	public static var MIN:Int = -10000000;
+	
+	public static var BOTTOM:Int=MAX;
+	public static var TOP:Int=MIN;
+	public static var FOREVER:Float = MAX;
+	
+	public var __startTimeSorted:Array<Stimulus>;
+	public var __endTimeSorted:Array<Stimulus>;
+	public var __mainTimer:TickTimer;
 	public var __objsOnScreen:Array<Stimulus>;
 	
 	private var stageCount:Int;
 	public var running:Bool=true;
-	//private var depthRecyc:Int;
-	private var _allStim:Array<Stimulus>;
-	
-	private var _currentCount:Int=-1;
-	
-	private var chromeBug:Bool=true;
-	
-	private var hack:String=Std.int(Math.random()*1000).toString();*/
+	public var __allStim:Array<Stimulus>;
+
+
 	
 /*	public function params(params:Dynamic)
 	{
 
 	}*/
 	
-	public function new(){
-/*		_mainTimer = getimer(1);
-		_mainTimer.callBack = checkForEvent;
-		_startTimeSorted=[];
-		_endTimeSorted=[];
-		__objsOnScreen=[];
-		_allStim=[];
-		running=true;*/
-		
-		//			/trace("set up");
+	public function new() {
+		super();
+		__mainTimer = new TickTimer(0);
+		__mainTimer.callBack = checkForEvent;
+		instantiateArrs(true);
+	
+		running=true;
 	}
 	
-/*	public function getMS():Int{
-		
-		return _mainTimer.now();
+	private inline function instantiateArrs(DO:Bool) {
+		if(DO){
+			__startTimeSorted=[]; __endTimeSorted=[];	__objsOnScreen=[];__allStim = [];	}
+		else {
+			__startTimeSorted=null;	__endTimeSorted=null;__objsOnScreen=null;__allStim = null;}
 	}
 	
-	public inline function getTimer(interval:Int):TickTimer{
-		return TickTimer.init(interval);
+	public function getMS():Float{
+		return __mainTimer.now;
 	}
 	
-	
-	public var allStim(get_allStim, null):Array;
- 	private function get_allStim():Array
-	{
-		return _allStim;
-	}
-	
+
 	public function cleanUpScreen() {
-		
 		running=false;
-		_mainTimer.stop();
-		
+		__mainTimer = null;
 		
 		for(i in 0...__objsOnScreen.length){
-			remove(__objsOnScreen[i]);
-			__objsOnScreen[i]=null;
+			removeStimulus(__objsOnScreen[i]);
 		}
 		
-		
-		_startTimeSorted = null;
-		_endTimeSorted = null;
-		_allStim = null;
-		
-		
+		instantiateArrs(false);
 		
 		stragglers();
 	}
 	
 	private function stragglers()
 	{
-		if(this.stage){
+		if(this.stage !=null){
 			if(stageCount<this.stage.numChildren){
 				for(i in 0...this.stage.numChildren){
 					trace("child:",this.stage.getChildAt(i));
@@ -101,99 +88,80 @@ class TimingBoss
 	
 	
 
-	
+	var num:Float = Math.random();
 	//this function needs testing.
-	public function add(stim:Stimulus){
-
-		if(_startTimeSorted.indexOf(stim)!=-1)	_startTimeSorted.push(stim);
-		if(_endTimeSorted.indexOf(stim)!=-1)	_endTimeSorted.push(stim);
-		if(_allStim.indexOf(stim)!=-1)			_allStim.push(stim);
+	public function add(stim:Stimulus) {
+		if (__startTimeSorted.indexOf(stim) == -1) 	__startTimeSorted.push(stim);
+		if (__endTimeSorted.indexOf(stim) == -1) 	__endTimeSorted.push(stim);
+		if (__allStim.indexOf(stim) == -1) 			__allStim.push(stim);
 	} 
 	
-	public function sortSpritesTIME(){
-		if(_startTimeSorted)	sortSprites(_startTimeSorted,"startTime");
-		if(_endTimeSorted)		sortSprites(_endTimeSorted,"endTime");	
+	
+	
+	public function sortTime(){
+		if(__startTimeSorted!=null)		__sortOn("start",__startTimeSorted);
+		if(__endTimeSorted!=null)		__sortOn("stop",__endTimeSorted);	
 	}
-	
-	
 
-	public function checkForEvent(time:Int) {
+
+	public function checkForEvent(time:Float) {
 		
 		if(running){
-			
-			if(_mainTimer.now==_currentCount){
-				return;
-			}
-			_currentCount=_mainTimer.currentMS;
-
-			if(running  && _startTimeSorted.length!=0 && _startTimeSorted[0].start<=_currentCount){
-				
-				do {
-					__addToScreen(_startTimeSorted[0] );
-				}
-				while(running && _startTimeSorted.length !=0 && _startTimeSorted[0].startTime<=_currentCount);		
+			while (running && __startTimeSorted.length != 0 && __startTimeSorted[0].start <= time) {
+				__addToScreen(__startTimeSorted.shift() );
 			}
 			
-
-			if(running && _endTimeSorted.length!=0 && _endTimeSorted[0].endTime<=_currentCount){
-				
-				do {
-					stopObj(_endTimeSorted[0]);
-				}
-				while(running && _endTimeSorted.length !=0 && _endTimeSorted[0].endTime<=_currentCount);
+			while (running && __endTimeSorted.length != 0 && __endTimeSorted[0].stop < time) {
+				stopStimulus(__endTimeSorted.shift() );
 			}
 		}
 	}
 	
 	
+	
 	public function commenceDisplay(autoStart:Bool) {
 
-		if(this.stage)stageCount=this.stage.numChildren;
-		sortSpritesTIME();
+		if(this.stage !=null)stageCount=this.stage.numChildren;
+		sortTime();
 		
-		if(autoStart)_mainTimer.start();
+		if(autoStart)__mainTimer.start();
 		
 	}
 	
 
 	public function addtoTimeLine(stim:Stimulus) {
 		
-		_allStim.push(stim);
+		__allStim.push(stim);
 		
-		if(stim.startTime!=-1){
-			_startTimeSorted.push(stim);
-			_endTimeSorted.push(stim);
+		if(stim.start!=-1){
+			__startTimeSorted.push(stim);
+			__endTimeSorted.push(stim);
 		}				
 	}
 	
 	
-	public function sortSprites(uSprites:Array,attribute:String) {
-		uSprites.sortOn(attribute,Array.NUMERIC);
-	}
 	
-	
-	
-	public function killPeg(peg:String) {
-		stopPeg(peg);
+	public function killID(id:String) {
+		stopStimulusID(id);
 		
-		for(i in 0..._startTimeSorted.length){
-			if(_startTimeSorted[i].peg==peg){
-				_startTimeSorted.splice(i,1);	
+		for(i in 0...__startTimeSorted.length){
+			if(__startTimeSorted[i].id==id){
+				__startTimeSorted.splice(i,1);	
 				break;
 			}
 		}
 		
 		
-		for(i in 0..._endTimeSorted.length){
-			if(_endTimeSorted[i].peg==peg){
-				_endTimeSorted.splice(i,1);
+		for(i in 0...__endTimeSorted.length){
+			if(__endTimeSorted[i].id==id){
+				__endTimeSorted.splice(i,1);
 				break;
 			}
 		}
 		
-		for(i in 0..._allStim.length){
-			if(_allStim[i].peg==peg){
-				_allStim.splice(i,1);
+		for(i in 0...__allStim.length){
+			if(__allStim[i].id==id){
+				__allStim.splice(i,1);
 				break;
 			}
 		}
@@ -201,191 +169,126 @@ class TimingBoss
 	}
 	
 	
-	public function stopObj(stim:Stimulus):Bool {
-		
-		var index:Int;
-		var stopped:Bool=false;
-		
-		if(stim && this.contains(stim)){
+	public function stopStimulus(stim:Stimulus) {
+		if (stim != null) {
+			__objsOnScreen.remove(stim);
+			__endTimeSorted.remove(stim);
+			if(this.contains(stim))	this.removeChild(stim);
 			
-			__removeFromScreen(stim);
-			if(running){
-				index=_endTimeSorted.indexOf(stim);		
-				if(index!=-1){
-					_endTimeSorted.splice(index,1);
-				}
-				
-				index=_startTimeSorted.indexOf(stim);	
-				if(index!=-1)_startTimeSorted.splice(index,1);
-				
-			}
-			
-			stopped=true;
 		}
-		
-		//else if(logger)logger.log("you asked to remove a screen element("+peg+")that is not on screen");
-		
-		
-		if(stopped)sortSpritesTIME();
-		
-		return stopped;//only used by killObj function above
 	}
 	
-	public function stopPeg(peg:String):Bool
+	
+	public function stopStimulusID(id:String):Bool
 	{
 		for(i in 0...__objsOnScreen.length){
-			if(__objsOnScreen[i].peg==peg){
-				return stopObj(__objsOnScreen[i]);
+			if(__objsOnScreen[i].id==id){
+				stopStimulus(__objsOnScreen[i]);
 			}
 		}	
 		return false;
 	}
 	
 	
-	public function runDrivenEvent(peg:String,delay:String="",dur:String=""):Stimulus {
-		var stim:Stimulus;
-		for(i in 0..._allStim.length){
-			if(_allStim[i].peg==peg){
-				stim=_allStim[i];
-				break;
-			}
+	public function addStimulusOnScreen(id:String, delay:String = "", dur:String = ""):Stimulus {
+		if (Floats.canParse(dur) == false) throw "the duration you asked for is not a number";
+		var duration:Float = Floats.parse(dur);
+		
+		var stim:Stimulus = getStimulusID(id);
+		
+		if (stim == null) throw "could not find the stimuli you asked to run";
+		
+			
+		stim.stop+=__mainTimer.now;
+		
+		stim.stop=duration+ __mainTimer.now;
+		
+		stim.start+=__mainTimer.now;	
+		
+		if (delay != "") {
+			if (Floats.canParse(delay) == false) throw "the delay you asked for is not a number";
+			stim.start+=Std.parseFloat(delay);
+		}
+		else {
+			__addToScreen(stim);
 		}
 		
-		if(stim!=null && __objsOnScreen.indexOf(stim)==-1){
-			
-			stim.endTime+=_mainTimer.currentMS;
-			
-			if(dur!="" && !isNaN(Number(dur)))stim.endTime=Std.parseFloat(dur)+ _mainTimer.currentMS;
-			
-			stim.startTime+=_mainTimer.currentMS;	
-			
-			if(delay!="" && !isNaN(Number(delay)))stim.startTime+=Std.parseFloat(delay);
-			
-			_endTimeSorted.push(stim);
-			_startTimeSorted.push(stim);
-			
-			sortSpritesTIME();
-			
-			if(delay==""){
-				__addToScreen(stim);		
-			}
-		}
+		__endTimeSorted.push(stim);
+		__startTimeSorted.push(stim);	
+		sortTime();
+
+		
 		return stim;
 	}
 	
-	public function __removeFromScreen(stim:Stimulus){
-		
-		stim.stimEvent(StimulusEvent.ON_FINISH);
-		if(running){
-			removeFromOnScreenList(stim);
-		}
-		remove(stim);
-	}
-	
-	private function removeFromOnScreenList(stim:Stimulus)
-	{
-		
-		var index:Int=__objsOnScreen.indexOf(stim);
-		if(index!=-1)__objsOnScreen.splice(index,1);
-	}		
+
 	
 	
 	public function __addToScreen(stim:Stimulus){
 		
-		stim.stimEvent(StimulusEvent.DO_BEFORE);
+		//stim.stimEvent(StimulusEvent.DO_BEFORE);
 
 		depthManager(stim);
-		
-		if(running){
-			var index:Int=_startTimeSorted.indexOf(stim);
-			if(index!=-1)_startTimeSorted.splice(index,1);
-		}
+		__startTimeSorted.remove(stim);
 
-		stim.ran=true;
-		if(doEvents)	stim.stimEvent(StimulusEvent.DO_AFTER_APPEARED);
+		//stim.stimEvent(StimulusEvent.DO_AFTER_APPEARED);
 	}
 	
 	private function depthManager(stim:Stimulus=null)
 	{
 		
-		if(stim)__objsOnScreen.push(stim);
+		if(stim !=null )__objsOnScreen.push(stim);
 		
 
-		__objsOnScreen.sortOn("depth", Array.DESCENDING | Array.NUMERIC);
+		__sortOn("depth",__objsOnScreen);
 
 
 		for(i in 0...__objsOnScreen.length){
 
-			if(__objsOnScreen[i])	this.addChild(__objsOnScreen[i] as uberSprite);
+			if(__objsOnScreen[i] !=null)	this.addChild(__objsOnScreen[i]);
 		}
 
 		
 	}		
 	
-	private inline function _sortOn(what:String, arr:Array<Stimulus>):Array {
-		arrayOfStrings.sort( function(a:Stimulus, b:Stimulus):Int
+	public static inline function __sortOn(what:String, arr:Array<Stimulus>):Array<Stimulus> {
+		arr.sort( function(a:Stimulus, b:Stimulus):Int
 		{
-			if (a[what] < b[what]) return -1;
-			if (a[what] > b[what]) return 1;
-			return 0;
-		} );	
+			return Reflect.compare(Reflect.getProperty(a, what), Reflect.getProperty(b, what));
+		});	
+		return arr;
 	}
 	
 	
 
-	private function remove(stim:Stimulus){
+	private function removeStimulus(stim:Stimulus) {
 		if(this.contains(stim)){
 			this.removeChild(stim);
 		}
 	}
 	
 	
-	public function time():Int
-	{
-		return _mainTimer.currentMS;
-	}
-	
 	
 	public function stopAll()
 	{
-		for(stim in allStim){
-			stopObj( stim );
+		for(stim in __allStim){
+			stopStimulus( stim );
 		}
 	}
 	
-	private function getObjFromPeg(peg:String):Stimulus{
-		for(stim in allStim){
-				if(stim.peg==peg){
-					return allStim[i];
+	public function getStimulusID(id:String):Stimulus{
+		for(stim in __allStim){
+				if(stim.id==id){
+					return stim;
 				}
 			}
 		return null;
 	}
 	
 
-	public function updateStimTimesFromObj(changed:Dynamic):Stimulus
-	{
-		//trace("-");
-		var stim:uberSprite=getObjFromPeg(changed.peg);
-		//trace("---");
-		if(stim &&(
-			stim.startTime 	!=	changed.start ||
-			stim.endTime 	!=	changed.end
-		)){
-			
-			stim.startTime 	=	changed.start;
-			stim.endTime 	=	changed.end;
-			
-			setTimes(stim,stim.startTime,stim.endTime,-1);
-			return stim;
-			
-		}
-		return stim;
-	}
-	
-	*/
 	
 	
+
 
 	
 }
