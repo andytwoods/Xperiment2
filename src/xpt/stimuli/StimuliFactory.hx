@@ -1,4 +1,5 @@
 package xpt.stimuli;
+import xpt.stimuli.all.*;
 import xpt.stimuli.BaseStimuli.BaseStimulus;
 import xpt.tools.XML_tools;
 import xpt.tools.XTools;
@@ -16,24 +17,38 @@ class StimuliFactory
 
 	
 	
-	static public function generate(trial:Trial, skeleton:TrialSkeleton) {
 	
-		var stim:Stimulus;
+	static public function generate(trial:Trial, skeleton:TrialSkeleton) {
+		
+		__recursiveGenerate(trial, null, skeleton.baseStimuli, 0);
+	}
+	
+	public static function __recursiveGenerate(trial:Trial, parent:Stimulus, baseStimuli:Array<BaseStimulus>, unknownIdCount:Int) {
 		var baseStimulus:BaseStimulus;
+		var stim:Stimulus;
 		
-		var unknown:Int = 1;
-		
-		for (i in 0...skeleton.baseStimuli.length) {
-			baseStimulus = skeleton.baseStimuli[i];
+		for (i in 0...baseStimuli.length) {
+			
+			baseStimulus = baseStimuli[i];
+			
 			stim = getStim(baseStimulus.name);
 			setProps(stim, baseStimulus.howMany, baseStimulus.props, trial);
+			
 			if (stim.id == null) {
-				stim.id = "id" + Std.string(unknown++);
+				stim.id = "id" + Std.string(unknownIdCount++);
 			}
+			
 			trial.stimuli.push(stim);
+			if (parent != null) parent.addUnderling(stim);
+			
+
+			if(baseStimulus.children.length>0)	__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount);
+			
 		}
-		
 	}
+		
+		
+		
 	
 	static private function setProps(stim:Stimulus, howMany:Int, props:Map<String,String>, trial:Trial) 
 	{
@@ -44,11 +59,11 @@ class StimuliFactory
 		
 			for (key in props.keys()) {
 				var val:String = props.get(key);
-				//trace(1, val);
+	
 				val = XTools.multiCorrection(	val, overTrialSep, trialIteration);
-				//trace(2, val,trialIteration);
+	
 				val = XTools.multiCorrection(	val, withinTrialSep, count);
-				//trace(3, val,count);
+
 				stim.set(key, specialType(key,val)	);
 			}
 			
@@ -64,9 +79,19 @@ class StimuliFactory
 	}
 	
 	static private function getStim(type:String):Stimulus {
-	
-		
-		return new Stimulus();
+		switch(type.toLowerCase()) {
+			case 'button':
+				return new Stim_button();
+			
+			
+			
+			
+			
+			case 'teststim':
+				return new Stimulus();
+		}
+
+		return null;
 	}
 	
 	static public function setLabels(within:String, outside:String) {

@@ -23,7 +23,7 @@
 	<haxelib name="thx.core" />
 	
 	<haxedef name="fdb" if="flash"/>
-	<haxeflag  name="-D advanced-telemetry" if="flash" />
+	<haxeflag name="-D advanced-telemetry" if="flash" />
 	
 	<haxedef name="dom" if="html5" />
 	

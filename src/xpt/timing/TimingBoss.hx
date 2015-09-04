@@ -57,7 +57,7 @@ class TimingBoss extends Sprite
 	}
 	
 
-	public function cleanUpScreen() {
+	public function kill() {
 		running=false;
 		__mainTimer = null;
 		
@@ -119,7 +119,7 @@ class TimingBoss extends Sprite
 	
 	
 	
-	public function commenceDisplay(autoStart:Bool) {
+	public function start(autoStart:Bool) {
 
 		if(this.stage !=null)stageCount=this.stage.numChildren;
 		sortTime();
@@ -284,6 +284,8 @@ class TimingBoss extends Sprite
 			}
 		return null;
 	}
+	
+
 	
 
 	

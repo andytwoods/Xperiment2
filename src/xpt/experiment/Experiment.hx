@@ -30,6 +30,7 @@ class Experiment
 	public var __script:Xml;
 	public var __runningTrial:Trial;
 	public var __results:Results = new Results();
+	
 
 	public function new(script:Xml, url:String = null, params:Object = null) 
 	{

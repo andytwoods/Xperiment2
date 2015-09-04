@@ -15,11 +15,17 @@ class Stimulus extends Sprite
 	public var id:String;
 	public var depth:Int;
 	public var ran:Bool = false;
+	
+	public var __underlings:Array<Stimulus> = [];
 
 	public function new() 
 	{
 		super();
 		__properties = new Map<String, Dynamic>();
+	}
+	
+	public function addUnderling(stim:Stimulus) {
+		__underlings.push(stim);
 	}
 	
 	public function tidy_beforeRun() {
@@ -65,6 +71,7 @@ class Stimulus extends Sprite
 	}
 	
 	public function kill() {
+		__underlings = null;
 		__properties = null;
 	}
 }

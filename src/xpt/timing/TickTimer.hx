@@ -77,11 +77,12 @@ class TickTimer
 	
 	public function listen(ON:Bool) {
 		if (_root == null) {
-			
-			
+			//
 		}
-		if(ON)	_root.addEventListener(Event.ENTER_FRAME,evaluateTime);
-		else	_root.removeEventListener(Event.ENTER_FRAME,evaluateTime);
+		else{
+			if(ON)	_root.addEventListener(Event.ENTER_FRAME,evaluateTime);
+			else	_root.removeEventListener(Event.ENTER_FRAME, evaluateTime);
+		}
 	}
 	
 	

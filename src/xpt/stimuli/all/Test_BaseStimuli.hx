@@ -1,4 +1,4 @@
-package xpt.stimuli;
+package xpt.stimuli.all;
 import utest.Assert;
 import xpt.stimuli.BaseStimuli.BaseStimulus;
 import xpt.tools.XTools;

@@ -64,17 +64,28 @@ class Trial
 	public function addStimulus(stim:Stimulus) 
 	{
 		stimuli[stimuli.length] = stim;
+		if (testing == false) timingBoss.add(stim);
 	}
 	
 	public function kill() 
 	{
+		if (testing == false) {
+			timingBoss.kill();
+			timingBoss = null;
+		}
+		
 		for (stimulus in stimuli) {
 			stimulus.kill();
-		}
+		}	
 	}
 	
 	public function start() 
 	{
+		if (testing == false) {
+			timingBoss.start(true);
+		}
+		
+		
 		var root = Toolkit.openFullscreen();
 		var button:Button = new Button();
             button.text = "Click Me!";

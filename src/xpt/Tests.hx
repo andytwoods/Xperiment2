@@ -12,7 +12,7 @@ import xpt.script.Test_ETCs;
 import xpt.script.Test_BetweenSJs;
 import xpt.script.templateHelpers.Test_templateList;
 import xpt.script.Test_Templates;
-import xpt.stimuli.Test_BaseStimuli;
+import xpt.stimuli.all.Test_BaseStimuli;
 import xpt.timing.Test_TickTimer;
 import xpt.timing.Test_TimingBoss;
 import xpt.tools.Test_XML_Tools;
