@@ -16,13 +16,13 @@ class Test_Results
 	
 	public function test__addResultsInfo() {
 	
-		var results = Xml.parse("<test a='a'>bla</test>");
-		var map:Map<String,String> = ['a' => 'aa', 'b' => 'bb'];
+		var trialResults:TrialResults = new TrialResults();
+		trialResults.results = ['a' => 'aa', 'b' => 'bb'];
 		
 		
-		Results.__addResultsInfo(results, map);
+		Results.__addResultsInfo(trialResults, ['a' => 'aa', 'b' => 'bb']);
 		
-		Assert.isTrue(results.toString().length==40); //cannot guarantee order. <test a="a">bla<b>bb</b><a>aa</a></test>,
+		Assert.isTrue(trialResults.results.toString().length==38); //cannot guarantee order. {b => bb, b1 => bb, a => aa, a1 => aa}
 		
 	}
 	

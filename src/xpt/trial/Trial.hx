@@ -6,6 +6,7 @@ import haxe.ui.toolkit.events.UIEvent;
 import openfl.display.Sprite;
 import openfl.display.Stage;
 import openfl.Lib;
+import xpt.results.TrialResults;
 import xpt.stimuli.Stimulus;
 import xpt.timing.TimingBoss;
 //import xpt.behaviour.Behaviour;
@@ -105,7 +106,7 @@ class Trial
 		
 	}
 	
-	public function getResults():Xml {
+	public function getResults():TrialResults {
 	
 		return ExtractResults.DO(this);
 	}

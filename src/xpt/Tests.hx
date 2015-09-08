@@ -8,6 +8,7 @@ import code.Test_CheckIsCode;
 import openfl.events.Event;
 import openfl.system.System;
 import xpt.results.Test_Results;
+import xpt.results.Test_TrialResults;
 import xpt.script.Test_ETCs;
 import xpt.script.Test_BetweenSJs;
 import xpt.script.templateHelpers.Test_templateList;
@@ -20,7 +21,6 @@ import utest.Runner;
 import utest.ui.Report;
 import utest.ui.common.HeaderDisplayMode;
 import xpt.tools.Test_XTools;
-import xpt.trial.Test_ExtractResults;
 import xpt.trial.Test_NextTrialBoss;
 import xpt.trialOrder.Test_DepthNode;
 import xpt.trialOrder.Test_DepthNodeBoss;
@@ -62,8 +62,8 @@ class Tests
 		runner.addCase(new Test_TimingBoss());
 		
 		//results related
-		runner.addCase(new Test_ExtractResults());
 		runner.addCase(new Test_Results());
+		runner.addCase(new Test_TrialResults());
 		
 		
 		//miscel

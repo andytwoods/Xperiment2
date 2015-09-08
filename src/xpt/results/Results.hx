@@ -19,11 +19,11 @@ class Results
 	{	
 	}
 	
-	public function add(results:Xml, special:Special_Trial) 
+	public function add(trialResults:TrialResults, special:Special_Trial) 
 	{
-		if (results == null) return;
+		if (trialResults == null) return;
 		
-		if(trickeToCloud)	__send_to_cloud(results, special);
+		if(trickeToCloud)	__send_to_cloud(trialResults, special);
 		/*
 		switch(special) {
 			case Special_Trial.First_Trial:
@@ -38,12 +38,12 @@ class Results
 		
 	}
 	
-	public function __send_to_cloud(results:Xml, special:Special_Trial) 
+	public function __send_to_cloud(trialResults:TrialResults, special:Special_Trial) 
 	{
 		switch(special) {
 			case Special_Trial.First_Trial:
-				__addResultsInfo(results, courseInfo);
-				__addResultsInfo(results, turkInfo);
+				__addResultsInfo(trialResults, courseInfo);
+				__addResultsInfo(trialResults, turkInfo);
 			case Special_Trial.Last_Trial:
 				//
 			default:
@@ -51,14 +51,9 @@ class Results
 		}
 	}
 	
-	public static function __addResultsInfo(results:Xml, courseInfo:Map<String, String>) 
+	public static function __addResultsInfo(trialResults:TrialResults, courseInfo:Map<String, String>) 
 	{
-		var xml:Xml;
-		for (key in courseInfo.keys()) {
-			xml = Xml.createElement(key);
-			xml.addChild(Xml.createPCData(courseInfo.get(key)));
-			results.firstChild().addChild(xml);
-		}
+			trialResults.addMultipleResults(courseInfo);
 	}
 	
 
