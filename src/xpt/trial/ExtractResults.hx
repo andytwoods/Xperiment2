@@ -18,7 +18,6 @@ class ExtractResults
 		
 		var trialResults:TrialResults = new TrialResults();
 		
-				trace(11111);
 		extract(trial, trialResults);
 
 		if (trialResults.results.keys().hasNext() == false) return null;

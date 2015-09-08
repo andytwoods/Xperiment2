@@ -11,8 +11,6 @@ class Results
 {
 
 	public static var trickeToCloud:Bool = true;
-	public static var courseInfo:Map<String,String>;
-	public static var turkInfo:Map<String,String>;
 	
 	
 	public function new() 
@@ -42,18 +40,43 @@ class Results
 	{
 		switch(special) {
 			case Special_Trial.First_Trial:
-				__addResultsInfo(trialResults, courseInfo);
-				__addResultsInfo(trialResults, turkInfo);
+				
+				//multiple
+				__addResults(trialResults, ExptWideSpecs.IS("courseInfo"));
+				__addResults(trialResults, ExptWideSpecs.IS("turkInfo"));
+				
+				//solitary
+				__addResult(trialResults, "ip");
+				__addResult(trialResults, ExptWideSpecs.IS("overSJs"));
+				
 			case Special_Trial.Last_Trial:
-				//
+				__addResults(trialResults, ExptWideSpecs.IS("exptInfo"));
 			default:
 				//
 		}
 	}
 	
-	public static function __addResultsInfo(trialResults:TrialResults, courseInfo:Map<String, String>) 
+	public static inline function __addResult(trialResults:TrialResults, what:String) {
+		var val:String =  ExptWideSpecs.IS(what);
+		if (val == "") return;
+		trialResults.addResult(what, val);
+	}
+	
+	public static inline function __addResults(trialResults:TrialResults, info:Map<String, String>) 
 	{
-			trialResults.addMultipleResults(courseInfo);
+		info = __removeEmpty(info);
+		trialResults.addMultipleResults(info);
+	}
+	
+	static public function __removeEmpty(info:Map<String, String>) 
+	{
+		var existing_info:Map<String,String> = new Map<String,String>();
+		var val:String;
+		for (key in info.keys()) {
+			val = info.get(key);
+			if (val != "") existing_info.set(key, val);
+		}
+		return existing_info;
 	}
 	
 

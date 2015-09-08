@@ -49,7 +49,7 @@ class Experiment
 		ProcessScript.DO(script);
 		
 		ExptWideSpecs.DO(script);
-		linkups_exptWideSpecs();
+
 		
 		
 		
@@ -64,13 +64,7 @@ class Experiment
 
 	
 	}
-	
-	public function linkups_exptWideSpecs() 
-	{
-		Results.courseInfo  = ExptWideSpecs.IS("courseInfo");
-		Results.turkInfo	= ExptWideSpecs.IS("turkInfo");
-	}
-	
+
 	function toolkitSetup() 
 	{
 		Toolkit.init();

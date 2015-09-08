@@ -1,5 +1,6 @@
 package xpt.results;
 
+
 /**
  * ...
  * @author 
@@ -48,6 +49,10 @@ class TrialResults
 		if(stimRes != null)	__combinedMaps(results, stimRes);
 	}
 	
+	public function addResult(what:String, val:String) {
+		__addResult(results, what, val);
+	}
+	
 	
 	static public inline function __combinedMaps(trialResults:Map<String, String>, stimResults:Map<String, String>) 
 	{
@@ -56,10 +61,14 @@ class TrialResults
 		var val:String;
 		for (prop in stimResults.keys()) {
 			val = stimResults.get(prop);
-			
-			if (trialResults.exists(prop) == true) prop = __safeProp(prop, trialResults); 
-			trialResults.set(prop, val);	
+			__addResult(trialResults, prop, val);
 		}
+	}
+	
+	static public inline function __addResult(trialResults:Map<String, String>, prop:String, val:String) 
+	{
+		if (trialResults.exists(prop) == true) prop = __safeProp(prop, trialResults); 
+		trialResults.set(prop, val);	
 	}
 		
 	static public inline function __safeProp(nam:String, results:Map<String, String>):String
@@ -74,5 +83,7 @@ class TrialResults
 		return temp_nam;
 		
 	}	
+	
+
 	
 }

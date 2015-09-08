@@ -20,7 +20,7 @@ class Test_Results
 		trialResults.results = ['a' => 'aa', 'b' => 'bb'];
 		
 		
-		Results.__addResultsInfo(trialResults, ['a' => 'aa', 'b' => 'bb']);
+		Results.__addResults(trialResults, ['a' => 'aa', 'b' => 'bb']);
 		
 		Assert.isTrue(trialResults.results.toString().length==38); //cannot guarantee order. {b => bb, b1 => bb, a => aa, a1 => aa}
 		
