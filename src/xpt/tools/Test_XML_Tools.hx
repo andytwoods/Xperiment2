@@ -283,14 +283,14 @@ public function new() { }
 	public function test_flattended_attribsToMap() {
 	
 		var myMap:Map<String,String>;
-		var xml:Xml = Xml.parse("<xml a='a' b='bb'><a>aa</a><c>cc</c></xml>");
-		
-		myMap = XML_tools.flattened_attribsToMap(xml,[]);
+		var xml:Xml = Xml.parse("<xml a='a' b='bb'><a>aa</a><c e='ee'>cc</c></xml>");
+		myMap = XML_tools.flattened_attribsToMap(xml, []);
 		Assert.isTrue(myMap.exists("a") && myMap.get("a") == "aa");
 		Assert.isTrue(myMap.exists("b") && myMap.get("b") == "bb");
 		Assert.isTrue(myMap.exists("c") && myMap.get("c") == "cc");
+		Assert.isTrue(myMap.exists("c") && myMap.get("e") == "ee");
 		
-		Assert.isTrue(XTools.iteratorToArray(myMap.keys()).length == 3);
+		Assert.isTrue(XTools.iteratorToArray(myMap.keys()).length == 4);
 		
 	}
 	
@@ -458,5 +458,7 @@ public function new() { }
 		
 	}
 	*/
+	
+	
 	
 }

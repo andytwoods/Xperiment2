@@ -135,20 +135,21 @@ class Test_TrialOrderTools
 				
 				return true; 
 			}
+			var xml:Xml = Xml.parse("<x><SETUP><A blockDepthOrder='1,2=fixed 1,2,3=fixed 1,2,4=fixed'/></SETUP></x>");
+			ExptWideSpecs.set(xml);
 			
-			ExptWideSpecs.__init();
-			ExptWideSpecs.__testSet("blockDepthOrder","1,2=fixed 1,2,3=fixed 1,2,4=fixed");
-
+			
 			Assert.isTrue(makeTrialBlocks(new MyTest(
 				null,
 				['1,2','1,2,3','1,2,4'],
 				[2,2,2],
 				[0,1,2,3,4,5]
 			)));
-
+			
 			ExptWideSpecs.__testSet("blockDepthOrder", "1,2=fixed 1,2,*=reversed");
 			
 
+			
 			Assert.isTrue(makeTrialBlocks(new MyTest(
 				['fixed','fixed','reverse'],
 				['1,2','1,2,3','1,2,4'],
@@ -185,10 +186,8 @@ class Test_TrialOrderTools
 		
 	public function test12() 
 		{
-			ExptWideSpecs.__init();
-			
-
-			
+			ExptWideSpecs.set(null);		
+	
 			
 			var result:Array<Int>;
 
@@ -227,7 +226,7 @@ class Test_TrialOrderTools
 		
 		public function test13() 
 		{
-			ExptWideSpecs.__init();
+			ExptWideSpecs.set(null);
 			
 			
 			

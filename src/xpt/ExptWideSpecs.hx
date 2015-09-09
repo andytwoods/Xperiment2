@@ -1,41 +1,65 @@
 package xpt;
 import haxe.ds.ObjectMap;
 import haxe.ds.StringMap;
+import thx.Bools;
+import thx.macro.Macros;
+import thx.Types;
+import xpt.ExptWideSpecs.GeneralInfo;
+import xpt.tools.XML_tools;
 
 												
 class ExptWideSpecs
 {
 
+	//todo:
+		//urlparams
+	
 	//below treated as constants
 	public static var trial_sep:String = ";";
 	public static var stim_sep:String = "---";
 	public static var trialName:String = "trialName";
 	
-	public static var special_courseInfo;			
-	public static var special_turkInfo;													
-	public static var special_flyingFishInfo;
-	public static var special_exptInfo;
-	public static var list_static_vars:Array<String> = __getListStatic();
+	public static var special_courseInfo:MultipleKeysMap;			
+	public static var special_turkInfo:MultipleKeysMap;													
+	public static var special_flyingFishInfo:MultipleKeysMap;
+	public static var special_exptInfo:MultipleKeysMap;
+	public static var special_urlParams:MultipleKeysMap;
+	public static var list_static_vars:Array<String> = ["special_courseInfo","special_turkInfo","special_flyingFishInfo","special_exptInfo","special_urlParams"];
 	
 	//below potentially changeable on experiment to experiment basis
 
-	static private var hack:Map<String,Dynamic>;
+	public static var __generalInfo:GeneralInfo;
 	
 	
 	public static function kill() {
 		//dont want to wipe constants.
 		for (nam in list_static_vars) {
-			Reflect.setField(ExptWideSpecs, "special_"+nam, null);
+			Reflect.setField(ExptWideSpecs, nam, null);
 		}
+		__generalInfo = null;
 	}
 	
+	public static function set(xml:Xml) {
+		__setStaticVars();
+		
+		var setup:Xml = XML_tools.findNode(xml, "SETUP").next();
+
+		__generalInfo = new GeneralInfo(setup);
+		
+		__updateStaticVars(__generalInfo.rawPropVals) ;
+		
+	}
+	
+
 	
 	public static function IS(what:String):Dynamic {
-			
-		if (hack[what] != null) return hack[what];
+		var val:Dynamic = __generalInfo.get(what);
+
+		if (val != null && val != "") return val;
 		
-		//n.b. list of static props generated automatically on compile.
-		if (list_static_vars.indexOf(what) != -1) {
+		
+		if (list_static_vars.indexOf("special_"+what) != -1) {
+
 			return Reflect.field(ExptWideSpecs, "special_"+what);
 		}
 		
@@ -43,61 +67,52 @@ class ExptWideSpecs
 	}
 	
 	static public function __testSet(what:String, to:Dynamic) {
-		hack.set(what, to);
+		__generalInfo.__testSet(what, to);
 	}
 	
-	static public function __init() 
-	{
-		hack = new Map<String,Dynamic>();
-		__setStaticVars();
-		//hack['blockDepthOrder'] = "";		
-		
-	}
 	
 	static public function __setStaticVars() 
 	{
-		special_courseInfo = new SpecialProps([	'xpt_user_id', 
-												'xpt_course_id']);			
-		special_turkInfo = new SpecialProps([	'assignment_id,assignmentId', 											 'worker_id,workerId', 
-												'hit_id,hitId']);													
-		special_flyingFishInfo = new SpecialProps(['flyingfish_id', 
-												   'flyingfish_study_id',											    'flyingfish_participant_id',											   'flyingfish_site_id']);	
-		special_exptInfo = new SpecialProps([	'overSJs', 
-												'one_key',
-												'exptId']);	
+		special_courseInfo = new MultipleKeysMap([	'xpt_user_id', 
+													'xpt_course_id']);			
+		special_turkInfo = new MultipleKeysMap([	'assignment_id,assignmentId',
+													'worker_id,workerId', 
+													'hit_id,hitId']);													
+		special_flyingFishInfo = new MultipleKeysMap(['flyingfish_id', 
+													'flyingfish_study_id',
+													'flyingfish_site_id']);	
+		special_exptInfo = new MultipleKeysMap([	'overSJs', 
+													'one_key',
+													'exptId']);	
+		special_urlParams = new MultipleKeysMap(null);											
+		
 	}
 	
-	
-	static public function __getListStatic():Array<String>
+	static private function __updateStaticVars(rawPropVals:StringMap<String>) 
 	{
-		var list:Array<String> = [];
+		var specialMap:MultipleKeysMap;
 		
-		for (field in Type.getClassFields(ExptWideSpecs)) {
-			if (field.charAt(0) != "_") {
+		for (special in list_static_vars) {
+			specialMap =  Reflect.field(ExptWideSpecs, special);
 			
-				//if a function, don't add.
-				if(Reflect.isFunction(Reflect.field(ExptWideSpecs, field)) == false)	list.push(field.split("special_").join(""));
+			if (specialMap != null) {//for testing purposes
+				specialMap.special_update(rawPropVals);
 			}
 		}
- 		return list;
 	}
-	
 
-	static public function DO(script:Xml) 
-	{
-		
-		//mturk and ff Stuff
-	}
+
 	
 }
 
-
-class SpecialProps extends ObjectMap<String, String> {
+//different platforms can call the same param slightly different names. This lets a given value be referred to my multiple names.
+class MultipleKeysMap extends ObjectMap<String, String> {
 	
 	private var alternateKeys:StringMap<String> = new StringMap<String>();
 	
 	public function new(props:Array<String>) {
 		super();	
+		if (props == null) return;
 		for (item in props) {
 			__multiset(item);
 		}
@@ -134,8 +149,8 @@ class SpecialProps extends ObjectMap<String, String> {
 		return "";
 	}
 	
-	
-	public function special_set(prop:String,val:String) {		
+	//when ignoreErr is false, we are setting up the permissable vals in this dataClass. When true, we are letting defaults be overridden when they are available.
+	public function special_set(prop:String,val:String, ignoreErr:Bool = false) {		
 
 		if (alternateKeys.exists(prop)) {
 			prop = alternateKeys.get(prop);
@@ -144,9 +159,120 @@ class SpecialProps extends ObjectMap<String, String> {
 		else if(exists(val)){
 			set(prop,val);
 		}
-		else throw "devel error";
+		else if(ignoreErr == false) throw "devel error";
 	}
 
+	public function special_update(with :StringMap<String>) {
+		if (with == null) return;
+		for (prop in with ) {
+			//trace(prop, 22);
+			special_set(prop, with.get(prop), true);
+		}
+	}
 	
+}
+
+
+class GeneralInfo  {
+
+	//generating data
+	public var mock:Bool = false; 
+	
+	public var autoCloseTimer:Int = -1;
+			
+	public var overSJs:Null<String>;
+			
+	public var ip:String = '';
+			
+	public var deviceUUID:Null<String>;
+		
+	//encryption
+	public var encryptKey:Null<String>;
+	public var one_key:Null<String>;
+	
+	public var blockDepthOrder:String = '';
+	
+	public var timeStart:String;
+			
+
+	public var saveFailMessage:String ="<font size= '20'><b>There was a problem when trying to save your results.</b></font>\n\n<font size= '20'>We hope you don't mind, but could you send the text below to EMAILADDRESS. For your convenience, this text has been copied to your clipboard.\n\n Are you a <b>Mechanical Turker</b>? Make sure to close this window when done to retrieve your code. Thanks.";
+			
+	public var saveSuccessMessage:String="<font size= '20'><b>Successfully saved your data. You can close this message-window. Thankyou.<font size= '15'>";
+	public var saveClose:String = "close when ready";
+	
+	//saving
+	
+			
+	
+	public var ITI:Int = 500;
+	
+	
+	public var rawPropVals:StringMap<String>;
+			
+	static public var listProps:Array<String> =  Type.getInstanceFields(GeneralInfo);
+			
+	public function new(params:Xml) {
+		autogenerated();
+		
+		if (params == null) { //for testing
+			return;
+		}
+		
+		var actualProp:Dynamic;
+		var val:String;
+
+		rawPropVals = XML_tools.flattened_attribsToMap(params, []);
+		//trace(rawPropVals);
+
+		for (prop in rawPropVals.keys()) {
+			
+			if (listProps.indexOf(prop) != -1){
+				val = rawPropVals.get(prop);
+				actualProp = Reflect.field(this, prop);
+
+				try{
+					switch(Types.valueTypeToString(actualProp)) {
+						case "String":	Reflect.setField(this, prop, val);
+						case "Int": 	Reflect.setField(this, prop, Std.parseInt(val));
+						case "Float":	Reflect.setField(this, prop, Std.parseFloat(val));
+						case "Bool":	Reflect.setField(this, prop, Bools.parse(val));
+						default: throw "devel err - unknown type";
+					}
+				}
+				catch (e:String) {
+					throw("Problem trying to set a value in SETUP: " + e);
+				}
+		
+			}
+			else {
+				//sometimes useful to rename a prop to an unknown
+			}
+		}	
+	}
+	
+	
+	
+	private function autogenerated() 
+	{
+		timeStart = Date.now().toString();
+	}
+	
+
+	
+
+	
+	public function get(what:String):Dynamic {
+		if (listProps.indexOf(what) != -1) return Reflect.getProperty(this,what);
+		return null;
+		//throw "devel err - known var requested";
+	}
+	
+	public function __testSet(what:String, to:Dynamic) 
+	{
+		Reflect.setField(this, what, to);
+	}
+	
+
+
 	
 }

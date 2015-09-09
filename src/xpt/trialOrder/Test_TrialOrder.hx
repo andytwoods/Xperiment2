@@ -41,7 +41,7 @@ class Test_TrialOrder
 	public function test7()
 		{
 		
-			ExptWideSpecs.__init();
+			ExptWideSpecs.set(null);
 			
 			
 			
@@ -89,7 +89,7 @@ class Test_TrialOrder
 	private function init(myScript:Xml):Experiment {
 		var expt:Experiment = new Experiment(null);
 		expt.__script=myScript;
-		ExptWideSpecs.__init();
+		ExptWideSpecs.set(myScript);
 		var trialOrder_skeletons = TrialOrder.COMPOSE(myScript);
 		
 		
@@ -208,7 +208,7 @@ class Test_TrialOrder
 			
 			var expt:Experiment = new Experiment(null);
 			BaseStimuli.setPermittedStimuli(['teststim']);
-			ExptWideSpecs.__init();
+			ExptWideSpecs.set(null);
 			//ExptWideSpecs.__testSet("blockDepthOrder","20,*=fixed 20,*,*=fixed");
 			
 			var trialOrder_skeletons:Tuple2 <	Array<Int>,	Array<TrialSkeleton> > = TrialOrder.COMPOSE(script);
@@ -274,7 +274,7 @@ class Test_TrialOrder
 			
 			var expt:Experiment = new Experiment(null);
 			BaseStimuli.setPermittedStimuli(['teststim']);
-			ExptWideSpecs.__init();
+			ExptWideSpecs.set(null);
 			ExptWideSpecs.__testSet("blockDepthOrder","");
 			var trialOrder_skeletons:Tuple2<	Array<Int>,	Array<TrialSkeleton>> = TrialOrder.COMPOSE(script);
 			expt.__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);

@@ -14,7 +14,7 @@ import xpt.trial.Trial;
 class Xpt extends Sprite 
 {
 
-	private var localExptDirectory:String = 'C:/Users/Andy/Desktop/Xpt2/experiments/';
+	private var localExptDirectory:String = 'C:/Users/Andy/Desktop/Xpt2/XptHaxe/XptHaxe/experiments/';
 	
 	public function new() 
 	{
@@ -34,7 +34,7 @@ class Xpt extends Sprite
 			Trial.testing = false;
 		#end
 		
-		var webStart:WebStart = new WebStart(dir,expt);
+		//var webStart:WebStart = new WebStart(dir,expt);
 
 
        

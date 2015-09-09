@@ -19,13 +19,28 @@ class Test_BaseStimuli
 		
 
 		var xml:Xml = Xml.parse("<bob><child1><child2child2>cccc</child2child2></child1><child2>cc</child2>bla</bob>");
-		
+
 		var baseStim:BaseStimulus = BaseStimuli._composeBaseStim("bob", xml, 1);
 		
-	
 		Assert.isTrue(baseStim.children.length == 1);
 		Assert.isTrue(baseStim.children[0].name == "child1");
 		Assert.isTrue(baseStim.name == "bob");
+		
+
+		Assert.isTrue(baseStim.props.get("child2") == "cc");
+		Assert.isTrue(baseStim.children[0].props.get("child2child2") == "cccc");		
+		
+		
+		//there was an issue with spacing around nodes.
+		xml = Xml.parse("<bob>  <child1>  <child2child2>cccc</child2child2></child1><child2>cc</child2>bla</bob>");
+
+		var baseStim:BaseStimulus = BaseStimuli._composeBaseStim("bob", xml, 1);
+		
+		Assert.isTrue(baseStim.children.length == 1);
+		Assert.isTrue(baseStim.children[0].name == "child1");
+		Assert.isTrue(baseStim.name == "bob");
+		
+
 		Assert.isTrue(baseStim.props.get("child2") == "cc");
 		Assert.isTrue(baseStim.children[0].props.get("child2child2") == "cccc");		
 	}

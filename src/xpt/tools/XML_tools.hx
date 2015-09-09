@@ -1,4 +1,6 @@
 package xpt.tools;
+import haxe.ds.StringMap;
+import thx.Maps;
 import xmlTools.E4X;
 
 /**
@@ -243,6 +245,23 @@ class XML_tools
 		return xmls = arr.iterator();
 	}
 	
+	static public function firstSimpleXML(xml:Xml) {
+		if (Xml.Element == xml.nodeType || Xml.Document == xml.nodeType) {
+			for (child in xml.iterator()) {
+				if (child != null) {
+				
+					if (child.nodeType == Xml.Element || child.nodeType == Xml.Document) {
+						return child;
+					}
+				}
+				else return xml;
+			}
+		}
+		
+		
+		return xml;
+	}
+	
 	public static inline function simpleXML(xml:Xml ) {
 		if (xml.firstChild() != null) 	return xml.firstChild();
 		else 							return xml;
@@ -389,57 +408,75 @@ class XML_tools
 		return _attribsToMap(xml);
 	}
 	
-	static private inline function _attribsToMap(xml:Xml):Map<String,String> {
+	static private function _attribsToMap(xml:Xml):Map<String,String> {
 		var myMap:Map<String,String> = new Map<String,String>();
-		for (attrib in xml.attributes()) {
-			var val = xml.get(attrib);
-				myMap.set(attrib, val);
+		
+		var attribs:Iterator<String>;
+		if(xml.nodeType == Xml.Element){
+			attribs = xml.attributes();
+			for (attrib in attribs) {
+
+				var val = xml.get(attrib);
+					myMap.set(attrib, val);
+			}
 		}
+	
 		return myMap;
 	}
 	
-	static public function flattened_attribsToMap(xml:Xml,ignore:Array<String>):Map<String,String> {
-		xml = simpleXML(xml);
-		var myMap:Map<String,String> = _attribsToMap(xml);
-		var isElement:Bool;
+	static inline public function addAttribsToMap(map:Map<String,String>,xml:Xml) {
+		for (attrib in xml.attributes()) {
+			map.set(attrib, xml.get(attrib));
+		}
+	}
+	
+	
+	static inline public function checkNode(xml:Xml):Bool {
+		return xml.nodeType == Xml.Element || xml.nodeType == Xml.Document;
+	}
+	
+	static private inline function combineStringMaps(boss:StringMap<String>, slave:StringMap<String>) {
+		if (boss == null) boss = new StringMap<String>();
+		if (slave == null) return;
 		
-		for (	child in xml.iterator()	) {
-			
-			var nam:String;
-
-			if(child.nodeType == Xml.Element){		
-				nam = nodeName(child);
-
-				if(ignore.indexOf(nam) ==-1){
-					var val:String;
-					try {
-						val = nodeValue(child);
-					}
-					catch (e:String) {
-						val = "";
-					}
-					myMap.set(nam, val);
-				}
-			}
-			
-			else if (child.nodeType == Xml.PCData) {
-				nam = child.parent.nodeName;
-				
-				if(ignore.indexOf(nam) ==-1){
-					var val:String;
-					try {
-						val = child.toString();
-					}
-					catch (e:String) {
-						val = "";
-					}
-					myMap.set(nam, val);
-				}
-			}
+		
+		for (key in slave.keys()) {
+			boss.set(key, slave.get(key));
 		}
 		
+	}
+	
+	static public function flattened_attribsToMap(xml:Xml, ignore:Array<String>, myMap:Map<String,String> = null):Map<String,String> {
+		if (xml == null) return null;
+		if (myMap == null) myMap = new StringMap<String>();
+		switch(xml.nodeType) {
+			case Xml.Element:
+				addAttribsToMap(myMap, xml);			
+				for(child in xml){
+					flattened_attribsToMap(child, ignore, myMap);
+				}
+	
+			case Xml.PCData:
+				var nam = xml.parent.nodeName;
+					
+				if(ignore.indexOf(nam) ==-1){
+					var val:String = xml.toString();
+					if(val !=null)	myMap.set(nam, val);
+				}	
+				
+			case Xml.Document:
+				combineStringMaps(myMap, 	flattened_attribsToMap(xml.firstChild(),ignore,myMap)		);
+
+			default:
+				myMap = new Map <String, String>(); 
+		}
+	
 		return myMap;
 	}
+	
+
+	
+
 	
 	static public inline function nodeName(xml:Xml):String {
 		return xml.nodeName;
@@ -530,6 +567,8 @@ class XML_tools
 			}
 		}
 	}
+	
+
 	
 
 }

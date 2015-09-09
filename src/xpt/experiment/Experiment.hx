@@ -34,7 +34,6 @@ class Experiment
 
 	public function new(script:Xml, url:String = null, params:Object = null) 
 	{
-		ExptWideSpecs.__init();
 
 		toolkitSetup();
 		
@@ -48,7 +47,7 @@ class Experiment
 		//consider remove direct class below and replace purely with Templates.compose(script);
 		ProcessScript.DO(script);
 		
-		ExptWideSpecs.DO(script);
+		ExptWideSpecs.set(script);
 
 		
 		
