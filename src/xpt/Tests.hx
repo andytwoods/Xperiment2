@@ -36,7 +36,7 @@ class Tests
 
 	public function new() 
 	{
-				
+		return;		
 		var runner = new Runner();
 		
 		//trial setup related

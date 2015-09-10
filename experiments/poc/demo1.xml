@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<experiment type="web">
+	<!-- 
+	*********************************************************************************************************	
+	META DATA
+	*********************************************************************************************************	
+	-->
+	<meta>
+		<import file="..." />
+	</meta>
+	
+	<!-- 
+	*********************************************************************************************************	
+	SETUP
+	*********************************************************************************************************	
+	-->
+	<setup>
+		
+	</setup>
+	
+	<!-- 
+	*********************************************************************************************************	
+	TRIALS
+	*********************************************************************************************************	
+	-->
+	<trial type="trial" id="trail1">
+		<label text="Some text" />
+		<button text="Some button" action="trace(1)" />
+		<image resource="some image" />
+	</trial>
+	
+	<trial template="template1" id="trail2">
+		
+	</trial>
+	
+	<trial template="template1" id="trail3">
+		<button id="myButton" text="Overridden button" />
+	</trial>
+	
+	<trial type="trial" ids="trail4,trail5" count="2">
+		<button texts="Previous Page,Next Page" actions="experiment.previousTrial,experiment.nextTrial" count="2" />
+	</trial>
+
+	<trial type="trial" id="trail6">
+		<label text="Some text" />
+		<button text="Some button" />
+		<image resource="some image" />
+	</trial>
+	
+	<!-- 
+	*********************************************************************************************************	
+	TEMPLATES
+	*********************************************************************************************************	
+	-->
+	<template1 type="trial">
+		<button id="myButton" text="Template button" />
+	</template1>
+</experiment>
