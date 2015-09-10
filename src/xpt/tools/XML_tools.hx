@@ -1,6 +1,5 @@
 package xpt.tools;
 import haxe.ds.StringMap;
-import thx.Maps;
 import xmlTools.E4X;
 
 /**
@@ -22,44 +21,11 @@ class XML_tools
 	
 	static public function findAttr(xml:Xml, attrib:String):String
 	{	
-		var str:Null<String> = simpleXML(xml).get(attrib);
-		if (str == null) str = "";
-		return str;
+		xml = simpleXML(xml);
+		if (xml.exists(attrib)) return xml.get(attrib);
+		return "";
 	}
-	
-	static public function findAttr_templates(xml:Xml, attrib:String):String
-	{		
-		try{
-			if (xml.exists(attrib)) {
-				return xml.get(attrib);	
-			}
-		}
-		catch(e:String){}
-		
-		
-		var str:Null<String> = findAttr(xml, attrib);
-		
-		if (str == "") {	
-			try {
-				str = xml.firstChild().get(attrib);
-			}
-			catch (e:String) {
-				str = "";
-			}
-		}
-		
-		if(str == null) return "";
-		return str;
-	}
-	
-	
-	static public function findParentAttr(xml:Xml, attrib:String):String
-	{	
-		var str = xml.parent.get(attrib);
-		if (str == null) str = "";
-		return str;
-	}
-	
+
 	
 	static public function find(xml:Xml, attrib:String = null, value:String = null):Iterator<Xml>
 	{	
@@ -70,80 +36,18 @@ class XML_tools
 		return null;
 	}
 	
-	static public function nodeName_lowercase(xml:Xml):String {		
-		try {
-			return simpleXML(xml).nodeName.toLowerCase(); 
-		}
-		catch (e:String) {
-			return xml.nodeName;
-		}
-		return '';
-	}
-	
+
 	static public function findNode(xml:Xml, name:String):Iterator<Xml>
 	{	
 		return E4X.x(xml.desc(name));
 	}
 	
 	static public function getChildren(xml:Xml):Iterator<Xml> {
+		xml = simpleXML(xml);
 		return E4X.x(xml.child());
 	}
 		
-	/*differing from getChildren in that in only returns the immediate children and not children of children etc*/
-	/*static public function getImmediateChildren(xml:Xml):Iterator<Xml> {
-		return xml.firstChild().iterator();
-	}*/
-	
-/*	static public function flatten(xml:Xml,recurseOn:Array<String>):Xml {
-		if (recurseOn == null) return xml;
-		var safeXML:Xml = simpleXML(xml);
-		
 
-		if (safeXML.nodeType == Xml.PCData && xml.nodeType == Xml.Element) {
-			safeXML = xml;// return xml;
-		}
-
-		for (child in safeXML.elements()) {
-			var nodeName:String = child.nodeName;
-			
-			if (recurseOn.indexOf(nodeName) != -1) {
-
-				flatten(child,recurseOn);	
-			}
-			
-			//if the parent is not a protected node name, that is, is to be an attribute of the node
-			else if(recurseOn.indexOf(nodeName) == -1) {
-				
-				if(child.attributes().hasNext() == true) {
-					throw("at this moment, not allowed attributes for nodes within eg a stimulus or trial that you want to 'move up' to the attributes.");
-				}
-				
-				if(child.elements().hasNext() == true) {
-					throw("at this moment, not allowed further children for nodes within eg a stimulus or trial that you want to 'move up' to the attributes.");
-				}
-				
-				var val:String;
-
-				if (child.firstChild() != null) {
-					val = child.firstChild().nodeValue;
-				}
-				else {
-					val = "";
-				}
-				
-				safeXML.set(nodeName, val);
-				safeXML.removeChild(child);
-
-			}
-
-			
-		}
-		
-		return xml;
-	}
-	*/
-
-	
 	
 	static public function find_inVal(xml, findArr:Array<String>):Map<String,Array<NodesWithFilteredAttribs>> {
 		
@@ -151,16 +55,6 @@ class XML_tools
 		for (findNam in findArr) {
 			map.set(findNam, new Array<NodesWithFilteredAttribs>()	);
 		}
-		
-	/*	var index:Int;
-		var find = function(attName:String, attValue:String, xml:Xml):Bool {
-			index = findArr.indexOf(attValue);
-			map.get(findArr[index]).push(xml);
-			return index != -1;
-		}*/
-		
-		//var nodes:Iterator<Xml> = E4X.x(xml._(a(function(attName:String, attValue:String, xml:Xml):Bool{return attName=="id";})));
-		//E4X.x(xml._(a(find)));
 		
 		
 		var index:Int;
@@ -221,7 +115,7 @@ class XML_tools
 	}
 	
 	static public function delAttrib(xml:Xml, name:String):Xml {
-		xml.firstChild().remove(name);
+		simpleXML(xml).remove(name);
 		return xml;	
 	}
 	
@@ -230,7 +124,6 @@ class XML_tools
 	static public function modifyAttrib(xml:Xml, name:String, newValue:String):Xml
 	{	
 		simpleXML(xml).set(name, newValue);
-		
 		return xml;
 	}
 
@@ -263,8 +156,12 @@ class XML_tools
 	}
 	
 	public static inline function simpleXML(xml:Xml ) {
-		if (xml.firstChild() != null) 	return xml.firstChild();
-		else 							return xml;
+		if(xml.nodeType != Xml.Element){
+			if(xml.nodeType == Xml.Document) xml = simpleXML(xml.firstChild());
+			else xml = null;
+			
+		}
+		return xml;
 	}
 	
 	/*
@@ -305,16 +202,8 @@ class XML_tools
 		var xml1_:Xml = simpleXML(xml1);
 		var xml2_:Xml = simpleXML(xml2);
 		//trace(xml2_, xml2_.elements().hasNext());
-		var elements:Iterator<Xml>;
+		var elements:Iterator<Xml> = xml2_.elements();
 		
-		try {
-			elements = xml2_.elements();
-		}
-		catch (e:String) {
-			xml2_ = xml2;
-			elements = xml2_.elements();
-
-		}
 		
 		for (child in elements) {
 			
@@ -326,12 +215,7 @@ class XML_tools
 				nodes_extendAttribs(bossNodes, child);
 			}
 			else {
-				try {
-					xml1_.addChild(child);
-				}
-				catch (e:String) {
-					xml1.addChild(child);
-				}
+				xml1_.addChild(child);
 			}
 		}
 
@@ -354,28 +238,17 @@ class XML_tools
 	
 	//such that xml1 paras are the protected
 	static public function extendAttribs(xml1:Xml, xml2:Xml, _override:Bool = false):Xml {		
-		var xml1_ = (xml1);
-		var xml2_ = (xml2);
+		xml1 = simpleXML(xml1);
+		xml2 = simpleXML(xml2);
 
-		var attribs:Iterator<String>;
-		
-		try {
-			attribs = xml2_.attributes();
-		}
-		catch (str:String) {
-			xml1_ = simpleXML(xml1);
-			xml2_ = simpleXML(xml2);
-			attribs = xml2_.attributes();
-		}
-	
-		for (attrib in attribs) {
+		for (attrib in xml2.attributes()) {
 			
-			if (_override == true || xml1_.exists(attrib) == false) {
-					xml1_.set(	attrib, xml2_.get(attrib).toString()	);
+			if (_override == true || xml1.exists(attrib) == false) {
+					xml1.set(	attrib, xml2.get(attrib).toString()	);
 			}
 		}	
 
-		return xml1_;		
+		return xml1;		
 	}
 	
 	static public function iteratorToMap(found1:Iterator<Xml>, param:String): Map<String, Xml>
@@ -479,7 +352,7 @@ class XML_tools
 
 	
 	static public inline function nodeName(xml:Xml):String {
-		return xml.nodeName;
+		return simpleXML(xml).nodeName;
 	}
 	
 	static public inline function nodeValue(xml:Xml):String {
@@ -527,7 +400,6 @@ class XML_tools
 		var val:String;
 		
 		for (key in map.keys()) {
-			trace(key, 22);
 			val = map.get(key);
 			for (xml in found) {	
 				xml.set(key, val);

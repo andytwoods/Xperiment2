@@ -1,5 +1,6 @@
 package;
 
+import code.Code;
 import hscript.Interp;
 import hscript.Parser;
 import openfl.display.Sprite;
@@ -30,8 +31,10 @@ class Xpt extends Sprite
 		
 		#if debug
 			Trial.testing = true;
+			Code.testing = true;
 			var tests:xpt.Tests = new xpt.Tests();
 			Trial.testing = false;
+			Code.testing = false;
 		#end
 		
 		//var webStart:WebStart = new WebStart(dir,expt);

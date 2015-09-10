@@ -265,7 +265,25 @@ class Test_TrialOrder
 
 	public function test4() {
 
-		var script:Xml = Xml.parse("<Taste exptType='WEB'><SETUP></SETUP><TRIAL TYPE='Trial'  hideResults='true' block='0' order='fixed' trials='1'><testStim test='1'/></TRIAL><TRIAL TYPE='Trial' block='3' order='fixed' trials='1'><testStim test='2---3'/></TRIAL><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='1'/><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='centre'/><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='center+1'/><TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='last'/><TRIAL block='20,4,1' template='templateLineScale' trialName='A;B;C;D;E;F;G;H;I'><testStim copyOverID='taste' text1='A;B;C;D;E;F;G;H;I'/></TRIAL><TRIAL block='20,4,2' template='templatePackage' trialName='Csour'><testStim copyOverID='taste' text1='991'/></TRIAL><TRIAL block='20,4,3' template='templateJam' trialName='Jsour'><testStim copyOverID='taste' text1='991' /></TRIAL><TRIAL block='20,4,4' template='templateLiking' trialName='Liking_sour'><testStim copyOverID='taste' text1='991' /></TRIAL><TRIAL block='20,5,1' template='templateLineScale' trialName='m;n;o;p;q;r;s;t'><testStim copyOverID='taste' text1='m;n;o;p;q;r;s;t'/></TRIAL><TRIAL block='20,5,2' template='templatePackage' trialName='Csweet'><testStim copyOverID='taste' text1='523'/></TRIAL><TRIAL block='20,5,3' template='templateJam' trialName='Jsweet'><testStim copyOverID='taste' text1='524' /></TRIAL><TRIAL block='20,5,4' template='templateLiking' trialName='Liking_sweet'><testStim copyOverID='taste' text1='525' /></TRIAL><templatePause  order='fixed' trials='1'></templatePause><templateLiking order='fixed' trials='1'><testStim copyOverID='taste' test='l1' /> </templateLiking><templateLineScale order='fixed' trials='8'><testStim copyOverID='taste' test='a;b;c;d;e;f;g;h' /> </templateLineScale>  <templatePackage order='random' trials='1'><testStim copyOverID='taste' test='p1' /> </templatePackage>  <templateJam order='fixed' trials='1'>	<testStim copyOverID='taste' test='jam' /> </templateJam>  	<TRIAL TYPE='Trial' hideResults='true' block='100' order='fixed' trials='1' test='l1'><testStim test='3'/></TRIAL></Taste>");
+		var script:Xml = Xml.parse("<Taste exptType='WEB'><SETUP></SETUP>" +
+		"<TRIAL TYPE='Trial'  hideResults='true' block='0' order='fixed' trials='1'><testStim test='1'/></TRIAL><TRIAL TYPE='Trial' block='3' order='fixed' trials='1'><testStim test='2---3'/></TRIAL>" +
+		"<TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='1'/>" +
+		"<TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='centre'/>" +
+		"<TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='center+1'/>" +
+		"<TRIAL template='templatePause' TYPE='Trial' block='20,2' order='fixed' forceBlockDepthPositions='last'/>" +
+		"<TRIAL block='20,4,1' template='templateLineScale' trialName='A;B;C;D;E;F;G;H;I'><testStim copyOverID='taste' text1='A;B;C;D;E;F;G;H;I'/></TRIAL>" +
+		"<TRIAL block='20,4,2' template='templatePackage' trialName='Csour'><testStim copyOverID='taste' text1='991'/></TRIAL>" +
+		"<TRIAL block='20,4,3' template='templateJam' trialName='Jsour'><testStim copyOverID='taste' text1='991' /></TRIAL>" +
+		"<TRIAL block='20,4,4' template='templateLiking' trialName='Liking_sour'><testStim copyOverID='taste' text1='991' /></TRIAL>" +
+		"<TRIAL block='20,5,1' template='templateLineScale' trialName='m;n;o;p;q;r;s;t'><testStim copyOverID='taste' text1='m;n;o;p;q;r;s;t'/></TRIAL>" +
+		"<TRIAL block='20,5,2' template='templatePackage' trialName='Csweet'><testStim copyOverID='taste' text1='523'/></TRIAL><TRIAL block='20,5,3' template='templateJam' trialName='Jsweet'><testStim copyOverID='taste' text1='524' /></TRIAL>" +
+		"<TRIAL block='20,5,4' template='templateLiking' trialName='Liking_sweet'><testStim copyOverID='taste' text1='525' /></TRIAL>" +
+		"<templatePause  order='fixed' trials='1'></templatePause>" +
+		"<templateLiking order='fixed' trials='1'><testStim copyOverID='taste' test='l1' /> </templateLiking>" +
+		"<templateLineScale order='fixed' trials='8'><testStim copyOverID='taste' test='a;b;c;d;e;f;g;h' /> </templateLineScale>" +
+		" <templatePackage order='random' trials='1'><testStim copyOverID='taste' test='p1' /> </templatePackage>" +
+		"<templateJam order='fixed' trials='1'>	<testStim copyOverID='taste' test='jam' /> </templateJam>  	" +
+		"<TRIAL TYPE='Trial' hideResults='true' block='100' order='fixed' trials='1' test='l1'><testStim test='3'/></TRIAL></Taste>");
 			
 			//script = BetweenSJs.compose(script);
 			//trace(script);
@@ -323,7 +341,24 @@ class Test_TrialOrder
 				
 	
 			Assert.isTrue(testTrialNames.toString() == ",,,A,B,C,D,E,F,G,H,Csour,Jsour,Liking_sour,,m,,n,o,p,q,r,s,t,Csweet,Jsweet,Liking_sweet,,");
-			Assert.isTrue(testProps.toString() == "1,2,pause,A,B,C,D,E,F,G,H,991,jam,991,pause,m,pause,n,o,p,q,r,s,t,523,524,525,pause,3");
+			
+			Assert.isTrue(testProps.toString() == "1,2,pause,A,B,C,D,E,F,G,H,991,991,991,pause,m,pause,n,o,p,q,r,s,t,523,524,525,pause,3");
+			
 			Assert.isTrue(testProps.length == 29);
+			
+			var nam:String;
+			var prop:String;
+
+			var checkArr:Array<String> = "1,2,3,pause".split(",");
+			for (i in 0...testTrialNames.length) {
+				nam = testTrialNames[i];
+				if (nam == "") {
+					prop = testProps[i];
+					
+					Assert.isTrue(checkArr.indexOf(prop) != -1);
+					
+				}
+				
+			}
 	}
 }

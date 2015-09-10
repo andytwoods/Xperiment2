@@ -102,13 +102,6 @@ class Test_Templates
 	}
 	
 	
-	public function test_CarlosScript() {
-		var xml:Xml = Xml.parse("<Taste exptType='WEB'><TRIAL block='20,4,1' template='templateLineScale' trialName='A_sour;B_sour;C_sour;D_sour;E_sour;F_sour;G_sour;H_sour' order='fixed'><testStim copyOverID='taste' text1='991'/></TRIAL><templateLineScale order='random' trials='8'><testStim copyOverID='taste' test='a;b;c;d;e;f;g;h' /> </templateLineScale> </Taste>");		
-	
-	Templates.compose(xml);
 
-
-	Assert.isTrue(xml.toString() == "<Taste exptType=\"WEB\"><TRIAL block=\"20,4,1\" template=\"templateLineScale\" trialName=\"A_sour;B_sour;C_sour;D_sour;E_sour;F_sour;G_sour;H_sour\" order=\"random\" trials=\"8\"><testStim copyOverID=\"taste\" text1=\"991\"/></TRIAL><templateLineScale order=\"random\" trials=\"8\"><testStim copyOverID=\"taste\" test=\"a;b;c;d;e;f;g;h\"/> </templateLineScale> </Taste>");
-	}
 	
 }

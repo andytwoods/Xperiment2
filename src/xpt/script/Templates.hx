@@ -48,7 +48,7 @@ class Templates
 	
 	static private inline function checkRequired(script:Xml) 
 	{
-		return betweenSJ_nodeName == XML_tools.nodeName_lowercase(script);
+		return betweenSJ_nodeName == XML_tools.nodeName(script).toLowerCase();
 	}
 	
 	static public function __applyTemplates(require:RequireTemplating, templateMap:Map<String, RequireTemplating>,copyOverTag:String) 

@@ -13,14 +13,14 @@ class RequireTemplating {
 	
 	static public inline function make(xml:Xml):RequireTemplating
 	{
-		var requiredTemplatesStr:Null<String> = XML_tools.findAttr_templates(xml, Templates.Trial_TemplateId);
+		var requiredTemplatesStr:Null<String> = XML_tools.findAttr(xml, Templates.Trial_TemplateId);
 		//trace(requiredTemplatesStr, 222, xml);
 		
 		if (requiredTemplatesStr == '') return null;
 		
 		var instance = new RequireTemplating();
 		//instance.templates.reverse();
-		instance.name = XML_tools.nodeName_lowercase(xml);
+		instance.name = XML_tools.nodeName(xml).toLowerCase();
 		instance.xml = xml;
 		instance.templates = requiredTemplatesStr.split(",");
 		

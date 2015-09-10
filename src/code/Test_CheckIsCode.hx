@@ -24,14 +24,15 @@ class Test_CheckIsCode
 		xml = Xml.parse("<bla/>");
 		Assert.isTrue(Code.DO(xml,Checks.BeforeEverything) == null);
 		
-		xml = Xml.parse("<code/><bla/>");
+		xml = Xml.parse("<code>myCode</code><bla/>");
+
 		Assert.isTrue(Code.DO(xml, Checks.BeforeEverything) != null);
-		
 		Assert.isTrue(CheckIsCode.DO(xml, Checks.BeforeFirstTrial) == null);
 		Assert.isTrue(CheckIsCode.DO(Xml.parse("<bla/>"), Checks.BeforeFirstTrial) == null);
-		Assert.isTrue(CheckIsCode.DO(Xml.parse("<bla/><code/>"), Checks.BeforeFirstTrial) == null);
-		Assert.isTrue(CheckIsCode.DO(Xml.parse("<bla><code/></bla>"), Checks.BeforeFirstTrial) == null);
-		Assert.isTrue(CheckIsCode.DO(Xml.parse("<bla><setup/><code/></bla>"), Checks.BeforeFirstTrial) != null );
-		Assert.isTrue(CheckIsCode.DO(Xml.parse("<bla><mustBeSetup/><code/></bla>"), Checks.BeforeFirstTrial) == null);
+		Assert.isTrue(CheckIsCode.DO(Xml.parse("<bla/><code>myCode</code>"), Checks.BeforeFirstTrial) == null);
+		Assert.isTrue(CheckIsCode.DO(Xml.parse("<bla><code>myCode</code></bla>"), Checks.BeforeFirstTrial) == null);
+		Assert.isTrue(CheckIsCode.DO(Xml.parse("<bla><setup/><code>myCode</code></bla>"), Checks.BeforeFirstTrial) != null );
+		Assert.isTrue(CheckIsCode.DO(Xml.parse("<bla><mustBeSetup/><code>myCode</code></bla>"), Checks.BeforeFirstTrial) == null);
+
 	}
 }

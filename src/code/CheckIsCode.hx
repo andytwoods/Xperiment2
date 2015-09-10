@@ -14,16 +14,15 @@ enum Checks  {
 class CheckIsCode
 {
 
-	public static function DO(xml:Xml, check:Checks):Xml {
+	public static function DO(xml:Xml, check:Checks):String {
 		
 		if (xml == null) return null;
-		var code:Xml;
+		var code:Xml = xml;
 		
 		
 		switch check {
 			
 			case BeforeEverything | BeforeExperiment:
-				code = xml.firstChild();
 				if (checkIsCode(code) == false) return null;
 				
 			case BeforeFirstTrial:
@@ -41,22 +40,26 @@ class CheckIsCode
 			
 		}
 
+		if (code != null) return code.toString();
 		
-		return code;
+		return null;
 	}
 	
 	static public function afterExperimentSetup(xml:Xml):Xml
 	{
 		var i:Int = 0;
 		var firstIsSetup:Bool = false;
-		for (node in XML_tools.getChildren(xml)){
-			if (i == 1) {
-				if (checkIsCode(node) == true && firstIsSetup) return node;
+		for (node in XML_tools.getChildren(xml)) {
+			
+			if(node.nodeType != Xml.PCData){
+				if (i == 1) {
+					if (checkIsCode(node) == true && firstIsSetup) return node;
+				}
+				if ( i == 0) {
+					if (XML_tools.nodeName(node).toLowerCase() == "setup") firstIsSetup = true;
+				}
+				i++;
 			}
-			if ( i == 0) {
-				if (node.nodeName.toLowerCase() == "setup") firstIsSetup = true;
-			}
-			i++;
 		}
 		return null;
 	}
@@ -65,7 +68,7 @@ class CheckIsCode
 	
 	
 	public static inline function checkIsCode(xml:Xml):Bool {
-		if (xml.nodeName.toLowerCase() != "code") return false;
+		if (XML_tools.nodeName(xml).toLowerCase() != "code") return false;
 		else return true;
 	}
 	

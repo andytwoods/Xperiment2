@@ -105,7 +105,7 @@ class BetweenSJs
 
 	
 	static inline public function continueCheck(script:Xml):Bool {
-		return betweenSJ_nodeName == XML_tools.nodeName_lowercase(script);
+		return betweenSJ_nodeName == XML_tools.nodeName(script).toLowerCase();
 	}
 	
 	

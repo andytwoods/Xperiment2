@@ -19,6 +19,7 @@ class Runner
 	
 	public var script:Xml;
 	public var currentExpt:Experiment;
+
 	
 	public function new() 
 	{
@@ -41,7 +42,7 @@ class Runner
 	
 	function initiateOverExperimentStuff() 
 	{
-		Code.init();
+	
 	}
 	
 
