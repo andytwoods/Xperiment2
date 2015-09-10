@@ -56,6 +56,8 @@ class Xpt extends Sprite
 					trace(trial.id);
 					trace(trial.type);
 				}
+				
+				trace(e.toString());
 			}
 			else {
 				trace("COULD NOT LOAD XML");

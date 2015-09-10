@@ -29,12 +29,12 @@
 		<image resource="some image" />
 	</trial>
 	
-	<trial template="template1" id="trail2">
+	<trial templates="template1" id="trail2">
 		
 	</trial>
 	
-	<trial template="template1" id="trail3">
-		<button id="myButton" text="Overridden button" />
+	<trial templates="template1,template2,template3" id="trail3">
+		<button id="template1_button" text="Overridden button" />
 	</trial>
 	
 	<trial type="trial" ids="trail4,trail5" count="2">
@@ -53,6 +53,14 @@
 	*********************************************************************************************************	
 	-->
 	<template1 type="trial">
-		<button id="myButton" text="Template button" />
+		<button id="template1_button" text="Template 1 button" />
 	</template1>
+	
+	<template2 type="trial">
+		<button id="template2_button" text="Template 2 button" />
+	</template2>
+	
+	<template3 type="trial">
+		<button id="template3_button" text="Template 3 button" />
+	</template3>
 </experiment>

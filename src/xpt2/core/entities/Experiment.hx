@@ -1,4 +1,5 @@
 package xpt2.core.entities;
+import xpt2.core.utils.ObjectUtils;
 
 class Experiment {
 	public var meta:ExperimentMetadata;
@@ -13,13 +14,25 @@ class Experiment {
 	
 	private function applyTemplates() {
 		for (trial in trials) {
-			if (trial.template != null) {
-				var t:TrialTemplate = templates.get(trial.template);
-				if (t != null) {
-					if (trial.id == null && t.id != null)		trial.id = t.id;
-					if (trial.type == null && t.type != null)	trial.type = t.type;
-				} else {
-					trace("WARNING! could not find template: " + trial.template);
+			if (trial.templates != null) {
+				var templateArray:Array<String> = trial.templates.split(",");
+				for (template in templateArray) {
+					template = StringTools.trim(template);
+					var t:TrialTemplate = templates.get(template);
+					if (t != null) {
+						ObjectUtils.copyProperties(t, trial, ["templates", "stimuli"]);
+						
+						for (s in t.stimuli) {
+							var currentStimulas = trial.findStimulasById(s.id);
+							if (currentStimulas == null) {
+								trial.stimuli.push(s.clone());
+							} else {
+								ObjectUtils.copyProperties(s, currentStimulas, ["children"]);
+							}
+						}
+					} else {
+						trace("WARNING! could not find template: " + template);
+					}
 				}
 			}
 		}
@@ -33,6 +46,18 @@ class Experiment {
 		if (trials.length == 0) {
 			throw "No trials in experiment!";
 		}
+	}
+	
+	public function toString():String {
+		var s:String = "";
+		s += "meta: \n";
+		s += "setup: \n";
+		s += "trails: \n";
+		for (t in trials) {
+			s += t.toString();
+		}
+		s += "templates: \n";
+		return s;
 	}
 	
 	public static function fromXML(xml:Xml):Experiment {
