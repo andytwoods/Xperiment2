@@ -15,7 +15,7 @@ class XMLUtils {
 				continue;
 			}
 			var arr:Array<String> = xml.get(attr).split(",");
-			var value:String = arr[0];
+			var value:String = arr[arr.length - 1];
 			if (index < arr.length) {
 				value = arr[index];
 			}

@@ -2,6 +2,9 @@ package xpt.experiment;
 import code.CheckIsCode.Checks;
 import code.Code;
 import haxe.ui.toolkit.core.Toolkit;
+import haxe.ui.toolkit.themes.DefaultTheme;
+import haxe.ui.toolkit.themes.GradientTheme;
+import haxe.ui.toolkit.themes.WindowsTheme;
 import openfl.display.Stage;
 import openfl.events.Event;
 import openfl.Lib;
@@ -66,12 +69,17 @@ class Experiment
 
 	function toolkitSetup() 
 	{
+		//Toolkit.theme = new DefaultTheme();
+		Toolkit.theme = new GradientTheme();
+		//Toolkit.theme = new WindowsTheme();
 		Toolkit.init();
+		var root = Toolkit.openFullscreen();
 	}
 	
 	function linkups() 
 	{
-		var permittedStimuli:Array<String> = ['set later'];
+//		var permittedStimuli:Array<String> = ['set later'];
+		var permittedStimuli:Array<String> = ['addbutton', "addtext", "addloadingindicator"];
 
 		BaseStimuli.setPermittedStimuli(permittedStimuli);
 		

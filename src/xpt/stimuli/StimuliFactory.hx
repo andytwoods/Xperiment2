@@ -81,7 +81,13 @@ class StimuliFactory
 	static private function getStim(type:String):Stimulus {
 		switch(type.toLowerCase()) {
 			case 'button':
-				return new Stim_button();
+				return new Stim_Button();
+			case 'addbutton':
+				return new Stim_Button();
+			case 'addtext':
+				return new Stim_Text();
+			case 'addloadingindicator':
+				return new Stim_LoadingIndicator();
 			
 			
 			

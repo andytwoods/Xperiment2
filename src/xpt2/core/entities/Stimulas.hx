@@ -44,7 +44,7 @@ class Stimulas implements IClonable<Stimulas> {
 	
 	public static function fromXML(xml:Xml, index:Int = 0):Stimulas {
 		var s:Stimulas = StimulasFactory.createStimulas(xml.nodeName);
-		XMLUtils.applyXMLProperties(s, xml, index);
+		XMLUtils.applyXMLProperties(s, xml, index, ["count"]);
 		return s;
 	}
 	

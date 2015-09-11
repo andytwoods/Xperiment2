@@ -45,6 +45,34 @@ class Stimulus extends Sprite
 		return __properties.get(what);
 	}
 	
+	public function getInt(what:String, defaultValue:Int = -1):Int {
+		var i = defaultValue;
+		var v = get(what);
+		if (v != null) {
+			i = Std.parseInt(v);
+		}
+		return i;
+	}
+	
+	public function getPercent(what:String, defaultValue:Int = -1):Int {
+		var i = defaultValue;
+		var v = get(what);
+		if (v != null && StringTools.endsWith(v, "%") == true) {
+			var s:String = cast v;
+			i = Std.parseInt(s.substr(0, s.length - 1));
+		}
+		return i;
+	}
+	
+	public function getBool(what:String, defaultValue:Bool = false):Bool {
+		var b = defaultValue;
+		var v = get(what);
+		if (v != null) {
+			b = (v == "true");
+		}
+		return b;
+	}
+	
 	public function set(what:String, val:Dynamic) {
 		switch(what.toLowerCase()) {
 			case 'start':

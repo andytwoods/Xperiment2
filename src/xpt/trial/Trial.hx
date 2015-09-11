@@ -1,12 +1,15 @@
 package xpt.trial;
 import haxe.ui.toolkit.controls.Button;
+import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.Root;
+import haxe.ui.toolkit.core.RootManager;
 import haxe.ui.toolkit.core.Toolkit;
 import haxe.ui.toolkit.events.UIEvent;
 import openfl.display.Sprite;
 import openfl.display.Stage;
 import openfl.Lib;
 import xpt.results.TrialResults;
+import xpt.stimuli.all.HaxeUIStimulus;
 import xpt.stimuli.Stimulus;
 import xpt.timing.TimingBoss;
 //import xpt.behaviour.Behaviour;
@@ -86,8 +89,18 @@ class Trial
 			timingBoss.start(true);
 		}
 		
+		// TODO: to defeat duplication of stimuli bug
+		var copy:Array<Stimulus> = new Array<Stimulus>();
+		for (s in stimuli) {
+			if (copy.indexOf(s) == -1) {
+				copy.push(s);
+			}
+		}
 		
-		var root = Toolkit.openFullscreen();
+		var root = RootManager.instance.currentRoot;
+		root.removeAllChildren();
+		
+		/*
 		var button:Button = new Button();
             button.text = "Click Me!";
             button.x = 100;
@@ -97,7 +110,19 @@ class Trial
 				
             });
             root.addChild(button);
+		*/
 			
+		for (s in copy) {
+			if (Std.is(s, HaxeUIStimulus)) {
+				var c:Component = cast(s, HaxeUIStimulus).buildComponent();
+				if (c != null) {
+					root.addChild(c);
+				} else {
+					trace("WARNING! Stimulus '" + Type.getClassName(Type.getClass(s)) + "' did not create a valid HaxeUI component");
+				}
+			}
+		}
+		
 		//var fps_mem = new FPS_mem();
 		
 		

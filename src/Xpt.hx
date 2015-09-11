@@ -26,7 +26,6 @@ class Xpt extends Sprite
 
 		super();
 			
-		/*
 		ErrorMessage.setup(stage);
 		
 		
@@ -42,27 +41,20 @@ class Xpt extends Sprite
 		#end
 		
 		var webStart:WebStart = new WebStart(dir,expt);
-		*/
-		
-		//var loader:Loader = new FileLoader("Z:/GitHub/Xperiment2/experiments/poc/demo1.xml");
-       
+
+		/*
 		var loader:FileLoader = new FileLoader();
 		loader.loadText("Z:/GitHub/Xperiment2/experiments/poc/demo1.xml", function(f:FileInfo) {
 			if (f.status == LoaderStatus.LOADED) {  // check for errors
 				var xml:Xml = Xml.parse(cast(f.data, String));
 				var e:Experiment = Experiment.fromXML(xml);
-				trace(e.trials.length);
-				for (trial in e.trials) {
-					trace(trial.id);
-					trace(trial.type);
-				}
-				
 				trace(e.toString());
 			}
 			else {
 				trace("COULD NOT LOAD XML");
 			}
 		});
+		*/
 		
 		//below now in Tests.hx
 		//System.exit(0);
