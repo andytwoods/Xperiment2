@@ -88,6 +88,12 @@ class StimuliFactory
 				return new Stim_Text();
 			case 'addloadingindicator':
 				return new Stim_LoadingIndicator();
+			case 'addmultiplechoice':
+				return new Stim_MultipleChoice();
+			case 'addcombobox':
+				return new Stim_ComboBox();
+			case 'addinput':
+				return new Stim_Input();
 			
 			
 			

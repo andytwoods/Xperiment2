@@ -31,6 +31,8 @@ class HaxeUIStimulus extends Stimulus {
 		}
 		if (getInt("fontSize") != -1) {
 			c.style.fontSize = getInt("fontSize");
+		} else {
+			c.style.fontSize = 20;
 		}
 		
 		if (get("align") != null) {

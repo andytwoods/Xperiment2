@@ -64,8 +64,8 @@ By clicking ‘I consent’, you are agreeing to the above statements."
 	text = "some questions"
 	timeStart="0"  width="80%" timeEnd="forever" fontSize="20"></addText> 
 	
-	<addText howMany="2" width="60" height="10%" x="20%" y="23%---40%" 
-	text="sex---age"
+	<addText howMany="2" width="60" height="10%" x="10%" y="23%;40%" 
+	text="sex;age"
 	timeStart="0"  timeEnd="forever" autoSize="false" align="right" fontSize="20"/> 
 
  	<addMultipleChoice peg="sex" distanceApart="5" width="25%" height="10%" horizontalDistanceApart="210" 
