@@ -2,6 +2,7 @@ package xpt.experiment;
 import code.CheckIsCode.Checks;
 import code.Code;
 import haxe.ui.toolkit.core.Toolkit;
+import haxe.ui.toolkit.hscript.ScriptInterp;
 import haxe.ui.toolkit.themes.DefaultTheme;
 import haxe.ui.toolkit.themes.GradientTheme;
 import haxe.ui.toolkit.themes.WindowsTheme;
@@ -34,6 +35,7 @@ class Experiment
 	public var __runningTrial:Trial;
 	public var __results:Results = new Results();
 	
+	public static var scriptEngine:ScriptInterp = new ScriptInterp(); // TODO: probably shouldnt be static and passed to trails
 
 	public function new(script:Xml, url:String = null, params:Object = null) 
 	{
@@ -52,7 +54,7 @@ class Experiment
 		
 		ExptWideSpecs.set(script);
 
-		
+		scriptEngine.variables.set("Experiment", this);
 		
 		
 		//TrialOrder.DO(script);
@@ -79,7 +81,9 @@ class Experiment
 	function linkups() 
 	{
 //		var permittedStimuli:Array<String> = ['set later'];
-		var permittedStimuli:Array<String> = ['addbutton', "addtext", "addloadingindicator"];
+		var permittedStimuli:Array<String> = ["addbutton",
+										      "addtext",
+											  "addloadingindicator"];
 
 		BaseStimuli.setPermittedStimuli(permittedStimuli);
 		
@@ -100,6 +104,10 @@ class Experiment
 	}
 	
 
+	public function nextTrial() {
+		__startTrial();
+	}
+	
 	
 	public function __startTrial() {
 		

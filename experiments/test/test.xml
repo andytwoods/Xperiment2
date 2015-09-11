@@ -26,7 +26,7 @@
 	 <addText  drawBox="true" autoSize="false" align="centre" wordWrap="true"  width="85%" height="20%" x="50%" y="10%" vertical="top" text=
 			"{b}Volume Judgement Experiment.{/b}"timeStart="0"  timeEnd="forever" fontSize="50"/>
 	
-	<addButton width="140" key=" " timeStart="0"  enabled="false" height="40" peg="next" text="Continue"   x="75%" vertical="top" y="87%"/>
+	<addButton width="140" action="Experiment.nextTrial();" key=" " timeStart="0"  enabled="false" height="40" peg="next" text="Continue"   x="75%" vertical="top" y="87%"/>
 	
 	<addLoadingIndicator behaviours='onFinish:next.enabled=true' width="50%" height="40" x="10%" y="87%" />
 
@@ -43,7 +43,7 @@
 
 <TRIAL TYPE="Trial" trialName="ethics1;ethics2" hideResults="true" block="1" order="fixed" trials="2">
 	
-	 <addText drawBox="true" autoSize="false" align="left" selectable="false" wordWrap="true"  width="85%" height="90%" x="50%" y="10%" verticalAlign="top" vertical="top" 
+	 <addText drawBox="true" autoSize="false" align="left" selectable="false" wordWrap="true"  width="85%" height="90%" x="10%" y="10%" verticalAlign="top" vertical="top" 
 	 text=
 "Before we begin, please read the following: 
 This is an experiment concerned with perceived volume judgements of liquids.
