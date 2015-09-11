@@ -25,6 +25,14 @@ class Stim_Button extends HaxeUIStimulus {
 		if (_action == null) { // TODO: defaults to next trial
 			_action = "Experiment.nextTrial();";
 		}
+		
+		if (get("icon") != null) {
+			_button.icon = get("icon");
+		}
+		
+		if (get("iconPosition") != null) {
+			_button.iconPosition = get("iconPosition");
+		}
 	}
 	
 	public override function buildComponent():Component {

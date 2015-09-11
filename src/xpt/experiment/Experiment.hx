@@ -56,6 +56,8 @@ class Experiment
 		ExptWideSpecs.set(script);
 
 		scriptEngine.variables.set("Experiment", this);
+		scriptEngine.variables.set("E", this);
+		scriptEngine.variables.set("Expr", this);
 		
 		
 		//TrialOrder.DO(script);
@@ -75,6 +77,7 @@ class Experiment
 		//Toolkit.theme = new DefaultTheme();
 		Toolkit.theme = new GradientTheme();
 		//Toolkit.theme = new WindowsTheme();
+		Toolkit.addStyleSheet("css/main.css");
 		Toolkit.init();
 		var root = Toolkit.openFullscreen();
 	}
@@ -87,7 +90,8 @@ class Experiment
 											  "addloadingindicator",
 											  "addmultiplechoice",
 											  "addcombobox",
-											  "addinput"];
+											  "addinput",
+											  "addmultinumberselector"];
 
 		BaseStimuli.setPermittedStimuli(permittedStimuli);
 		

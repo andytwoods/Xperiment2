@@ -41,6 +41,11 @@ class HaxeUIStimulus extends Stimulus {
 					c.x = (r.width / 2) - (c.width / 2);
 			}
 		}
+		
+		if (getBool("drawBox") == true) {
+			c.style.borderSize = 1;
+			c.style.borderColor = 0x000000;
+		}
 	}
 	
 	private function getUnit(propName:String, dimension:Float):Float {

@@ -9,6 +9,35 @@
 	  <variables practice='0' />
 </SETUP>
 
+	
+	
+<TRIAL TYPE="Trial" block="-3" order="fixed" trials="1">
+
+	<addText x="10%" y="10%" height="20%" text="Some questions:" timeStart="0"  width="80%" timeEnd="forever" fontSize="20"></addText> 
+	
+	<addText drawBox="false" width="60" height="10%" x="15%" y="22%" text="Sex"	timeStart="0"  timeEnd="forever" autoSize="false" align="right" fontSize="20"/> 
+ 	<addMultipleChoice drawBox="false" peg="sex" distanceApart="5" width="25%" height="10%" horizontalDistanceApart="210" icons="img/user-nude.png,img/user-nude-female.png" labels="Male,Female" x="25%" y="20%" timeStart="0"  timeEnd="forever" /> 	
+	
+	<addText drawBox="false" width="60" height="10%" x="15%" y="34%" text="Age"	timeStart="0"  timeEnd="forever" autoSize="false" align="right" fontSize="20"/> 
+	<addMultiNumberSelector drawBox="false" peg="age" width="25%" height="20%" startingVal="00"  x="25%" y="34%" timeStart="0" timeEnd="forever" />
+
+	<addComboBox peg="origin" 
+	label="Where do you come from?"
+	timeStart="0" width="70%" __height="7%" vertical="top" timeEnd="forever" x="15%" y="60%"/>
+	
+	<addInput x="15%" text="what is your native language?" timeStart="0" peg="language" height="8%" y="73%" width="70%"/>
+
+	<behavNextTrial peg='nextTrial'/>
+	
+	<addButton timeStart='0' hideResults="true" width="240" goto='' height="50" peg='next' 
+	text="Next"
+	if="this.click?this.text='please answer the questions',this.click&&language.result!=''&&origin.result!=''&&age.result!=''?nextTrial.start()"  
+	timeEnd="forever" x="63%" vertical="top" y="85%" icon="img/document-page-next.png" iconPosition="right" />
+	
+
+</TRIAL>
+	
+	
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
 
@@ -56,7 +85,7 @@ By clicking ‘I consent’, you are agreeing to the above statements."
 </TRIAL>
 
 
-<TRIAL TYPE="Trial" block="-3" order="fixed" trials="1">
+<TRIAL TYPE="Trial" block="3" order="fixed" trials="1">
 
 	<addUrlVariable  _ip="notGiven" />
 
@@ -78,12 +107,12 @@ By clicking ‘I consent’, you are agreeing to the above statements."
 	label="where do you come from?"
 	timeStart="0" width="70%" height="7%" vertical="top" timeEnd="forever" x="10%" y="58%"/>
 	
-	<addInput x="10%" text="what is your native language? Please type your answer into this box." timeStart="0" peg="language" height="7%" y="76%" width="70%"/>
+	<addInput x="10%" text="what is your native language? Please type your answer into this box." timeStart="0" peg="language" __height="7%" y="76%" width="70%"/>
 
 	<behavNextTrial peg='nextTrial'/>
 	
-	<addButton timeStart='0' hideResults="true" width="340" goto='' height="40" peg='next' 
-	text="next"
+	<addButton timeStart='0' hideResults="true" width="340" goto='' height111="40" peg='next' 
+	text="Next"
 	if="this.click?this.text='please answer the questions',this.click&&language.result!=''&&origin.result!=''&&age.result!=''?nextTrial.start()"  
 	timeEnd="forever" x="50%" vertical="top" y="90%"/>
 	

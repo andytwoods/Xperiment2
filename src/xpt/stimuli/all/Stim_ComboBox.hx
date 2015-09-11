@@ -14,6 +14,11 @@ class Stim_ComboBox extends HaxeUIStimulus {
 	public override function applyProps(c:Component):Void {
 		super.applyProps(c);
 		_dropDownList.text = get("label");
+		
+		if (get("peg") == "origin") {
+			_dropDownList.dataSource.add( { text: "United Kingdom" } );
+			_dropDownList.dataSource.add( { text: "United States" } );
+		}
 	}
 	
 	public override function buildComponent():Component {

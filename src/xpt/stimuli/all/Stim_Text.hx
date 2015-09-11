@@ -12,15 +12,12 @@ class Stim_Text extends HaxeUIStimulus {
 	
 	public override function applyProps(c:Component):Void {
 		super.applyProps(c);
-		if (getBool("drawBox") == true) {
-			c.style.borderSize = 1;
-			c.style.borderColor = 0x000000;
-		}
 	}
 	
 	public override function buildComponent():Component {
 		dispose(_text);
 		_text = new Text();
+		_text.verticalAlign = "center";
 		applyProps(_text);
 		return _text;
 	}

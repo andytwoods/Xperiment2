@@ -1,5 +1,12 @@
 package xpt.stimuli;
-import xpt.stimuli.all.*;
+
+import xpt.stimuli.all.Stim_Button;
+import xpt.stimuli.all.Stim_ComboBox;
+import xpt.stimuli.all.Stim_Input;
+import xpt.stimuli.all.Stim_LoadingIndicator;
+import xpt.stimuli.all.Stim_MultiNumberSelector;
+import xpt.stimuli.all.Stim_MultipleChoice;
+import xpt.stimuli.all.Stim_Text;
 import xpt.stimuli.BaseStimuli.BaseStimulus;
 import xpt.tools.XML_tools;
 import xpt.tools.XTools;
@@ -94,8 +101,8 @@ class StimuliFactory
 				return new Stim_ComboBox();
 			case 'addinput':
 				return new Stim_Input();
-			
-			
+			case "addmultinumberselector":
+				return new Stim_MultiNumberSelector();
 			
 			
 			
