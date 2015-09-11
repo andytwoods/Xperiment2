@@ -56,11 +56,11 @@ By clicking ‘I consent’, you are agreeing to the above statements."
 </TRIAL>
 
 
-<TRIAL TYPE="Trial" block="3" order="fixed" trials="1">
+<TRIAL TYPE="Trial" block="-3" order="fixed" trials="1">
 
 	<addUrlVariable  _ip="notGiven" />
 
-	<addText   x="50%" y="12%" height="20%"
+	<addText   x="10%" y="12%" height="20%"
 	text = "some questions"
 	timeStart="0"  width="80%" timeEnd="forever" fontSize="20"></addText> 
 	
@@ -70,15 +70,15 @@ By clicking ‘I consent’, you are agreeing to the above statements."
 
  	<addMultipleChoice peg="sex" distanceApart="5" width="25%" height="10%" horizontalDistanceApart="210" 
  	labels="male,female"
- 	x="50%" y="20%" timeStart="0"  timeEnd="forever" /> 	
+ 	x="10%" y="20%" timeStart="0"  timeEnd="forever" /> 	
 	
 	<addMultiNumberSelector peg="age" width="25%" height="20%" startingVal="00"  x="50%" y="40%" timeStart="0" timeEnd="forever" />
 
 	<addComboBox peg="origin" 
 	label="where do you come from?"
-	timeStart="0" width="70%" height="40%" vertical="top" timeEnd="forever" x="50%" y="58%"/>
+	timeStart="0" width="70%" height="7%" vertical="top" timeEnd="forever" x="10%" y="58%"/>
 	
-	<addInput text="what is your native language? Please type your answer into this box." timeStart="0" peg="language" height="7%" y="76%" width="70%"/>
+	<addInput x="10%" text="what is your native language? Please type your answer into this box." timeStart="0" peg="language" height="7%" y="76%" width="70%"/>
 
 	<behavNextTrial peg='nextTrial'/>
 	

@@ -84,7 +84,10 @@ class Experiment
 //		var permittedStimuli:Array<String> = ['set later'];
 		var permittedStimuli:Array<String> = ["addbutton",
 										      "addtext",
-											  "addloadingindicator"];
+											  "addloadingindicator",
+											  "addmultiplechoice",
+											  "addcombobox",
+											  "addinput"];
 
 		BaseStimuli.setPermittedStimuli(permittedStimuli);
 		
