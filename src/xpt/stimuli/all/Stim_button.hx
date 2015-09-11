@@ -19,6 +19,9 @@ class Stim_Button extends HaxeUIStimulus {
 	public override function applyProps(c:Component):Void {
 		super.applyProps(c);
 		_action = get("action");
+		if (get("goto") != null) {
+			_action = "Experiment.gotoTrial('" + get("goto") + "');";
+		}
 		if (_action == null) { // TODO: defaults to next trial
 			_action = "Experiment.nextTrial();";
 		}

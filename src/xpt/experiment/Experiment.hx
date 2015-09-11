@@ -16,6 +16,7 @@ import xpt.tools.XML_tools;
 import thx.Tuple.Tuple2;
 import xpt.stimuli.BaseStimuli;
 import xpt.stimuli.StimuliFactory;
+import xpt.trial.GotoTrial;
 import xpt.trial.NextTrialBoss;
 import xpt.trial.Special_Trial;
 import xpt.trial.Trial;
@@ -60,10 +61,10 @@ class Experiment
 		//TrialOrder.DO(script);
 		
 		__setupTrials(script);
-		
+		firstTrial();
 
 
-		__startTrial();
+		//__startTrial();
 		
 
 	
@@ -103,15 +104,37 @@ class Experiment
 
 	}
 	
-
-	public function nextTrial() {
+	public function firstTrial() {
+		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.First, null);
 		__startTrial();
 	}
 	
+	public function nextTrial() {
+		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Next, null);
+		__startTrial();
+	}
 	
+	public function previousTrial() {
+		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Previous, null);
+		__startTrial();
+	}
+	
+	public function gotoTrial(trial:Dynamic) {
+		if (Std.is(trial, String) == true) {
+			__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Name(trial), null);
+			__startTrial();
+		} else {
+			var trialIndex = Std.parseInt(trial);
+			__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Number(trialIndex), null);
+			__startTrial();
+		}
+	}
+	
+	private var __currentTrailInfo:NextTrialInfo = null;
 	public function __startTrial() {
 		
-		var info:NextTrialInfo = __nextTrialBoss.nextTrial();
+		//var info:NextTrialInfo = __nextTrialBoss.nextTrial();
+		var info:NextTrialInfo = __currentTrailInfo;
 		
 		__runningTrial = TrialFactory.GET(info.skeleton, info.trialOrder);
 		
