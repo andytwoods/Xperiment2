@@ -1,7 +1,6 @@
 package xpt.stimuli;
-import xpt.stimuli.all.*;
+
 import xpt.stimuli.BaseStimuli.BaseStimulus;
-import xpt.tools.XML_tools;
 import xpt.tools.XTools;
 import xpt.trial.Trial;
 import xpt.trial.TrialSkeleton;
@@ -10,20 +9,16 @@ import xpt.trial.TrialSkeleton;
  * ...
  * @author 
  */
-class StimuliFactory
-{
-	static private var withinTrialSep:String;
-	static private var overTrialSep:String;
+class StimuliFactory {
+	private static var withinTrialSep:String;
+	private static var overTrialSep:String;
+	private static var _stimClassMap:Map<String, Class<Stimulus>>;
 
-	
-	
-	
 	static public function generate(trial:Trial, skeleton:TrialSkeleton) {
-		
 		__recursiveGenerate(trial, null, skeleton.baseStimuli, 0);
 	}
 	
-	public static function __recursiveGenerate(trial:Trial, parent:Stimulus, baseStimuli:Array<BaseStimulus>, unknownIdCount:Int) {
+	private static function __recursiveGenerate(trial:Trial, parent:Stimulus, baseStimuli:Array<BaseStimulus>, unknownIdCount:Int) {
 		var baseStimulus:BaseStimulus;
 		var stim:Stimulus;
 		
@@ -46,63 +41,59 @@ class StimuliFactory
 			
 		}
 	}
-		
-		
-		
 	
-	static private function setProps(stim:Stimulus, howMany:Int, props:Map<String,String>, trial:Trial) 
-	{
+	private static function setProps(stim:Stimulus, howMany:Int, props:Map<String,String>, trial:Trial) {
 		//var howMany:Int = 1;
 		var trialIteration:Int = trial.iteration;
 
 		for(count in 0...howMany){
-		
 			for (key in props.keys()) {
 				var val:String = props.get(key);
-	
 				val = XTools.multiCorrection(	val, overTrialSep, trialIteration);
-	
 				val = XTools.multiCorrection(	val, withinTrialSep, count);
-
 				stim.set(key, specialType(key,val)	);
 			}
 			
 			trial.addStimulus(stim);
-			
 		}
 	}
 	
-	static private function specialType(name:String, val:Dynamic):Dynamic
-	{
+	private static function specialType(name:String, val:Dynamic):Dynamic {
 		return val;
-		
 	}
 	
-	static private function getStim(type:String):Stimulus {
-		switch(type.toLowerCase()) {
-			case 'button':
-				return new Stim_button();
-			
-			
-			
-			
-			
-			case 'teststim':
-				return new Stimulus();
+	private static function getStim(type:String):Stimulus {
+		if (_stimClassMap == null) {
+			return null;
 		}
-
-		return null;
+		type = type.toLowerCase();
+		var cls:Class<Stimulus> = _stimClassMap.get(type);
+		var instance:Stimulus = null;
+		if (cls != null) {
+			instance = Type.createInstance(cls, []);
+		}
+		return instance;
 	}
 	
-	private static var _stimClassMap:Map<String, Class<Stimulus>>;
-	static public function registerStimClass(type:String, cls:Class<Stimulus>):Void {
+	public static function registerStimClass(type:String, cls:Class<Stimulus>):Void {
 		if (_stimClassMap == null) {
 			_stimClassMap = new Map<String, Class<Stimulus>>();
 		}
 		_stimClassMap.set(type, cls);
 	}
 	
-	static public function setLabels(within:String, outside:String) {
+	public static function getPermittedStimuli():Array<String> {
+		if (_stimClassMap == null) {
+			return [];
+		}
+		var array = [];
+		for (k in _stimClassMap.keys()) {
+			array.push(k);
+		}
+		return array;
+	}
+	
+	public static function setLabels(within:String, outside:String) {
 		withinTrialSep = within;
 		overTrialSep = outside;
 	}

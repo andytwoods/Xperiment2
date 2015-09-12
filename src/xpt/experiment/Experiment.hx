@@ -1,37 +1,30 @@
 package xpt.experiment;
+
 import code.CheckIsCode.Checks;
 import code.Code;
-import haxe.ui.toolkit.core.Toolkit;
-import openfl.display.Stage;
-import openfl.events.Event;
-import openfl.Lib;
+import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.utils.Object;
 import xpt.results.Results;
 import xpt.script.ProcessScript;
-import xpt.tools.XML_tools;
-import thx.Tuple.Tuple2;
 import xpt.stimuli.BaseStimuli;
 import xpt.stimuli.StimuliFactory;
+import xpt.trial.GotoTrial;
 import xpt.trial.NextTrialBoss;
 import xpt.trial.Special_Trial;
 import xpt.trial.Trial;
 import xpt.trial.TrialFactory;
-import xpt.trial.TrialSkeleton;
 import xpt.trialOrder.TrialOrder;
 
-/**
- * ...
- * @author 
- */
-class Experiment
-{
+@:allow(xpt.trialOrder.Test_TrialOrder)
+class Experiment {
+	private var __nextTrialBoss:NextTrialBoss;
+	private var __script:Xml;
+	private var __runningTrial:Trial;
+	private var __results:Results = new Results();
+	private var __currentTrailInfo:NextTrialInfo = null;
 
-	public var __nextTrialBoss:NextTrialBoss;
-	public var __script:Xml;
-	public var __runningTrial:Trial;
-	public var __results:Results = new Results();
+	public var scriptEngine:ScriptInterp = new ScriptInterp();
 	
-
 	public function new(script:Xml, url:String = null, params:Object = null) {
 		linkups();
 		
@@ -44,16 +37,18 @@ class Experiment
 		ProcessScript.DO(script);
 		ExptWideSpecs.set(script);
 
+		scriptEngine = new ScriptInterp();
+		scriptEngine.variables.set("Experiment", this);
+		scriptEngine.variables.set("E", this);
+		scriptEngine.variables.set("Expr", this);
+		
 		//TrialOrder.DO(script);
 		__setupTrials(script);
-
-		__startTrial();
+		firstTrial();
 	}
 
-	function linkups() {
-		var permittedStimuli:Array<String> = ['set later'];
-
-		BaseStimuli.setPermittedStimuli(permittedStimuli);
+	private function linkups() {
+		BaseStimuli.setPermittedStimuli(StimuliFactory.getPermittedStimuli());
 		
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 	}
@@ -64,9 +59,34 @@ class Experiment
 		__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 	}
 	
+	public function firstTrial() {
+		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.First, null);
+		__startTrial();
+	}
+	
+	public function nextTrial() {
+		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Next, null);
+		__startTrial();
+	}
+	
+	public function previousTrial() {
+		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Previous, null);
+		__startTrial();
+	}
+	
+	public function gotoTrial(trial:Dynamic) {
+		if (Std.is(trial, String) == true) {
+			__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Name(trial), null);
+			__startTrial();
+		} else {
+			var trialIndex = Std.parseInt(trial);
+			__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Number(trialIndex), null);
+			__startTrial();
+		}
+	}
+	
 	public function __startTrial() {
-		
-		var info:NextTrialInfo = __nextTrialBoss.nextTrial();
+		var info:NextTrialInfo = __currentTrailInfo;
 		
 		__runningTrial = TrialFactory.GET(info.skeleton, info.trialOrder);
 		
