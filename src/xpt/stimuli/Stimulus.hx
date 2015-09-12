@@ -5,7 +5,7 @@ import openfl.display.Sprite;
  * ...
  * @author 
  */
-class Stimulus extends Sprite
+class Stimulus // extends Sprite
 {
 	public var __properties:Map<String,Dynamic>;
 	public var start:Float = -1;
@@ -20,7 +20,7 @@ class Stimulus extends Sprite
 
 	public function new() 
 	{
-		super();
+		//super();
 		__properties = new Map<String, Dynamic>();
 	}
 	

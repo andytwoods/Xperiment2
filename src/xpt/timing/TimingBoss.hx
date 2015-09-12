@@ -1,7 +1,10 @@
 package xpt.timing;
+import haxe.ui.toolkit.core.Component;
+import haxe.ui.toolkit.core.RootManager;
 import openfl.display.Sprite;
 import thx.Floats;
 import thx.Ints;
+import xpt.stimuli.all.HaxeUIStimulus;
 import xpt.stimuli.Stimulus;
 import xpt.tools.XTools;
 
@@ -9,7 +12,7 @@ import xpt.tools.XTools;
  * ...
  * @author 
  */
-class TimingBoss extends Sprite
+class TimingBoss // extends Sprite
 {
 	
 	
@@ -37,7 +40,7 @@ class TimingBoss extends Sprite
 	}*/
 	
 	public function new() {
-		super();
+		//super();
 		__mainTimer = new TickTimer(0);
 		__mainTimer.callBack = checkForEvent;
 		instantiateArrs(true);
@@ -72,10 +75,26 @@ class TimingBoss extends Sprite
 	
 	private function stragglers()
 	{
+		/*
 		if(this.stage !=null){
 			if(stageCount<this.stage.numChildren){
 				for(i in 0...this.stage.numChildren){
 					trace("child:",this.stage.getChildAt(i));
+				}
+				//throw new Dynamic();
+				trace("ZZZZZZZZZZZZZZZZZZZZZZZZ");
+				trace("ZZZZZZZZZZZZZZZZZZZZZZZZ");
+				trace("ZZZZZZZZZZZZZZZZZZZZZZZZ");
+				trace("devel error:more elements on screen after end of trial than before start");
+			}
+		}
+		*/
+		
+		var root = RootManager.instance.currentRoot;
+		if(root !=null){
+			if(stageCount<root.numChildren){
+				for(i in 0...root.numChildren){
+					trace("child:",root.getChildAt(i));
 				}
 				//throw new Dynamic();
 				trace("ZZZZZZZZZZZZZZZZZZZZZZZZ");
@@ -99,14 +118,33 @@ class TimingBoss extends Sprite
 	
 	
 	public function sortTime(){
-		if(__startTimeSorted!=null)		__sortOn("start",__startTimeSorted);
-		if(__endTimeSorted!=null)		__sortOn("stop",__endTimeSorted);	
+		if (__startTimeSorted != null) {
+			__sortOn("start", __startTimeSorted);
+			for (stim in __startTimeSorted) {
+				//trace("start " + stim + " > " + stim.start);
+			}
+		}
+		if (__endTimeSorted != null) {
+			var temp = new Array<Stimulus>();
+			__sortOn("stop", __endTimeSorted);	
+			for (stim in __endTimeSorted) {
+				if (stim.stop >= 0) {
+					//__endTimeSorted.remove(stim);
+					temp.push(stim);
+				}
+				//trace("stop " + stim + " > " + stim.stop);
+			}
+			//trace("final array = " + temp);
+			__endTimeSorted = temp;
+		}
+
+		
 	}
 
 
 	public function checkForEvent(time:Float) {
 		
-		if(running){
+		if (running) {
 			while (running && __startTimeSorted.length != 0 && __startTimeSorted[0].start <= time) {
 				__addToScreen(__startTimeSorted.shift() );
 			}
@@ -121,11 +159,12 @@ class TimingBoss extends Sprite
 	
 	public function start(autoStart:Bool) {
 
-		if(this.stage !=null)stageCount=this.stage.numChildren;
+		//if(this.stage !=null)stageCount=this.stage.numChildren;
+		var root = RootManager.instance.currentRoot;
+		if(root !=null)stageCount=root.numChildren;
 		sortTime();
 		
 		if(autoStart)__mainTimer.start();
-		
 	}
 	
 
@@ -173,7 +212,13 @@ class TimingBoss extends Sprite
 		if (stim != null) {
 			__objsOnScreen.remove(stim);
 			__endTimeSorted.remove(stim);
-			if(this.contains(stim))	this.removeChild(stim);
+			//if (this.contains(stim))	this.removeChild(stim);
+			
+			//trace("stopStimulus - " + stim);
+			if (Std.is(stim, HaxeUIStimulus)) {
+				var root = RootManager.instance.currentRoot;
+				root.removeChild(cast(stim, HaxeUIStimulus).component);
+			}
 			
 		}
 	}
@@ -232,6 +277,16 @@ class TimingBoss extends Sprite
 		__startTimeSorted.remove(stim);
 
 		//stim.stimEvent(StimulusEvent.DO_AFTER_APPEARED);
+		//trace("__addToScreen - " + stim);
+		var root = RootManager.instance.currentRoot;
+		if (Std.is(stim, HaxeUIStimulus)) {
+			var c:Component = cast(stim, HaxeUIStimulus).buildComponent();
+			if (c != null) {
+				root.addChild(c);
+			} else {
+				trace("WARNING! Stimulus '" + Type.getClassName(Type.getClass(stim)) + "' did not create a valid HaxeUI component");
+			}
+		}
 	}
 	
 	private function depthManager(stim:Stimulus=null)
@@ -243,9 +298,16 @@ class TimingBoss extends Sprite
 		__sortOn("depth",__objsOnScreen);
 
 
+		var root = RootManager.instance.currentRoot;
 		for(i in 0...__objsOnScreen.length){
 
-			if(__objsOnScreen[i] !=null)	this.addChild(__objsOnScreen[i]);
+			//if(__objsOnScreen[i] !=null)	this.addChild(__objsOnScreen[i]);
+			//trace(__objsOnScreen[i]);
+			var stim = __objsOnScreen[i];
+			if (stim != null && Std.is(stim, HaxeUIStimulus)) {
+				//root.addChild(cast(stim, HaxeUIStimulus).component);
+			}
+			//if(__objsOnScreen[i] !=null)	root.addChild(cast __objsOnScreen[i]);
 		}
 
 		
@@ -262,9 +324,15 @@ class TimingBoss extends Sprite
 	
 
 	private function removeStimulus(stim:Stimulus) {
+		var root = RootManager.instance.currentRoot;
+		if (stim != null && Std.is(stim, HaxeUIStimulus)) {
+			//root.removeChild(cast(stim, HaxeUIStimulus).component);
+		}
+		/*
 		if(this.contains(stim)){
 			this.removeChild(stim);
 		}
+		*/
 	}
 	
 	

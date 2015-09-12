@@ -19,7 +19,8 @@ import xpt2.core.entities.Experiment;
 class Xpt extends Sprite 
 {
 
-	private var localExptDirectory:String = 'Z:/GitHub/Xperiment2/experiments/';
+	//private var localExptDirectory:String = 'Z:/GitHub/Xperiment2/experiments/';
+	private var localExptDirectory:String = './experiments/';
 	
 	public function new() 
 	{

@@ -63,7 +63,7 @@ class Stim_MultipleChoice extends HaxeUIStimulus {
 		}
 		
 		applyProps(_hbox);
-		
+		_component = _hbox;
 		return _hbox;
 	}
 }

@@ -40,6 +40,7 @@ class Stim_Button extends HaxeUIStimulus {
 		_button = new Button();
 		applyProps(_button);
 		_button.addEventListener(UIEvent.CLICK, _onClick);
+		_component = _button;
 		return _button;
 	}
 	

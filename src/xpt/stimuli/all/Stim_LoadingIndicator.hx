@@ -16,6 +16,7 @@ class Stim_LoadingIndicator extends HaxeUIStimulus {
 		_progress = new HProgress();
 		applyProps(_progress);
 		_progress.pos = 50; //  just for visual look
+		_component = _progress;
 		return _progress;
 	}
 }

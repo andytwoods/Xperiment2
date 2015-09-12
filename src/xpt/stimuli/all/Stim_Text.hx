@@ -19,6 +19,7 @@ class Stim_Text extends HaxeUIStimulus {
 		_text = new Text();
 		_text.verticalAlign = "center";
 		applyProps(_text);
+		_component = _text;
 		return _text;
 	}
 }

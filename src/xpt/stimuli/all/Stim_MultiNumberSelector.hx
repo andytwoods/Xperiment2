@@ -38,6 +38,7 @@ class Stim_MultiNumberSelector extends HaxeUIStimulus {
 		}
 		
 		applyProps(_hbox);
+		_component = _hbox;
 		return _hbox;
 	}
 }

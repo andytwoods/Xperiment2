@@ -13,6 +13,17 @@
 	
 <TRIAL TYPE="Trial" block="-3" order="fixed" trials="1">
 
+	<addButton start="0" stop="1000" x="5" y="5" width="80" height="35" text="Stimuli 1" fontSize="14" />
+	<addButton start="500" stop="1500" x="90" y="5" width="80" height="35" text="Stimuli 2" fontSize="14" />
+	<addButton start="1000" stop="2000" x="175" y="5" width="80" height="35" text="Stimuli 3" fontSize="14" />
+	<addButton start="1500" stop="2500" x="260" y="5" width="80" height="35" text="Stimuli 4" fontSize="14" />
+	<addButton start="2000" stop="3000" x="345" y="5" width="80" height="35" text="Stimuli 5" fontSize="14" />
+	<addButton start="2500" stop="3500" x="430" y="5" width="80" height="35" text="Stimuli 6" fontSize="14" />
+	<addButton start="3000" stop="4000" x="515" y="5" width="80" height="35" text="Stimuli 7" fontSize="14" />
+	<addButton start="3500" stop="4500" x="600" y="5" width="80" height="35" text="Stimuli 8" fontSize="14" />
+	<addButton start="4000" stop="5000" x="685" y="5" width="80" height="35" text="Stimuli 9" fontSize="14" />
+	
+	
 	<addText x="10%" y="10%" height="20%" text="Some questions:" timeStart="0"  width="80%" timeEnd="forever" fontSize="20"></addText> 
 	
 	<addText drawBox="false" width="60" height="10%" x="15%" y="22%" text="Sex"	timeStart="0"  timeEnd="forever" autoSize="false" align="right" fontSize="20"/> 
@@ -25,13 +36,14 @@
 	label="Where do you come from?"
 	timeStart="0" width="70%" __height="7%" vertical="top" timeEnd="forever" x="15%" y="60%"/>
 	
-	<addInput x="15%" text="what is your native language?" timeStart="0" peg="language" height="8%" y="73%" width="70%"/>
+	<addInput x="15%" text="what is your native language?" timeStart="0" peg="language" ___height="8%" y="73%" width="70%"/>
 
 	<behavNextTrial peg='nextTrial'/>
 	
 	<addButton timeStart='0' hideResults="true" width="240" goto='' height="50" peg='next' 
 	text="Next"
-	if="this.click?this.text='please answer the questions',this.click&&language.result!=''&&origin.result!=''&&age.result!=''?nextTrial.start()"  
+	if="this.click?this.text='please answer the questions',this.click&&language.result!=''&&origin.result!=''&&age.result!=''?nextTrial.start()" 
+		start = "5000"
 	timeEnd="forever" x="63%" vertical="top" y="85%" icon="img/document-page-next.png" iconPosition="right" />
 	
 

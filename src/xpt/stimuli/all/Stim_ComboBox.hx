@@ -25,6 +25,7 @@ class Stim_ComboBox extends HaxeUIStimulus {
 		dispose(_dropDownList);
 		_dropDownList = new ListSelector();
 		applyProps(_dropDownList);
+		_component = _dropDownList;
 		return _dropDownList;
 	}
 }

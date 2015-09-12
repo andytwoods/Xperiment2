@@ -62,6 +62,12 @@ class HaxeUIStimulus extends Stimulus {
 		return null;
 	}
 	
+	private var _component:Component;
+	public var component(get, null):Component;
+	private function get_component():Component {
+		return _component;
+	}
+	
 	private function dispose(c:Component):Void {
 		if (c != null) { // probably not needed, but good for sanity
 			if (c.parent != null) {

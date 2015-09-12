@@ -20,6 +20,7 @@ class Stim_Input extends HaxeUIStimulus {
 		dispose(_textfield);
 		_textfield = new TextInput();
 		applyProps(_textfield);
+		_component = _textfield;
 		return _textfield;
 	}
 }

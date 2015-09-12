@@ -111,7 +111,8 @@ class Trial
             });
             root.addChild(button);
 		*/
-			
+		
+		/*
 		for (s in copy) {
 			if (Std.is(s, HaxeUIStimulus)) {
 				var c:Component = cast(s, HaxeUIStimulus).buildComponent();
@@ -122,6 +123,7 @@ class Trial
 				}
 			}
 		}
+		*/
 		
 		//var fps_mem = new FPS_mem();
 		

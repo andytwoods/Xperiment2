@@ -77,8 +77,8 @@ class Experiment
 		//Toolkit.theme = new DefaultTheme();
 		Toolkit.theme = new GradientTheme();
 		//Toolkit.theme = new WindowsTheme();
-		Toolkit.addStyleSheet("css/main.css");
 		Toolkit.init();
+		Toolkit.addStyleSheet("css/main.css");
 		var root = Toolkit.openFullscreen();
 	}
 	
