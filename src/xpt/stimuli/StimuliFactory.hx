@@ -6,6 +6,7 @@ import xpt.stimuli.all.Stim_Input;
 import xpt.stimuli.all.Stim_LoadingIndicator;
 import xpt.stimuli.all.Stim_MultiNumberSelector;
 import xpt.stimuli.all.Stim_MultipleChoice;
+import xpt.stimuli.all.Stim_MyCustom;
 import xpt.stimuli.all.Stim_Text;
 import xpt.stimuli.BaseStimuli.BaseStimulus;
 import xpt.tools.XML_tools;
@@ -103,6 +104,8 @@ class StimuliFactory
 				return new Stim_Input();
 			case "addmultinumberselector":
 				return new Stim_MultiNumberSelector();
+			case "mycustomstimulus":
+				return new Stim_MyCustom();
 			
 			
 			

@@ -46,6 +46,8 @@
 		start = "5000"
 	timeEnd="forever" x="63%" vertical="top" y="85%" icon="img/document-page-next.png" iconPosition="right" />
 	
+	<myCustomStimulus drawBox="false" x="5%" y="85%" width="240" height="50" drawbox="true" resultString="Thanks!" />
+	
 
 </TRIAL>
 	

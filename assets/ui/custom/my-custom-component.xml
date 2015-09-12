@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hbox width="100%" height="100%" styleName="myCustomComponent">
+	<style>
+		.myCustomComponent {
+			spacingX: 0;
+		}
+		
+		.myCustomComponent Button {
+			cornerRadiusTopRight: 0;
+			cornerRadiusBottomRight: 0;
+		}
+		
+		.myCustomComponent TextInput {
+			cornerRadius: 4;
+			cornerRadiusTopLeft: 0;
+			cornerRadiusBottomLeft: 0;
+			textAlign: center;
+			
+		}
+	</style>
+	<button id="theButton" text="Do It!" width="50%" height="100%" autoSize="false" />
+	<textinput id="theText" text="" width="50%" height="100%" autoSize="false" />
+</hbox>

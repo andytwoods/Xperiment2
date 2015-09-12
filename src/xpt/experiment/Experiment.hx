@@ -91,7 +91,8 @@ class Experiment
 											  "addmultiplechoice",
 											  "addcombobox",
 											  "addinput",
-											  "addmultinumberselector"];
+											  "addmultinumberselector",
+											  "mycustomstimulus"];
 
 		BaseStimuli.setPermittedStimuli(permittedStimuli);
 		
