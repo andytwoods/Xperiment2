@@ -11,7 +11,7 @@
 
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
-
+	<button text="Button 1" x="10" y="10" height="100" width="100" />
 	 <addText  drawBox="true" autoSize="false" align="centre" wordWrap="true"  width="85%" height="20%" x="50%" y="10%" vertical="top" text=
 			"{b}Volume Judgement Experiment.{/b}"timeStart="0"  timeEnd="forever" fontSize="50"/>
 	

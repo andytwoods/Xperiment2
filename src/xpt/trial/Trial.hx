@@ -1,17 +1,9 @@
 package xpt.trial;
-import haxe.ui.toolkit.controls.Button;
-import haxe.ui.toolkit.core.Root;
-import haxe.ui.toolkit.core.RootManager;
-import haxe.ui.toolkit.core.Toolkit;
-import haxe.ui.toolkit.events.UIEvent;
-import openfl.display.Sprite;
-import openfl.display.Stage;
+
 import openfl.Lib;
 import xpt.results.TrialResults;
 import xpt.stimuli.Stimulus;
 import xpt.timing.TimingBoss;
-//import xpt.behaviour.Behaviour;
-
 
 enum Trial_Action {
 	End;
@@ -71,23 +63,8 @@ class Trial {
 			timingBoss.start(true);
 		}
 		
-		var root = RootManager.instance.currentRoot;//Toolkit.openFullscreen();
-		var button:Button = new Button();
-            button.text = "Click Me!";
-            button.x = 100;
-            button.y = 100;
-            button.addEventListener(UIEvent.CLICK, function(e:UIEvent) {
-                e.component.text = "You clicked me!";
-				
-            });
-            root.addChild(button);
-			
-		//var fps_mem = new FPS_mem();
-		
-		
-		//stage.addChild(fps_mem);
-
-		
+		// TODO: duplication of stimuli here, doesnt happen once they are in TimingBoss - but should be investigated
+		// trace("" + stimuli);
 	}
 	
 	public function getResults():TrialResults {

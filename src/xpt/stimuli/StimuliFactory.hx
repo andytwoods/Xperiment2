@@ -5,14 +5,10 @@ import xpt.tools.XTools;
 import xpt.trial.Trial;
 import xpt.trial.TrialSkeleton;
 
-/**
- * ...
- * @author 
- */
 class StimuliFactory {
 	private static var withinTrialSep:String;
 	private static var overTrialSep:String;
-	private static var _stimClassMap:Map<String, Class<Stimulus>>;
+	private static var _stimBuilderMap:Map<String, Class<StimulusBuilder>>;
 
 	static public function generate(trial:Trial, skeleton:TrialSkeleton) {
 		__recursiveGenerate(trial, null, skeleton.baseStimuli, 0);
@@ -63,31 +59,32 @@ class StimuliFactory {
 	}
 	
 	private static function getStim(type:String):Stimulus {
-		if (_stimClassMap == null) {
+		if (_stimBuilderMap == null) {
 			return null;
 		}
 		type = type.toLowerCase();
-		var cls:Class<Stimulus> = _stimClassMap.get(type);
+		var cls:Class<StimulusBuilder> = _stimBuilderMap.get(type);
 		var instance:Stimulus = null;
 		if (cls != null) {
-			instance = Type.createInstance(cls, []);
+			instance = new Stimulus();
+			instance.builder = Type.createInstance(cls, []);
 		}
 		return instance;
 	}
 	
-	public static function registerStimClass(type:String, cls:Class<Stimulus>):Void {
-		if (_stimClassMap == null) {
-			_stimClassMap = new Map<String, Class<Stimulus>>();
+	public static function registerStimBuilderClass(type:String, cls:Class<StimulusBuilder>):Void {
+		if (_stimBuilderMap == null) {
+			_stimBuilderMap = new Map<String, Class<StimulusBuilder>>();
 		}
-		_stimClassMap.set(type, cls);
+		_stimBuilderMap.set(type, cls);
 	}
 	
 	public static function getPermittedStimuli():Array<String> {
-		if (_stimClassMap == null) {
+		if (_stimBuilderMap == null) {
 			return [];
 		}
 		var array = [];
-		for (k in _stimClassMap.keys()) {
+		for (k in _stimBuilderMap.keys()) {
 			array.push(k);
 		}
 		return array;

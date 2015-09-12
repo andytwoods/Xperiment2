@@ -45,8 +45,8 @@ class System {
 		var stimuliNode:Xml = systemNode.elementsNamed("stimuli").next();
 		for (node in stimuliNode.elements()) {
 			var stimName = node.nodeName;
-			var stimClass = node.get("class");
-			code += "xpt.stimuli.StimuliFactory.registerStimClass('" + stimName + "', " + stimClass + ");\n";
+			var stimBuilder = node.get("builder");
+			code += "xpt.stimuli.StimuliFactory.registerStimBuilderClass('" + stimName + "', " + stimBuilder + ");\n";
 		}
 
 		code += "}()\n";

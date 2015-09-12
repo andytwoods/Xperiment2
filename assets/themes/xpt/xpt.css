@@ -1,0 +1,77 @@
+Text {
+	color: #666666;
+}
+
+Button {
+	backgroundColor: #EDEDED;
+	backgroundColorGradientEnd: #E6E6E6;
+	color: #222222;
+	cornerRadius: 4px;
+	paddingLeft: 10;
+	paddingTop: 5;
+	paddingRight: 10;
+	paddingBottom: 5;
+	borderSize: 1;
+	borderColor: #ABABAB;
+	filter: null;
+}
+
+Button:over {
+	backgroundColor: #F5F5F5;
+	backgroundColorGradientEnd: #F1F1F1;
+	color: #000000;
+	borderColor: #ABABAB;
+}
+
+Button:down {
+	backgroundColor: #D2D2D2;
+	backgroundColorGradientEnd: #C2C2C2;
+	color: #000000;
+	borderColor: #7F7F7F;
+	filter: dropShadow(1, 45, 0x999999, 1, 1, 1, 1, 1, true);
+}
+
+
+ListSelector {
+	backgroundColor: #EDEDED;
+	backgroundColorGradientEnd: #E6E6E6;
+	color: #222222;
+	cornerRadius: 4px;
+	paddingLeft: 10;
+	paddingTop: 10;
+	paddingRight: 10;
+	paddingBottom: 10;
+	borderSize: 1;
+	borderColor: #ABABAB;
+	filter: null;
+	icon: "css/down_arrow.png";
+}
+
+ListSelector:over {
+	backgroundColor: #F5F5F5;
+	backgroundColorGradientEnd: #F1F1F1;
+	color: #000000;
+	borderColor: #ABABAB;
+}
+
+ListSelector:down {
+	backgroundColor: #D2D2D2;
+	backgroundColorGradientEnd: #C2C2C2;
+	color: #000000;
+	borderColor: #7F7F7F;
+	filter: dropShadow(1, 45, 0x999999, 1, 1, 1, 1, 1, true);
+}
+
+TextInput {
+	borderColor: #ABABAB;
+	backgroundColor: #FFFFFF;
+	paddingLeft: 10;
+	paddingTop: 5;
+	paddingRight: 10;
+	paddingBottom: 5;
+	cornerRadius: 2;
+	filter: dropShadow(1, 45, 0x888888, 1, 2, 2, 1, 3, true);
+	fontSize: 13;
+	fontName: "_sans";
+	color: #444444;
+}

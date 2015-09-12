@@ -13,6 +13,6 @@
 		<!-- ***********************************************************************************
 			BASIC STIMULI
 		************************************************************************************ -->
-		<button class="xpt.stimuli.basic.StimButton" />
+		<button builder="xpt.stimuli.basic.StimButton" />
 	</stimuli>
 </system>

@@ -1,24 +1,21 @@
 package xpt.timing;
+
+import haxe.ui.toolkit.core.Root;
+import haxe.ui.toolkit.core.RootManager;
 import openfl.display.Sprite;
 import thx.Floats;
 import thx.Ints;
 import xpt.stimuli.Stimulus;
 import xpt.tools.XTools;
 
-/**
- * ...
- * @author 
- */
-class TimingBoss extends Sprite
-{
+class TimingBoss {
+	public static inline var MAX:Int = 10000000;
+	public static inline var MIN:Int = -10000000;
 	
+	public static inline var BOTTOM:Int = MAX;
 	
-	public static var MAX:Int = 10000000;
-	public static var MIN:Int = -10000000;
-	
-	public static var BOTTOM:Int=MAX;
-	public static var TOP:Int=MIN;
-	public static var FOREVER:Float = MAX;
+	public static inline var TOP:Int=MIN;
+	public static inline var FOREVER:Float = MAX;
 	
 	public var __startTimeSorted:Array<Stimulus>;
 	public var __endTimeSorted:Array<Stimulus>;
@@ -28,161 +25,157 @@ class TimingBoss extends Sprite
 	private var stageCount:Int;
 	public var running:Bool=true;
 	public var __allStim:Array<Stimulus>;
-
-
-	
-/*	public function params(params:Dynamic)
-	{
-
-	}*/
 	
 	public function new() {
-		super();
 		__mainTimer = new TickTimer(0);
 		__mainTimer.callBack = checkForEvent;
 		instantiateArrs(true);
 	
-		running=true;
+		running = true;
 	}
 	
 	private inline function instantiateArrs(DO:Bool) {
-		if(DO){
-			__startTimeSorted=[]; __endTimeSorted=[];	__objsOnScreen=[];__allStim = [];	}
-		else {
-			__startTimeSorted=null;	__endTimeSorted=null;__objsOnScreen=null;__allStim = null;}
+		if (DO) {
+			__startTimeSorted = [];
+			__endTimeSorted = [];
+			__objsOnScreen = [];
+			__allStim = [];
+		} else {
+			__startTimeSorted = null;
+			__endTimeSorted = null;
+			__objsOnScreen = null;
+			__allStim = null;
+		}
 	}
 	
 	public function getMS():Float{
 		return __mainTimer.now;
 	}
-	
 
 	public function kill() {
 		running=false;
 		__mainTimer = null;
 		
-		for(i in 0...__objsOnScreen.length){
+		for (i in 0...__objsOnScreen.length) {
 			removeStimulus(__objsOnScreen[i]);
 		}
 		
 		instantiateArrs(false);
-		
 		stragglers();
 	}
 	
-	private function stragglers()
-	{
-		if(this.stage !=null){
-			if(stageCount<this.stage.numChildren){
-				for(i in 0...this.stage.numChildren){
-					trace("child:",this.stage.getChildAt(i));
+	private function stragglers() {
+		if (RootManager.instance.currentRoot != null) {
+			if (stageCount < RootManager.instance.currentRoot.numChildren) {
+				for (i in 0...RootManager.instance.currentRoot.numChildren) {
+					trace("child:", RootManager.instance.currentRoot.getChildAt(i));
 				}
-				//throw new Dynamic();
-				trace("ZZZZZZZZZZZZZZZZZZZZZZZZ");
-				trace("ZZZZZZZZZZZZZZZZZZZZZZZZ");
-				trace("ZZZZZZZZZZZZZZZZZZZZZZZZ");
 				trace("devel error:more elements on screen after end of trial than before start");
 			}
 		}
 	}
-	
-	
 
-	var num:Float = Math.random();
 	//this function needs testing.
 	public function add(stim:Stimulus) {
-		if (__startTimeSorted.indexOf(stim) == -1) 	__startTimeSorted.push(stim);
-		if (__endTimeSorted.indexOf(stim) == -1) 	__endTimeSorted.push(stim);
-		if (__allStim.indexOf(stim) == -1) 			__allStim.push(stim);
+		if (__startTimeSorted.indexOf(stim) == -1) {
+			__startTimeSorted.push(stim);
+		}
+		if (__endTimeSorted.indexOf(stim) == -1) {
+			__endTimeSorted.push(stim);
+		}
+		if (__allStim.indexOf(stim) == -1) {
+ 			__allStim.push(stim);
+		}
 	} 
-	
-	
-	
-	public function sortTime(){
-		if(__startTimeSorted!=null)		__sortOn("start",__startTimeSorted);
-		if(__endTimeSorted!=null)		__sortOn("stop",__endTimeSorted);	
+
+	public function sortTime() {
+		if (__startTimeSorted != null) {
+			__sortOn("start", __startTimeSorted);
+		}
+		if (__endTimeSorted != null) {
+			__sortOn("stop", __endTimeSorted);	
+			var temp = new Array<Stimulus>();
+			for (stim in __endTimeSorted) {
+				if (stim.stop >= 0) {
+					temp.push(stim);
+				}
+			}
+			__endTimeSorted = temp;
+		}
 	}
 
-
 	public function checkForEvent(time:Float) {
-		
-		if(running){
+		if (running) {
 			while (running && __startTimeSorted.length != 0 && __startTimeSorted[0].start <= time) {
-				__addToScreen(__startTimeSorted.shift() );
+				trace("show");
+				__addToScreen(__startTimeSorted.shift());
 			}
 			
 			while (running && __endTimeSorted.length != 0 && __endTimeSorted[0].stop < time) {
-				stopStimulus(__endTimeSorted.shift() );
+				trace("hide");
+				stopStimulus(__endTimeSorted.shift());
 			}
 		}
 	}
 	
-	
-	
 	public function start(autoStart:Bool) {
-
-		if(this.stage !=null)stageCount=this.stage.numChildren;
+		if (RootManager.instance.currentRoot != null) {
+			stageCount = RootManager.instance.currentRoot.numChildren;
+		}
 		sortTime();
 		
-		if(autoStart)__mainTimer.start();
-		
+		if (autoStart) {
+			__mainTimer.start();
+		}
 	}
 	
-
 	public function addtoTimeLine(stim:Stimulus) {
-		
 		__allStim.push(stim);
-		
-		if(stim.start!=-1){
+		if (stim.start != -1) {
 			__startTimeSorted.push(stim);
 			__endTimeSorted.push(stim);
 		}				
 	}
-	
-	
-	
+
 	public function killID(id:String) {
 		stopStimulusID(id);
 		
-		for(i in 0...__startTimeSorted.length){
-			if(__startTimeSorted[i].id==id){
+		for (i in 0...__startTimeSorted.length) {
+			if (__startTimeSorted[i].id == id) {
 				__startTimeSorted.splice(i,1);	
 				break;
 			}
 		}
 		
-		
-		for(i in 0...__endTimeSorted.length){
-			if(__endTimeSorted[i].id==id){
+		for (i in 0...__endTimeSorted.length) {
+			if (__endTimeSorted[i].id == id) {
 				__endTimeSorted.splice(i,1);
 				break;
 			}
 		}
 		
-		for(i in 0...__allStim.length){
-			if(__allStim[i].id==id){
+		for (i in 0...__allStim.length) {
+			if (__allStim[i].id == id) {
 				__allStim.splice(i,1);
 				break;
 			}
 		}
-		
 	}
-	
 	
 	public function stopStimulus(stim:Stimulus) {
 		if (stim != null) {
 			__objsOnScreen.remove(stim);
 			__endTimeSorted.remove(stim);
-			if(this.contains(stim))	this.removeChild(stim);
+			if (RootManager.instance.currentRoot.contains(stim.component)) {
+				RootManager.instance.currentRoot.removeChild(stim.component);
+			}
 			
 		}
 	}
 	
-	
-	public function stopStimulusID(id:String):Bool
-	{
-		for(i in 0...__objsOnScreen.length){
-			if(__objsOnScreen[i].id==id){
+	public function stopStimulusID(id:String):Bool {
+		for (i in 0...__objsOnScreen.length) {
+			if (__objsOnScreen[i].id == id) {
 				stopStimulus(__objsOnScreen[i]);
 			}
 		}	
@@ -217,57 +210,44 @@ class TimingBoss extends Sprite
 		__startTimeSorted.push(stim);	
 		sortTime();
 
-		
 		return stim;
 	}
 	
-
-	
-	
-	public function __addToScreen(stim:Stimulus){
-		
+	public function __addToScreen(stim:Stimulus) {
 		//stim.stimEvent(StimulusEvent.DO_BEFORE);
 
 		depthManager(stim);
 		__startTimeSorted.remove(stim);
-
+		
 		//stim.stimEvent(StimulusEvent.DO_AFTER_APPEARED);
 	}
 	
-	private function depthManager(stim:Stimulus=null)
-	{
-		
-		if(stim !=null )__objsOnScreen.push(stim);
-		
-
-		__sortOn("depth",__objsOnScreen);
-
-
-		for(i in 0...__objsOnScreen.length){
-
-			if(__objsOnScreen[i] !=null)	this.addChild(__objsOnScreen[i]);
+	private function depthManager(stim:Stimulus=null) {
+		if (stim != null) {
+			__objsOnScreen.push(stim);
 		}
 
-		
+		__sortOn("depth", __objsOnScreen);
+
+		for (i in 0...__objsOnScreen.length) {
+			if (__objsOnScreen[i] != null) {
+				RootManager.instance.currentRoot.addChild(__objsOnScreen[i].component);
+			}
+		}
 	}		
 	
 	public static inline function __sortOn(what:String, arr:Array<Stimulus>):Array<Stimulus> {
-		arr.sort( function(a:Stimulus, b:Stimulus):Int
-		{
+		arr.sort( function(a:Stimulus, b:Stimulus):Int {
 			return Reflect.compare(Reflect.getProperty(a, what), Reflect.getProperty(b, what));
 		});	
 		return arr;
 	}
 	
-	
-
 	private function removeStimulus(stim:Stimulus) {
-		if(this.contains(stim)){
-			this.removeChild(stim);
+		if(RootManager.instance.currentRoot.contains(stim.component)){
+			RootManager.instance.currentRoot.removeChild(stim.component);
 		}
 	}
-	
-	
 	
 	public function stopAll()
 	{
@@ -284,13 +264,4 @@ class TimingBoss extends Sprite
 			}
 		return null;
 	}
-	
-
-	
-
-	
-	
-
-
-	
 }
