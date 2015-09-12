@@ -1,4 +1,4 @@
-package xpt.stimuli.basic;
+package xpt.stimuli.builders.basic;
 
 import haxe.ui.toolkit.controls.Button;
 import haxe.ui.toolkit.core.Component;

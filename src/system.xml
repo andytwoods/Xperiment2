@@ -7,12 +7,15 @@
 		<styles>
 			<asset resource="themes/xpt/xpt.css" />
 		</styles>
+		<components>
+			<numberStepper class="xpt.ui.custom.NumberStepper" />
+		</components>
 	</toolkit>
 	
 	<stimuli>
 		<!-- ***********************************************************************************
 			BASIC STIMULI
 		************************************************************************************ -->
-		<button builder="xpt.stimuli.basic.StimButton" />
+		<button builder="xpt.stimuli.builders.basic.StimButton" />
 	</stimuli>
 </system>
