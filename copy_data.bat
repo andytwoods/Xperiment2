@@ -1,0 +1,1 @@
+xcopy experiments bin\flash\bin\experiments /E /Y

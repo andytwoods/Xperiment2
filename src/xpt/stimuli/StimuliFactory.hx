@@ -94,6 +94,14 @@ class StimuliFactory
 		return null;
 	}
 	
+	private static var _stimClassMap:Map<String, Class<Stimulus>>;
+	static public function registerStimClass(type:String, cls:Class<Stimulus>):Void {
+		if (_stimClassMap == null) {
+			_stimClassMap = new Map<String, Class<Stimulus>>();
+		}
+		_stimClassMap.set(type, cls);
+	}
+	
 	static public function setLabels(within:String, outside:String) {
 		withinTrialSep = within;
 		overTrialSep = outside;

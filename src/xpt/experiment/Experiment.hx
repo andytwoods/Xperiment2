@@ -32,11 +32,7 @@ class Experiment
 	public var __results:Results = new Results();
 	
 
-	public function new(script:Xml, url:String = null, params:Object = null) 
-	{
-
-		toolkitSetup();
-		
+	public function new(script:Xml, url:String = null, params:Object = null) {
 		linkups();
 		
 		if (script == null) return; //used for testing
@@ -46,52 +42,27 @@ class Experiment
 		
 		//consider remove direct class below and replace purely with Templates.compose(script);
 		ProcessScript.DO(script);
-		
 		ExptWideSpecs.set(script);
 
-		
-		
-		
 		//TrialOrder.DO(script);
-		
 		__setupTrials(script);
-		
-
 
 		__startTrial();
-		
-
-	
 	}
 
-	function toolkitSetup() 
-	{
-		Toolkit.init();
-	}
-	
-	function linkups() 
-	{
+	function linkups() {
 		var permittedStimuli:Array<String> = ['set later'];
 
 		BaseStimuli.setPermittedStimuli(permittedStimuli);
 		
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
-
 	}
 	
-	
-	public function __setupTrials(script:Xml) 
-	{
-		//trace(111,script);
-		//trace(111, XML_tools.findAttr(xml, "block"));
-		
+	public function __setupTrials(script:Xml) {
 		var trialOrder_skeletons  = TrialOrder.COMPOSE(script);
 		BaseStimuli.createSkeletonParams(trialOrder_skeletons._1);
 		__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
-
 	}
-	
-
 	
 	public function __startTrial() {
 		
@@ -113,7 +84,6 @@ class Experiment
 			}
 		}
 		
-		
 		__runningTrial.callBack = function(action:Trial_Action) {
 			
 			switch(action) {	
@@ -124,8 +94,5 @@ class Experiment
 		}
 		
 		__runningTrial.start();
-		
-
 	}
-	
 }
