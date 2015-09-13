@@ -29,16 +29,16 @@
     <class path="C:\Servers\Haxe\haxe\lib\utest\1,3,10\src" />
     <class path="C:\Servers\Haxe\haxe\lib\thx,core\0,33,1\src" />
     <class path="src" />
-    <class path="bin\windows\neko\haxe" />
+    <class path="bin\flash\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="lime=2.6.0&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.2&#xA;mlib=2.0.2&#xA;haxeui=1.7.16&#xA;hscript=2.0.4&#xA;svg=1.0.8&#xA;actuate=1.8.6&#xA;yagp=1.1.4&#xA;openfl=3.3.1&#xA;utest=1.3.10&#xA;thx_core&#xA;thx.core=0.33.1&#xA;openfl-next&#xA;tools=2.6.0&#xA;no-compilation&#xA;native&#xA;lime-native&#xA;openfl-native&#xA;windows&#xA;desktop" />
+    <option directives="lime=2.6.0&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.2&#xA;mlib=2.0.2&#xA;haxeui=1.7.16&#xA;hscript=2.0.4&#xA;svg=1.0.8&#xA;actuate=1.8.6&#xA;yagp=1.1.4&#xA;openfl=3.3.1&#xA;utest=1.3.10&#xA;thx_core&#xA;thx.core=0.33.1&#xA;openfl-next&#xA;tools=2.6.0&#xA;no-compilation&#xA;openfl-flash&#xA;web" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="--remap flash:openfl&#xA;#--macro keep(&quot;Xpt&quot;)" />
+    <option additional="-swf-version 11.2" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

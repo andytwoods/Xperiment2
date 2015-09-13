@@ -17,5 +17,6 @@
 			BASIC STIMULI
 		************************************************************************************ -->
 		<button builder="xpt.stimuli.builders.basic.StimButton" />
+		<numberStepper builder="xpt.stimuli.builders.basic.StimNumberStepper" />
 	</stimuli>
 </system>

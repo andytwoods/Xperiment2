@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<vbox width="100%" height="100%" styleName="numberStepper">
+	<style>
+		.numberStepper {
+			spacing: 0;
+		}
+		
+		.numberStepper #inc {
+			cornerRadiusBottomLeft: 0;
+			cornerRadiusBottomRight: 0;
+			icon: "img/icons/control-090.png";
+			iconPosition: center;
+		}
+		
+		.numberStepper #deinc {
+			cornerRadiusTopLeft: 0;
+			cornerRadiusTopRight: 0;
+			icon: "img/icons/control-270.png";
+			iconPosition: center;
+		}
+		
+		.numberStepper #value {
+			cornerRadius: 0;
+			textAlign: center;
+		}
+	</style>
+	<button id="inc" width="100%" />
+	<textinput id="value" text="" width="100%" height="100%" />
+	<button id="deinc" width="100%" />
+</vbox>

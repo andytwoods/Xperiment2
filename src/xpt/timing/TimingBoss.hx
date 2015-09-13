@@ -107,12 +107,10 @@ class TimingBoss {
 	public function checkForEvent(time:Float) {
 		if (running) {
 			while (running && __startTimeSorted.length != 0 && __startTimeSorted[0].start <= time) {
-				trace("show");
 				__addToScreen(__startTimeSorted.shift());
 			}
 			
 			while (running && __endTimeSorted.length != 0 && __endTimeSorted[0].stop < time) {
-				trace("hide");
 				stopStimulus(__endTimeSorted.shift());
 			}
 		}

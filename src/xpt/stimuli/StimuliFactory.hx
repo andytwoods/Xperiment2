@@ -76,7 +76,7 @@ class StimuliFactory {
 		if (_stimBuilderMap == null) {
 			_stimBuilderMap = new Map<String, Class<StimulusBuilder>>();
 		}
-		_stimBuilderMap.set(type, cls);
+		_stimBuilderMap.set(type.toLowerCase(), cls);
 	}
 	
 	public static function getPermittedStimuli():Array<String> {
