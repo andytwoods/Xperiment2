@@ -18,14 +18,14 @@ class Test_ExptWideSpecs
 	public function test__IS() {
 		ExptWideSpecs.set(null);
 		ExptWideSpecs.__setStaticVars();
-		ExptWideSpecs.special_turkInfo.set("bla","bla");
+		ExptWideSpecs.special_turkInfo.__actualMap.set("bla","bla");
 		var turkInfo:Map<String,String> = ExptWideSpecs.IS("turkInfo");
 		Assert.isTrue(turkInfo.get("bla")=="bla");
 	}
 	
 	public function test_kill() {
 		ExptWideSpecs.__setStaticVars();
-		ExptWideSpecs.special_turkInfo.set("bla","bla");
+		ExptWideSpecs.special_turkInfo.__actualMap.set("bla","bla");
 		ExptWideSpecs.kill();
 		
 		Assert.isTrue(ExptWideSpecs.special_turkInfo == null);
