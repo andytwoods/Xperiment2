@@ -1,4 +1,6 @@
 package xpt.results;
+import comms.CommsResult;
+import comms.services.REST_Service;
 import xpt.trial.ExtractResults;
 import xpt.trial.Special_Trial;
 import xpt.trial.Trial;
@@ -36,7 +38,7 @@ class Results
 		
 	}
 	
-	public function __send_to_cloud(trialResults:TrialResults, special:Special_Trial) 
+	public inline function __send_to_cloud(trialResults:TrialResults, special:Special_Trial) 
 	{
 		switch(special) {
 			case Special_Trial.First_Trial:
@@ -54,6 +56,11 @@ class Results
 			default:
 				//
 		}
+		
+		var restService:REST_Service = new REST_Service(trialResults.results, function(success:CommsResult) {
+			trace(success);
+		});
+		
 	}
 	
 	public static inline function __addResult(trialResults:TrialResults, what:String) {

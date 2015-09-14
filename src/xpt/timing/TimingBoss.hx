@@ -143,7 +143,7 @@ class TimingBoss // extends Sprite
 
 
 	public function checkForEvent(time:Float) {
-		
+
 		if (running) {
 			while (running && __startTimeSorted.length != 0 && __startTimeSorted[0].start <= time) {
 				__addToScreen(__startTimeSorted.shift() );
@@ -277,7 +277,7 @@ class TimingBoss // extends Sprite
 		__startTimeSorted.remove(stim);
 
 		//stim.stimEvent(StimulusEvent.DO_AFTER_APPEARED);
-		//trace("__addToScreen - " + stim);
+
 		var root = RootManager.instance.currentRoot;
 		if (Std.is(stim, HaxeUIStimulus)) {
 			var c:Component = cast(stim, HaxeUIStimulus).buildComponent();

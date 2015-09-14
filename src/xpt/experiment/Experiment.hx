@@ -1,6 +1,8 @@
 package xpt.experiment;
 import code.CheckIsCode.Checks;
 import code.Code;
+import comms.services.BodgeTest_REST_Service;
+import comms.services.REST_Service;
 import haxe.ui.toolkit.core.Toolkit;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import haxe.ui.toolkit.themes.DefaultTheme;
@@ -54,6 +56,7 @@ class Experiment
 		ProcessScript.DO(script);
 		
 		ExptWideSpecs.set(script);
+		linkups_Post_ExptWideSpecs();
 
 		scriptEngine.variables.set("Experiment", this);
 		scriptEngine.variables.set("E", this);
@@ -82,6 +85,10 @@ class Experiment
 		var root = Toolkit.openFullscreen();
 	}
 	
+	function linkups_Post_ExptWideSpecs() {
+		REST_Service.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));
+	}
+	
 	function linkups() 
 	{
 //		var permittedStimuli:Array<String> = ['set later'];
@@ -97,6 +104,7 @@ class Experiment
 		BaseStimuli.setPermittedStimuli(permittedStimuli);
 		
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
+
 
 	}
 	
@@ -140,6 +148,8 @@ class Experiment
 	
 	private var __currentTrailInfo:NextTrialInfo = null;
 	public function __startTrial() {
+		
+		BodgeTest_REST_Service.test();
 		
 		//var info:NextTrialInfo = __nextTrialBoss.nextTrial();
 		var info:NextTrialInfo = __currentTrailInfo;
