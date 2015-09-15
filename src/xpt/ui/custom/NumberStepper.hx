@@ -20,6 +20,14 @@ class NumberStepper extends Box {
 	
 	public override function applyStyle() {
 		super.applyStyle();
+		if (_baseStyle != null) {
+			if (_baseStyle.fontSize != 0) {
+				_controller.inc.style.fontSize = _baseStyle.fontSize;
+				_controller.deinc.style.fontSize = _baseStyle.fontSize;
+				_controller.value.style.fontSize = _baseStyle.fontSize;
+			}
+		}
+		
 	}
 	
 	// ************************************************************************************************************
