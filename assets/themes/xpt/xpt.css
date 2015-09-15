@@ -175,3 +175,132 @@ ListView {
 .even #text:selected, .odd #text:selected {
 	color: 0x222222;
 }
+
+VScroll {
+	width: 17;
+	height: 100;
+	paddingLeft: 1;
+	paddingTop: 1;
+	paddingBottom: 1;
+	paddingRight: 1;
+	spacingY: 1;
+	hasButtons: true;
+	backgroundColor: #E9E9E9;
+	cornerRadius: 2;
+}
+
+VScroll Button {
+	backgroundColor: #E9E9E9;
+	backgroundColorGradientEnd: #E9E9E9;
+	borderColor: #E9E9E9;
+	cornerRadius: 1;
+	filter: none;
+	iconPosition: "center";
+}
+
+VScroll Button:over {
+	backgroundColor: #D7D7D7;
+	backgroundColorGradientEnd: #D7D7D7;
+	borderColor: #D7D7D7;
+}
+
+VScroll Button:down {
+	backgroundColor: #525252;
+	backgroundColorGradientEnd: #525252;
+	borderColor: #525252;
+}
+
+VScroll Button.up {
+	icon: "themes/xpt/up_arrow.png";
+}
+
+VScroll Button.down {
+	icon: "themes/xpt/down_arrow.png";
+}
+
+VScroll Button.thumb {
+	backgroundColor: #C6C6C6;
+	backgroundColorGradientEnd: #C6C6C6;
+	borderColor: #C6C6C6;
+	icon: "themes/xpt/gripper_vertical.png";
+}
+
+HScroll {
+	width: 100;
+	height: 17;
+	paddingLeft: 1;
+	paddingTop: 1;
+	paddingBottom: 1;
+	paddingRight: 1;
+	spacingX: 1;
+	hasButtons: true;
+	backgroundColor: #E9E9E9;
+	cornerRadius: 2;
+}
+
+HScroll Button {
+	backgroundColor: #E9E9E9;
+	backgroundColorGradientEnd: #E9E9E9;
+	borderColor: #E9E9E9;
+	cornerRadius: 1;
+	filter: null;
+	iconPosition: "center";
+}
+
+HScroll Button:over {
+	backgroundColor: #D7D7D7;
+	backgroundColorGradientEnd: #D7D7D7;
+	borderColor: #D7D7D7;
+}
+
+HScroll Button:down {
+	backgroundColor: #525252;
+	backgroundColorGradientEnd: #525252;
+	borderColor: #525252;
+}
+
+HScroll Button.left {
+	icon: "themes/xpt/left_arrow.png";
+}
+
+HScroll Button.right {
+	icon: "themes/xpt/right_arrow.png";
+}
+
+HScroll Button.thumb {
+	backgroundColor: #C6C6C6;
+	backgroundColorGradientEnd: #C6C6C6;
+	borderColor: #C6C6C6;
+	icon: "themes/xpt/gripper_horizontal.png";
+}
+
+HProgress {
+	width: 100;
+	height: 20;
+	backgroundColor: 0xFFFFFF;
+	borderColor: #ABABAB;
+	paddingTop: 2;
+	paddingLeft: 2;
+	paddingBottom: 2;
+	paddingRight: 2;
+	cornerRadius: 3;
+	filter: dropShadow(2, 45, 0x808080, 1, 4, 4, 1, 3, true);
+}
+
+HProgress #background {
+	width: 100%;
+	height: 100%;
+	backgroundColor: #F1F1F1;
+	backgroundColorGradientEnd: #FFFFFF;
+	borderColor: #FFFFFF;
+	cornerRadius: 3;
+}
+
+HProgress #value {
+	height: 100%;
+	backgroundColor: #6CAADB;
+	backgroundColorGradientEnd: #216AAE;
+	borderColor: 0xa5b8da;
+	borderSize: 0;
+	cornerRadius: 3;
+}

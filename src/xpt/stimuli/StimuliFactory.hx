@@ -51,6 +51,7 @@ class StimuliFactory {
 				stim.set(key, specialType(key,val)	);
 			}
 			
+			stim.set("trial", trial);
 			trial.addStimulus(stim);
 		}
 	}
@@ -111,12 +112,26 @@ class StimuliFactory {
 		params.set(name, value);
 	}
 	
-	public static function getStimParams(type):Map<String, String> {
+	public static function getStimParams(type:String):Map<String, String> {
 		if (_stimParams == null) {
 			return null;
 		}
 		var params:Map<String, String> = _stimParams.get(type);
 		return params;
+	}
+	
+	public static function getStimPreloadList(type:String, props:Map<String, String>):Array<String> {
+		if (_stimBuilderMap == null) {
+			return null;
+		}
+		type = type.toLowerCase();
+		var cls:Class<StimulusBuilder> = _stimBuilderMap.get(type);
+		var array:Array<String> = null;
+		if (cls != null) {
+			var builder:StimulusBuilder = Type.createInstance(cls, []);
+			array = builder.buildPreloadList(props);
+		}
+		return array;
 	}
 	
 	public static function setLabels(within:String, outside:String) {

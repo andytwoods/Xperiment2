@@ -11,12 +11,12 @@
 
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
-	<button text="Button 1" x="10" y="10" height="100" width="100" fontSize="20" />
+	<button text="Button 1" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
 	<!--
 	<numberStepper x="120" y="10" height="100" width="50" fontSize="20" />
 	<multiNumberStepper x="180" y="10" height="100" width="120" fontSize="20" val="123" />
 	-->	
-	<age x="120" y="10" height="100" width="100" fontSize="20" />
+	<age x="120" y="10" height="100" width="150" fontSize="20" />
 	
 	<lineScale x="10" y="130" width="400" height="70" fontSize="20" startLabel="Not detectable" endLabel="Very strong" />
 
@@ -29,6 +29,12 @@
 	<comboBox x="20" y="280" width="300" height="50" text="Where are you from?" fontSize="20" labels="United Kingdom,United States" values="UK,USA" icons="img/icons/flags/flag_great_britain.png,img/icons/flags/flag_usa.png" data="data/countries.json" />
 	-->
 	<origin x="20" y="280" width="300" height="50" fontSize="20" />
+	
+	<imageSequence drawBox="true" x="420" y="10" width="175" height="280" resourcePattern="./experiments/images/wine_glass/A_${n}.jpg" count="67" />
+	<imageSequence drawBox="true" x="610" y="10" width="175" height="280" resourcePattern="./experiments/images/wine_glass/B_${n}.jpg" count="83" />
+	<imageSequence drawBox="true" x="420" y="310" width="87" height="140" resourcePattern="./experiments/images/wine_glass/C_${n}.jpg" count="83" />
+	
+	<progressBar x="20" y="350" width="300" height="40" preloader="true" min="0" max="100" value="0" />
 </TRIAL>
 
 <TRIAL TYPE="Trial" block="1" order="fixed" trials="1">

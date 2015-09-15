@@ -24,6 +24,8 @@
 		<lineScale builder="xpt.stimuli.builders.basic.StimLineScale" />
 		<multipleChoice builder="xpt.stimuli.builders.basic.StimMultipleChoice" />
 		<comboBox builder="xpt.stimuli.builders.basic.StimComboBox" />
+		<imageSequence builder="xpt.stimuli.builders.basic.StimImageSequence" />
+		<progressBar builder="xpt.stimuli.builders.basic.StimProgressBar" />
 		
 		<!-- ***********************************************************************************
 			COMPOUND STIMULI

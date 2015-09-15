@@ -1,22 +1,27 @@
 package xpt.experiment;
 
+import assets.manager.FileLoader;
 import code.CheckIsCode.Checks;
 import code.Code;
 import haxe.ui.toolkit.hscript.ScriptInterp;
+import openfl.events.EventDispatcher;
 import openfl.utils.Object;
+import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.results.Results;
 import xpt.script.ProcessScript;
 import xpt.stimuli.BaseStimuli;
 import xpt.stimuli.StimuliFactory;
+import xpt.stimuli.Stimulus;
 import xpt.trial.GotoTrial;
 import xpt.trial.NextTrialBoss;
 import xpt.trial.Special_Trial;
 import xpt.trial.Trial;
 import xpt.trial.TrialFactory;
+import xpt.trial.TrialSkeleton;
 import xpt.trialOrder.TrialOrder;
 
 @:allow(xpt.trialOrder.Test_TrialOrder)
-class Experiment {
+class Experiment extends EventDispatcher {
 	private var __nextTrialBoss:NextTrialBoss;
 	private var __script:Xml;
 	private var __runningTrial:Trial;
@@ -26,6 +31,7 @@ class Experiment {
 	public var scriptEngine:ScriptInterp = new ScriptInterp();
 	
 	public function new(script:Xml, url:String = null, params:Object = null) {
+		super();
 		linkups();
 		
 		if (script == null) return; //used for testing
@@ -57,6 +63,40 @@ class Experiment {
 		var trialOrder_skeletons  = TrialOrder.COMPOSE(script);
 		BaseStimuli.createSkeletonParams(trialOrder_skeletons._1);
 		__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
+
+		var skeletons:Array<TrialSkeleton> = trialOrder_skeletons._1;
+		var preloadList:Array<String> = new Array<String>();
+		for (skeleton in skeletons) {
+			for (baseStim in skeleton.baseStimuli) {
+				var stimPreload:Array<String> = StimuliFactory.getStimPreloadList(baseStim.name, baseStim.props);
+				if (stimPreload != null) {
+					preloadList = preloadList.concat(stimPreload);
+				}
+			}
+		}
+		
+		if (preloadList.length > 0) {
+			Preloader.instance.addEventListener(PreloaderEvent.PROGRESS, _onPreloadProgress);
+			Preloader.instance.addEventListener(PreloaderEvent.COMPLETE, _onPreloadComplete);
+			Preloader.instance.preloadImages(preloadList);
+		}
+	}
+	
+	private function _onPreloadProgress(event:PreloaderEvent) {
+		var progressEvent:PreloaderEvent = new PreloaderEvent(event.type);
+		progressEvent.total = event.total;
+		progressEvent.current = event.current;
+		dispatchEvent(progressEvent);
+	}
+	
+	private function _onPreloadComplete(event:PreloaderEvent) {
+		Preloader.instance.removeEventListener(PreloaderEvent.PROGRESS, _onPreloadProgress);
+		Preloader.instance.removeEventListener(PreloaderEvent.COMPLETE, _onPreloadComplete);
+		
+		var progressEvent:PreloaderEvent = new PreloaderEvent(event.type);
+		progressEvent.total = event.total;
+		progressEvent.current = event.current;
+		dispatchEvent(progressEvent);
 	}
 	
 	public function firstTrial() {
@@ -88,7 +128,7 @@ class Experiment {
 	public function __startTrial() {
 		var info:NextTrialInfo = __currentTrailInfo;
 		
-		__runningTrial = TrialFactory.GET(info.skeleton, info.trialOrder);
+		__runningTrial = TrialFactory.GET(info.skeleton, info.trialOrder, this);
 		
 		if(info.action !=null) {
 			switch(info.action) {

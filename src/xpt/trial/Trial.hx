@@ -1,6 +1,7 @@
 package xpt.trial;
 
 import openfl.Lib;
+import xpt.experiment.Experiment;
 import xpt.results.TrialResults;
 import xpt.stimuli.Stimulus;
 import xpt.timing.TimingBoss;
@@ -25,6 +26,7 @@ class Trial {
 	
 	public var callBack:Trial_Action -> Void;
 	
+	public var experiment:Experiment;
 	
 	public function setSpecial(special:Special_Trial) {
 		specialTrial = special;
@@ -34,7 +36,8 @@ class Trial {
 		if (callBack != null) callBack(action);
 	}
 
-	public function new() {
+	public function new(experiment:Experiment) {
+		this.experiment = experiment;
 		if (testing == false) {
 			timingBoss = new TimingBoss();
 		}

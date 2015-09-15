@@ -3,12 +3,41 @@ package xpt.stimuli;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.Root;
 import haxe.ui.toolkit.core.RootManager;
+import xpt.experiment.Experiment;
+import xpt.trial.Trial;
 
 class StimulusBuilder {
 	private var _stim:Stimulus;
 	
 	public function new() {
 		
+	}
+	
+	private var trial(get, null):Trial;
+	private function get_trial():Trial {
+		var t:Trial = getDynamic("trial");
+		return t;
+	}
+	
+	private var experiment(get, null):Experiment;
+	private function get_experiment():Experiment {
+		if (trial == null) {
+			return null;
+		}
+		return trial.experiment;
+	}
+	
+	private function getDynamic(what:String, defaultValue:Dynamic = null):Dynamic {
+		var v:Dynamic = defaultValue;
+		if (_stim == null) {
+			return v;
+		}
+		
+		var temp = _stim.get(what);
+		if (temp != null) {
+			v = temp;
+		}
+		return v;
 	}
 	
 	private function get(what:String, defaultValue:String = null):String {
@@ -97,5 +126,9 @@ class StimulusBuilder {
 		var c = createComponentInstance();
 		applyProperties(c);
 		return c;
+	}
+	
+	public function buildPreloadList(props:Map<String, String>):Array<String> {
+		return null;
 	}
 }
