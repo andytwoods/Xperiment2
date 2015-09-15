@@ -23,6 +23,7 @@
 		<numberStepper builder="xpt.stimuli.builders.basic.StimNumberStepper" />
 		<lineScale builder="xpt.stimuli.builders.basic.StimLineScale" />
 		<multipleChoice builder="xpt.stimuli.builders.basic.StimMultipleChoice" />
+		<comboBox builder="xpt.stimuli.builders.basic.StimComboBox" />
 		
 		<!-- ***********************************************************************************
 			COMPOUND STIMULI
@@ -41,5 +42,9 @@
 			<icons>img/icons/user-nude.png,img/icons/user-nude-female.png</icons>
 			<buttonWidth>50%</buttonWidth>
 		</sex>
+		<origin builder="xpt.stimuli.builders.basic.StimComboBox">
+			<text>Where are you from?</text>
+			<data>data/countries.json</data>
+		</origin>	
 	</stimuli>
 </system>

@@ -22,7 +22,6 @@ class StimMultipleChoice extends StimulusBuilder {
 		var hbox:HBox = cast c;
 		
 		var fontSize:Int = getInt("fontSize");
-		
 		_buttons = new Array<Button>();
 		
 		var buttonWidth:Float = -1;
@@ -37,7 +36,7 @@ class StimMultipleChoice extends StimulusBuilder {
 		}
 		
 		var iconPosition:String = get("iconPosition");
-		
+		var group:String = "" + Math.random();
 		if (get("labels") != null) {
 			var labels:String = get("labels");
 			for (label in labels.split(",")) {
@@ -45,7 +44,7 @@ class StimMultipleChoice extends StimulusBuilder {
 				button.text = label;
 				button.percentHeight = 100;
 				button.toggle = true;
-				button.group = get("id") + "_group";
+				button.group = group + "_group";
 				if (buttonWidth != -1) {
 					button.width = buttonWidth;
 					button.autoSize = false;

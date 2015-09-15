@@ -44,7 +44,7 @@ ListSelector {
 	borderSize: 1;
 	borderColor: #ABABAB;
 	filter: null;
-	icon: "css/down_arrow.png";
+	icon: "themes/xpt/down_arrow.png";
 }
 
 ListSelector:over {
@@ -97,4 +97,81 @@ Triangle:down {
 Line {
 	borderColor: #222222;
 	borderSize: 2;
+}
+
+ListView {
+	borderColor: #ABABAB;
+	color: 0x000000;
+	paddingLeft: 2;
+	paddingTop: 2;
+	paddingBottom: 2;
+	paddingRight: 2;
+	borderSize: 1;
+	spacingX: 2;
+	spacingY: 2;
+	cornerRadius: 2;
+	backgroundColor: 0xFFFFFF;
+}
+
+.even {
+	backgroundColor: #F1F1F1;
+	color: 0x000000;
+	cornerRadius: 2;
+	paddingLeft: 2;
+	paddingTop: 4;
+	paddingBottom: 4;
+	paddingRight: 2;
+	borderSize: 0;
+	spacingX: 2;
+	spacingY: 2;
+}
+
+.even:disabled {
+	backgroundColor: 0xF5F5F5;
+}
+
+.odd {
+	backgroundColor: 0xFFFFFF;
+	color: 0x000000;
+	cornerRadius: 2;
+	paddingLeft: 2;
+	paddingTop: 4;
+	paddingBottom: 4;
+	paddingRight: 2;
+	borderSize: 0;
+	spacingX: 2;
+	spacingY: 2;
+}
+
+.even:over, .odd:over {
+	backgroundColor: #D2D2D2;
+}
+
+.even:selected, .odd:selected {
+	backgroundColor: #D2D2D2;
+}
+
+.even #text, .odd #text {
+	color: 0x000000;
+}
+
+.even #subtext, .odd #subtext {
+	color: 0x444444;
+	fontSize: 11;
+}
+
+.even #subtext:over, .odd #subtext:over {
+	color: 0xCCCCCC;
+}
+
+.even #subtext:selected, .odd #subtext:selected {
+	color: 0xCCCCCC;
+}
+
+.even #text:over, .odd #text:over {
+	color: 0x222222;
+}
+
+.even #text:selected, .odd #text:selected {
+	color: 0x222222;
 }

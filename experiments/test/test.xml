@@ -12,14 +12,23 @@
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
 	<button text="Button 1" x="10" y="10" height="100" width="100" fontSize="20" />
+	<!--
 	<numberStepper x="120" y="10" height="100" width="50" fontSize="20" />
 	<multiNumberStepper x="180" y="10" height="100" width="120" fontSize="20" val="123" />
-	<age x="310" y="10" height="100" width="100" fontSize="20" />
+	-->	
+	<age x="120" y="10" height="100" width="100" fontSize="20" />
 	
-	<lineScale x="10" y="120" width="400" height="70" fontSize="20" startLabel="Not detectable" endLabel="Very strong" />
-	
+	<lineScale x="10" y="130" width="400" height="70" fontSize="20" startLabel="Not detectable" endLabel="Very strong" />
+
+	<!--
 	<multipleChoice id="something" x="20" y="210" height="50" width="250" fontSize="20" labels="Male,Female" icons="img/icons/user-nude.png,img/icons/user-nude-female.png" buttonWidth="50%" />
-	<sex x="290" y="210" height="50" width="250" fontSize="20" />
+	-->	
+	<sex x="20" y="210" height="50" width="250" fontSize="20" />
+	
+	<!--
+	<comboBox x="20" y="280" width="300" height="50" text="Where are you from?" fontSize="20" labels="United Kingdom,United States" values="UK,USA" icons="img/icons/flags/flag_great_britain.png,img/icons/flags/flag_usa.png" data="data/countries.json" />
+	-->
+	<origin x="20" y="280" width="300" height="50" fontSize="20" />
 </TRIAL>
 
 <TRIAL TYPE="Trial" block="1" order="fixed" trials="1">
