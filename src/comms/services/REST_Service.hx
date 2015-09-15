@@ -42,7 +42,6 @@ class REST_Service
 	}
 	
 	private function delayCallBack() {
-		Delay.killDelay(delayCallBack);
 		err_f("");
 		
 	}
@@ -53,12 +52,13 @@ class REST_Service
 	}
 	
 	private function fromCloud_f(message:String) {	
+		trace(message);
 		do_callBack(Success);
 		
 	}
 	
 	private function err_f(message:String) {
-		trace(111,message);
+		Delay.killDelay(delayCallBack);
 		do_callBack(Fail);
 	}
 	

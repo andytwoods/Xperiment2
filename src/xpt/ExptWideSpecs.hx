@@ -193,7 +193,7 @@ class GeneralInfo  {
 	public var saveFailMessage:String ="<font size= '20'><b>There was a problem when trying to save your results.</b></font>\n\n<font size= '20'>We hope you don't mind, but could you send the text below to EMAILADDRESS. For your convenience, this text has been copied to your clipboard.\n\n Are you a <b>Mechanical Turker</b>? Make sure to close this window when done to retrieve your code. Thanks.";		
 	public var saveSuccessMessage:String="<font size= '20'><b>Successfully saved your data. You can close this message-window. Thankyou.<font size= '15'>";
 	public var saveClose:String = "close when ready";
-	public var cloudUrl:String = 'https://www.xpt.mobi/haxeGateway';
+	public var cloudUrl:String = 'https://www.xpt.mobi/haxe_gateway';
 	public var saveWaitDuration:Int = 15;
 	
 	//expt stuff
