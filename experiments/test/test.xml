@@ -16,7 +16,10 @@
 	<multiNumberStepper x="180" y="10" height="100" width="120" fontSize="20" val="123" />
 	<age x="310" y="10" height="100" width="100" fontSize="20" />
 	
-	<lineScale x="10" y="120" width="400" height="70" fontSize="20" drawBox="false" startLabel="Not detectable" endLabel="Very strong" />
+	<lineScale x="10" y="120" width="400" height="70" fontSize="20" startLabel="Not detectable" endLabel="Very strong" />
+	
+	<multipleChoice id="something" x="20" y="210" height="50" width="250" fontSize="20" labels="Male,Female" icons="img/icons/user-nude.png,img/icons/user-nude-female.png" buttonWidth="50%" />
+	<sex x="290" y="210" height="50" width="250" fontSize="20" />
 </TRIAL>
 
 <TRIAL TYPE="Trial" block="1" order="fixed" trials="1">

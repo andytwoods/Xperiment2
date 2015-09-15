@@ -21,10 +21,25 @@
 		************************************************************************************ -->
 		<button builder="xpt.stimuli.builders.basic.StimButton" />
 		<numberStepper builder="xpt.stimuli.builders.basic.StimNumberStepper" />
+		<lineScale builder="xpt.stimuli.builders.basic.StimLineScale" />
+		<multipleChoice builder="xpt.stimuli.builders.basic.StimMultipleChoice" />
+		
+		<!-- ***********************************************************************************
+			COMPOUND STIMULI
+		************************************************************************************ -->
 		<multiNumberStepper builder="xpt.stimuli.builders.compound.StimMultiNumberStepper" />
+		
+		<!-- ***********************************************************************************
+			ALIAS STIMULI
+		************************************************************************************ -->
 		<age builder="xpt.stimuli.builders.compound.StimMultiNumberStepper">
 			<val>00</val>
-		</age>	
-		<lineScale builder="xpt.stimuli.builders.basic.StimLineScale" />
+		</age>
+		<sex builder="xpt.stimuli.builders.basic.StimMultipleChoice">
+			<id>sex</id>
+			<labels>Male,Female</labels>
+			<icons>img/icons/user-nude.png,img/icons/user-nude-female.png</icons>
+			<buttonWidth>50%</buttonWidth>
+		</sex>
 	</stimuli>
 </system>
