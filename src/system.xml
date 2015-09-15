@@ -9,6 +9,9 @@
 		</styles>
 		<components>
 			<numberStepper class="xpt.ui.custom.NumberStepper" />
+			<triangle class="xpt.ui.custom.Triangle" />
+			<line class="xpt.ui.custom.Line" />
+			<lineScale class="xpt.ui.custom.LineScale" />
 		</components>
 	</toolkit>
 	
@@ -20,5 +23,6 @@
 		<numberStepper builder="xpt.stimuli.builders.basic.StimNumberStepper" />
 		<multiNumberStepper builder="xpt.stimuli.builders.compound.StimMultiNumberStepper" />
 		<age builder="xpt.stimuli.builders.compound.StimMultiNumberStepper" />
+		<lineScale builder="xpt.stimuli.builders.basic.StimLineScale" />
 	</stimuli>
 </system>

@@ -75,3 +75,26 @@ TextInput {
 	fontName: "_sans";
 	color: #444444;
 }
+
+Triangle {
+	borderColor: #222222;
+	backgroundColor: #EDEDED;
+	borderSize: 2;
+}
+
+Triangle:over {
+	borderColor: #222222;
+	backgroundColor: #F5F5F5;
+	borderSize: 2;
+}
+
+Triangle:down {
+	borderColor: #222222;
+	backgroundColor: #D2D2D2;
+	borderSize: 2;
+}
+
+Line {
+	borderColor: #222222;
+	borderSize: 2;
+}

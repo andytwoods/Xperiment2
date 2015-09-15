@@ -15,6 +15,8 @@
 	<numberStepper x="120" y="10" height="100" width="50" fontSize="20" />
 	<multiNumberStepper x="180" y="10" height="100" width="120" fontSize="20" val="123" />
 	<age x="310" y="10" height="100" width="100" fontSize="20" />
+	
+	<lineScale x="10" y="120" width="400" height="70" fontSize="20" drawBox="false" startLabel="Not detectable" endLabel="Very strong" />
 </TRIAL>
 
 <TRIAL TYPE="Trial" block="1" order="fixed" trials="1">
