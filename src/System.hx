@@ -47,6 +47,11 @@ class System {
 			var stimName = node.nodeName;
 			var stimBuilder = node.get("builder");
 			code += "xpt.stimuli.StimuliFactory.registerStimBuilderClass('" + stimName + "', " + stimBuilder + ");\n";
+			for (param in node.elements()) {
+				var paramName:String = param.nodeName;
+				var paramValue:String = param.firstChild().nodeValue;
+				code += "xpt.stimuli.StimuliFactory.addStimParam('" + stimName + "', '" + paramName + "', '" + paramValue + "');\n";
+			}
 		}
 
 		code += "}()\n";

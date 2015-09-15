@@ -9,6 +9,7 @@ class StimuliFactory {
 	private static var withinTrialSep:String;
 	private static var overTrialSep:String;
 	private static var _stimBuilderMap:Map<String, Class<StimulusBuilder>>;
+	private static var _stimParams:Map<String, Map<String, String>>;
 
 	static public function generate(trial:Trial, skeleton:TrialSkeleton) {
 		__recursiveGenerate(trial, null, skeleton.baseStimuli, 0);
@@ -67,6 +68,12 @@ class StimuliFactory {
 		var instance:Stimulus = null;
 		if (cls != null) {
 			instance = new Stimulus();
+			var params:Map<String, String> = getStimParams(type);
+			if (params != null) {
+				for (k in params.keys()) {
+					instance.set(k, params.get(k));
+				}
+			}
 			instance.builder = Type.createInstance(cls, []);
 		}
 		return instance;
@@ -88,6 +95,28 @@ class StimuliFactory {
 			array.push(k);
 		}
 		return array;
+	}
+	
+	public static function addStimParam(type:String, name:String, value:String):Void {
+		if (_stimParams == null) {
+			_stimParams = new Map<String, Map<String, String>>();
+		}
+		
+		type = type.toLowerCase();
+		var params:Map<String, String> = _stimParams.get(type);
+		if (params  == null) {
+			params = new Map<String, String>();
+			_stimParams.set(type, params);
+		}
+		params.set(name, value);
+	}
+	
+	public static function getStimParams(type):Map<String, String> {
+		if (_stimParams == null) {
+			return null;
+		}
+		var params:Map<String, String> = _stimParams.get(type);
+		return params;
 	}
 	
 	public static function setLabels(within:String, outside:String) {
