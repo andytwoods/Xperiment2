@@ -24,19 +24,6 @@ class StimProgressBar extends StimulusBuilder {
 		progress.min = getInt("min", 0);
 		progress.max = getInt("max", 100);
 		progress.pos = getInt("value", 0);
-		if (getBool("preloader", false) == true) {
-			experiment.addEventListener(PreloaderEvent.PROGRESS, onPreloaderProgress);
-			experiment.addEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete);
-		}
 	}
 	
-	private function onPreloaderProgress(event:PreloaderEvent) {
-		_progress.max = event.total;
-		_progress.pos = event.current;
-	}
-	
-	private function onPreloaderComplete(event:PreloaderEvent) {
-		experiment.removeEventListener(PreloaderEvent.PROGRESS, onPreloaderProgress);
-		experiment.removeEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete);
-	}
 }

@@ -6,9 +6,9 @@ import openfl.events.Event;
 import openfl.events.EventDispatcher;
 
 class PreloaderEvent extends Event {
-	public static inline var BEGIN:String = "begin";
-	public static inline var COMPLETE:String = "complete";
-	public static inline var PROGRESS:String = "progress";
+	public static inline var BEGIN:String = "preloadBegin";
+	public static inline var COMPLETE:String = "preloadComplete";
+	public static inline var PROGRESS:String = "preloadProgress";
 	
 	public var total:Int = 0;
 	public var current:Int = 0;
@@ -50,12 +50,19 @@ class Preloader extends EventDispatcher {
 		event.current = _current;
 		event.total = _total;
 		dispatchEvent(event);
+		
+		if (_current >= _total) {
+			var event:PreloaderEvent = new PreloaderEvent(PreloaderEvent.COMPLETE);
+			event.current = _current;
+			event.total = _total;
+			dispatchEvent(event);
+		}
 	}
 	
 	private function onFilesLoaded(files:Array<FileInfo>) {
 		_current = files.length;
 		_total = _current;
-
+		
 		var event:PreloaderEvent = new PreloaderEvent(PreloaderEvent.PROGRESS);
 		event.current = _current;
 		event.total = _total;

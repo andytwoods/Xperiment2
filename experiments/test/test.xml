@@ -34,7 +34,15 @@
 	<imageSequence drawBox="true" x="610" y="10" width="175" height="280" resourcePattern="./experiments/images/wine_glass/B_${n}.jpg" count="83" />
 	<imageSequence drawBox="true" x="420" y="310" width="87" height="140" resourcePattern="./experiments/images/wine_glass/C_${n}.jpg" count="83" />
 	
-	<progressBar x="20" y="350" width="300" height="40" preloader="true" min="0" max="100" value="0" />
+	<!--
+	<progressBar x="20" y="350" width="300" height="40" onPreloadProgress="this.pos=e.current|this.max=e.total" min="0" max="100" value="0" />
+	-->	
+	<preloadProgress x="20" y="350" width="300" height="40" />
+	<preloadReadyButton x="20" y="400" width="300" height="40" />
+	<!--
+	<button x="20" y="400" width="300" height="40" onPreloadComplete="this.visible=true" text="Next!" visible="false" />
+	-->	
+	
 </TRIAL>
 
 <TRIAL TYPE="Trial" block="1" order="fixed" trials="1">

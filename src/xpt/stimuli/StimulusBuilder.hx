@@ -3,7 +3,9 @@ package xpt.stimuli;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.Root;
 import haxe.ui.toolkit.core.RootManager;
+import openfl.events.Event;
 import xpt.experiment.Experiment;
+import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.trial.Trial;
 
 class StimulusBuilder {
@@ -104,6 +106,8 @@ class StimulusBuilder {
 		}
 		c.text = text;
 		
+		c.visible = getBool("visible", true);
+		
 		c.x = getUnit("x", root.width);
 		c.y = getUnit("y", root.height);
 		c.width = getUnit("width", root.width);
@@ -118,6 +122,36 @@ class StimulusBuilder {
 		if (getBool("drawBox") == true) {
 			c.style.borderSize = 1;
 			c.style.borderColor = 0x000000;
+		}
+		
+		if (get("onPreloadProgress") != null || get("onPreloadComplete") != null) {
+			experiment.addEventListener(PreloaderEvent.PROGRESS, onPreloaderProgress);
+			experiment.addEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete);
+		}
+	}
+	
+	private function onPreloaderProgress(event:PreloaderEvent) {
+		runScriptEvent("onPreloadProgress", event);
+	}
+
+	private function onPreloaderComplete(event:PreloaderEvent) {
+		runScriptEvent("onPreloadComplete", event);
+		experiment.removeEventListener(PreloaderEvent.PROGRESS, onPreloaderProgress);
+		experiment.removeEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete);
+	}
+	
+	private function runScriptEvent(prop:String, event:Event) {
+		if (get(prop) != null) {
+			experiment.scriptEngine.variables.set("this", _stim.component);
+			experiment.scriptEngine.variables.set("me", _stim.component);
+			experiment.scriptEngine.variables.set("e", event);
+			var parser = new hscript.Parser();
+			var s:String = StringTools.trim(get(prop));
+			s = StringTools.replace(s, "|", ";");
+			s = StringTools.replace(s, "\t", " ");
+			s = StringTools.replace(s, "\r\n", ";\n");
+			var expr = parser.parseString(s);
+			experiment.scriptEngine.execute(expr);
 		}
 	}
 	

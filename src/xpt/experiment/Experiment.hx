@@ -92,7 +92,6 @@ class Experiment extends EventDispatcher {
 	private function _onPreloadComplete(event:PreloaderEvent) {
 		Preloader.instance.removeEventListener(PreloaderEvent.PROGRESS, _onPreloadProgress);
 		Preloader.instance.removeEventListener(PreloaderEvent.COMPLETE, _onPreloadComplete);
-		
 		var progressEvent:PreloaderEvent = new PreloaderEvent(event.type);
 		progressEvent.total = event.total;
 		progressEvent.current = event.current;

@@ -47,6 +47,19 @@
 		<origin builder="xpt.stimuli.builders.basic.StimComboBox">
 			<text>Where are you from?</text>
 			<data>data/countries.json</data>
-		</origin>	
+		</origin>
+		<preloadProgress builder="xpt.stimuli.builders.basic.StimProgressBar">
+			<onPreloadProgress>
+				this.pos = e.current
+				this.max = e.total
+			</onPreloadProgress>
+		</preloadProgress>
+		<preloadReadyButton builder="xpt.stimuli.builders.basic.StimButton">
+			<text>Start</text>
+			<visible>false</visible>
+			<onPreloadComplete>
+				this.visible = true
+			</onPreloadComplete>
+		</preloadReadyButton>
 	</stimuli>
 </system>
