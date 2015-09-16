@@ -68,5 +68,17 @@
 				Experiment.nextTrial()
 			</action>
 		</preloadReadyButton>
+		<nextTrialButton builder="xpt.stimuli.builders.basic.StimButton">
+			<text>Next</text>
+			<action>
+				Experiment.nextTrial()
+			</action>
+		</nextTrialButton>
+		<previousTrialButton builder="xpt.stimuli.builders.basic.StimButton">
+			<text>Previous</text>
+			<action>
+				Experiment.prevTrial()
+			</action>
+		</previousTrialButton>
 	</stimuli>
 </system>

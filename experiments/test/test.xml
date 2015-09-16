@@ -24,7 +24,51 @@ We hope you enjoy it. Your participation is very important to us."
 	<preloadReadyButton x="580" y="540" width="200" height="40" fontSize="18" />
 </TRIAL>
 
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+	<text y="20%" width="90%" height="70%" 
+		  text=
+		  "Before we begin, please read the below: 
+By clicking 'I CONSENT' you indicate you have consented to take part
+If you decide to take part in this experiment, you will be told specific links between tastes and shapes and will be asked to respond according to such links
+At the end of the study we will tell you more about the purpose of the study and why we are doing this research.
+You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.ac.uk) or Dr Andy Woods (andy.woods@bristol.ac.uk) for further information at a later date if you wish.
+(Continued on the next page)"
+	fontSize="18" horizontalAlign="center" />
+	
+	<nextTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
+</TRIAL>
 
+
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+	<nextTrialButton y="20" width="200" height="40" horizontalAlign="center" fontSize="18" text="I Consent" />
+	
+	<text y="20%" width="90%" height="70%" 
+		  text=
+		  "Please read the below consent statement and indicate whether you consent. 
+Statement of Informed Consent
+1. I have read and understand the information above, and understand the general purpose of this experiment.
+2. I understand that I can withdraw from the study at any time and that doing so we will destroy your data. You can withdraw at any time, for any reason (NB - Please be aware that data collected is anonymous - if you change your mind after completing the experiment, we will be unable to trace your specific data to remove it).
+3. I understand that my responses are anonymous.
+4. I agree to take part in the experiment."
+	fontSize="18" horizontalAlign="center" />
+	
+	<previousTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
+</TRIAL>
+
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+	<text text="Some questions:" fontSize="20" width="200" height="30" x="20" y="20" />
+	
+	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" />
+	<sex x="160" y="80" height="40" width="250" fontSize="20" />
+	
+	<text text="Age:" fontSize="20" width="200" height="30" x="60" y="165" />
+	<age x="160" y="160" height="100" width="122.5" fontSize="20" />
+	
+	<origin x="60" y="300" width="680" height="50" fontSize="20" />
+	
+	<nextTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
+</TRIAL>	
+	
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
 	<button text="Button 1" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
 	<!--
