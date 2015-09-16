@@ -68,7 +68,7 @@ class TimingBoss {
 		if (RootManager.instance.currentRoot != null) {
 			if (stageCount < RootManager.instance.currentRoot.numChildren) {
 				for (i in 0...RootManager.instance.currentRoot.numChildren) {
-					trace("child:", RootManager.instance.currentRoot.getChildAt(i));
+					//trace("child:", RootManager.instance.currentRoot.getChildAt(i));
 				}
 				trace("devel error:more elements on screen after end of trial than before start");
 			}
@@ -242,7 +242,7 @@ class TimingBoss {
 	}
 	
 	private function removeStimulus(stim:Stimulus) {
-		if(RootManager.instance.currentRoot.contains(stim.component)){
+		if (RootManager.instance.currentRoot.contains(stim.component)) {
 			RootManager.instance.currentRoot.removeChild(stim.component);
 		}
 	}

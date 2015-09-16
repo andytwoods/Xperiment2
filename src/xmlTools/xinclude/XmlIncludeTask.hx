@@ -168,7 +168,7 @@ class XmlIncludeTask implements IXmlIncludeTask  {
 		}
 	}
 	private function log(str:String):Bool {
-		trace(str);
+		//trace(str);
 		return false;
 	}
 

@@ -26,6 +26,8 @@
 		<comboBox builder="xpt.stimuli.builders.basic.StimComboBox" />
 		<imageSequence builder="xpt.stimuli.builders.basic.StimImageSequence" />
 		<progressBar builder="xpt.stimuli.builders.basic.StimProgressBar" />
+		<image builder="xpt.stimuli.builders.basic.StimImage" />
+		<text builder="xpt.stimuli.builders.basic.StimText" />
 		
 		<!-- ***********************************************************************************
 			COMPOUND STIMULI
@@ -55,11 +57,16 @@
 			</onPreloadProgress>
 		</preloadProgress>
 		<preloadReadyButton builder="xpt.stimuli.builders.basic.StimButton">
-			<text>Start</text>
+			<icon>img/icons/control.png</icon>
+			<iconPosition>right</iconPosition>
+			<text>Continue</text>
 			<visible>false</visible>
 			<onPreloadComplete>
 				this.visible = true
 			</onPreloadComplete>
+			<action>
+				Experiment.nextTrial()
+			</action>
 		</preloadReadyButton>
 	</stimuli>
 </system>

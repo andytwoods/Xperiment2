@@ -22,11 +22,13 @@ class Xpt extends Sprite {
 		var dir:String = localExptDirectory;
 		
 		#if debug
+			/*
 			Trial.testing = true;
 			Code.testing = true;
 			var tests:xpt.Tests = new xpt.Tests();
 			Trial.testing = false;
 			Code.testing = false;
+			*/
 		#end
 		
 		var webStart:WebStart = new WebStart(dir, expt);

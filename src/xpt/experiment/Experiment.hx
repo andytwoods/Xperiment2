@@ -126,6 +126,20 @@ class Experiment extends EventDispatcher {
 	
 	public function __startTrial() {
 		var info:NextTrialInfo = __currentTrailInfo;
+
+		if (__runningTrial != null) {
+			__results.add(__runningTrial.getResults(), __runningTrial.specialTrial);
+			__runningTrial.kill();					
+			/*
+			__runningTrial.callBack = function(action:Trial_Action) {
+				switch(action) {	
+					case Trial_Action.End:
+						__results.add(__runningTrial.getResults(), __runningTrial.specialTrial);
+						__runningTrial.kill();					
+				}
+			}
+			*/
+		}
 		
 		__runningTrial = TrialFactory.GET(info.skeleton, info.trialOrder, this);
 		
@@ -140,15 +154,6 @@ class Experiment extends EventDispatcher {
 					Code.DO(__script, Checks.BeforeFirstTrial, __runningTrial);
 					__runningTrial.setSpecial(Special_Trial.Last_Trial);
 				
-			}
-		}
-		
-		__runningTrial.callBack = function(action:Trial_Action) {
-			
-			switch(action) {	
-				case Trial_Action.End:
-					__results.add(	__runningTrial.getResults(), __runningTrial.specialTrial	);
-					__runningTrial.kill();					
 			}
 		}
 		

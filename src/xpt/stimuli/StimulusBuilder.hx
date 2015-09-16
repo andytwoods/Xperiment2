@@ -108,10 +108,25 @@ class StimulusBuilder {
 		
 		c.visible = getBool("visible", true);
 		
-		c.x = getUnit("x", root.width);
-		c.y = getUnit("y", root.height);
 		c.width = getUnit("width", root.width);
 		c.height = getUnit("height", root.height);
+		c.x = getUnit("x", root.width);
+		c.y = getUnit("y", root.height);
+		
+		if (get("horizontalAlign") != null) {
+			switch (get("horizontalAlign")) {
+				case "center":
+					c.x = (root.width / 2) - (c.width / 2);
+			}
+		}
+
+		if (get("verticalAlign") != null) {
+			switch (get("verticalAlign")) {
+				case "center":
+					c.y = (root.height / 2) - (c.height / 2);
+			}
+		}
+		
 		if (c.width != 0 || c.height != 0) {
 			c.autoSize = false;
 		}
@@ -142,8 +157,9 @@ class StimulusBuilder {
 	
 	private function runScriptEvent(prop:String, event:Event) {
 		if (get(prop) != null) {
-			experiment.scriptEngine.variables.set("this", _stim.component);
-			experiment.scriptEngine.variables.set("me", _stim.component);
+			addScriptVars(experiment.scriptEngine.variables);
+			//experiment.scriptEngine.variables.set("this", _stim.component);
+			//experiment.scriptEngine.variables.set("me", _stim.component);
 			experiment.scriptEngine.variables.set("e", event);
 			var parser = new hscript.Parser();
 			var s:String = StringTools.trim(get(prop));
@@ -153,6 +169,11 @@ class StimulusBuilder {
 			var expr = parser.parseString(s);
 			experiment.scriptEngine.execute(expr);
 		}
+	}
+	
+	private function addScriptVars(vars:Map<String, Dynamic>) {
+		vars.set("this", _stim.component);
+		vars.set("me", _stim.component);
 	}
 	
 	public function build(stim:Stimulus):Component {

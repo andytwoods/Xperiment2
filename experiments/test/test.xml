@@ -9,6 +9,21 @@
 	  <variables practice='0' />
 </SETUP>
 
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+	<image x="0" y="0" width="800" height="83" asset="img/logos/oxford02.png" />
+	
+	<text width="80%" height="50%" 
+		  text=
+		  "Welcome to our study! We are the Crossmodal Research Laboratory, Department of Experimental Psychology, Oxford University. 
+We are interested in understanding how people associate information across the senses. If you decide to take part in this experiment, you will be asked to match a variety of shapes to tastes.
+We hope you enjoy it. Your participation is very important to us."
+	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />
+	
+	
+	<preloadProgress x="20" y="540" width="450" height="40" />
+	<preloadReadyButton x="580" y="540" width="200" height="40" fontSize="18" />
+</TRIAL>
+
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
 	<button text="Button 1" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
@@ -45,6 +60,10 @@
 	
 </TRIAL>
 
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+	<button text="Button 2" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
+</TRIAL>	
+	
 <TRIAL TYPE="Trial" block="1" order="fixed" trials="1">
 	<fullScreen timeStart="0" if="this.onFinish?next.start()"/>
 	<behavNextTrial peg="next" />
