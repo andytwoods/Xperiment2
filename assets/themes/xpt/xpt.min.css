@@ -16,12 +16,13 @@ ListView{borderColor:#ABABAB;color:0x000000;paddingLeft:2;paddingTop:2;paddingBo
 .odd{backgroundColor:0xFFFFFF;color:0x000000;cornerRadius:2;paddingLeft:2;paddingTop:4;paddingBottom:4;paddingRight:2;borderSize:0;spacingX:2;spacingY:2;}
 .even:over,.odd:over{backgroundColor:#D2D2D2;}
 .even:selected,.odd:selected{backgroundColor:#D2D2D2;}
-.even #text,.odd #text{color:0x000000;}
-.even #subtext,.odd #subtext{color:0x444444;fontSize:11;}
-.even #subtext:over,.odd #subtext:over{color:0xCCCCCC;}
-.even #subtext:selected,.odd #subtext:selected{color:0xCCCCCC;}
+.even #text,.odd #text{color:0x222222;}
+.even #subtext,.odd #subtext{color:0x222222;fontSize:11;}
+.even #subtext:over,.odd #subtext:over{color:0x222222;}
+.even #subtext:selected,.odd #subtext:selected{color:0x222222;}
 .even #text:over,.odd #text:over{color:0x222222;}
 .even #text:selected,.odd #text:selected{color:0x222222;}
+.even #subtext:selected,.odd #subtext:selected{color:0x222222;}
 VScroll{width:17;height:100;paddingLeft:1;paddingTop:1;paddingBottom:1;paddingRight:1;spacingY:1;hasButtons:true;backgroundColor:#E9E9E9;cornerRadius:2;}
 VScroll Button{backgroundColor:#E9E9E9;backgroundColorGradientEnd:#E9E9E9;borderColor:#E9E9E9;cornerRadius:1;filter:none;iconPosition:"center";}
 VScroll Button:over{backgroundColor:#D7D7D7;backgroundColorGradientEnd:#D7D7D7;borderColor:#D7D7D7;}
@@ -39,4 +40,8 @@ HScroll Button.thumb{backgroundColor:#C6C6C6;backgroundColorGradientEnd:#C6C6C6;
 HProgress{width:100;height:20;backgroundColor:0xFFFFFF;borderColor:#ABABAB;paddingTop:2;paddingLeft:2;paddingBottom:2;paddingRight:2;cornerRadius:3;filter:dropShadow(2,45,0x808080,1,4,4,1,3,true);}
 HProgress #background{width:100%;height:100%;backgroundColor:#F1F1F1;backgroundColorGradientEnd:#FFFFFF;borderColor:#FFFFFF;cornerRadius:3;}
 HProgress #value{height:100%;backgroundColor:#6CAADB;backgroundColorGradientEnd:#216AAE;borderColor:0xa5b8da;borderSize:0;cornerRadius:3;}
+Popup{backgroundColor:0xFFFFFF;filter:dropShadow(2,45,0x808080,1,4,4,1,3);borderColor:#444444;borderSize:1;cornerRadius:3;paddingLeft:2;paddingRight:2;paddingTop:2;paddingBottom:2;width:400;spacing:1;}
+Popup #titleBar{backgroundColor:#444444;height:30;paddingTop:4;paddingLeft:5;paddingRight:6;}
+Popup #titleBar Text{color:0xFFFFFF;}
+Popup #buttonBar{paddingTop:10;paddingBottom:5;height:45;}
 

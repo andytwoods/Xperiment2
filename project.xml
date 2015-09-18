@@ -16,6 +16,7 @@
 	<source path="src" />
 	<haxelib name="openfl" />
 	<haxelib name="actuate" />
+	<haxelib name="delay" unless="neko" />
 	<haxelib name="hscript" />
 	<haxelib name="assetsmanager" />
 	<haxelib name="haxeui" />

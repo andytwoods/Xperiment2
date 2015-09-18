@@ -69,6 +69,7 @@ class StimuliFactory {
 		var instance:Stimulus = null;
 		if (cls != null) {
 			instance = new Stimulus();
+			instance.set("stimType", type);
 			var params:Map<String, String> = getStimParams(type);
 			if (params != null) {
 				for (k in params.keys()) {

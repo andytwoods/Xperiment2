@@ -22,6 +22,7 @@ class System {
 		if (toolkitTheme != null) {
 			code += "haxe.ui.toolkit.core.Toolkit.theme = '" + toolkitTheme + "';\n";
 		}
+		code += "haxe.ui.toolkit.core.Toolkit.setTransitionForClass(haxe.ui.toolkit.controls.popups.Popup, 'none');\n";
 		code += "haxe.ui.toolkit.core.Toolkit.init();\n";
 		
 		var toolkitStylesNode:Xml = toolkitNode.elementsNamed("styles").next();
@@ -38,8 +39,22 @@ class System {
 					trace("Unknown toolkit style type: " + node.nodeName);
 			}
 		}
+
+		code += "var mainRoot = haxe.ui.toolkit.core.Toolkit.openFullscreen();\n";
 		
-		code += "haxe.ui.toolkit.core.Toolkit.openFullscreen();\n";
+		// setup debug
+		if (systemNode.get("debug") != null && systemNode.get("debug") == "true") {
+			code += "xpt.debug.DebugManager.instance.enabled = true;\n";
+		}
+		
+		
+		if (systemNode.elementsNamed("timing").hasNext()) {
+			var timingNode:Xml = systemNode.elementsNamed("timing").next();
+			var timingManager:String = timingNode.get("manager");
+			if (timingManager != null) {
+				code += "xpt.timing.TimingManagerFactory.managerClassAlias='" + timingManager + "';\n";
+			}
+		}
 		
 		// register stim classes
 		var stimuliNode:Xml = systemNode.elementsNamed("stimuli").next();

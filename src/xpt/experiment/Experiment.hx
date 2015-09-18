@@ -6,6 +6,7 @@ import code.Code;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.events.EventDispatcher;
 import openfl.utils.Object;
+import xpt.debug.DebugManager;
 import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.results.Results;
 import xpt.script.ProcessScript;
@@ -47,8 +48,10 @@ class Experiment extends EventDispatcher {
 		scriptEngine.variables.set("Experiment", this);
 		scriptEngine.variables.set("E", this);
 		scriptEngine.variables.set("Expr", this);
+		DebugManager.instance.experiment = this;
 		
 		//TrialOrder.DO(script);
+		DebugManager.instance.info("Experiment ready");
 		__setupTrials(script);
 		firstTrial();
 	}
@@ -76,6 +79,7 @@ class Experiment extends EventDispatcher {
 		}
 		
 		if (preloadList.length > 0) {
+			DebugManager.instance.progress("Preloading " + preloadList.length + " image(s)");
 			Preloader.instance.addEventListener(PreloaderEvent.PROGRESS, _onPreloadProgress);
 			Preloader.instance.addEventListener(PreloaderEvent.COMPLETE, _onPreloadComplete);
 			Preloader.instance.preloadImages(preloadList);
@@ -90,6 +94,7 @@ class Experiment extends EventDispatcher {
 	}
 	
 	private function _onPreloadComplete(event:PreloaderEvent) {
+		DebugManager.instance.progress("Preload complete");
 		Preloader.instance.removeEventListener(PreloaderEvent.PROGRESS, _onPreloadProgress);
 		Preloader.instance.removeEventListener(PreloaderEvent.COMPLETE, _onPreloadComplete);
 		var progressEvent:PreloaderEvent = new PreloaderEvent(event.type);
@@ -157,6 +162,7 @@ class Experiment extends EventDispatcher {
 			}
 		}
 		
+		DebugManager.instance.info("Starting trial");
 		__runningTrial.start();
 	}
 }

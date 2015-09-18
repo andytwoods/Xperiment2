@@ -152,20 +152,20 @@ ListView {
 }
 
 .even #text, .odd #text {
-	color: 0x000000;
+	color: 0x222222;
 }
 
 .even #subtext, .odd #subtext {
-	color: 0x444444;
+	color: 0x222222;
 	fontSize: 11;
 }
 
 .even #subtext:over, .odd #subtext:over {
-	color: 0xCCCCCC;
+	color: 0x222222;
 }
 
 .even #subtext:selected, .odd #subtext:selected {
-	color: 0xCCCCCC;
+	color: 0x222222;
 }
 
 .even #text:over, .odd #text:over {
@@ -175,6 +175,20 @@ ListView {
 .even #text:selected, .odd #text:selected {
 	color: 0x222222;
 }
+
+.even #subtext:selected, .odd #subtext:selected {
+	color: 0x222222;
+}
+
+
+
+
+
+
+
+
+
+
 
 VScroll {
 	width: 17;
@@ -303,4 +317,38 @@ HProgress #value {
 	borderColor: 0xa5b8da;
 	borderSize: 0;
 	cornerRadius: 3;
+}
+
+
+
+Popup {
+	backgroundColor: 0xFFFFFF;
+	filter: dropShadow(2, 45, 0x808080, 1, 4, 4, 1, 3);
+	borderColor: #444444;
+	borderSize: 1;
+	cornerRadius: 3;
+	paddingLeft: 2;
+	paddingRight: 2;
+	paddingTop: 2;
+	paddingBottom: 2;
+	width: 400;
+	spacing: 1;
+}
+
+Popup #titleBar {
+	backgroundColor: #444444;
+	height: 30;
+	paddingTop: 4;
+	paddingLeft: 5;
+	paddingRight: 6;
+}
+
+Popup #titleBar Text {
+	color: 0xFFFFFF;
+}
+
+Popup #buttonBar {
+	paddingTop: 10;
+	paddingBottom: 5;
+	height: 45;
 }

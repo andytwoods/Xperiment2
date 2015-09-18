@@ -3,7 +3,9 @@ package xpt.stimuli;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.Root;
 import haxe.ui.toolkit.core.RootManager;
+import haxe.ui.toolkit.util.StringUtil;
 import openfl.events.Event;
+import xpt.debug.DebugManager;
 import xpt.experiment.Experiment;
 import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.trial.Trial;
@@ -146,28 +148,34 @@ class StimulusBuilder {
 	}
 	
 	private function onPreloaderProgress(event:PreloaderEvent) {
-		runScriptEvent("onPreloadProgress", event);
+		runScriptEvent("onPreloadProgress", event, false);
 	}
 
 	private function onPreloaderComplete(event:PreloaderEvent) {
 		runScriptEvent("onPreloadComplete", event);
-		experiment.removeEventListener(PreloaderEvent.PROGRESS, onPreloaderProgress);
-		experiment.removeEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete);
+		experiment.removeEventListener(PreloaderEvent.PROGRESS, onPreloaderProgress, false);
+		experiment.removeEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete, false);
 	}
 	
-	private function runScriptEvent(prop:String, event:Event) {
+	private function runScriptEvent(prop:String, event:Event, logScript:Bool = true) {
 		if (get(prop) != null) {
-			addScriptVars(experiment.scriptEngine.variables);
-			//experiment.scriptEngine.variables.set("this", _stim.component);
-			//experiment.scriptEngine.variables.set("me", _stim.component);
-			experiment.scriptEngine.variables.set("e", event);
-			var parser = new hscript.Parser();
-			var s:String = StringTools.trim(get(prop));
-			s = StringTools.replace(s, "|", ";");
-			s = StringTools.replace(s, "\t", " ");
-			s = StringTools.replace(s, "\r\n", ";\n");
-			var expr = parser.parseString(s);
-			experiment.scriptEngine.execute(expr);
+			try {
+				addScriptVars(experiment.scriptEngine.variables);
+				experiment.scriptEngine.variables.set("e", event);
+				var parser = new hscript.Parser();
+				var s:String = StringTools.trim(get(prop));
+				s = StringTools.replace(s, "|", ";");
+				s = StringTools.replace(s, "\t", " ");
+				s = StringTools.replace(s, "\r\n", ";\n");
+				if (logScript == true) {
+					DebugManager.instance.event(_stim.get("stimType") + ".on" + StringUtil.capitalizeFirstLetter(event.type), "" + s);
+				}
+				var expr = parser.parseString(s);
+				experiment.scriptEngine.execute(expr);
+			} catch (e:Dynamic) {
+				trace("ERROR executing script: " + e);
+				DebugManager.instance.error("Error running script event", "" + e);
+			}
 		}
 	}
 	
