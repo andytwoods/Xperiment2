@@ -80,7 +80,7 @@
 		<previousTrialButton builder="xpt.stimuli.builders.basic.StimButton">
 			<text>Previous</text>
 			<action>
-				Experiment.prevTrial()
+				Experiment.previousTrial()
 			</action>
 		</previousTrialButton>
 	</stimuli>
