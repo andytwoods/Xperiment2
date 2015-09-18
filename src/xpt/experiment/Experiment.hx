@@ -49,6 +49,7 @@ class Experiment extends EventDispatcher {
 		scriptEngine.variables.set("E", this);
 		scriptEngine.variables.set("Expr", this);
 		DebugManager.instance.experiment = this;
+		scriptEngine.variables.set("Debug", DebugManager.instance);
 		
 		//TrialOrder.DO(script);
 		DebugManager.instance.info("Experiment ready");
@@ -133,6 +134,11 @@ class Experiment extends EventDispatcher {
 		var info:NextTrialInfo = __currentTrailInfo;
 
 		if (__runningTrial != null) {
+			for (stim in __runningTrial.stimuli) {
+				if (stim.id != null) {
+					scriptEngine.variables.remove(stim.id);
+				}
+			}
 			__results.add(__runningTrial.getResults(), __runningTrial.specialTrial);
 			__runningTrial.kill();					
 			/*
@@ -162,6 +168,11 @@ class Experiment extends EventDispatcher {
 			}
 		}
 		
+		for (stim in __runningTrial.stimuli) {
+			if (stim.id != null) {
+				scriptEngine.variables.set(stim.id, stim);
+			}
+		}
 		DebugManager.instance.info("Starting trial");
 		__runningTrial.start();
 	}

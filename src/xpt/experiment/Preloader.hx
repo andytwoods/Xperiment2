@@ -2,6 +2,8 @@ package xpt.experiment;
 
 import assets.manager.FileLoader;
 import assets.manager.misc.FileInfo;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
 import openfl.events.Event;
 import openfl.events.EventDispatcher;
 
@@ -36,6 +38,8 @@ class Preloader extends EventDispatcher {
 	private var _total:Int;
 	private var _current:Int;
 	
+	public var preloadedImages:Map<String, Bitmap> = new Map<String, Bitmap>();
+	
 	public function new() {
 		super();
 		_loader = new FileLoader();
@@ -50,6 +54,8 @@ class Preloader extends EventDispatcher {
 		event.current = _current;
 		event.total = _total;
 		dispatchEvent(event);
+		
+		preloadedImages.set(file.id, new Bitmap(file.data));
 		
 		if (_current >= _total) {
 			var event:PreloaderEvent = new PreloaderEvent(PreloaderEvent.COMPLETE);
