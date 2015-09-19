@@ -57,6 +57,7 @@ class DebugManager {
 			};
 			_debugWindowPopup = PopupManager.instance.showCustom(_debugWindowController.view, "Debug", config, function(e) {
 				_debugWindowController = null;
+				_debugWindowPopup = null;
 			});
 			
 			var cx:Float = RootManager.instance.currentRoot.width;
@@ -79,7 +80,9 @@ class DebugManager {
 	}
 	
 	private function _onAddedToStage(event:Event) {
-		RootManager.instance.currentRoot.addChild(_debugWindowPopup);
+		if (_debugWindowPopup != null) {
+			RootManager.instance.currentRoot.addChild(_debugWindowPopup);
+		}
 	}
 	
 	public function info(message:String, details:String = null) {

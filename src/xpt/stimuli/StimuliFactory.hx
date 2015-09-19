@@ -24,6 +24,11 @@ class StimuliFactory {
 			baseStimulus = baseStimuli[i];
 			
 			stim = getStim(baseStimulus.name);
+			stim.parent = parent;
+			if (parent != null) {
+				parent.children.push(stim);
+			}
+			
 			setProps(stim, baseStimulus.howMany, baseStimulus.props, trial);
 			
 			if (stim.id == null) {
@@ -31,11 +36,17 @@ class StimuliFactory {
 			}
 			
 			trial.stimuli.push(stim);
-			if (parent != null) parent.addUnderling(stim);
-			
+			if (parent != null) {
+				parent.addUnderling(stim);
+			}
 
-			if(baseStimulus.children.length>0)	__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount);
+			if (baseStimulus.children.length > 0) {
+				__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount);
+			}
 			
+			if (parent == null) {
+				trial.addStimulus(stim);
+			}
 		}
 	}
 	
@@ -52,7 +63,9 @@ class StimuliFactory {
 			}
 			
 			stim.set("trial", trial);
-			trial.addStimulus(stim);
+			if (stim.parent == null) {
+				//trial.addStimulus(stim);
+			}
 		}
 	}
 	
@@ -60,7 +73,7 @@ class StimuliFactory {
 		return val;
 	}
 	
-	private static function getStim(type:String):Stimulus {
+	private static function getStim(type:String, stimParams:Map<String, String> = null):Stimulus {
 		if (_stimBuilderMap == null) {
 			return null;
 		}
@@ -70,12 +83,37 @@ class StimuliFactory {
 		if (cls != null) {
 			instance = new Stimulus();
 			instance.set("stimType", type);
+			
+			if (stimParams != null) {
+				for (k in stimParams.keys()) {
+					instance.set(k, stimParams.get(k));
+				}
+			}
+			
 			var params:Map<String, String> = getStimParams(type);
 			if (params != null) {
 				for (k in params.keys()) {
 					instance.set(k, params.get(k));
 				}
 			}
+			
+			if (_stimChildDefs != null) {
+				var defs:Array<Xml> = _stimChildDefs.get(type);
+				if (defs != null) {
+					for (defNode in defs) {
+						var defParams:Map<String, String> = new Map<String, String>();
+						for (attr in defNode.attributes()) {
+							defParams.set(attr, defNode.get(attr));
+						}
+						for (defChild in defNode.elements()) {
+							defParams.set(defChild.nodeName, defChild.firstChild().nodeValue);
+						}
+						
+						instance.children.push(getStim(defNode.nodeName, defParams));
+					}
+				}
+			}
+			
 			instance.builder = Type.createInstance(cls, []);
 		}
 		return instance;
@@ -100,6 +138,10 @@ class StimuliFactory {
 	}
 	
 	public static function addStimParam(type:String, name:String, value:String):Void {
+		if (name == "children") {
+			return;
+		}
+		
 		if (_stimParams == null) {
 			_stimParams = new Map<String, Map<String, String>>();
 		}
@@ -119,6 +161,21 @@ class StimuliFactory {
 		}
 		var params:Map<String, String> = _stimParams.get(type);
 		return params;
+	}
+	
+	private static var _stimChildDefs:Map<String, Array<Xml>>;
+	public static function addStimChildDef(type:String, childDef:Xml) {
+		if (_stimChildDefs == null) {
+			_stimChildDefs = new Map<String, Array<Xml>>();
+		}
+		
+		var defs:Array<Xml> = _stimChildDefs.get(type);
+		if (defs == null) {
+			defs = new Array<Xml>();
+			_stimChildDefs.set(type, defs);
+		}
+		
+		defs.push(childDef);
 	}
 	
 	public static function getStimPreloadList(type:String, props:Map<String, String>):Array<String> {

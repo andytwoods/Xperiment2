@@ -1,5 +1,6 @@
 package xpt.trial;
 
+import haxe.ui.toolkit.util.CallStackHelper;
 import openfl.Lib;
 import xpt.experiment.Experiment;
 import xpt.results.TrialResults;
@@ -47,6 +48,7 @@ class Trial {
 	
 	public function addStimulus(stim:Stimulus) {
 		stimuli[stimuli.length] = stim;
+		
 		if (testing == false) {
 			//timingBoss.add(stim);
 			TimingManager.instance.add(stim);

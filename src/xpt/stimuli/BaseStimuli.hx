@@ -31,7 +31,6 @@ class BaseStimuli
 			if(stimXML.nodeType == Xml.Element){
 			
 				nam = XML_tools.nodeName(stimXML).toLowerCase();
-
 				if (permittedStimuli.indexOf(nam) != -1) {
 					
 					baseStim = _composeBaseStim(nam, stimXML,numTrials);
