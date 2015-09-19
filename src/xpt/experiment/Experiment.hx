@@ -87,6 +87,7 @@ class Experiment
 	
 	function linkups_Post_ExptWideSpecs() {
 		REST_Service.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));
+		Results.setup(ExptWideSpecs.exptId(),ExptWideSpecs.IS("trickleToCloud"));
 	}
 	
 	function linkups() 

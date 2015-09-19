@@ -18,7 +18,7 @@ class REST_Service
 	
 	public var delay:Delay;
 	
-	private var __callBack:CommsResult -> Void;
+	private var __callBack:CommsResult -> String -> Void;
 	
 	
 	public static function setup(url:String, wait:Int) {
@@ -27,7 +27,7 @@ class REST_Service
 	}
 	
 	
-	public function new(data:Map<String,String>, callBackF:CommsResult -> Void) 
+	public function new(data:Map<String,String>, callBackF:CommsResult -> String -> Void) 
 	{
 		__callBack = callBackF;
 		
@@ -46,20 +46,22 @@ class REST_Service
 		
 	}
 	
-	private function do_callBack(result:CommsResult) {
+	private function do_callBack(result:CommsResult, message:String) {
+		Delay.killDelay(delayCallBack);
 		success = result;
-		__callBack(success);
+		__callBack(success, message);
 	}
 	
 	private function fromCloud_f(message:String) {	
-		trace(message);
-		do_callBack(Success);
+		var commsResult:CommsResult;
+		if (message.indexOf("success") != -1) commsResult = Success;
+		else commsResult = Fail;
+		do_callBack(commsResult, message);
 		
 	}
 	
 	private function err_f(message:String) {
-		Delay.killDelay(delayCallBack);
-		do_callBack(Fail);
+		do_callBack(Fail,"");
 	}
 	
 }

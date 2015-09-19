@@ -1,5 +1,6 @@
 package comms.services;
 import comms.CommsResult;
+import haxe.ds.StringMap;
 
 /**
  * ...
@@ -16,10 +17,18 @@ class BodgeTest_REST_Service
 		REST_Service.__url = "http://127.0.0.1:8000/api/sj_data";
 		REST_Service.__wait == 5;
 		
-		var rest:REST_Service = new REST_Service(results, function(info:CommsResult) {
-			trace(111, info);
+		
+		var data:StringMap<String> = ["bla" => "bla"];
+
+		var resultRest:REST_Service = new REST_Service(data, function(info:CommsResult, message:String) {
+			trace(info == Fail, message == "!expt_id");
 		});
 		
+		var data:StringMap<String> = ["expt_id" => "bla"];
+
+		var resultRest:REST_Service = new REST_Service(data, function(info:CommsResult, message:String) {
+			trace(info == Fail, message =="unknown expt_id");
+		});
 		
 	}
 	

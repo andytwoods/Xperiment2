@@ -50,6 +50,9 @@ class ExptWideSpecs
 		
 	}
 	
+	public static function exptId():String {
+		return special_exptInfo.special_get("expt_id");
+	}
 
 	
 	public static function IS(what:String):Dynamic {
@@ -83,7 +86,7 @@ class ExptWideSpecs
 													'flyingfish_site_id']);	
 		special_exptInfo = new MultipleKeysMap([	'overSJs', 
 													'one_key',
-													'exptId']);	
+													'expt_id,exptId']);	
 		special_urlParams = new MultipleKeysMap(null);											
 		
 	}
@@ -193,8 +196,9 @@ class GeneralInfo  {
 	public var saveFailMessage:String ="<font size= '20'><b>There was a problem when trying to save your results.</b></font>\n\n<font size= '20'>We hope you don't mind, but could you send the text below to EMAILADDRESS. For your convenience, this text has been copied to your clipboard.\n\n Are you a <b>Mechanical Turker</b>? Make sure to close this window when done to retrieve your code. Thanks.";		
 	public var saveSuccessMessage:String="<font size= '20'><b>Successfully saved your data. You can close this message-window. Thankyou.<font size= '15'>";
 	public var saveClose:String = "close when ready";
-	public var cloudUrl:String = 'https://www.xpt.mobi/haxe_gateway';
+	public var cloudUrl:String = 'https://www.xpt.mobi/api/sj_data';
 	public var saveWaitDuration:Int = 15;
+	public var trickeToCloud:Bool = true;
 	
 	//expt stuff
 	public var blockDepthOrder:String = '';
