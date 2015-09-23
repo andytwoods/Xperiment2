@@ -108,7 +108,9 @@ class StimulusBuilder {
 		}
 		c.text = text;
 		
-		c.visible = getBool("visible", true);
+		if (get("visible") != null) {
+			c.visible = getBool("visible", true);
+		}
 		
 		c.width = getUnit("width", root.width);
 		c.height = getUnit("height", root.height);

@@ -1,6 +1,8 @@
 package xpt.timing;
 
 import haxe.ui.toolkit.core.RootManager;
+import haxe.ui.toolkit.events.UIEvent;
+import openfl.events.Event;
 import xpt.debug.DebugManager;
 import xpt.stimuli.Stimulus;
 

@@ -3,10 +3,13 @@
 	<!-- NMML reference: https://gist.github.com/1763850 -->
 	
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<meta title="XptHaxe" package="XptHaxe" version="1.0.0" company="com.flyingFishResearch" />
+	<meta title="XptHaxe" package="org.xpt.haxe" version="1.0.0" company="org.com.flyingFishResearch" />
 	
 	<!-- output -->
-	<app main="Xpt" file="XptHaxe" path="bin" />
+	<app main="Xpt" file="XptHaxe" path="bin" preloader="haxe.ui.HaxeUIPreloader" />
+	
+	<haxedef name="dom" />
+	<haxeflag name="-D dom" />
 	
 	<window background="#FFFFFF" fps="60" />
 	<window width="800" height="600" unless="mobile" />
@@ -14,13 +17,15 @@
 	
 	<!-- classpath, haxe libs -->
 	<source path="src" />
+	<haxelib name="haxeui" />
+	<!--
 	<haxelib name="openfl" />
+	-->	
 	<haxelib name="actuate" />
 	<haxelib name="delay" unless="neko || cpp" />
 	<haxelib name="hscript" />
 	<haxelib name="assetsmanager" />
-	<haxelib name="haxeui" />
-	<haxelib name="utest" />
+	<haxelib name="utest" unless="html5" />
 	<haxelib name="thx.core" />
 	
 	<!-- assets -->

@@ -107,7 +107,6 @@ class ExptWideSpecs
 
 //different platforms can call the same param slightly different names. This lets a given value be referred to my multiple names.
 class MultipleKeysMap extends ObjectMap<String, String> {
-	
 	private var alternateKeys:StringMap<String> = new StringMap<String>();
 	
 	public function new(props:Array<String>) {
@@ -125,7 +124,11 @@ class MultipleKeysMap extends ObjectMap<String, String> {
 		var list:Array<String> = prop.split(",");
 		var orig:String = list.shift();
 		
+		#if !html5
 		set(orig, "");
+		#else
+		trace("TODO: Might this cause problems??? - orig: " + orig + ", prop: " + prop);
+		#end
 
 		for (prop in list) {
 			alternateKeys.set(prop, orig);
