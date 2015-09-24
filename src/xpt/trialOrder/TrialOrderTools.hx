@@ -9,9 +9,9 @@ import xpt.trialOrder.TrialBlock;
 class TrialOrderTools
 {
 
-
+	public function new() { }
 	
-	static public function composeOrder(trialBlocks:Array<TrialBlock>):Array<Int> 
+	public function composeOrder(trialBlocks:Array<TrialBlock>):Array<Int> 
 	{
 
 		
@@ -26,7 +26,7 @@ class TrialOrderTools
 		return composition(trialBlocks);
 	}
 	
-	static private function composition(trialBlocks:Array<TrialBlock>) 
+	private function composition(trialBlocks:Array<TrialBlock>) 
 	{
 		var trials:Array<Int> = [];
 			var trialBlock:TrialBlock;
@@ -37,7 +37,7 @@ class TrialOrderTools
 	}
 	
 	
-	public static function __combineIdentical(trialBlocks:Array<TrialBlock>)
+	public function __combineIdentical(trialBlocks:Array<TrialBlock>)
 	{
 		var innerT:TrialBlock;
 		var outerT:TrialBlock;
@@ -74,7 +74,7 @@ class TrialOrderTools
 		}
 	}
 	
-	public static function __doSort(trialBlocks:Array<TrialBlock>):Void
+	public function __doSort(trialBlocks:Array<TrialBlock>):Void
 		{
 			trialBlocks.sort(__sortF);
 			
@@ -89,7 +89,7 @@ class TrialOrderTools
 
 		}
 		
-	public static function __sortF(t2:TrialBlock, t1:TrialBlock):Int
+	public function __sortF(t2:TrialBlock, t1:TrialBlock):Int
 	{
 		var i:Int;
 		var v1:Int;
@@ -113,7 +113,7 @@ class TrialOrderTools
 		return 1;
 	}
 	
-	public static function __removeEmpty(trialBlocks:Array<TrialBlock>):Array<TrialBlock>
+	public function __removeEmpty(trialBlocks:Array<TrialBlock>):Array<TrialBlock>
 	{
 		
 		

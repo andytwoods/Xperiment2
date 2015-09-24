@@ -29,6 +29,7 @@ class Experiment extends EventDispatcher {
 	private var __runningTrial:Trial;
 	private var __results:Results = new Results();
 	private var __currentTrailInfo:NextTrialInfo = null;
+	private var __trialFactory:TrialFactory = new TrialFactory();
 
 	public var scriptEngine:ScriptInterp = new ScriptInterp();
 	
@@ -42,7 +43,9 @@ class Experiment extends EventDispatcher {
 		Code.DO(script, Checks.BeforeExperiment);
 		
 		//consider remove direct class below and replace purely with Templates.compose(script);
-		ProcessScript.DO(script);
+		var processScript:ProcessScript = new ProcessScript(script);
+		processScript = null;
+
 		ExptWideSpecs.set(script);
 		linkups_Post_ExptWideSpecs();
 
@@ -72,8 +75,14 @@ class Experiment extends EventDispatcher {
 	
 	
 	public function __setupTrials(script:Xml) {
-		var trialOrder_skeletons  = TrialOrder.COMPOSE(script);
-		BaseStimuli.createSkeletonParams(trialOrder_skeletons._1);
+		var trialOrder:TrialOrder = new TrialOrder();
+		var trialOrder_skeletons  = trialOrder.COMPOSE(script);
+		trialOrder = null;
+		
+		var baseStimuli:BaseStimuli = new BaseStimuli();
+		baseStimuli.createSkeletonParams(trialOrder_skeletons._1);
+		baseStimuli = null;
+		
 		__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 
 		var skeletons:Array<TrialSkeleton> = trialOrder_skeletons._1;
@@ -159,8 +168,8 @@ class Experiment extends EventDispatcher {
 			}
 			*/
 		}
-		
-		__runningTrial = TrialFactory.GET(info.skeleton, info.trialOrder, this);
+
+		__runningTrial = __trialFactory.GET(info.skeleton, info.trialOrder, this);
 		
 		if(info.action !=null) {
 			switch(info.action) {

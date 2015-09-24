@@ -90,7 +90,7 @@
 		<!-- ***********************************************************************************
 			TEST STIMULI
 		************************************************************************************ -->
-		<test1 builder="xpt.stimuli.builders.layout.StimHBox">
+		<testStim builder="xpt.stimuli.builders.layout.StimHBox">
 			<children>
 				<button text="bob 1"></button>
 				<button>
@@ -98,6 +98,6 @@
 				</button>
 				<button text='bob 3'></button>
 			</children>
-		</test1>
+		</testStim>
 	</stimuli>
 </system>

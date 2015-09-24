@@ -28,6 +28,7 @@
 	<haxelib name="utest" unless="html5" />
 	<haxelib name="thx.core" />
 	<haxelib name="haxe-rest-client" />
+	<haxelib name="singleton" />
 
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />

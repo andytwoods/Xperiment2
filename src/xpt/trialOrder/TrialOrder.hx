@@ -10,7 +10,9 @@ import xpt.trial.TrialSkeleton;
  */
 class TrialOrder
 {
-	static public function COMPOSE(script:Xml):Tuple2<	Array<Int>,	Array<TrialSkeleton>	>
+	public function new() { };
+	
+	public function COMPOSE(script:Xml):Tuple2<	Array<Int>,	Array<TrialSkeleton>	>
 	{
 		var trialBlocks:Array<TrialBlock> = [];
 		
@@ -43,7 +45,8 @@ class TrialOrder
 			
 		}
 		
-		var trialOrder:Array<Int> = TrialOrderTools.composeOrder(trialBlocks);
+		var trialOrderTools:TrialOrderTools = new TrialOrderTools();
+		var trialOrder:Array<Int> = trialOrderTools.composeOrder(trialBlocks);
 		
 		
 		return new Tuple2(trialOrder, skeletons);
