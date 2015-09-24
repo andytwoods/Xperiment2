@@ -3,6 +3,7 @@ package xpt.experiment;
 import assets.manager.FileLoader;
 import code.CheckIsCode.Checks;
 import code.Code;
+import comms.services.REST_Service;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.events.EventDispatcher;
 import openfl.utils.Object;
@@ -43,6 +44,7 @@ class Experiment extends EventDispatcher {
 		//consider remove direct class below and replace purely with Templates.compose(script);
 		ProcessScript.DO(script);
 		ExptWideSpecs.set(script);
+		linkups_Post_ExptWideSpecs();
 
 		scriptEngine = new ScriptInterp();
 		scriptEngine.variables.set("Experiment", this);
@@ -62,6 +64,12 @@ class Experiment extends EventDispatcher {
 		
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 	}
+	
+	function linkups_Post_ExptWideSpecs() {
+		REST_Service.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));
+		Results.setup(ExptWideSpecs.exptId(),ExptWideSpecs.IS("trickleToCloud"));
+	}
+	
 	
 	public function __setupTrials(script:Xml) {
 		var trialOrder_skeletons  = TrialOrder.COMPOSE(script);

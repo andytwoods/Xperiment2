@@ -50,6 +50,10 @@ class ExptWideSpecs
 		
 	}
 	
+	public static function exptId():String {
+		return special_exptInfo.special_get("expt_id");
+	}
+	
 
 	
 	public static function IS(what:String):Dynamic {
@@ -83,7 +87,7 @@ class ExptWideSpecs
 													'flyingfish_site_id']);	
 		special_exptInfo = new MultipleKeysMap([	'overSJs', 
 													'one_key',
-													'exptId']);	
+													'expt_id','exptId']);	
 		special_urlParams = new MultipleKeysMap(null);											
 		
 	}
@@ -202,6 +206,8 @@ class GeneralInfo  {
 			
 	public var saveSuccessMessage:String="<font size= '20'><b>Successfully saved your data. You can close this message-window. Thankyou.<font size= '15'>";
 	public var saveClose:String = "close when ready";
+	public var trickleToCloud:Bool = true;
+	public var cloudUrl:String = 'https://www.xpt.mobi/api/sj_data';
 	
 	//saving
 	

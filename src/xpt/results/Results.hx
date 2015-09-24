@@ -1,4 +1,7 @@
 package xpt.results;
+import comms.CommsResult;
+import comms.services.REST_Service;
+import haxe.ds.StringMap;
 import xpt.trial.ExtractResults;
 import xpt.trial.Special_Trial;
 import xpt.trial.Trial;
@@ -10,8 +13,13 @@ import xpt.trial.Trial;
 class Results
 {
 
-	public static var trickeToCloud:Bool = true;
+	public static var trickeToCloud:Bool;
+	public static var expt_id:String;
 	
+	public static function setup(_expt_id:String, _trickleToCloud:Bool) {
+		expt_id = _expt_id;
+		trickeToCloud = _trickleToCloud;
+	}
 	
 	public function new() 
 	{	
@@ -36,23 +44,38 @@ class Results
 		
 	}
 	
-	public function __send_to_cloud(trialResults:TrialResults, special:Special_Trial) 
+public inline function __send_to_cloud(trialResults:TrialResults, special:Special_Trial) 
 	{
+		trialResults.addResult('expt_id', expt_id);
+		
 		switch(special) {
 			case Special_Trial.First_Trial:
-				
 				//multiple
-				__addResults(trialResults, ExptWideSpecs.IS("courseInfo"));
-				__addResults(trialResults, ExptWideSpecs.IS("turkInfo"));
-				
+					__addResults(trialResults, ExptWideSpecs.IS("courseInfo"));
+					__addResults(trialResults, ExptWideSpecs.IS("turkInfo"));
+					__addResults(trialResults, ExptWideSpecs.IS("flyingFishInfo"));
 				//solitary
 				__addResult(trialResults, "ip");
 				__addResult(trialResults, ExptWideSpecs.IS("overSJs"));
 				
 			case Special_Trial.Last_Trial:
-				__addResults(trialResults, ExptWideSpecs.IS("exptInfo"));
+				//solitary
+					//trialResults
+					trialResults.addResult("final","True");
+				
 			default:
 				//
+		}
+		
+		var restService:REST_Service = new REST_Service(trialResults.results, function(success:CommsResult, message:String) {
+			trace(success);
+		});
+		
+	}
+	
+	public static inline function __addInfo(info:StringMap<String>,toAdd:StringMap<String>) {
+		for (key in toAdd) {
+			info.set(key, toAdd.get(key));
 		}
 	}
 	
