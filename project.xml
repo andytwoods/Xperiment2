@@ -27,7 +27,8 @@
 	<haxelib name="assetsmanager" />
 	<haxelib name="utest" unless="html5" />
 	<haxelib name="thx.core" />
-	
+	<haxelib name="haxe-rest-client" />
+
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />
 	<assets path="assets" rename="assets" />
