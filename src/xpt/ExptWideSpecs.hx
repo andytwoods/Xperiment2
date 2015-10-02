@@ -110,11 +110,12 @@ class ExptWideSpecs
 }
 
 //different platforms can call the same param slightly different names. This lets a given value be referred to my multiple names.
-class MultipleKeysMap extends ObjectMap<String, String> {
+class MultipleKeysMap {
 	private var alternateKeys:StringMap<String> = new StringMap<String>();
+	public var __map:StringMap<String> = new StringMap<String>();
 	
 	public function new(props:Array<String>) {
-		super();	
+	
 		if (props == null) return;
 		for (item in props) {
 			__multiset(item);
@@ -127,11 +128,12 @@ class MultipleKeysMap extends ObjectMap<String, String> {
 		if (prop.length == 0) throw "";
 		var list:Array<String> = prop.split(",");
 		var orig:String = list.shift();
-		
+	
 		#if !html5
-		set(orig, "");
+			__map.set(orig, "");
 		#else
-		trace("TODO: Might this cause problems??? - orig: " + orig + ", prop: " + prop);
+			__map.set(orig, "");
+		//trace("TODO: Might this cause problems??? - orig: " + orig + ", prop: " + prop);
 		#end
 
 		for (prop in list) {
@@ -144,15 +146,18 @@ class MultipleKeysMap extends ObjectMap<String, String> {
 	public function special_get(prop:String, force:Bool = false):String {
 		var val:String;
 		
-		if(exists(prop)){
-			return get(prop);
+		if(__map.exists(prop)){
+			return __map.get(prop);
 		}
 		
 		if (alternateKeys.exists(prop)) {
 			prop = alternateKeys.get(prop);
-			return get(prop);
+			if (__map.exists(prop))	return __map.get(prop);
+			else {
+				trace("prop does not exist");
+			}
 		}
-		throw "devel error - asking for nonexisting prop";
+		throw "devel error - asking for nonexisting prop: "+prop;
 		return "";
 	}
 	
@@ -161,10 +166,10 @@ class MultipleKeysMap extends ObjectMap<String, String> {
 
 		if (alternateKeys.exists(prop)) {
 			prop = alternateKeys.get(prop);
-			set(prop,val);
+			__map.set(prop,val);
 		}
-		else if(val  != null && exists(val)){
-			set(prop,val);
+		else if(val  != null && __map.exists(val)){
+			__map.set(prop,val);
 		}
 		else if(ignoreErr == false) throw "devel error";
 	}
