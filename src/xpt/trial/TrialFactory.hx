@@ -11,16 +11,20 @@ import xpt.trial.Trial;
  */
 class TrialFactory
 {
+	
+	private var stimuliFactory:StimuliFactory = new StimuliFactory();
 
-	static public function GET(skeleton:TrialSkeleton, trialNum:Int, experiment:Experiment):Trial
+	public function new() { }
+	
+	public function GET(skeleton:TrialSkeleton, trialNum:Int, experiment:Experiment):Trial
 	{		
 		var trial = new Trial(experiment);
 		compose(trial, skeleton, trialNum);
-		StimuliFactory.generate(trial, skeleton);
+		stimuliFactory.generate(trial, skeleton);
 		return trial;
 	}
 	
-	static function compose(trial:Trial, skeleton:TrialSkeleton, trialNum:Int) 
+	function compose(trial:Trial, skeleton:TrialSkeleton, trialNum:Int) 
 	{
 		//trace(iteration,skeleton.names);
 		trial.iteration = getIteration(skeleton, trialNum);
@@ -29,7 +33,7 @@ class TrialFactory
 		trial.trialBlock = skeleton.blockPosition;
 	}
 	
-	static private function getIteration(skeleton:TrialSkeleton, trialNum:Int):Int
+	private function getIteration(skeleton:TrialSkeleton, trialNum:Int):Int
 	{
 		var i = skeleton.trials.indexOf(trialNum);
 		if (i == -1) throw "devel err";

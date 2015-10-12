@@ -21,16 +21,17 @@ class Test_BetweenSJs
 	
 	
 	public function test_BetweenSJParams() {
+		var b:BetweenSJs = new BetweenSJs();
 		
 		var xml:Xml = Xml.parse("<a/>");
-		Assert.isTrue(BetweenSJs.continueCheck(xml) == false);
+		Assert.isTrue(b.continueCheck(xml) == false);
 		
 		
 		xml = Xml.parse("<multi/>");
-		Assert.isTrue(BetweenSJs.continueCheck(xml) == true);
+		Assert.isTrue(b.continueCheck(xml) == true);
 		
 		xml = Xml.parse("<multi><a><b/></a><a><b/></a></multi>");
-		Assert.isTrue(BetweenSJs.continueCheck(xml) == true);
+		Assert.isTrue(b.continueCheck(xml) == true);
 	}
 	
 	
@@ -47,15 +48,16 @@ class Test_BetweenSJs
 	public function test__getBetweenSJConds() {
 	
 		var script:Xml = Xml.parse("<parent><boss/><a/><b/></parent>");
+		var b:BetweenSJs = new BetweenSJs();
 		
 		var ignore:String = "boss";
-		var map = BetweenSJs.getBetweenSJConds(script, ignore);
+		var map = b.getBetweenSJConds(script, ignore);
 		
 		Assert.isTrue(XTools.iteratorToArray(map.keys()).length == 2 && map.exists(ignore) == false);
 		Assert.isTrue(map.get("a").xml != null && map.get("b").xml != null);
 
 		var script:Xml = getScript();
-		map = BetweenSJs.getBetweenSJConds(script, ignore);
+		map = b.getBetweenSJConds(script, ignore);
 		
 		
 		Assert.isTrue(XTools.iteratorToArray(map.keys()).length == 4);
@@ -69,11 +71,12 @@ class Test_BetweenSJs
 		var script:Xml = getScript();
 		var parent:Xml = script.firstChild();
 		var condition:BetweenSJcond;
-		var betweenSJMap:Map<String, BetweenSJcond> = BetweenSJs.getBetweenSJConds(script, parent.firstChild().nodeName);
+		var b:BetweenSJs = new BetweenSJs();
+		var betweenSJMap:Map<String, BetweenSJcond> = b.getBetweenSJConds(script, parent.firstChild().nodeName);
 		
 		for (condNam in betweenSJMap.keys() ) {
 			condition =  betweenSJMap.get(condNam);
-			BetweenSJs.__applyParentConditions(condNam, condition, betweenSJMap);
+			b.__applyParentConditions(condNam, condition, betweenSJMap);
 		}
 		
 		Assert.isTrue(betweenSJMap.get("cond1").xml.toString()=="<cond1 parent=\"cond2\" bla=\"2\"><blabla d=\"4\">23<a/></blabla></cond1>");
@@ -104,7 +107,8 @@ class Test_BetweenSJs
 		var parent:Xml = Xml.parse("<boss boss1='true'><setup setup1='1'/><TRIAL trials='3' multiId='trials'/><stim peg='123' multiId='stim'/></boss>");
 		//var expt:Xml = Xml.parse("<expt><trials t='tt'><a/></trials><stim stima='aab'/></expt>");
 		var expt:Xml = Xml.parse("<expt><trials t='tt'><a/></trials><stim s='s'/></expt>");
-		var result:Xml = BetweenSJs.__applyToParent(parent, expt);
+		var b:BetweenSJs = new BetweenSJs();
+		var result:Xml = b.__applyToParent(parent, expt);
 		
 		Assert.isTrue(result.toString()=="<boss boss1=\"true\"><setup setup1=\"1\"/><TRIAL trials=\"3\" multiId=\"trials\" t=\"tt\"><a/></TRIAL><stim peg=\"123\" multiId=\"stim\" s=\"s\"/></boss>");
 		
@@ -112,7 +116,7 @@ class Test_BetweenSJs
 		parent = Xml.parse("<boss boss1='true'><setup setup1='1'/><TRIAL trials='3' multiId='trials'/><stim peg='123' multiId='stim'/></boss>");
 		//var expt:Xml = Xml.parse("<expt><trials t='tt'><a/></trials><stim stima='aab'/></expt>");
 		var expt:Xml = Xml.parse("<expt><stim s='s'/><trials t='tt'><a/></trials></expt>");
-		var result:Xml = BetweenSJs.__applyToParent(parent, expt);
+		var result:Xml = b.__applyToParent(parent, expt);
 		Assert.isTrue(result.toString()=="<boss boss1=\"true\"><setup setup1=\"1\"/><TRIAL trials=\"3\" multiId=\"trials\" t=\"tt\"><a/></TRIAL><stim peg=\"123\" multiId=\"stim\" s=\"s\"/></boss>");
 	}
 	
@@ -122,10 +126,11 @@ class Test_BetweenSJs
 	
 	
 	public function test_compose() {
+		var b:BetweenSJs = new BetweenSJs();
 		
 		var script:Xml = Xml.parse("<multi><boss boss1='true'><setup setup1='1'/><TRIAL trials='3' multiId='trials'/><stim peg='123' multiId='stim'/></boss><expt1><stim s='s'/><trials t='tt'><a/></trials></expt1><expt2><stim s='s'/><trials t='tt'><a/></trials></expt2></multi>");
 			
-		script = BetweenSJs.compose(script,'expt1');
+		script = b.compose(script,'expt1');
 
 		Assert.isTrue(script.toString() == "<boss boss1=\"true\"><setup setup1=\"1\"/><TRIAL trials=\"3\" multiId=\"trials\" t=\"tt\"><a/></TRIAL><stim peg=\"123\" multiId=\"stim\" s=\"s\"/></boss>");
 		

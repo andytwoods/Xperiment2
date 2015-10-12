@@ -1,6 +1,7 @@
 package comms.services;
-import com.imagination.delay.Delay;
 import comms.CommsResult;
+import openfl.events.TimerEvent;
+import openfl.utils.Timer;
 import restclient.RestClient;
 
 
@@ -12,7 +13,7 @@ class REST_Service
 	
 	public var success:CommsResult; 
 	
-	public var delay:Delay;
+	public var delay:Timer;
 	
 	private var __callBack:CommsResult -> String -> Void;
 	
@@ -27,7 +28,8 @@ class REST_Service
 	{
 		__callBack = callBackF;
 		
-		Delay.byTime(__wait, delayCallBack);
+		delay = new Timer(__wait);
+		delay.addEventListener(TimerEvent.TIMER, timerL);
 		
 		RestClient.getAsync(
 				__url,
@@ -37,13 +39,13 @@ class REST_Service
 			);
 	}
 	
-	private function delayCallBack() {
+	private function timerL(e:TimerEvent) {
 		err_f("");
-		
 	}
 	
+	
 	private function do_callBack(result:CommsResult, message:String) {
-		Delay.killDelay(delayCallBack);
+		delay.removeEventListener(TimerEvent.TIMER, timerL);
 		success = result;
 		__callBack(success, message);
 	}

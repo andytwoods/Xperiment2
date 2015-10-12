@@ -33,7 +33,8 @@ class Runner
 		Code.DO(script, Checks.BeforeEverything);
 		
 		//ProcessScript.DO(script);
-		script = BetweenSJs.compose(script);
+		var betweenSJs:BetweenSJs = new BetweenSJs();
+		script = betweenSJs.compose(script);
 	
 		currentExpt = new Experiment(script, url, params);
 		

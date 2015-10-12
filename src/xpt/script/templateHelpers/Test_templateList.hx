@@ -38,7 +38,8 @@ class Test_templateList
 	
 		var myList = genTemplateList([["a"], ["aa","aa2"], ["aaa","aaa3"], ["aaaa"]]);
 
-		var result = TemplateList.__getTemplateNames(myList);
+		var t:TemplateList = new TemplateList();
+		var result = t.__getTemplateNames(myList);
 		Assert.isTrue(Arrays.equals(result, ['a', 'aa', 'aa2', 'aaa', 'aaa3', 'aaaa']));
 
 	}
@@ -48,7 +49,8 @@ class Test_templateList
 		for (xml in [Xml.parse("<a template='a'/>"), Xml.parse("<a template='a'/>"), Xml.parse("<a template='a'/>")]) {
 			arr.push(xml);	
 		}
-		var result = TemplateList.__generateList(arr.iterator());
+		var t:TemplateList = new TemplateList();
+		var result = t.__generateList(arr.iterator());
 		Assert.isTrue(result.length == 3);
 	}
 	
@@ -57,7 +59,8 @@ class Test_templateList
 		var myList = genTemplateList([["a"], ["aa", "aa2"], ["aaa", "aaa3"], ["aaaa"]]);
 		var uniqueList = ["e","a", "aaaa","1","c","c"];
 		
-		uniqueList = TemplateList.__removeDuplicates(uniqueList,myList);
+		var t:TemplateList = new TemplateList();
+		uniqueList = t.__removeDuplicates(uniqueList,myList);
 
 		Assert.isTrue(Arrays.equals(uniqueList,['e',"1","c"]));
 	}
@@ -70,14 +73,16 @@ class Test_templateList
 		
 		var requireTemplatingList:Array<RequireTemplating> = new Array<RequireTemplating>();
 		
-		TemplateList.__addMissingTemplatesToList(requireTemplatingList, missingTemplateList, script);
+		var t:TemplateList = new TemplateList();
+		t.__addMissingTemplatesToList(requireTemplatingList, missingTemplateList, script);
 		
 		
 		Assert.isTrue(requireTemplatingList.length == 2);
 		
 		
 		try {
-			TemplateList.__addMissingTemplatesToList(requireTemplatingList, missingTemplateList, Xml.parse("<expt><missing2/> <a/> <b/> <missing1/> <missing2/> </expt>"));	
+			
+			t.__addMissingTemplatesToList(requireTemplatingList, missingTemplateList, Xml.parse("<expt><missing2/> <a/> <b/> <missing1/> <missing2/> </expt>"));	
 			Assert.isTrue(false);
 		}
 		catch (str:String) {

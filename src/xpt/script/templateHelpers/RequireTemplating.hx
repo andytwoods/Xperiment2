@@ -28,20 +28,6 @@ class RequireTemplating {
 	}
 	
 	public function new() { }
-	
-	/*public function setTemplates(str:String) {
-		var arr:Array<String> = str.split(",");
-		for (i in 0...arr.length) {
-			var item = arr[i];
-			if (item.length > 0) {
-					templates.push(item);
-			}
-		}
-		
-	}*/
 
-	
-	
-	
 	
 }
