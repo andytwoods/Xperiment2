@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <project version="2">
   <!-- Output SWF options -->
   <output>
@@ -16,20 +16,15 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="C:\Servers\Haxe\haxe\lib\haxeui\1,7,16" />
-    <class path="C:\Servers\Haxe\haxe\lib\hscript\2,0,4" />
-    <class path="C:\Servers\Haxe\haxe\lib\openfl\3,3,1" />
-    <class path="C:\Servers\Haxe\haxe\lib\svg\1,0,8" />
-    <class path="C:\Servers\Haxe\haxe\lib\yagp\1,1,4" />
-    <class path="C:\Servers\Haxe\haxe\lib\openfl\3,3,8" />
+    <class path="C:\Servers\Haxe\haxe\lib\haxeui\1,7,17" />
     <class path="C:\Servers\Haxe\haxe\lib\lime\2,6,8" />
+    <class path="C:\Servers\Haxe\haxe\lib\openfl\3,3,8" />
     <class path="C:\Servers\Haxe\haxe\lib\actuate\1,8,6" />
     <class path="C:\Servers\Haxe\haxe\lib\delay\1,1,1" />
     <class path="C:\Servers\Haxe\haxe\lib\hscript\2,0,5" />
     <class path="C:\Servers\Haxe\haxe\lib\assetsmanager\1,2,0" />
     <class path="C:\Servers\Haxe\haxe\lib\msignal\1,2,2" />
     <class path="C:\Servers\Haxe\haxe\lib\mlib\2,0,2" />
-    <class path="C:\Servers\Haxe\haxe\lib\utest\1,3,10\src" />
     <class path="C:\Servers\Haxe\haxe\lib\thx,core\0,35,0\src" />
     <class path="C:\Servers\Haxe\haxe\lib\haxe-rest-client\git" />
     <class path="C:\Servers\Haxe\haxe\lib\singleton\1,0,0" />
@@ -38,12 +33,12 @@
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="haxeui=1.7.16&#xA;hscript=2.0.4&#xA;openfl=3.3.1&#xA;svg=1.0.8&#xA;yagp=1.1.4&#xA;openfl=3.3.8&#xA;lime=2.6.8&#xA;actuate=1.8.6&#xA;delay=1.1.1&#xA;hscript=2.0.5&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.2&#xA;mlib=2.0.2&#xA;utest=1.3.10&#xA;thx_core&#xA;thx.core=0.35.0&#xA;rest-client=0.2.0&#xA;haxe-rest-client=0.2.0&#xA;Singleton=1.0.0&#xA;singleton=1.0.0&#xA;dom&#xA;openfl-next&#xA;tools=2.6.8&#xA;haxeui-no-gif-support&#xA;no-compilation&#xA;openfl-html5&#xA;canvas&#xA;lime-html5&#xA;html5&#xA;web&#xA;dom&#xA;haxeui-no-gif-support&#xA;html5&#xA;display" />
+    <option directives="haxeui=1.7.17&#xA;lime=2.6.8&#xA;openfl=3.3.8&#xA;actuate=1.8.6&#xA;delay=1.1.1&#xA;hscript=2.0.5&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.2&#xA;mlib=2.0.2&#xA;thx_core&#xA;thx.core=0.35.0&#xA;rest-client=0.2.0&#xA;haxe-rest-client=0.2.0&#xA;Singleton=1.0.0&#xA;singleton=1.0.0&#xA;dom&#xA;openfl-next&#xA;tools=2.6.8&#xA;haxeui-no-gif-support&#xA;no-compilation&#xA;openfl-html5&#xA;canvas&#xA;lime-html5&#xA;html5&#xA;web&#xA;dom&#xA;haxeui-no-gif-support&#xA;html5&#xA;html&#xA;display" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="--remap flash:openfl&#xA;--macro allowPackage(&quot;flash&quot;)" />
+    <option additional="--remap flash:openfl" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

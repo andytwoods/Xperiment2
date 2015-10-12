@@ -17,7 +17,7 @@ class Xpt {
 		
 		var expt:String = "test";
 		var dir:String = localExptDirectory;
-		
+
 		#if debug
 			Trial.testing = true;
 			Code.testing = true;
