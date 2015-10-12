@@ -8,6 +8,7 @@ import utest.Assert;
 import xpt.experiment.Experiment;
 import xpt.script.Templates;
 import xpt.stimuli.BaseStimuli;
+import xpt.stimuli.StimuliFactory;
 import xpt.stimuli.Stimulus;
 import xpt.trial.GotoTrial;
 import xpt.trial.NextTrialBoss;
@@ -20,7 +21,11 @@ import xpt.trial.TrialSkeleton;
 class Test_TrialOrder
 {
 
-	public function new() {}
+	public function new() {
+		ExptWideSpecs.set(null);
+		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
+			
+	}
 	
 
 	private function myTest(result:Array<Int>, answer:Array<Int>):Bool{
@@ -40,9 +45,7 @@ class Test_TrialOrder
 	
 	public function test7()
 		{
-		
-			ExptWideSpecs.set(null);
-			
+
 			var trialOrder:TrialOrder = new TrialOrder();
 			
 			var result = trialOrder.COMPOSE(Xml.parse("<CBCondition1><TRIAL block='0,1' order='fixed' trials='2'/> <TRIAL block='8' order='fixed' trials='3'/> </CBCondition1>"))._0;

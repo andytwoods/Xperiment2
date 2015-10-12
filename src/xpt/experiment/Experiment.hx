@@ -70,7 +70,6 @@ class Experiment extends EventDispatcher {
 	
 	function linkups_Post_ExptWideSpecs() {
 		REST_Service.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));
-		trace(111, ExptWideSpecs.exptId());
 		Results.setup(ExptWideSpecs.exptId(),ExptWideSpecs.IS("trickleToCloud"));
 	}
 	
