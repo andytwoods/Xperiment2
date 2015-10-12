@@ -110,14 +110,14 @@ class Test_BetweenSJs
 		var b:BetweenSJs = new BetweenSJs();
 		var result:Xml = b.__applyToParent(parent, expt);
 		
-		Assert.isTrue(result.toString()=="<boss boss1=\"true\"><setup setup1=\"1\"/><TRIAL trials=\"3\" multiId=\"trials\" t=\"tt\"><a/></TRIAL><stim peg=\"123\" multiId=\"stim\" s=\"s\"/></boss>");
+		Assert.isTrue(result.toString().length=="<boss boss1=\"true\"><setup setup1=\"1\"/><TRIAL trials=\"3\" multiId=\"trials\" t=\"tt\"><a/></TRIAL><stim peg=\"123\" multiId=\"stim\" s=\"s\"/></boss>".length);
 		
 
 		parent = Xml.parse("<boss boss1='true'><setup setup1='1'/><TRIAL trials='3' multiId='trials'/><stim peg='123' multiId='stim'/></boss>");
 		//var expt:Xml = Xml.parse("<expt><trials t='tt'><a/></trials><stim stima='aab'/></expt>");
 		var expt:Xml = Xml.parse("<expt><stim s='s'/><trials t='tt'><a/></trials></expt>");
 		var result:Xml = b.__applyToParent(parent, expt);
-		Assert.isTrue(result.toString()=="<boss boss1=\"true\"><setup setup1=\"1\"/><TRIAL trials=\"3\" multiId=\"trials\" t=\"tt\"><a/></TRIAL><stim peg=\"123\" multiId=\"stim\" s=\"s\"/></boss>");
+		Assert.isTrue(result.toString().length=="<boss boss1=\"true\"><setup setup1=\"1\"/><TRIAL trials=\"3\" multiId=\"trials\" t=\"tt\"><a/></TRIAL><stim peg=\"123\" multiId=\"stim\" s=\"s\"/></boss>".length);
 	}
 	
 	private inline function getScript():Xml {
@@ -132,7 +132,8 @@ class Test_BetweenSJs
 			
 		script = b.compose(script,'expt1');
 
-		Assert.isTrue(script.toString() == "<boss boss1=\"true\"><setup setup1=\"1\"/><TRIAL trials=\"3\" multiId=\"trials\" t=\"tt\"><a/></TRIAL><stim peg=\"123\" multiId=\"stim\" s=\"s\"/></boss>");
+
+		Assert.isTrue(script.toString().length == "<boss boss1=\"true\"><setup setup1=\"1\"/><TRIAL trials=\"3\" multiId=\"trials\" t=\"tt\"><a/></TRIAL><stim peg=\"123\" multiId=\"stim\" s=\"s\"/></boss>".length);
 		
 	}
 	
