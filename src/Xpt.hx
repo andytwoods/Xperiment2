@@ -14,8 +14,8 @@ class Xpt  extends Sprite  {
 	private static var localExptDirectory:String = "./experiments/";
 	
 	public static function main() {
-		//System.init();
-		//ErrorMessage.setup(Lib.current.stage);
+		System.init();
+		ErrorMessage.setup(Lib.current.stage);
 		
 		var expt:String = "test";
 		var dir:String = localExptDirectory;
@@ -28,7 +28,7 @@ class Xpt  extends Sprite  {
 			Code.testing = false;
 		#end
 		
-		//var webStart:WebStart = new WebStart(dir, expt);
+		var webStart:WebStart = new WebStart(dir, expt);
 		
 		
 		
