@@ -23,11 +23,13 @@
 	<haxelib name="openfl" />
 	<haxelib name="haxeui" />
 	<haxelib name="actuate" />
+	<haxelib name="delay" unless="neko || cpp" />
 	<haxelib name="hscript" />
 	<haxelib name="assetsmanager" />
 	<haxelib name="utest" unless="html5" />
 	<haxelib name="thx.core" />
 	<haxelib name="haxe-rest-client" />
+	<haxelib name="singleton" />
 
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />
