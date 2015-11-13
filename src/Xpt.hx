@@ -1,6 +1,7 @@
 package;
 
 import code.Code;
+import haxe.macro.Compiler;
 import openfl.Lib;
 import xpt.error.ErrorMessage;
 import xpt.start.WebStart;
@@ -24,6 +25,10 @@ class Xpt {
 			var tests:xpt.Tests = new xpt.Tests();
 			Trial.testing = false;
 			Code.testing = false;
+		#end
+		
+		#if html5
+			Compiler.includeFile("assets/html5/iframeResizer.min.js");
 		#end
 		
 		var webStart:WebStart = new WebStart(dir, expt);
