@@ -8,7 +8,7 @@ class ProcessScript
 	
 	public function new(script:Xml) {
 	
-	var templates = new Templates(script);
+		var templates = new Templates(script);
 	}
 
 	

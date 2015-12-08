@@ -1,6 +1,7 @@
 package xpt.runner;
 import code.CheckIsCode;
 import code.Code;
+import comms.services.UrlParams_service;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.utils.Object;
@@ -26,7 +27,7 @@ class Runner
 		
 	}
 	
-	public function run(script:Xml, url:String = null, params:Object = null) 
+	public function run(script:Xml) 
 	{
 		initiateOverExperimentStuff();
 			
@@ -34,9 +35,9 @@ class Runner
 		
 		//ProcessScript.DO(script);
 		var betweenSJs:BetweenSJs = new BetweenSJs();
-		script = betweenSJs.compose(script);
+		script = betweenSJs.compose(script, UrlParams_service.get('overSJs'));
 	
-		currentExpt = new Experiment(script, url, params);
+		currentExpt = new Experiment(script);
 		
 		
 	}

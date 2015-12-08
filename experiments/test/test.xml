@@ -90,9 +90,7 @@ Statement of Informed Consent
 	-->
 	<origin x="20" y="280" width="300" height="50" fontSize="20" />
 	
-	<imageSequence drawBox="true" x="420" y="10" width="175" height="280" resourcePattern="./experiments/images/wine_glass/A_${value}.jpg" count="67" />
-	<imageSequence drawBox="true" x="610" y="10" width="175" height="280" resourcePattern="./experiments/images/wine_glass/B_${value}.jpg" count="83" />
-	<imageSequence drawBox="true" x="420" y="310" width="87" height="140" resourcePattern="./experiments/images/wine_glass/C_${value}.jpg" count="83" />
+
 	
 	<!--
 	<progressBar x="20" y="350" width="300" height="40" onPreloadProgress="this.pos=e.current|this.max=e.total" min="0" max="100" value="0" />

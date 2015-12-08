@@ -4,6 +4,7 @@ import assets.manager.FileLoader;
 import code.CheckIsCode.Checks;
 import code.Code;
 import comms.services.REST_Service;
+import comms.services.UrlParams_service;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.events.EventDispatcher;
 import openfl.utils.Object;
@@ -33,7 +34,7 @@ class Experiment extends EventDispatcher {
 
 	public var scriptEngine:ScriptInterp = new ScriptInterp();
 	
-	public function new(script:Xml, url:String = null, params:Object = null) {
+	public function new(script:Xml) {
 		super();
 		linkups();
 		
@@ -47,6 +48,12 @@ class Experiment extends EventDispatcher {
 		processScript = null;
 
 		ExptWideSpecs.set(script);
+		ExptWideSpecs.updateExternalVars(UrlParams_service.params);
+		
+		#if debug
+			ExptWideSpecs.print();
+		#end
+		
 		linkups_Post_ExptWideSpecs();
 
 		scriptEngine = new ScriptInterp();

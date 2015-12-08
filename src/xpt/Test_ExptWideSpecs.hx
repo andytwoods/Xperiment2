@@ -65,6 +65,9 @@ class Test_ExptWideSpecs
 		//Assert.isTrue(g.mock == true);
 		
 		//Assert.isTrue(ExptWideSpecs.IS("workerId")=='123');
+		
+		g.update(['ip' => '123']);
+		Assert.isTrue(g.get("ip") == '123');
 	}
 	
 }
