@@ -19,6 +19,7 @@ class ExptWideSpecs
 	public static var trial_sep:String = ";";
 	public static var stim_sep:String = "---";
 	public static var trialName:String = "trialName";
+	public static var filename:String = "asset";
 	
 	public static var special_courseInfo:MultipleKeysMap;			
 	public static var special_turkInfo:MultipleKeysMap;													
@@ -129,6 +130,11 @@ class ExptWideSpecs
 		__generalInfo.print();
 		trace("----------------------");
 	}
+	
+	static public function setStimuliFolder(path:String) 
+	{
+		__generalInfo.specify('stimuliFolder', path);
+	}
 
 	
 }
@@ -211,6 +217,9 @@ class MultipleKeysMap {
 
 class GeneralInfo  {
 
+	//file loading
+	public var stimuliFolder:String = '';
+	
 	//generating data
 	public var mock:Bool = false; 
 	
@@ -293,7 +302,7 @@ class GeneralInfo  {
 		}	
 	}
 	
-	private function specify(prop:String, val:String) {
+	public function specify(prop:String, val:String) {
 				var actualProp:Dynamic;
 				
 				try{

@@ -78,8 +78,8 @@ class Test_BetweenSJs
 			condition =  betweenSJMap.get(condNam);
 			b.__applyParentConditions(condNam, condition, betweenSJMap);
 		}
-		
-		Assert.isTrue(betweenSJMap.get("cond1").xml.toString()=="<cond1 parent=\"cond2\" bla=\"2\"><blabla d=\"4\">23<a/></blabla></cond1>");
+
+		Assert.isTrue(betweenSJMap.get("cond1").xml.toString().length =="<cond1 parent=\"cond2\" bla=\"2\"><blabla d=\"4\">23<a/></blabla></cond1>".length);
 	}
 	
 		

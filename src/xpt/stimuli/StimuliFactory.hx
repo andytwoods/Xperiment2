@@ -182,20 +182,6 @@ class StimuliFactory {
 		defs.push(childDef);
 	}
 	
-	public static function getStimPreloadList(type:String, props:Map<String, String>):Array<String> {
-		if (_stimBuilderMap == null) {
-			return null;
-		}
-		type = type.toLowerCase();
-		var cls:Class<StimulusBuilder> = _stimBuilderMap.get(type);
-		var array:Array<String> = null;
-		if (cls != null) {
-			var builder:StimulusBuilder = Type.createInstance(cls, []);
-			array = builder.buildPreloadList(props);
-		}
-		return array;
-	}
-	
 	public static function setLabels(within:String, outside:String) {
 		withinTrialSep = within;
 		overTrialSep = outside;

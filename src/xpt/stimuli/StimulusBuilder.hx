@@ -5,16 +5,22 @@ import haxe.ui.toolkit.core.Root;
 import haxe.ui.toolkit.core.RootManager;
 import haxe.ui.toolkit.util.StringUtil;
 import openfl.events.Event;
+import preloader.Preloader;
 import xpt.debug.DebugManager;
 import xpt.experiment.Experiment;
-import xpt.experiment.Preloader.PreloaderEvent;
+import preloader.Preloader.PreloaderEvent;
 import xpt.trial.Trial;
 
 class StimulusBuilder {
 	private var _stim:Stimulus;
+	public static var stimuliFolder:String;
 	
 	public function new() {
 		
+	}
+	
+	public static function setStimFolder(folder:String) {
+		stimuliFolder = folder;
 	}
 	
 	private var trial(get, null):Trial;

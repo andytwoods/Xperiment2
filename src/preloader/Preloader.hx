@@ -1,4 +1,4 @@
-package xpt.experiment;
+package preloader;
 
 import assets.manager.FileLoader;
 import assets.manager.misc.FileInfo;
@@ -37,12 +37,13 @@ class Preloader extends EventDispatcher {
 	private var _loader:FileLoader;
 	private var _total:Int;
 	private var _current:Int;
+
 	
 	public var preloadedImages:Map<String, Bitmap> = new Map<String, Bitmap>();
 	
 	public function new() {
 		super();
-		_loader = new FileLoader();
+		_loader = new FileLoader();		
 		_loader.onFileLoaded.add(onFileLoaded);
 		_loader.onFilesLoaded.add(onFilesLoaded);
 	}

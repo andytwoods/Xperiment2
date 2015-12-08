@@ -8,13 +8,16 @@ import comms.services.UrlParams_service;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.events.EventDispatcher;
 import openfl.utils.Object;
+import preloader.Preloader;
+import preloader.PreloaderManager;
 import xpt.debug.DebugManager;
-import xpt.experiment.Preloader.PreloaderEvent;
+import preloader.Preloader.PreloaderEvent;
 import xpt.results.Results;
 import xpt.script.ProcessScript;
 import xpt.stimuli.BaseStimuli;
 import xpt.stimuli.StimuliFactory;
 import xpt.stimuli.Stimulus;
+import xpt.stimuli.StimulusBuilder;
 import xpt.trial.GotoTrial;
 import xpt.trial.NextTrialBoss;
 import xpt.trial.Special_Trial;
@@ -48,11 +51,11 @@ class Experiment extends EventDispatcher {
 		processScript = null;
 
 		ExptWideSpecs.set(script);
+		ExptWideSpecs.setStimuliFolder(Xpt.localExptDirectory + Xpt.exptName + "/");
+trace(11118, ExptWideSpecs.IS('stimuliFolder'));
 		ExptWideSpecs.updateExternalVars(UrlParams_service.params);
-		
-		#if debug
-			ExptWideSpecs.print();
-		#end
+		//ExptWideSpecs.print();
+
 		
 		linkups_Post_ExptWideSpecs();
 
@@ -71,13 +74,14 @@ class Experiment extends EventDispatcher {
 
 	private function linkups() {
 		BaseStimuli.setPermittedStimuli(StimuliFactory.getPermittedStimuli());
-		
+		trace(1111, ExptWideSpecs.IS('stimuliFolder'));
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 	}
 	
-	function linkups_Post_ExptWideSpecs() {
+	private function linkups_Post_ExptWideSpecs() {
 		REST_Service.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));
-		Results.setup(ExptWideSpecs.exptId(),ExptWideSpecs.IS("trickleToCloud"));
+		Results.setup(ExptWideSpecs.exptId(), ExptWideSpecs.IS("trickleToCloud"));
+				StimulusBuilder.setStimFolder(ExptWideSpecs.IS('stimuliFolder'));
 	}
 	
 	
@@ -92,41 +96,12 @@ class Experiment extends EventDispatcher {
 		
 		__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 
-		var skeletons:Array<TrialSkeleton> = trialOrder_skeletons._1;
-		var preloadList:Array<String> = new Array<String>();
-		for (skeleton in skeletons) {
-			for (baseStim in skeleton.baseStimuli) {
-				var stimPreload:Array<String> = StimuliFactory.getStimPreloadList(baseStim.name, baseStim.props);
-				if (stimPreload != null) {
-					preloadList = preloadList.concat(stimPreload);
-				}
-			}
-		}
+		var preloaderManager:PreloaderManager = new PreloaderManager(trialOrder_skeletons._1, this);
 		
-		if (preloadList.length > 0) {
-			DebugManager.instance.progress("Preloading " + preloadList.length + " image(s)");
-			Preloader.instance.addEventListener(PreloaderEvent.PROGRESS, _onPreloadProgress);
-			Preloader.instance.addEventListener(PreloaderEvent.COMPLETE, _onPreloadComplete);
-			Preloader.instance.preloadImages(preloadList);
-		}
+		
 	}
 	
-	private function _onPreloadProgress(event:PreloaderEvent) {
-		var progressEvent:PreloaderEvent = new PreloaderEvent(event.type);
-		progressEvent.total = event.total;
-		progressEvent.current = event.current;
-		dispatchEvent(progressEvent);
-	}
 	
-	private function _onPreloadComplete(event:PreloaderEvent) {
-		DebugManager.instance.progress("Preload complete");
-		Preloader.instance.removeEventListener(PreloaderEvent.PROGRESS, _onPreloadProgress);
-		Preloader.instance.removeEventListener(PreloaderEvent.COMPLETE, _onPreloadComplete);
-		var progressEvent:PreloaderEvent = new PreloaderEvent(event.type);
-		progressEvent.total = event.total;
-		progressEvent.current = event.current;
-		dispatchEvent(progressEvent);
-	}
 	
 	public function firstTrial() {
 		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.First, null);

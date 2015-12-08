@@ -13,12 +13,13 @@ import xpt.trial.Trial;
 class Xpt {
 
 	
-	private static var localExptDirectory:String = "./experiments/";
+	public static inline var localExptDirectory:String = "experiments/";
+	public static var exptName:String;
 	
 	public static function main() {
 		System.init();
 		ErrorMessage.setup(Lib.current.stage);
-		var expt:String = "test";
+		exptName = "test";
 		var dir:String = localExptDirectory;
 		
 		var webStart:WebStart;
@@ -40,7 +41,7 @@ class Xpt {
 			}
 		
 		#else
-			webStart = new WebStart(dir, expt);
+			webStart = new WebStart('./' + dir, exptName);
 		#end
 
 		

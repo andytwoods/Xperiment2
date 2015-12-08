@@ -17,7 +17,8 @@ class StimImage extends StimulusBuilder {
 		super.applyProperties(c);
 		var image:Image = cast c;
 		if (get("asset") != null) {
-			image.resource = get("asset");
+			trace(11, StimulusBuilder.stimuliFolder + get("asset"));
+			image.resource = StimulusBuilder.stimuliFolder + get("asset");
 		}
 	}
 }
