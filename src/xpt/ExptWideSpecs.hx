@@ -138,7 +138,7 @@ class ExptWideSpecs
 	
 	static public function override_for_develServer() 
 	{
-		__generalInfo.sp
+		__generalInfo.specify('cloudUrl', 'http://127.0.0.1:8000/api/sj_data');
 	}
 
 	

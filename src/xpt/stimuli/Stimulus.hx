@@ -91,8 +91,12 @@ class Stimulus {
 		}
 	}
 	
+	//to be overriden by stimuli returning data
 	public function results():Map<String,String> {
-		if (hideResults == true) return null;
+		//does not need below as logic is used elsewhere in ExtractResults
+		//if (hideResults == true) return null;
+		
+		if (builder != null) return builder.results();
 		return null;
 	}
 	

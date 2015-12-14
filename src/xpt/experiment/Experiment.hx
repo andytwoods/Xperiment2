@@ -30,7 +30,7 @@ import xpt.trialOrder.TrialOrder;
 class Experiment extends EventDispatcher {
 	private var __nextTrialBoss:NextTrialBoss;
 	private var __script:Xml;
-	private var __runningTrial:Trial;
+	private var runningTrial:Trial;
 	private var __results:Results = new Results();
 	private var __currentTrailInfo:NextTrialInfo = null;
 	private var __trialFactory:TrialFactory = new TrialFactory();
@@ -53,6 +53,7 @@ class Experiment extends EventDispatcher {
 		ExptWideSpecs.set(script);
 		ExptWideSpecs.setStimuliFolder(Xpt.localExptDirectory + Xpt.exptName + "/");
 		ExptWideSpecs.updateExternalVars(UrlParams_service.params);
+		
 		#if html5
 			if (UrlParams_service.is_devel_server()) {
 				ExptWideSpecs.override_for_develServer();
@@ -66,8 +67,6 @@ class Experiment extends EventDispatcher {
 
 		scriptEngine = new ScriptInterp();
 		scriptEngine.variables.set("Experiment", this);
-		scriptEngine.variables.set("E", this);
-		scriptEngine.variables.set("Expr", this);
 		DebugManager.instance.experiment = this;
 		DebugManager.instance.enabled = true;
 		scriptEngine.variables.set("Debug", DebugManager.instance);
@@ -137,47 +136,39 @@ class Experiment extends EventDispatcher {
 	private function startTrial() {
 		var info:NextTrialInfo = __currentTrailInfo;
 
-		if (__runningTrial != null) {
-			for (stim in __runningTrial.stimuli) {
+		if (runningTrial != null) {
+			for (stim in runningTrial.stimuli) {
 				if (stim.id != null) {
 					scriptEngine.variables.remove(stim.id);
 				}
 			}
-			__results.add(__runningTrial.getResults(), __runningTrial.specialTrial);
-			__runningTrial.kill();					
-			/*
-			__runningTrial.callBack = function(action:Trial_Action) {
-				switch(action) {	
-					case Trial_Action.End:
-						__results.add(__runningTrial.getResults(), __runningTrial.specialTrial);
-						__runningTrial.kill();					
-				}
-			}
-			*/
+			__results.add(runningTrial.getResults(), runningTrial.specialTrial);
+			runningTrial.kill();					
+			
 		}
 
-		__runningTrial = __trialFactory.GET(info.skeleton, info.trialOrder, this);
+		runningTrial = __trialFactory.GET(info.skeleton, info.trialOrder, this);
 		
 		if(info.action !=null) {
 			switch(info.action) {
 				
 				case NextTrialBoss_actions.BeforeLastTrial:
-					Code.DO(__script, Checks.BeforeLastTrial, __runningTrial);
-					__runningTrial.setSpecial(Special_Trial.First_Trial);
+					Code.DO(__script, Checks.BeforeLastTrial, runningTrial);
+					runningTrial.setSpecial(Special_Trial.First_Trial);
 					
 				case NextTrialBoss_actions.BeforeFirstTrial:
-					Code.DO(__script, Checks.BeforeFirstTrial, __runningTrial);
-					__runningTrial.setSpecial(Special_Trial.Last_Trial);
+					Code.DO(__script, Checks.BeforeFirstTrial, runningTrial);
+					runningTrial.setSpecial(Special_Trial.Last_Trial);
 				
 			}
 		}
 		
-		for (stim in __runningTrial.stimuli) {
+		for (stim in runningTrial.stimuli) {
 			if (stim.id != null) {
 				scriptEngine.variables.set(stim.id, stim);
 			}
 		}
 		DebugManager.instance.info("Starting trial");
-		__runningTrial.start();
+		runningTrial.start();
 	}
 }

@@ -44,8 +44,7 @@ class Trial {
 	}
 	
 	public function addStimulus(stim:Stimulus) {
-		stimuli[stimuli.length] = stim;
-		
+		stimuli.push( stim );
 		if (testing == false) {
 			TimingManager.instance.add(stim);
 		}
@@ -62,12 +61,10 @@ class Trial {
 	}
 	
 	public function start() {
+		
 		if (testing == false) {
 			TimingManager.instance.start();
 		}
-		
-		// TODO: duplication of stimuli here, doesnt happen once they are in TimingBoss - but should be investigated
-		// trace("" + stimuli);
 	}
 	
 	public function getResults():TrialResults {

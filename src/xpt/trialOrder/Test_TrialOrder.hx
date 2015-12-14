@@ -119,13 +119,13 @@ class Test_TrialOrder
 				var skeleton_trialNum = expt.__nextTrialBoss.computeRunningTrial(i);
 				var skeleton = skeleton_trialNum.skeleton;
 				
-				expt.__runningTrial = t.GET(skeleton, i, expt);
+				expt.runningTrial = t.GET(skeleton, i, expt);
 				
-				var testStim:Stimulus = expt.__runningTrial.stimuli[0];
+				var testStim:Stimulus = expt.runningTrial.stimuli[0];
 				
 				
 				//testing names
-				if (skeleton.names[expt.__runningTrial.iteration] != labels[i])	{
+				if (skeleton.names[expt.runningTrial.iteration] != labels[i])	{
 					trace("failed here:", skeleton.names[i] , labels[i]);
 					return false;
 				}
@@ -168,10 +168,10 @@ class Test_TrialOrder
 			else skeleton_trialOrder = __nextTrialBoss.getTrial(GotoTrial.Next, null);
 			//trace(111, __nextTrialBoss.currentTrial,skeleton_trialOrder._1);
 	
-			expt.__runningTrial = t.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder, expt);
+			expt.runningTrial = t.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder, expt);
 			
-			testProps.push(expt.__runningTrial.stimuli[0].get('test'));
-			testTrialNames.push(expt.__runningTrial.trialName);
+			testProps.push(expt.runningTrial.stimuli[0].get('test'));
+			testTrialNames.push(expt.runningTrial.trialName);
 		}
 		
 		/*trace("testTrialNames	", testTrialNames);
@@ -248,10 +248,10 @@ class Test_TrialOrder
 				//trace(111, i,skeleton_trialOrder,skeleton_trialOrder._1);
 				//var skel = skeleton_trialOrder._0;
 				//trace(skel.xml);
-				expt.__runningTrial = t.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder, expt);
+				expt.runningTrial = t.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder, expt);
 
-				if (expt.__runningTrial.stimuli.length > 0) {
-					var stim:Stimulus = expt.__runningTrial.stimuli[0];
+				if (expt.runningTrial.stimuli.length > 0) {
+					var stim:Stimulus = expt.runningTrial.stimuli[0];
 					var val:String;
 					if (stim.__properties.exists('test')) {
 						val = stim.get('test');
@@ -261,7 +261,7 @@ class Test_TrialOrder
 					testProps.push(val);
 				}
 				else testProps.push("pause");
-				testTrialNames.push(expt.__runningTrial.trialName);
+				testTrialNames.push(expt.runningTrial.trialName);
 			}
 				
 		Assert.isTrue(testTrialNames.toString() ==",,,A_sour,B_sour,,C_sour,D_sour,,Csour1,Csour2,,Csour3,Csour4,");
@@ -332,10 +332,10 @@ class Test_TrialOrder
 				//trace(111, i,skeleton_trialOrder,skeleton_trialOrder._1);
 				//var skel = skeleton_trialOrder._0;
 				//trace(skel.xml);
-				expt.__runningTrial = t.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder, expt);
+				expt.runningTrial = t.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder, expt);
 
-				if (expt.__runningTrial.stimuli.length > 0) {
-					var stim:Stimulus = expt.__runningTrial.stimuli[0];
+				if (expt.runningTrial.stimuli.length > 0) {
+					var stim:Stimulus = expt.runningTrial.stimuli[0];
 					var val:String;
 					if (stim.__properties.exists('test')) {
 						val = stim.get('test');
@@ -346,7 +346,7 @@ class Test_TrialOrder
 					testProps.push(val);
 				}
 				else testProps.push("pause");
-				testTrialNames.push(expt.__runningTrial.trialName);
+				testTrialNames.push(expt.runningTrial.trialName);
 			}
 				
 	

@@ -187,6 +187,14 @@ class StimulusBuilder {
 		}
 	}
 	
+	var rand:Float = Math.random();
+	
+	//override this
+	public function results():Map<String,String> {
+		trace(11, this,rand);
+		return null;
+	}
+	
 	private function addScriptVars(vars:Map<String, Dynamic>) {
 		vars.set("this", _stim.component);
 		vars.set("me", _stim.component);

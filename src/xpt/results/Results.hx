@@ -27,6 +27,7 @@ class Results
 	
 	public function add(trialResults:TrialResults, special:Special_Trial) 
 	{
+		trace('in here', trialResults);
 		if (trialResults == null) return;
 		
 		if(trickeToCloud)	__send_to_cloud(trialResults, special);

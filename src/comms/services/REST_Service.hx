@@ -9,7 +9,7 @@ class REST_Service
 {
 
 	public static var __url:String;
-	public static var __wait:Int;
+	public static var __wait_til_error:Int;
 	
 	public var success:CommsResult; 
 	
@@ -20,15 +20,14 @@ class REST_Service
 	
 	public static function setup(url:String, wait:Int) {
 		__url = url;
-		__wait = wait;
+		__wait_til_error = wait;
 	}
 	
 	
 	public function new(data:Map<String,String>, callBackF:CommsResult -> String -> Void) 
 	{
 		__callBack = callBackF;
-		
-		delay = new Timer(__wait);
+		delay = new Timer(__wait_til_error);
 		delay.addEventListener(TimerEvent.TIMER, timerL);
 		
 		RestClient.getAsync(

@@ -15,7 +15,7 @@ class BodgeTest_REST_Service
 		results.set("bla", "bla");
 		
 		REST_Service.__url = "http://127.0.0.1:8000/api/sj_data";
-		REST_Service.__wait == 5;
+		REST_Service.__wait_til_error == 5;
 		
 		
 		var data:StringMap<String> = ["bla" => "bla"];

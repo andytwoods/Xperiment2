@@ -42,7 +42,7 @@ class StimuliFactory {
 			
 			stim.type = baseStimulus.name;
 			
-			trial.stimuli.push(stim);
+			//trial.stimuli.push(stim);
 			if (parent != null) {
 				parent.addUnderling(stim);
 			}

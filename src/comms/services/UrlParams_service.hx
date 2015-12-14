@@ -1,5 +1,4 @@
 package comms.services;
-import js.Browser;
 import thx.Maps;
 
 /**
@@ -15,8 +14,8 @@ class UrlParams_service
 	
 	public static function init() {
 		#if html5
-			url = StringTools.urlDecode(Browser.document.referrer);
-			if (url.length == 0) url = Browser.window.location.href;
+			url = StringTools.urlDecode(js.Browser.document.referrer);
+			if (url.length == 0) url = js.Browser.window.location.href;
 			
 			var query:String = StringTools.urlDecode(js.Browser.window.location.search.substring(1));
 			

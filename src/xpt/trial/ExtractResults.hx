@@ -37,8 +37,10 @@ class ExtractResults
 		
 		for (i in 0...trial.stimuli.length) {
 			stimulus = trial.stimuli[i]; //ensures order
-			stimRes = stimulus.results();
-			trialResults.addMultipleResults(stimRes);		
+			if (stimulus.hideResults == false) {
+				stimRes = stimulus.results();
+				trialResults.addMultipleResults(stimRes);		
+			}
 		}
 		return trialResults;
 	}	
