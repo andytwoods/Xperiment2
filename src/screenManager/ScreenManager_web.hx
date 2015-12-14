@@ -40,7 +40,7 @@ class ScreenManager_web
 		} else {
 			Lib.current.y = (stage.stageHeight - NOMINAL_HEIGHT * stageScale) / 2;
 		}
-		trace(Lib.current.x, Lib.current.y,stage.stageWidth,stage.stageHeight);
+		//trace(Lib.current.x, Lib.current.y,stage.stageWidth,stage.stageHeight);
     }
 	
 	

@@ -135,6 +135,11 @@ class ExptWideSpecs
 	{
 		__generalInfo.specify('stimuliFolder', path);
 	}
+	
+	static public function override_for_develServer() 
+	{
+		__generalInfo.sp
+	}
 
 	
 }
@@ -235,22 +240,19 @@ class GeneralInfo  {
 	public var encryptKey:Null<String>;
 	public var one_key:Null<String>;
 	
+	//blocking
 	public var blockDepthOrder:String = '';
-	
-	public var timeStart:String;
 			
-
+	//saving
 	public var saveFailMessage:String ="<font size= '20'><b>There was a problem when trying to save your results.</b></font>\n\n<font size= '20'>We hope you don't mind, but could you send the text below to EMAILADDRESS. For your convenience, this text has been copied to your clipboard.\n\n Are you a <b>Mechanical Turker</b>? Make sure to close this window when done to retrieve your code. Thanks.";
 			
 	public var saveSuccessMessage:String="<font size= '20'><b>Successfully saved your data. You can close this message-window. Thankyou.<font size= '15'>";
 	public var saveClose:String = "close when ready";
 	public var trickleToCloud:Bool = true;
 	public var cloudUrl:String = 'https://www.xpt.mobi/api/sj_data';
-	
-	//saving
-	
-			
-	
+	 
+	//other
+	public var timeStart:String;
 	public var ITI:Int = 500;
 	
 	

@@ -33,12 +33,14 @@ class StimuliFactory {
 			if (parent != null) {
 				parent.children.push(stim);
 			}
-			
+
 			setProps(stim, baseStimulus.howMany, baseStimulus.props, trial);
 			
 			if (stim.id == null) {
 				stim.id = "id" + Std.string(unknownIdCount++);
 			}
+			
+			stim.type = baseStimulus.name;
 			
 			trial.stimuli.push(stim);
 			if (parent != null) {

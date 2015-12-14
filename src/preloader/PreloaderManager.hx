@@ -45,7 +45,6 @@ class PreloaderManager
 		var progressEvent:PreloaderEvent = new PreloaderEvent(event.type);
 		progressEvent.total = event.total;
 		progressEvent.current = event.current;
-		trace(event.type);
 		parent.dispatchEvent(progressEvent);
 	}
 	

@@ -14,6 +14,7 @@ class Stimulus {
 	public var id:String;
 	public var depth:Int;
 	public var ran:Bool = false;
+	public var type:String;
 	
 	private var __properties:Map<String,Dynamic>;
 	private var __underlings:Array<Stimulus> = [];

@@ -52,8 +52,13 @@ class Experiment extends EventDispatcher {
 
 		ExptWideSpecs.set(script);
 		ExptWideSpecs.setStimuliFolder(Xpt.localExptDirectory + Xpt.exptName + "/");
-trace(11118, ExptWideSpecs.IS('stimuliFolder'));
 		ExptWideSpecs.updateExternalVars(UrlParams_service.params);
+		#if html5
+			if (UrlParams_service.is_devel_server()) {
+				ExptWideSpecs.override_for_develServer();
+			}
+
+		#end
 		//ExptWideSpecs.print();
 
 		
@@ -64,28 +69,28 @@ trace(11118, ExptWideSpecs.IS('stimuliFolder'));
 		scriptEngine.variables.set("E", this);
 		scriptEngine.variables.set("Expr", this);
 		DebugManager.instance.experiment = this;
+		DebugManager.instance.enabled = true;
 		scriptEngine.variables.set("Debug", DebugManager.instance);
 		
 		//TrialOrder.DO(script);
 		DebugManager.instance.info("Experiment ready");
-		__setupTrials(script);
+		setupTrials(script);
 		firstTrial();
 	}
 
 	private function linkups() {
 		BaseStimuli.setPermittedStimuli(StimuliFactory.getPermittedStimuli());
-		trace(1111, ExptWideSpecs.IS('stimuliFolder'));
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 	}
 	
 	private function linkups_Post_ExptWideSpecs() {
 		REST_Service.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));
 		Results.setup(ExptWideSpecs.exptId(), ExptWideSpecs.IS("trickleToCloud"));
-				StimulusBuilder.setStimFolder(ExptWideSpecs.IS('stimuliFolder'));
+		StimulusBuilder.setStimFolder(ExptWideSpecs.IS('stimuliFolder'));
 	}
 	
 	
-	public function __setupTrials(script:Xml) {
+	private function setupTrials(script:Xml) {
 		var trialOrder:TrialOrder = new TrialOrder();
 		var trialOrder_skeletons  = trialOrder.COMPOSE(script);
 		trialOrder = null;
@@ -105,31 +110,31 @@ trace(11118, ExptWideSpecs.IS('stimuliFolder'));
 	
 	public function firstTrial() {
 		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.First, null);
-		__startTrial();
+		startTrial();
 	}
 	
 	public function nextTrial() {
 		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Next, null);
-		__startTrial();
+		startTrial();
 	}
 	
 	public function previousTrial() {
 		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Previous, null);
-		__startTrial();
+		startTrial();
 	}
 	
 	public function gotoTrial(trial:Dynamic) {
 		if (Std.is(trial, String) == true) {
 			__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Name(trial), null);
-			__startTrial();
+			startTrial();
 		} else {
 			var trialIndex = Std.parseInt(trial);
 			__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Number(trialIndex), null);
-			__startTrial();
+			startTrial();
 		}
 	}
 	
-	public function __startTrial() {
+	private function startTrial() {
 		var info:NextTrialInfo = __currentTrailInfo;
 
 		if (__runningTrial != null) {

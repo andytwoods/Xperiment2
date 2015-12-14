@@ -20,9 +20,10 @@ We are interested in understanding how people associate information across the s
 We hope you enjoy it. Your participation is very important to us."
 	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />
 	
-	
+	<button text="Button 1" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
 	<preloadProgress x="20" y="540" width="450" height="40" />
-	<preloadReadyButton x="580" y="540" width="200" height="40" fontSize="18" />
+	<preloadReadyButton x="50%" horizontalAlign="center" y="85%" width="200" height="40" fontSize="18" />
+
 </TRIAL>
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
@@ -35,8 +36,7 @@ At the end of the study we will tell you more about the purpose of the study and
 You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.ac.uk) or Dr Andy Woods (andy.woods@bristol.ac.uk) for further information at a later date if you wish.
 (Continued on the next page)"
 	fontSize="18" horizontalAlign="center" />
-	
-	<nextTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
+	<nextTrialButton y="90%" width="200" height="40" horizontalAlign="center" fontSize="18" />
 </TRIAL>
 
 

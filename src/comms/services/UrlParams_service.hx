@@ -1,4 +1,6 @@
 package comms.services;
+import js.Browser;
+import thx.Maps;
 
 /**
  * ...
@@ -8,11 +10,14 @@ class UrlParams_service
 {
 
 	public static var params:Map<String,String>;
-
+	public static var url:String;
 	
 	
 	public static function init() {
 		#if html5
+			url = StringTools.urlDecode(Browser.document.referrer);
+			if (url.length == 0) url = Browser.window.location.href;
+			
 			var query:String = StringTools.urlDecode(js.Browser.window.location.search.substring(1));
 			
 			var paramsList = query.split("&");
@@ -28,8 +33,7 @@ class UrlParams_service
 				arr = item.split("=");
 				var nam = arr[0];
 				var val = arr[1];
-				
-				params.set(nam, val);
+				if(val!=null && val.length>0)	params.set(nam, val);
 
 			}
 
@@ -40,8 +44,12 @@ class UrlParams_service
 	    #end
 
 	}
-
+	
+	public static function is_devel_server():Bool {
+		trace(url, 222);
+		return url.indexOf('127.0.0.1') !=-1;
 		
+	}
 	
 	public static function get(what:String):String {
 		#if html5

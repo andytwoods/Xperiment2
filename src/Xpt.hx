@@ -15,14 +15,14 @@ class Xpt {
 	
 	public static inline var localExptDirectory:String = "experiments/";
 	public static var exptName:String;
+	private static var webStart:WebStart;
 	
 	public static function main() {
 		System.init();
 		ErrorMessage.setup(Lib.current.stage);
 		exptName = "test";
-		var dir:String = localExptDirectory;
 		
-		var webStart:WebStart;
+		
 
 		#if (debug && !html5)
 		
@@ -39,11 +39,18 @@ class Xpt {
 			if (script.length > 0) {
 				webStart = new WebStart('.', script, true);
 			}
+			else {
+				start();
+			}
 		
 		#else
-			webStart = new WebStart('./' + dir, exptName);
+			start();
 		#end
 
 		
+	}
+	
+	private static function start() {
+		webStart = new WebStart('./' + localExptDirectory, exptName);
 	}
 }

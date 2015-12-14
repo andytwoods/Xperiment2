@@ -15,7 +15,8 @@
 	<haxeflag name="-D haxeui-no-gif-support" />
 	
 	<window background="#FFFFFF" fps="60" />
-	<window width="0" height="0" unless="mobile" />
+	<window width="0" height="0" if="html5" />
+
 	<window orientation="landscape" fps="60" hardware="true" vsync="false" antialiasing="0" if="cpp" />
 	
 	<!-- classpath, haxe libs -->
