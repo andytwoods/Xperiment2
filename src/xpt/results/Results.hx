@@ -27,49 +27,40 @@ class Results
 	
 	public function add(trialResults:TrialResults, special:Special_Trial) 
 	{
-		trace('in here', trialResults);
 		if (trialResults == null) return;
-		
+	
 		if(trickeToCloud)	__send_to_cloud(trialResults, special);
-		/*
-		switch(special) {
-			case Special_Trial.First_Trial:
-				//
-			case Special_Trial.Last_Trial:
-				//
-			default:
-				//
-		}
-			*/
-			
 		
 	}
 	
 public inline function __send_to_cloud(trialResults:TrialResults, special:Special_Trial) 
 	{
+		
 		trialResults.addResult('expt_id', expt_id);
 		
-		switch(special) {
-			case Special_Trial.First_Trial:
-				//multiple
-					__addResults(trialResults, ExptWideSpecs.IS("courseInfo"));
-					__addResults(trialResults, ExptWideSpecs.IS("turkInfo"));
-					__addResults(trialResults, ExptWideSpecs.IS("flyingFishInfo"));
-				//solitary
-				__addResult(trialResults, "ip");
-				__addResult(trialResults, ExptWideSpecs.IS("overSJs"));
-				
-			case Special_Trial.Last_Trial:
-				//solitary
-					//trialResults
-					trialResults.addResult("final","True");
-				
-			default:
-				//
+		if( special !=null ){
+			switch(special) {
+				case Special_Trial.First_Trial:
+					//multiple
+						__addResults(trialResults, ExptWideSpecs.IS("courseInfo"));
+						__addResults(trialResults, ExptWideSpecs.IS("turkInfo"));
+						__addResults(trialResults, ExptWideSpecs.IS("flyingFishInfo"));
+					//solitary
+					__addResult(trialResults, "ip");
+					__addResult(trialResults, ExptWideSpecs.IS("overSJs"));
+					
+				case Special_Trial.Last_Trial:
+					//solitary
+						//trialResults
+						trialResults.addResult("final","True");
+					
+				case Special_Trial.Not_Special:
+					//
+			}
 		}
 		
 		var restService:REST_Service = new REST_Service(trialResults.results, function(success:CommsResult, message:String) {
-			trace(success);
+			trace('transmission: '+success);
 		});
 		
 	}

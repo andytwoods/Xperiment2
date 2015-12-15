@@ -11,7 +11,7 @@ import xpt.trial.Trial;
 class ExtractResults
 {
 	
-	static public inline function DO(trial:Trial):TrialResults
+	static public function DO(trial:Trial):TrialResults
 	{
 
 		if (trial.hideResults == true) return null;
@@ -21,6 +21,7 @@ class ExtractResults
 		extract(trial, trialResults);
 
 		if (trialResults.results.keys().hasNext() == false) return null;
+
 		
 		trialResults.trialNum = trial.trialNum;
 		trialResults.trialBlock = trial.trialBlock;

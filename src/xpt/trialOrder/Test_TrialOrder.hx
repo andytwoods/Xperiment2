@@ -91,7 +91,7 @@ class Test_TrialOrder
 
 	private function init(myScript:Xml):Experiment {
 		var expt:Experiment = new Experiment(null);
-		expt.__script=myScript;
+		expt.script=myScript;
 		ExptWideSpecs.set(myScript);
 		var trialOrder:TrialOrder = new TrialOrder();
 		var trialOrder_skeletons = trialOrder.COMPOSE(myScript);
@@ -100,7 +100,7 @@ class Test_TrialOrder
 		BaseStimuli.setPermittedStimuli(['teststim']);
 		var b:BaseStimuli = new BaseStimuli();
 		b.createSkeletonParams(trialOrder_skeletons._1);
-		expt.__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
+		expt.nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 		expt.firstTrial();
 		return expt;
 	} 
@@ -111,12 +111,12 @@ class Test_TrialOrder
 		var expt = function(myScript:Xml,labels:Array<String>,ident:Array<String>):Bool{	
 			var expt:Experiment = init(myScript);
 			var skeleton:TrialSkeleton;
-			var trialOrder:Array<Int> = expt.__nextTrialBoss.__trialOrder;
+			var trialOrder:Array<Int> = expt.nextTrialBoss.__trialOrder;
 			var t:TrialFactory = new TrialFactory();
 			
 			for (i in 0...trialOrder.length) {
 
-				var skeleton_trialNum = expt.__nextTrialBoss.computeRunningTrial(i);
+				var skeleton_trialNum = expt.nextTrialBoss.computeRunningTrial(i);
 				var skeleton = skeleton_trialNum.skeleton;
 				
 				expt.runningTrial = t.GET(skeleton, i, expt);
@@ -159,7 +159,7 @@ class Test_TrialOrder
 		var testProps:Array<String>=[];
 		var testTrialNames:Array<String> = [];
 		var skeleton_trialOrder:NextTrialInfo;
-		var __nextTrialBoss = expt.__nextTrialBoss;
+		var __nextTrialBoss = expt.nextTrialBoss;
 		var t:TrialFactory = new TrialFactory();
 		
 		for (i in 0...__nextTrialBoss.__trialOrder.length) {
@@ -220,7 +220,7 @@ class Test_TrialOrder
 			var trialOrder:TrialOrder = new TrialOrder();
 			var trialOrder_skeletons:Tuple2 <	Array<Int>,	Array<TrialSkeleton> > = trialOrder.COMPOSE(script);
 
-			expt.__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
+			expt.nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 			//trace(111, trialOrder_skeletons);
 			
 			var testProps:Array<String>=[];
@@ -239,10 +239,10 @@ class Test_TrialOrder
 			
 			var t:TrialFactory = new TrialFactory();
 		
-			for (i in 0...expt.__nextTrialBoss.__trialOrder.length) {
+			for (i in 0...expt.nextTrialBoss.__trialOrder.length) {
 				
-				if (i == 0) skeleton_trialOrder = expt.__nextTrialBoss.getTrial(GotoTrial.First, null);
-				else skeleton_trialOrder = expt.__nextTrialBoss.getTrial(GotoTrial.Next, null);
+				if (i == 0) skeleton_trialOrder = expt.nextTrialBoss.getTrial(GotoTrial.First, null);
+				else skeleton_trialOrder = expt.nextTrialBoss.getTrial(GotoTrial.Next, null);
 				
 				if (skeleton_trialOrder.skeleton == null) Assert.isTrue(false);
 				//trace(111, i,skeleton_trialOrder,skeleton_trialOrder._1);
@@ -304,7 +304,7 @@ class Test_TrialOrder
 			ExptWideSpecs.__testSet("blockDepthOrder", "");
 			var trialOrder:TrialOrder = new TrialOrder();
 			var trialOrder_skeletons:Tuple2<	Array<Int>,	Array<TrialSkeleton>> = trialOrder.COMPOSE(script);
-			expt.__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
+			expt.nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 			//trace(111, trialOrder_skeletons);
 			
 			var testProps:Array<String>=[];
@@ -323,10 +323,10 @@ class Test_TrialOrder
 			
 			var t:TrialFactory = new TrialFactory();
 		
-			for (i in 0...expt.__nextTrialBoss.__trialOrder.length) {
+			for (i in 0...expt.nextTrialBoss.__trialOrder.length) {
 				
-				if (i == 0) skeleton_trialOrder = expt.__nextTrialBoss.getTrial(GotoTrial.First, null);
-				else skeleton_trialOrder = expt.__nextTrialBoss.getTrial(GotoTrial.Next, null);
+				if (i == 0) skeleton_trialOrder = expt.nextTrialBoss.getTrial(GotoTrial.First, null);
+				else skeleton_trialOrder = expt.nextTrialBoss.getTrial(GotoTrial.Next, null);
 				
 				if (skeleton_trialOrder.skeleton == null) Assert.isTrue(false);
 				//trace(111, i,skeleton_trialOrder,skeleton_trialOrder._1);

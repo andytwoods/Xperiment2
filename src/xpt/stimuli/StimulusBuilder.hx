@@ -191,7 +191,6 @@ class StimulusBuilder {
 	
 	//override this
 	public function results():Map<String,String> {
-		trace(11, this,rand);
 		return null;
 	}
 	

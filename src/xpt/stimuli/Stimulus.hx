@@ -93,13 +93,29 @@ class Stimulus {
 	
 	//to be overriden by stimuli returning data
 	public function results():Map<String,String> {
+
 		//does not need below as logic is used elsewhere in ExtractResults
 		//if (hideResults == true) return null;
 		
-		if (builder != null) return builder.results();
+		if (builder != null) {
+			var myResults:Map<String,String> = builder.results();
+	
+			var labelledResults:Map<String,String> = new Map<String,String>();
+			var label:String;
+			if(myResults !=null && labelledResults!=null){
+				for (key in myResults.keys()) {
+				
+					if (key.length == 0) label = key;
+					else label = id + "_" + key;
+					//if the key is empty, just use this stim's id, else use id+"_"+key.
+					labelledResults.set(label, myResults.get(key));
+				}
+
+				if(label !=null) return labelledResults;
+			}
+		}
 		return null;
 	}
-	
 	public function kill() {
 		__underlings = null;
 		__properties = null;

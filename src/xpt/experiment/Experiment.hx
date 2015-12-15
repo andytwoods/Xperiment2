@@ -28,12 +28,12 @@ import xpt.trialOrder.TrialOrder;
 
 @:allow(xpt.trialOrder.Test_TrialOrder)
 class Experiment extends EventDispatcher {
-	private var __nextTrialBoss:NextTrialBoss;
-	private var __script:Xml;
+	private var nextTrialBoss:NextTrialBoss;
+	private var script:Xml;
 	private var runningTrial:Trial;
-	private var __results:Results = new Results();
-	private var __currentTrailInfo:NextTrialInfo = null;
-	private var __trialFactory:TrialFactory = new TrialFactory();
+	private var results:Results = new Results();
+	private var currentTrailInfo:NextTrialInfo = null;
+	private var trialFactory:TrialFactory = new TrialFactory();
 
 	public var scriptEngine:ScriptInterp = new ScriptInterp();
 	
@@ -42,7 +42,7 @@ class Experiment extends EventDispatcher {
 		linkups();
 		
 		if (script == null) return; //used for testing
-		this.__script = script;
+		this.script = script;
 		
 		Code.DO(script, Checks.BeforeExperiment);
 		
@@ -98,7 +98,7 @@ class Experiment extends EventDispatcher {
 		baseStimuli.createSkeletonParams(trialOrder_skeletons._1);
 		baseStimuli = null;
 		
-		__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
+		nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 
 		var preloaderManager:PreloaderManager = new PreloaderManager(trialOrder_skeletons._1, this);
 		
@@ -108,33 +108,35 @@ class Experiment extends EventDispatcher {
 	
 	
 	public function firstTrial() {
-		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.First, null);
+		currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.First, null);
 		startTrial();
 	}
 	
 	public function nextTrial() {
-		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Next, null);
+		trace(1111, GotoTrial.Next);
+		
+		currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Next, null);
 		startTrial();
 	}
 	
 	public function previousTrial() {
-		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Previous, null);
+		currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Previous, null);
 		startTrial();
 	}
 	
 	public function gotoTrial(trial:Dynamic) {
 		if (Std.is(trial, String) == true) {
-			__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Name(trial), null);
+			currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Name(trial), null);
 			startTrial();
 		} else {
 			var trialIndex = Std.parseInt(trial);
-			__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Number(trialIndex), null);
+			currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Number(trialIndex), null);
 			startTrial();
 		}
 	}
 	
 	private function startTrial() {
-		var info:NextTrialInfo = __currentTrailInfo;
+		var info:NextTrialInfo = currentTrailInfo;
 
 		if (runningTrial != null) {
 			for (stim in runningTrial.stimuli) {
@@ -142,23 +144,27 @@ class Experiment extends EventDispatcher {
 					scriptEngine.variables.remove(stim.id);
 				}
 			}
-			__results.add(runningTrial.getResults(), runningTrial.specialTrial);
+			
+
+			results.add(runningTrial.getResults(), runningTrial.specialTrial);
 			runningTrial.kill();					
 			
 		}
 
-		runningTrial = __trialFactory.GET(info.skeleton, info.trialOrder, this);
+		runningTrial = trialFactory.GET(info.skeleton, info.trialOrder, this);
 		
 		if(info.action !=null) {
 			switch(info.action) {
 				
 				case NextTrialBoss_actions.BeforeLastTrial:
-					Code.DO(__script, Checks.BeforeLastTrial, runningTrial);
+					Code.DO(script, Checks.BeforeLastTrial, runningTrial);
 					runningTrial.setSpecial(Special_Trial.First_Trial);
 					
 				case NextTrialBoss_actions.BeforeFirstTrial:
-					Code.DO(__script, Checks.BeforeFirstTrial, runningTrial);
+					Code.DO(script, Checks.BeforeFirstTrial, runningTrial);
 					runningTrial.setSpecial(Special_Trial.Last_Trial);
+				default:
+					//
 				
 			}
 		}
