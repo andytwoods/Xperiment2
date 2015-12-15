@@ -6,6 +6,9 @@ import openfl.events.MouseEvent;
 import xpt.stimuli.StimulusBuilder;
 
 class StimButton extends StimulusBuilder {
+	
+	public var clicked:Bool = false;
+	
 	public function new() {
 		super();
 	}
@@ -29,6 +32,14 @@ class StimButton extends StimulusBuilder {
 	}
 	
 	private function onClick(event:MouseEvent) {
+		clicked = true;
 		runScriptEvent("action", event);
+	}
+	
+	override public function results():Map<String,String> {
+		var val:String;
+		if (clicked) val = '0';
+		else val = '1';
+		return ['' => val];
 	}
 }

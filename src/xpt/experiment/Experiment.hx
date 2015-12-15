@@ -67,10 +67,11 @@ class Experiment extends EventDispatcher {
 
 		scriptEngine = new ScriptInterp();
 		scriptEngine.variables.set("Experiment", this);
+		scriptEngine.variables.set("E", this);
+		scriptEngine.variables.set("Expr", this);
 		DebugManager.instance.experiment = this;
 		DebugManager.instance.enabled = true;
 		scriptEngine.variables.set("Debug", DebugManager.instance);
-		
 		//TrialOrder.DO(script);
 		DebugManager.instance.info("Experiment ready");
 		setupTrials(script);
@@ -101,8 +102,6 @@ class Experiment extends EventDispatcher {
 		__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 
 		var preloaderManager:PreloaderManager = new PreloaderManager(trialOrder_skeletons._1, this);
-		
-		
 	}
 	
 	
@@ -111,6 +110,7 @@ class Experiment extends EventDispatcher {
 		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.First, null);
 		startTrial();
 	}
+	
 	
 	public function nextTrial() {
 		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Next, null);

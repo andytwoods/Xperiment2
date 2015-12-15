@@ -178,8 +178,12 @@ class StimulusBuilder {
 				if (logScript == true) {
 					DebugManager.instance.event(_stim.get("stimType") + ".on" + StringUtil.capitalizeFirstLetter(event.type), "" + s);
 				}
+				trace(111);
 				var expr = parser.parseString(s);
+				trace(11111);
+				var E = experiment.scriptEngine.variables.get('Experiment');
 				experiment.scriptEngine.execute(expr);
+				trace(1111111111);
 			} catch (e:Dynamic) {
 				trace("ERROR executing script: " + e);
 				DebugManager.instance.error("Error running script event", "" + e);
@@ -187,13 +191,6 @@ class StimulusBuilder {
 		}
 	}
 	
-	var rand:Float = Math.random();
-	
-	//override this
-	public function results():Map<String,String> {
-		trace(11, this,rand);
-		return null;
-	}
 	
 	private function addScriptVars(vars:Map<String, Dynamic>) {
 		vars.set("this", _stim.component);
@@ -208,6 +205,11 @@ class StimulusBuilder {
 	}
 	
 	public function buildPreloadList(props:Map<String, String>):Array<String> {
+		return null;
+	}
+	
+		//override this when necessary
+	public function results():Map<String,String> {
 		return null;
 	}
 }
