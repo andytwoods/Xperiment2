@@ -1,6 +1,7 @@
 package xpt.timing;
 
 import haxe.ui.toolkit.core.RootManager;
+import haxe.ui.toolkit.core.Screen;
 import haxe.ui.toolkit.events.UIEvent;
 import openfl.events.Event;
 import xpt.debug.DebugManager;
@@ -55,16 +56,18 @@ class TimingManager {
 						case TimingEvent.SHOW:
 							addToTrial(stim);
 						case TimingEvent.HIDE:
-							removeFromTrail(stim);
+							removeFromTrial(stim);
 					}
 				});
 			}
 		}
+		
+
 	}
 	
 	public function reset() {
 		for (stim in _stims) {
-			removeFromTrail(stim);
+			removeFromTrial(stim);
 		}
 		_stims = new Array<Stimulus>();
 	}
@@ -83,7 +86,7 @@ class TimingManager {
 		}
 	}
 	
-	private function removeFromTrail(stim:Stimulus) {
+	private function removeFromTrial(stim:Stimulus) {
 		if (RootManager.instance.currentRoot.contains(stim.component) == true) {
 			DebugManager.instance.stimulus("Removing stimulus, type: " + stim.get("stimType"));
 			RootManager.instance.currentRoot.removeChild(stim.component);

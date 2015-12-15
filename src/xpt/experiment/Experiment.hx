@@ -5,9 +5,12 @@ import code.CheckIsCode.Checks;
 import code.Code;
 import comms.services.REST_Service;
 import comms.services.UrlParams_service;
+import haxe.ui.toolkit.core.RootManager;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.events.EventDispatcher;
+import openfl.events.TimerEvent;
 import openfl.utils.Object;
+import openfl.utils.Timer;
 import preloader.Preloader;
 import preloader.PreloaderManager;
 import xpt.debug.DebugManager;
@@ -61,7 +64,6 @@ class Experiment extends EventDispatcher {
 
 		#end
 		//ExptWideSpecs.print();
-
 		
 		linkups_Post_ExptWideSpecs();
 
@@ -75,6 +77,12 @@ class Experiment extends EventDispatcher {
 		DebugManager.instance.info("Experiment ready");
 		setupTrials(script);
 		firstTrial();
+		
+		//var t:Timer = new Timer(1000, 5);
+		//t.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):Void {
+					//RootManager.instance.currentRoot.resizeRoot();
+			 //} );
+		//t.start();
 	}
 
 	private function linkups() {
@@ -113,7 +121,7 @@ class Experiment extends EventDispatcher {
 	}
 	
 	public function nextTrial() {
-		trace(1111, GotoTrial.Next);
+
 		
 		currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Next, null);
 		startTrial();
