@@ -135,12 +135,10 @@ class Test_TrialOrderTools
 					if(expectedTrialList[i]!=trialList[i])return false;
 				}
 				
-				
 				return true; 
 			}
 			var xml:Xml = Xml.parse("<x><SETUP><A blockDepthOrder='1,2=fixed 1,2,3=fixed 1,2,4=fixed'/></SETUP></x>");
 			ExptWideSpecs.set(xml);
-			
 			
 			Assert.isTrue(makeTrialBlocks(new MyTest(
 				null,
@@ -189,6 +187,7 @@ class Test_TrialOrderTools
 		
 	public function test12() 
 		{
+			ExptWideSpecs.init();
 			ExptWideSpecs.set(null);		
 	
 			

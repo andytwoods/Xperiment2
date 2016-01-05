@@ -69,9 +69,6 @@ class Tests
 		//code
 		runner.addCase(new Test_HScriptLayer());
 		
-		//miscel
-		runner.addCase(new Test_ExptWideSpecs());
-		
 		
 		
 		Report.create(runner, NeverShowSuccessResults, AlwaysShowHeader);

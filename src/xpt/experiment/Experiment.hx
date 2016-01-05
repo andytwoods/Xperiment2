@@ -3,6 +3,7 @@ package xpt.experiment;
 import assets.manager.FileLoader;
 import code.CheckIsCode.Checks;
 import code.Code;
+import comms.services.CrossDomain_service;
 import comms.services.REST_Service;
 import comms.services.UrlParams_service;
 import haxe.ui.toolkit.core.RootManager;
@@ -16,6 +17,7 @@ import preloader.PreloaderManager;
 import xpt.debug.DebugManager;
 import preloader.Preloader.PreloaderEvent;
 import xpt.results.Results;
+import xpt.results.TrialResults;
 import xpt.script.ProcessScript;
 import xpt.stimuli.BaseStimuli;
 import xpt.stimuli.StimuliFactory;
@@ -52,16 +54,19 @@ class Experiment extends EventDispatcher {
 		//consider remove direct class below and replace purely with Templates.compose(script);
 		var processScript:ProcessScript = new ProcessScript(script);
 		processScript = null;
-
+		
+		ExptWideSpecs.init();
+		trace("------------------------------");
 		ExptWideSpecs.set(script);
-		ExptWideSpecs.setStimuliFolder(Xpt.localExptDirectory + Xpt.exptName + "/");
 		ExptWideSpecs.updateExternalVars(UrlParams_service.params);
 		
 		#if html5
 			if (UrlParams_service.is_devel_server()) {
 				ExptWideSpecs.override_for_develServer();
 			}
-
+		#end
+		#if flash
+			ExptWideSpecs.override_for_develServer();
 		#end
 		//ExptWideSpecs.print();
 		
@@ -70,7 +75,7 @@ class Experiment extends EventDispatcher {
 		scriptEngine = new ScriptInterp();
 		scriptEngine.variables.set("Experiment", this);
 		DebugManager.instance.experiment = this;
-		DebugManager.instance.enabled = true;
+		//DebugManager.instance.enabled = true;
 		scriptEngine.variables.set("Debug", DebugManager.instance);
 		
 		//TrialOrder.DO(script);
@@ -92,8 +97,9 @@ class Experiment extends EventDispatcher {
 	
 	private function linkups_Post_ExptWideSpecs() {
 		REST_Service.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));
-		Results.setup(ExptWideSpecs.exptId(), ExptWideSpecs.IS("trickleToCloud"));
+		Results.setup(ExptWideSpecs.exptId(),ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS("trickleToCloud"));
 		StimulusBuilder.setStimFolder(ExptWideSpecs.IS('stimuliFolder'));
+		
 	}
 	
 	
@@ -153,8 +159,7 @@ class Experiment extends EventDispatcher {
 				}
 			}
 			
-
-			results.add(runningTrial.getResults(), runningTrial.specialTrial);
+			results.add(TrialResults.extract_trial_results(runningTrial), runningTrial.specialTrial);
 			runningTrial.kill();					
 			
 		}
@@ -166,11 +171,11 @@ class Experiment extends EventDispatcher {
 				
 				case NextTrialBoss_actions.BeforeLastTrial:
 					Code.DO(script, Checks.BeforeLastTrial, runningTrial);
-					runningTrial.setSpecial(Special_Trial.First_Trial);
+					runningTrial.setSpecial(Special_Trial.Last_Trial);
 					
 				case NextTrialBoss_actions.BeforeFirstTrial:
 					Code.DO(script, Checks.BeforeFirstTrial, runningTrial);
-					runningTrial.setSpecial(Special_Trial.Last_Trial);
+					runningTrial.setSpecial(Special_Trial.First_Trial);
 				default:
 					//
 				

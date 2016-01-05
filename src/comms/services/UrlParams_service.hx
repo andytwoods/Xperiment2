@@ -45,8 +45,11 @@ class UrlParams_service
 	}
 	
 	public static function is_devel_server():Bool {
-		trace(url, 222);
-		return url.indexOf('127.0.0.1') !=-1;
+		#if flash
+			return true;
+		#end 
+		if (url == null ) return false;
+		return url.indexOf('127.0.0.1') !=-1 || url.indexOf('localhost') !=-1;
 		
 	}
 	

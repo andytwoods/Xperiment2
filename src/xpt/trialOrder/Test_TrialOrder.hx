@@ -47,7 +47,7 @@ class Test_TrialOrder
 		{
 
 			var trialOrder:TrialOrder = new TrialOrder();
-			
+			ExptWideSpecs.init();
 			var result = trialOrder.COMPOSE(Xml.parse("<CBCondition1><TRIAL block='0,1' order='fixed' trials='2'/> <TRIAL block='8' order='fixed' trials='3'/> </CBCondition1>"))._0;
 			Assert.isTrue(myTest(result, [0, 1, 2, 3, 4]));
 						
@@ -140,6 +140,8 @@ class Test_TrialOrder
 			
 			return true;
 		}			
+		
+		ExptWideSpecs.init();
 		
 		var script:Xml = Xml.parse("<test><TRIAL block='20' trials='4' order='fixed' trialName='v'><testStim test='a;b;c;d'></testStim></TRIAL></test>");
 		Assert.isTrue(	expt(script, ['v1', 'v2', 'v3', 'v4'], ['a', 'b', 'c', 'd'])		);
@@ -300,7 +302,7 @@ class Test_TrialOrder
 			
 			var expt:Experiment = new Experiment(null);
 			BaseStimuli.setPermittedStimuli(['teststim']);
-			ExptWideSpecs.set(null);
+			ExptWideSpecs.init();
 			ExptWideSpecs.__testSet("blockDepthOrder", "");
 			var trialOrder:TrialOrder = new TrialOrder();
 			var trialOrder_skeletons:Tuple2<	Array<Int>,	Array<TrialSkeleton>> = trialOrder.COMPOSE(script);

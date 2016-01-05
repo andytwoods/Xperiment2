@@ -92,7 +92,7 @@ class Stimulus {
 	}
 	
 	//to be overriden by stimuli returning data
-	public function results():Map<String,String> {
+	public function results(trial_id:String):Map<String,String> {
 
 		//does not need below as logic is used elsewhere in ExtractResults
 		//if (hideResults == true) return null;
@@ -105,10 +105,9 @@ class Stimulus {
 			if(myResults !=null && labelledResults!=null){
 				for (key in myResults.keys()) {
 				
-					if (key.length == 0) label = key;
+					if (key.length == 0) label = id;
 					else label = id + "_" + key;
-					//if the key is empty, just use this stim's id, else use id+"_"+key.
-					labelledResults.set(label, myResults.get(key));
+					labelledResults.set(trial_id+label, myResults.get(key));
 				}
 
 				if(label !=null) return labelledResults;

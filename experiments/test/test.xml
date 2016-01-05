@@ -4,7 +4,7 @@
 	  <info id="0a66f64fd9c648c3ae92889aa66040a0" />
 	  <results mock="false" id="bristol"  save="webfile" saveDataURL = "http://www.opensourcesci.com/experiments/Bristol/fullness" />
 	  <screen BGcolour="black" orientation="vertical" ></screen>                          
-	  <computer  encrypt='false' sstimuliFolder="SG_Words" stimuliFolder="fullness" />
+	  <computer  encrypt='false' sstimuliFolder="SG_Words" />
 	  <style BUTTON_DOWN="0xff5656"  />
 	  <variables practice='0' />
 </SETUP>

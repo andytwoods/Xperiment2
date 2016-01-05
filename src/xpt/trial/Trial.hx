@@ -66,8 +66,4 @@ class Trial {
 			TimingManager.instance.start();
 		}
 	}
-	
-	public function getResults():TrialResults {
-		return ExtractResults.DO(this);
-	}
 }

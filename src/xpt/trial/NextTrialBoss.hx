@@ -65,8 +65,6 @@ class NextTrialBoss
 	
 	public function getTrial(nextCommand:GotoTrial,prevTrial:Trial):NextTrialInfo{
 
-		trace(111);
-			
 		switch(nextCommand){
 		
 			case Next:

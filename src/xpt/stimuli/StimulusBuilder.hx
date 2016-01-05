@@ -166,8 +166,10 @@ class StimulusBuilder {
 	}
 	
 	private function runScriptEvent(prop:String, event:Event, logScript:Bool = true) {
+
 		if (get(prop) != null) {
-			//try {
+			
+			try {
 				addScriptVars(experiment.scriptEngine.variables);
 				experiment.scriptEngine.variables.set("e", event);
 				var parser = new hscript.Parser();
@@ -180,10 +182,10 @@ class StimulusBuilder {
 				}
 				var expr = parser.parseString(s);
 				experiment.scriptEngine.execute(expr);
-			//} catch (e:Dynamic) {
-			//	trace("ERROR executing script: " + e);
-			//	DebugManager.instance.error("Error running script event", "" + e);
-			//}
+			} catch (e:Dynamic) {
+				trace("ERROR executing script: " + e);
+				DebugManager.instance.error("Error running script event", "" + e);
+			}
 		}
 	}
 	

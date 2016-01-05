@@ -40,8 +40,8 @@
 	<assets path="assets/data" rename="data" />
 
 	<assets path="assets/themes" rename="themes" />
+	<assets path="assets/fonts" rename="fonts" />
 	<assets path="experiments" rename="experiments" exclude="*.jpg" />
-	
 	<template path="assets/html5/index.html" if="html5" rename="index.html" />
 
 	

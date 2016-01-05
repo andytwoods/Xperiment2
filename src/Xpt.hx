@@ -28,7 +28,7 @@ class Xpt {
 		
 			Trial.testing = true;
 			Code.testing = true;
-			var tests:xpt.Tests = new xpt.Tests();
+			//var tests:xpt.Tests = new xpt.Tests();
 			Trial.testing = false;
 			Code.testing = false;
 		#end

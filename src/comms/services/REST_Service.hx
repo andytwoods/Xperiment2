@@ -39,7 +39,7 @@ class REST_Service
 	}
 	
 	private function timerL(e:TimerEvent) {
-		err_f("");
+		err_f("timed out");
 	}
 	
 	
@@ -48,17 +48,16 @@ class REST_Service
 		success = result;
 		__callBack(success, message);
 	}
-	
+
 	private function fromCloud_f(message:String) {	
-		var commsResult:CommsResult;
-		if (message.indexOf("success") != -1) commsResult = Success;
-		else commsResult = Fail;
-		do_callBack(commsResult, message);
+		do_callBack(Success, message);
+
+		
 		
 	}
 	
 	private function err_f(message:String) {
-		do_callBack(Fail,"");
+		do_callBack(Fail,message);
 	}
 	
 }
