@@ -22,17 +22,45 @@ class ExptWideSpecs
 	
 	public static function init() {
 
-		var xml:Xml = Xml.parse(Assets.getText("data/exptWideSpecs.xml"));
-		
-		var defaults:Map<String,String> = XML_tools.allNodes(xml);
-		//trace(defaults, 22);
-		for (key in defaults.keys()) {
-			map.set(key, defaults.get(key));
-		}
+	//courseInfo
+		map.set("xpt_user_id","");
+		map.set("xpt_course_id","");
+	//turkInfo
+		map.set("assignment_id","");
+		map.set("worker_id","");
+		map.set("hit_id","");
+	//flyingFishInfo
+		map.set("flyingfish_id","");
+		map.set("flyingfish_study_id","");
+		map.set("flyingfish_site_id","");
+	//exptInfo
+		map.set("overSJs","");
+		map.set("one_key","");
+		map.set("expt_id","");
+	//encryption
+		map.set("encryptKey","");
+		map.set("one_key","");
+	//general
 		map.set('stimuliFolder', Xpt.localExptDirectory + Xpt.exptName + "/");
+		map.set("mock","");
+		map.set("autoCloseTimer","-1");
+		map.set("overSJs","");
+		map.set("ip","autoset");
+		map.set("deviceUUID","");
 		map.set('uuid',Uuid.create());
+	//blocking
+		map.set("blockDepthOrder","");
+	//saving
+		map.set("saveFailMessage", "<font size= '20'><b>There was a problem when trying to save your results.</b></font>\n\n<font size= '20'>We hope you don't mind, but could you send the text below to EMAILADDRESS. For your convenience, this text has been copied to your clipboard.\n\n Are you a <b>Mechanical Turker</b>? Make sure to close this window when done to retrieve your code. Thanks.");
+		map.set("saveSuccessMessage","<font size= '20'><b>Successfully saved your data. You can close this message-window. Thankyou.<font size= '15'>");
+		map.set("saveClose","close when ready");
+		map.set("trickleToCloud","true");
+		map.set("cloudUrl","https://www.xpt.mobi/api/sj_data");
+		map.set("saveWaitDuration","10");
+	//timing
 		map.set('timeStart', Date.now().toString());
-		
+		map.set("ITI","500");
+
 	}
 	
 	public static function set(xml:Xml) {

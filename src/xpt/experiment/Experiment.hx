@@ -126,9 +126,7 @@ class Experiment extends EventDispatcher {
 		startTrial();
 	}
 	
-	public function nextTrial() {
-
-		
+	public function nextTrial() {		
 		currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Next, null);
 		startTrial();
 	}
@@ -149,20 +147,27 @@ class Experiment extends EventDispatcher {
 		}
 	}
 	
-	private function startTrial() {
-		var info:NextTrialInfo = currentTrailInfo;
+	private function cleanup_prevTrial() {
 
 		if (runningTrial != null) {
+			trace('clean up prev trial');
 			for (stim in runningTrial.stimuli) {
 				if (stim.id != null) {
 					scriptEngine.variables.remove(stim.id);
 				}
 			}
-			
+
 			results.add(TrialResults.extract_trial_results(runningTrial), runningTrial.specialTrial);
+
 			runningTrial.kill();					
-			
 		}
+	}
+	
+	private function startTrial() {
+		
+		cleanup_prevTrial();
+		
+		var info:NextTrialInfo = currentTrailInfo;
 
 		runningTrial = trialFactory.GET(info.skeleton, info.trialOrder, this);
 		

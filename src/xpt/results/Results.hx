@@ -50,14 +50,34 @@ public inline function __send_to_cloud(trialResults:TrialResults, special:Specia
 		if( special !=null ){
 			switch(special) {
 				case Special_Trial.First_Trial:
-					//multiple
-					trialResults.addMultipleResults(ComputerInfo.GET(),specialTag);
-					trialResults.addMultipleResults(ExptWideSpecs.IS("courseInfo"),specialTag);
-					trialResults.addMultipleResults(ExptWideSpecs.IS("turkInfo"),specialTag);
-					trialResults.addMultipleResults(ExptWideSpecs.IS("flyingFishInfo"),specialTag);
-					//solitary
+					//required
+					trialResults.addMultipleResults(ComputerInfo.GET(), specialTag);					
 					trialResults.addResult(specialTag+"ip",'ip');
 					trialResults.addResult(specialTag+'overSJs',ExptWideSpecs.IS("overSJs"));
+					
+					var test:String;
+					//courseInfo
+					test = ExptWideSpecs.IS("xpt_user_id");
+					if(test!=''){
+						trialResults.addResult("xpt_user_id", test);
+						trialResults.addResult("xpt_course_id", ExptWideSpecs.IS("xpt_course_id"));
+					}
+					
+					//turkInfo
+					test = ExptWideSpecs.IS("assignment_id");
+					if(test!=''){
+						trialResults.addResult("turk_assignment_id", test);
+						trialResults.addResult("turk_worker_id", ExptWideSpecs.IS("worker_id"));
+						trialResults.addResult("turk_hit_id", ExptWideSpecs.IS("hit_id"));
+					}
+					//flyingFishInfo
+					test = ExptWideSpecs.IS("flyingfish_id");
+					if(test!=''){
+						trialResults.addResult("flyingfish_id", test);
+						trialResults.addResult("flyingfish_study_id", ExptWideSpecs.IS("flyingfish_study_id"));
+						trialResults.addResult("flyingfish_participant_id", ExptWideSpecs.IS("flyingfish_participant_id"));
+						trialResults.addResult("flyingfish_site_id", ExptWideSpecs.IS("flyingfish_site_id"));
+					}
 					
 				case Special_Trial.Last_Trial:
 					//solitary
