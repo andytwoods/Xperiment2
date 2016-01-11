@@ -1,13 +1,12 @@
 package xpt.experiment;
 
 import assets.manager.FileLoader;
-import code.CheckIsCode.Checks;
-import code.Code;
+import code.CheckIsCode.RunCodeEvents;
+import code.Scripting;
 import comms.services.CrossDomain_service;
 import comms.services.REST_Service;
 import comms.services.UrlParams_service;
 import haxe.ui.toolkit.core.RootManager;
-import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.events.EventDispatcher;
 import openfl.events.TimerEvent;
 import openfl.utils.Object;
@@ -40,8 +39,6 @@ class Experiment extends EventDispatcher {
 	private var currentTrailInfo:NextTrialInfo = null;
 	private var trialFactory:TrialFactory = new TrialFactory();
 
-	public var scriptEngine:ScriptInterp = new ScriptInterp();
-	
 	public function new(script:Xml) {
 		super();
 		linkups();
@@ -49,7 +46,6 @@ class Experiment extends EventDispatcher {
 		if (script == null) return; //used for testing
 		this.script = script;
 		
-		Code.DO(script, Checks.BeforeExperiment);
 		
 		//consider remove direct class below and replace purely with Templates.compose(script);
 		var processScript:ProcessScript = new ProcessScript(script);
@@ -72,22 +68,14 @@ class Experiment extends EventDispatcher {
 		
 		linkups_Post_ExptWideSpecs();
 
-		scriptEngine = new ScriptInterp();
-		scriptEngine.variables.set("Experiment", this);
+		Scripting.init(this);
 		DebugManager.instance.experiment = this;
 		//DebugManager.instance.enabled = true;
-		scriptEngine.variables.set("Debug", DebugManager.instance);
-		
-		//TrialOrder.DO(script);
 		DebugManager.instance.info("Experiment ready");
 		setupTrials(script);
 		firstTrial();
 		
-		//var t:Timer = new Timer(1000, 5);
-		//t.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):Void {
-					//RootManager.instance.currentRoot.resizeRoot();
-			 //} );
-		//t.start();
+
 	}
 
 	private function linkups() {
@@ -115,8 +103,6 @@ class Experiment extends EventDispatcher {
 		nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 
 		var preloaderManager:PreloaderManager = new PreloaderManager(trialOrder_skeletons._1, this);
-		
-		
 	}
 	
 	
@@ -148,24 +134,16 @@ class Experiment extends EventDispatcher {
 	}
 	
 	private function cleanup_prevTrial() {
-
-		if (runningTrial != null) {
-			trace('clean up prev trial');
-			for (stim in runningTrial.stimuli) {
-				if (stim.id != null) {
-					scriptEngine.variables.remove(stim.id);
-				}
-			}
-
 			results.add(TrialResults.extract_trial_results(runningTrial), runningTrial.specialTrial);
-
 			runningTrial.kill();					
-		}
 	}
 	
 	private function startTrial() {
-		
-		cleanup_prevTrial();
+		if (runningTrial != null) {
+			Scripting.DO(script, RunCodeEvents.AfterTrial, runningTrial);
+			Scripting.removeStimuli(runningTrial.stimuli);
+			cleanup_prevTrial();
+		}
 		
 		var info:NextTrialInfo = currentTrailInfo;
 
@@ -175,24 +153,22 @@ class Experiment extends EventDispatcher {
 			switch(info.action) {
 				
 				case NextTrialBoss_actions.BeforeLastTrial:
-					Code.DO(script, Checks.BeforeLastTrial, runningTrial);
 					runningTrial.setSpecial(Special_Trial.Last_Trial);
+					Scripting.DO(script, RunCodeEvents.BeforeLastTrial, runningTrial);
 					
 				case NextTrialBoss_actions.BeforeFirstTrial:
-					Code.DO(script, Checks.BeforeFirstTrial, runningTrial);
 					runningTrial.setSpecial(Special_Trial.First_Trial);
+					Scripting.DO(script, RunCodeEvents.BeforeFirstTrial, runningTrial);
 				default:
 					//
-				
 			}
 		}
 		
 		for (stim in runningTrial.stimuli) {
-			if (stim.id != null) {
-				scriptEngine.variables.set(stim.id, stim);
-			}
+			Scripting.addStimuli(runningTrial.stimuli);
 		}
 		DebugManager.instance.info("Starting trial");
+		Scripting.DO(script, RunCodeEvents.BeforeTrial, runningTrial);
 		runningTrial.start();
 	}
 }

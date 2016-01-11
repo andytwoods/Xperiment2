@@ -11,10 +11,9 @@ import xpt.trial.Trial;
  */
 class TrialFactory
 {
-	
-	private var stimuliFactory:StimuliFactory = new StimuliFactory();
-
 	public function new() { }
+		
+	private var stimuliFactory:StimuliFactory = new StimuliFactory();
 	
 	public function GET(skeleton:TrialSkeleton, trialNum:Int, experiment:Experiment):Trial
 	{		
@@ -31,6 +30,12 @@ class TrialFactory
 		trial.trialNum  = trialNum;
 		trial.trialName = skeleton.names[trial.iteration];
 		trial.trialBlock = skeleton.blockPosition;
+		seekScripts(trial, skeleton.xml);
+	}
+	
+	function seekScripts(trial:Trial, xml:Xml) 
+	{
+		trace(xml);
 	}
 	
 	private function getIteration(skeleton:TrialSkeleton, trialNum:Int):Int

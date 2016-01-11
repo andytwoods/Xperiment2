@@ -1,6 +1,6 @@
 package xpt.runner;
 import code.CheckIsCode;
-import code.Code;
+import code.Scripting;
 import comms.services.UrlParams_service;
 import openfl.display.Sprite;
 import openfl.events.Event;
@@ -31,7 +31,7 @@ class Runner
 	{
 		initiateOverExperimentStuff();
 			
-		Code.DO(script, Checks.BeforeEverything);
+		Scripting.DO(script, RunCodeEvents.BeforeEverything);
 		
 		//ProcessScript.DO(script);
 		var betweenSJs:BetweenSJs = new BetweenSJs();

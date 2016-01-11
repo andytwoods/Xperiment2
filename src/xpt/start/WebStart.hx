@@ -6,6 +6,7 @@ import openfl.utils.Dictionary;
 import openfl.utils.Object;
 import xpt.error.ErrorMessage;
 import xpt.runner.Runner;
+import xpt.tools.XTools;
 
 /**
  * ...
@@ -46,7 +47,8 @@ class WebStart
 		var script:Xml;
 		
 		if (str.length > 0) {
-			try{
+			try {
+				XTools.protectCodeBlocks(str, 'code');
 				script = Xml.parse(str);
 			}
 			catch (e:String) {
@@ -61,6 +63,8 @@ class WebStart
 			ErrorMessage.error(ErrorMessage.Report_to_experimenter, "loaded script, but it was empty.");
 		}
 	}
+	
+
 	
 	public function exptPlatform():Runner {
 		var runner:Runner = new Runner();

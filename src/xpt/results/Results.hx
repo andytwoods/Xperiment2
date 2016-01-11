@@ -40,12 +40,8 @@ class Results
 	
 public inline function __send_to_cloud(trialResults:TrialResults, special:Special_Trial) 
 	{
-		
-		
-		
 		trialResults.addResult(specialTag+'expt_id', expt_id);
 		trialResults.addResult(specialTag + 'uuid', uuid);
-		trace(111, trialResults.results);
 
 		if( special !=null ){
 			switch(special) {

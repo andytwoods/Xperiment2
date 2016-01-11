@@ -1,7 +1,7 @@
 package code;
 import xpt.tools.XML_tools;
 
-enum Checks  {
+enum RunCodeEvents  {
 
 	BeforeEverything;
 	BeforeExperiment;
@@ -14,7 +14,8 @@ enum Checks  {
 class CheckIsCode
 {
 
-	public static function DO(xml:Xml, check:Checks):String {
+	public static function DO(xml:Xml, check:RunCodeEvents):String {
+		
 		
 		if (xml == null) return null;
 		var code:Xml = xml;

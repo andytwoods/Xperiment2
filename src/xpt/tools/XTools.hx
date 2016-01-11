@@ -60,6 +60,7 @@ class XTools
 
 	}
 
+
 	
 	public static function iteratorToArray <T>(iterator:Iterator<T>):Array<T>{ 
 		var arr:Array<T> = [];
@@ -146,5 +147,29 @@ class XTools
 		return arr;
 	}
 	
+	
+		
+	public static inline function protectCodeBlocks(str:String, searchNodeName:String):String
+	{
+		var arr:Array<String> = str.split("<" + searchNodeName); //left out > on purpose so any attributes in node dont break search
+		if (arr.length == 1) return str;
+
+		var txt:String;
+		var endPos:Int;
+		var startPos:Int;
+		for (i in 0...arr.length) {
+			txt = arr[i];
+			endPos = txt.indexOf("</" + searchNodeName+">");
+			if (endPos != -1) {
+				startPos = txt.indexOf(">");
+				if (startPos != -1) {
+					startPos++;	
+					arr[i] = txt.substr(0, startPos) + "<![CDATA[" + txt.substr(startPos, endPos - startPos) + "]]>" + txt.substr(endPos);
+				}
+			}
+		}
+		return arr.join("<"+searchNodeName);
+
+	}
 
 }

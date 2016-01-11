@@ -1,5 +1,6 @@
 package xpt.stimuli;
 
+import code.Scripting;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.Root;
 import haxe.ui.toolkit.core.RootManager;
@@ -156,49 +157,23 @@ class StimulusBuilder {
 	}
 	
 	private function onPreloaderProgress(event:PreloaderEvent) {
-		runScriptEvent("onPreloadProgress", event, false);
+		Scripting.runScriptEvent("onPreloadProgress", event, _stim, false);
 	}
 
 	private function onPreloaderComplete(event:PreloaderEvent) {
-		runScriptEvent("onPreloadComplete", event);
+		Scripting.runScriptEvent("onPreloadComplete", event, _stim);
 		experiment.removeEventListener(PreloaderEvent.PROGRESS, onPreloaderProgress, false);
 		experiment.removeEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete, false);
 	}
 	
-	private function runScriptEvent(prop:String, event:Event, logScript:Bool = true) {
-
-		if (get(prop) != null) {
-			
-			try {
-				addScriptVars(experiment.scriptEngine.variables);
-				experiment.scriptEngine.variables.set("e", event);
-				var parser = new hscript.Parser();
-				var s:String = StringTools.trim(get(prop));
-				s = StringTools.replace(s, "|", ";");
-				s = StringTools.replace(s, "\t", " ");
-				s = StringTools.replace(s, "\r\n", ";\n");
-				if (logScript == true) {
-					DebugManager.instance.event(_stim.get("stimType") + ".on" + StringUtil.capitalizeFirstLetter(event.type), "" + s);
-				}
-				var expr = parser.parseString(s);
-				experiment.scriptEngine.execute(expr);
-			} catch (e:Dynamic) {
-				trace("ERROR executing script: " + e);
-				DebugManager.instance.error("Error running script event", "" + e);
-			}
-		}
+	public function runScriptEvent(action:String, event) {
+		Scripting.runScriptEvent(action, event, _stim);
 	}
-	
-	var rand:Float = Math.random();
-	
+
+
 	//override this
 	public function results():Map<String,String> {
 		return null;
-	}
-	
-	private function addScriptVars(vars:Map<String, Dynamic>) {
-		vars.set("this", _stim.component);
-		vars.set("me", _stim.component);
 	}
 	
 	public function build(stim:Stimulus):Component {
