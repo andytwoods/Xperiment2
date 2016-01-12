@@ -14,10 +14,7 @@ import xpt.experiment.Experiment;
 import xpt.stimuli.Stimulus;
 import xpt.trial.Trial;
 
-/**
- * ...
- * @author 
- */
+
 class Scripting
 {
 
@@ -47,8 +44,7 @@ class Scripting
 			
 		if (code == null) return null;
 		
-		trace(code, 22);
-		runScript(code);
+		if(testing == false) runScript(code);
 		
 		return code;
 	}

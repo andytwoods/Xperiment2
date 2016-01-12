@@ -81,13 +81,14 @@ class Experiment extends EventDispatcher {
 	private function linkups() {
 		BaseStimuli.setPermittedStimuli(StimuliFactory.getPermittedStimuli());
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
+		TrialFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 	}
 	
 	private function linkups_Post_ExptWideSpecs() {
 		REST_Service.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));
 		Results.setup(ExptWideSpecs.exptId(),ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS("trickleToCloud"));
 		StimulusBuilder.setStimFolder(ExptWideSpecs.IS('stimuliFolder'));
-		
+		Trial._ITI = Std.int(ExptWideSpecs.IS("ITI"));
 	}
 	
 	

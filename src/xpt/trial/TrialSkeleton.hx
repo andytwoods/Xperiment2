@@ -16,6 +16,7 @@ class TrialSkeleton
 	public var names:Array<String>;
 	public var xml:Xml;
 	public var baseStimuli:Array<BaseStimulus>;
+	public var otherParams:Map<String,String>;
 	
 	private static var permittedStimuli;
 	
@@ -30,8 +31,7 @@ class TrialSkeleton
 		this.bind_id = trialBlock.bind_id;
 		this.names = trialBlock.trialNames;
 		this.xml = trialBlock.xml;
-		
-		//trace(trialBlock.trials, 111111,this.trials);
+		this.otherParams = trialBlock.otherParams;
 	}
 		
 	

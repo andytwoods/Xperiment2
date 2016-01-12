@@ -40,6 +40,8 @@ class TrialBlock
 	
 	public var runTrial:Bool;
 	
+	public var otherParams:Map<String,String> = new Map<String,String>();
+	
 	public var preterminedSortOnOrder:Int; //used for SortOn, in another class
 	
 	public function trimBlocksVect():Void {
@@ -77,11 +79,9 @@ class TrialBlock
 		for(i in 0 ... arr.length){
 			blocksVect.push(Std.parseInt(arr[i]));
 		}
-		//trace(blocksVect);
 	}
 	
 	private function sortBlock(xml:Xml):Void {
-		//var blo:String = XML_tools.findAttr_ignoreChildren(xml,"block"); 
 		var blo:String = XML_tools.findAttr(xml,"block"); 
 		if(blo == '')throw 'you MUST set the block of each of your trials. Not done so here: '+xml.toString();
 		setBlock(blo);
@@ -152,15 +152,15 @@ class TrialBlock
 
 		sortBlock(xml);
 		trialNames = getNames(xml, numTrials, ExptWideSpecs.trialName);
-		//trace(trials, 222);
+
 		getForced(xml, numTrials);
-		//trace(trials, 22222);
+
 		order = getOrder(xml, "order");
 
 		blockDepthOrders = getBlockDepthOrder(xml);
 		
 		runTrial = sortRunTrial();
-	
+		otherParams = XML_tools.getNodeAttribsMap(xml);
 
 		//doOrdering();
 	}

@@ -155,7 +155,17 @@ class XML_tools
 	}
 	
 	
-
+	static public inline function getNodeAttribsMap(xml:Xml):Map < String, String> {
+		xml = simpleXML(xml);
+		var map:Map<String,String> = new Map<String,String>();
+		if(xml.nodeType == Xml.Element){
+			for (nam in xml.attributes()) {
+				map.set(nam, xml.get(nam));
+			}
+		}
+		return map;
+	}
+	
 	
 	static public function addAttrib(xml:Xml, name:String, newValue:String):Xml {
 		return modifyAttrib(xml, name, newValue);	

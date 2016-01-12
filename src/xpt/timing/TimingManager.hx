@@ -36,6 +36,7 @@ class TimingManager {
 	}
 
 	public function start() {
+	
 		for (stim in _stims) {
 			var start:Float = stim.start;
 			var stop:Float = stim.stop;
@@ -49,7 +50,7 @@ class TimingManager {
 					duration = stop - start;
 				}
 			}
-			
+
 			if (duration != -1) {
 				addTimingEvent(start, duration, function(e:TimingEvent) {
 					switch (e) {
@@ -59,6 +60,10 @@ class TimingManager {
 							removeFromTrial(stim);
 					}
 				});
+			}
+			//temporary bodge. More work needed. 
+			if (stop == -1) {
+				addToTrial(stim);
 			}
 		}
 		
@@ -73,10 +78,10 @@ class TimingManager {
 	}
 	
 	public function add(stim:Stimulus) {
-		_stims.push(stim);
-		if (stim.start <= 0) {
-			addToTrial(stim);
-		}
+		if(_stims.indexOf(stim)==-1)	_stims.push(stim);
+		//if (stim.start <= 0) {
+		//	addToTrial(stim);
+		//}
 	}
 	
 	private function addToTrial(stim:Stimulus) {

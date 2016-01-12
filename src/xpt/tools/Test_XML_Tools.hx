@@ -34,7 +34,6 @@ public function new() { }
 
 	public function test_find() {
 		
-		
 		//just attrib
 		var xml:Xml = Xml.parse("<xml><a></a><b></b><c></c></xml>");
 		
@@ -450,6 +449,14 @@ public function new() { }
 
 		Assert.isTrue(boss.toString().length == "<a><b bb=\"bb\"/><b/><c/></a>".length);
 		
+	}
+	
+	public function test__getNodeAttribsMap() {
+		var xml = Xml.parse("<a aa='a' aaaa='aaaaa'><c c='ss'/></a>");
+		var map:Map<String,String> = XML_tools.getNodeAttribsMap(xml);
+		Assert.isTrue(map.get('aa') == 'a');
+		Assert.isTrue(map.get('aaaa') == 'aaaaa');
+		Assert.isTrue(map.exists('c') == false);
 	}
 	
 	/*public function test_getImmediateChildren() {

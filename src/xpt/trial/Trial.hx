@@ -1,7 +1,10 @@
 package xpt.trial;
 
 import haxe.ui.toolkit.util.CallStackHelper;
+import motion.Actuate;
+import openfl.events.TimerEvent;
 import openfl.Lib;
+import openfl.utils.Timer;
 import xpt.experiment.Experiment;
 import xpt.results.TrialResults;
 import xpt.stimuli.Stimulus;
@@ -12,6 +15,10 @@ enum Trial_Action {
 }
 
 class Trial {
+	public static var stage = Lib.current.stage;
+	public static var testing:Bool = false;
+	static public var _ITI:Int;
+	
 	public var stimuli:Array<Stimulus> = [];
 	public var iteration:Int;
 	public var trialNum:Int;
@@ -19,15 +26,11 @@ class Trial {
 	public var trialBlock:Int;
 	public var specialTrial:Special_Trial;
 	public var hideResults:Bool = false;
-	
-	public static var testing:Bool = false;
-	
-	public var codeStartTrial:String;
+	public var otherParams:Map<String,String>;
 	public var codeEndTrial:String;
-	
-	public static var stage = Lib.current.stage;
-	
+	public var codeStartTrial:String;	
 	public var callBack:Trial_Action -> Void;
+	public var ITI:Int;
 	
 	public var experiment:Experiment;
 	
@@ -66,7 +69,22 @@ class Trial {
 	public function start() {
 		
 		if (testing == false) {
-			TimingManager.instance.start();
+			var t:Timer = new Timer(ITI);
+					
+			function timerEnd(e:TimerEvent){
+				t.removeEventListener(TimerEvent.TIMER, timerEnd);
+				t.stop();
+				TimingManager.instance.start();
+			}
+			t.addEventListener(TimerEvent.TIMER, timerEnd);
+			t.start();
+
 		}
+	}
+	
+	public function overrideDefaults(potentialOverrides:Map<String, String>) 
+	{
+		//ternary operator (https://learnxinyminutes.com/docs/haxe/).
+		ITI = (potentialOverrides.exists('ITI') == false) ? _ITI : Std.parseInt(potentialOverrides.get('ITI'));
 	}
 }
