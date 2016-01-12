@@ -110,11 +110,5 @@ Statement of Informed Consent
 	<button text="Button 2" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
 </TRIAL>	
 
-	
-		<code>bla bla bla
-	</code>
-	<a/>
-	
-		<code>bla bla bla222
-	</code>
+
 </expt>	

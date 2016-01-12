@@ -1,5 +1,7 @@
 package code;
 import xpt.tools.XML_tools;
+import xpt.tools.XTools;
+import xpt.trial.Trial;
 
 enum RunCodeEvents  {
 
@@ -71,6 +73,40 @@ class CheckIsCode
 	public static inline function checkIsCode(xml:Xml):Bool {
 		if (XML_tools.nodeName(xml).toLowerCase() != "code") return false;
 		else return true;
+	}
+	
+	public static function seekScripts(trial:Trial, xml:Xml) 
+	{
+		var nodes:Iterator<Xml> = XML_tools.getChildren(xml);
+		
+		
+		var nodesArr:Array<Xml> = XTools.iteratorToArray(nodes);
+
+		if (nodesArr.length == 0) return;
+
+		var node:Xml;
+
+		node = nodesArr[0];
+
+		if (node != null && node.nodeType == Xml.Element && checkIsCode(node)) {
+			trial.codeStartTrial = getCode(node);
+		}
+
+		if (nodesArr.length == 1) return;
+		
+		node = nodesArr[nodesArr.length - 1];
+		if(node != null && node.nodeType == Xml.Element && checkIsCode(node)) 	trial.codeEndTrial = getCode(node);
+
+
+	}
+	
+	public static function getCode(xml:Xml):String
+	{
+		var str:String = xml.toString();
+		var i:Int = str.indexOf(">") + 1;
+		str = str.substr(i, str.length - i - 7);
+		if (str.substr(0, 9) == "<![CDATA[") str = str.substr(9, str.length - 12);
+		return str;
 	}
 	
 }

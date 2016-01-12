@@ -218,7 +218,7 @@ class Test_TrialOrder
 			
 			var expt:Experiment = new Experiment(null);
 			BaseStimuli.setPermittedStimuli(['teststim']);
-			ExptWideSpecs.set(null);
+			ExptWideSpecs.init();
 			//ExptWideSpecs.__testSet("blockDepthOrder","20,*=fixed 20,*,*=fixed");
 			var trialOrder:TrialOrder = new TrialOrder();
 			var trialOrder_skeletons:Tuple2 <	Array<Int>,	Array<TrialSkeleton> > = trialOrder.COMPOSE(script);

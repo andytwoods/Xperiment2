@@ -52,7 +52,7 @@ class Experiment extends EventDispatcher {
 		processScript = null;
 		
 		ExptWideSpecs.init();
-		trace("------------------------------");
+		//trace("------------------------------");
 		ExptWideSpecs.set(script);
 		ExptWideSpecs.updateExternalVars(UrlParams_service.params);
 		
@@ -140,7 +140,7 @@ class Experiment extends EventDispatcher {
 	
 	private function startTrial() {
 		if (runningTrial != null) {
-			Scripting.DO(script, RunCodeEvents.AfterTrial, runningTrial);
+			Scripting.DO(null, RunCodeEvents.AfterTrial, runningTrial);
 			Scripting.removeStimuli(runningTrial.stimuli);
 			cleanup_prevTrial();
 		}
@@ -168,7 +168,7 @@ class Experiment extends EventDispatcher {
 			Scripting.addStimuli(runningTrial.stimuli);
 		}
 		DebugManager.instance.info("Starting trial");
-		Scripting.DO(script, RunCodeEvents.BeforeTrial, runningTrial);
+		Scripting.DO(null, RunCodeEvents.BeforeTrial, runningTrial);
 		runningTrial.start();
 	}
 }

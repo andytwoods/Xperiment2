@@ -1,7 +1,9 @@
 package xpt.trial;
 import assets.manager.FolderTree.Error;
+import code.CheckIsCode;
 import xpt.experiment.Experiment;
 import xpt.stimuli.StimuliFactory;
+import xpt.tools.XML_tools;
 import xpt.trial.TrialSkeleton;
 import xpt.trial.Trial;
 
@@ -30,13 +32,10 @@ class TrialFactory
 		trial.trialNum  = trialNum;
 		trial.trialName = skeleton.names[trial.iteration];
 		trial.trialBlock = skeleton.blockPosition;
-		seekScripts(trial, skeleton.xml);
+		CheckIsCode.seekScripts(trial, skeleton.xml);
 	}
 	
-	function seekScripts(trial:Trial, xml:Xml) 
-	{
-		trace(xml);
-	}
+
 	
 	private function getIteration(skeleton:TrialSkeleton, trialNum:Int):Int
 	{

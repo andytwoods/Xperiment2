@@ -22,6 +22,9 @@ class Trial {
 	
 	public static var testing:Bool = false;
 	
+	public var codeStartTrial:String;
+	public var codeEndTrial:String;
+	
 	public static var stage = Lib.current.stage;
 	
 	public var callBack:Trial_Action -> Void;

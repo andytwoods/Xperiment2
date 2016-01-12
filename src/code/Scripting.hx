@@ -32,12 +32,23 @@ class Scripting
 	}
 	
 	static public function DO(script:Xml, c:RunCodeEvents, trial:Trial = null):String {
-
-
-		var code:String = CheckIsCode.DO(script,c);
+		
+		var code:String;
+		
+		if (RunCodeEvents.BeforeTrial == c) {
+			code = trial.codeStartTrial;
+		}
+		else if (RunCodeEvents.AfterTrial == c) {
+			code = trial.codeEndTrial;
+		}
+		else {
+			code = CheckIsCode.DO(script,c);
+		}
+			
 		if (code == null) return null;
 		
-
+		trace(code, 22);
+		runScript(code);
 		
 		return code;
 	}
