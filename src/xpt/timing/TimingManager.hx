@@ -66,8 +66,6 @@ class TimingManager {
 				addToTrial(stim);
 			}
 		}
-		
-
 	}
 	
 	public function reset() {

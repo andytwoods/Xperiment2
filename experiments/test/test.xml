@@ -11,6 +11,7 @@
 
 	
 <TRIAL TYPE="Trial" hideResults="true" ITI="200" block="1" order="fixed" trials="1">
+		<code>trace(123);</code>
 	<image x="0" y="0" width="800" height="83" asset="images/oxfordlab.png" />
 	
 	<text width="80%" height="50%" 
@@ -73,36 +74,18 @@ Statement of Informed Consent
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
 
 	<button text="Button 1" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
-	<!--
-	<numberStepper x="120" y="10" height="100" width="50" fontSize="20" />
-	<multiNumberStepper x="180" y="10" height="100" width="120" fontSize="20" val="123" />
-	-->	
+
 	<age x="120" y="10" height="100" width="150" fontSize="20" />
 	
 	<lineScale x="10" y="130" width="400" height="70" fontSize="20" startLabel="Not detectable" endLabel="Very strong" />
 
-	<!--
-	<multipleChoice id="something" x="20" y="210" height="50" width="250" fontSize="20" labels="Male,Female" icons="img/icons/user-nude.png,img/icons/user-nude-female.png" buttonWidth="50%" />
-	-->	
 	<sex x="20" y="210" height="50" width="250" fontSize="20" />
 	
-	<!--
-	<comboBox x="20" y="280" width="300" height="50" text="Where are you from?" fontSize="20" labels="United Kingdom,United States" values="UK,USA" icons="img/icons/flags/flag_great_britain.png,img/icons/flags/flag_usa.png" data="data/countries.json" />
-	-->
+
 	<origin x="20" y="280" width="300" height="50" fontSize="20" />
 	
 
-	
-	<!--
-	<progressBar x="20" y="350" width="300" height="40" onPreloadProgress="this.pos=e.current|this.max=e.total" min="0" max="100" value="0" />
-	-->	
-	<!--
-	<preloadProgress x="20" y="350" width="300" height="40" />
-	<preloadReadyButton x="20" y="400" width="300" height="40" />
-	-->	
-	<!--
-	<button x="20" y="400" width="300" height="40" onPreloadComplete="this.visible=true" text="Next!" visible="false" />
-	-->	
+
 	
 </TRIAL>
 

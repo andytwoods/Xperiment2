@@ -84,11 +84,15 @@ class CheckIsCode
 
 		if (nodesArr.length == 0) return;
 
-		var node:Xml;
-
-		node = nodesArr[0];
+		var node:Xml = null;
+		
+		for(i in 0...nodesArr.length-1){
+			node = nodesArr[i];
+			if (node.nodeType == Xml.Element) break;
+		}
 
 		if (node != null && node.nodeType == Xml.Element && checkIsCode(node)) {
+			//fairly paradoxical we need this if statement.
 			trial.codeStartTrial = getCode(node);
 		}
 
