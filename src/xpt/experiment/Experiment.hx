@@ -165,11 +165,10 @@ class Experiment extends EventDispatcher {
 			}
 		}
 		
-		for (stim in runningTrial.stimuli) {
-			Scripting.addStimuli(runningTrial.stimuli);
-		}
-		DebugManager.instance.info("Starting trial");
+		Scripting.addStimuli(runningTrial.stimuli);
 		Scripting.DO(null, RunCodeEvents.BeforeTrial, runningTrial);
+		
+		DebugManager.instance.info("Starting trial");
 		runningTrial.start();
 	}
 }

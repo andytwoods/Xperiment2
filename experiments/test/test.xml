@@ -11,8 +11,13 @@
 
 	
 <TRIAL TYPE="Trial" hideResults="true" ITI="200" block="1" order="fixed" trials="1">
-		<code>trace(123);</code>
-	<image x="0" y="0" width="800" height="83" asset="images/oxfordlab.png" />
+		<code>
+			Motion.tween(b.component, 1, {x:300, y:500, rotation:180, width:500}).ease(Quad.easeOut).delay(1).repeat().reflect();
+			trace(111);
+			Motion.tween(image.component, 1, {rotation:360}).smartRotation();
+		
+		</code>
+	<image id="image" x="0" y="0" width="800" height="83" asset="images/oxfordlab.png" />
 	
 	<text width="80%" height="50%" 
 		  text=
@@ -21,7 +26,7 @@ We are interested in understanding how people associate information across the s
 We hope you enjoy it. Your participation is very important to us."
 	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />
 	
-	<button text="Button 1" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
+	<button id="b" text="Button 1" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
 	<preloadProgress x="20" y="540" width="450" height="40" />
 	<preloadReadyButton x="50%" horizontalAlign="center" y="85%" width="200" height="40" fontSize="18" />
 

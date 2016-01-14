@@ -5,8 +5,11 @@ import haxe.ui.toolkit.hscript.ScriptInterp;
 import haxe.ui.toolkit.util.StringUtil;
 import hscript.Interp;
 import hscript.Parser;
+import motion.Actuate;
+import motion.easing.Quad;
 import openfl.errors.Error;
 import openfl.events.Event;
+import openfl.Lib;
 import openfl.utils.Object;
 import preloader.Preloader.PreloaderEvent;
 import xpt.debug.DebugManager;
@@ -25,6 +28,10 @@ class Scripting
 		scriptEngine = new ScriptInterp();
 		scriptEngine.variables.set("Experiment", experiment);
 		scriptEngine.variables.set("Debug", DebugManager.instance);
+		scriptEngine.variables.set("Motion", Actuate);
+		scriptEngine.variables.set("Quad", Quad);
+		scriptEngine.variables.set("Stage", Lib.current.stage);
+		trace(11111);
 		
 	}
 	
@@ -81,7 +88,6 @@ class Scripting
 	{
 		s = StringTools.replace(s, "|", ";");
 		s = StringTools.replace(s, "\t", " ");
-		s = StringTools.replace(s, "\r\n", ";\n");
 		var parser = new hscript.Parser();
 		var expr = parser.parseString(s);
 		scriptEngine.execute(expr);
