@@ -22,8 +22,6 @@ class Xpt {
 		ErrorMessage.setup(Lib.current.stage);
 		exptName = "test";
 		
-		
-
 		#if (debug && !html5)
 		
 			Trial.testing = true;

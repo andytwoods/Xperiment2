@@ -85,9 +85,7 @@ class Trial {
 		// trace("" + stimuli);
 	}
 	
-	public function getResults():TrialResults {
-		return ExtractResults.DO(this);
-	}
+
 	
 	public function overrideDefaults(potentialOverrides:Map<String, String>) 
 	{

@@ -28,12 +28,13 @@
     <class path="C:\HaxeToolkit\haxe\lib\actuate\1,8,6" />
     <class path="C:\HaxeToolkit\haxe\lib\utest\1,3,10\src" />
     <class path="C:\HaxeToolkit\haxe\lib\thx,core\0,39,0\src" />
+    <class path="C:\HaxeToolkit\haxe\lib\haxe-rest-client\git" />
     <class path="src" />
     <class path="bin\flash\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="lime=2.8.3&#xA;delay=1.1.2&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.2&#xA;mlib=2.0.2&#xA;haxeui=1.8.3&#xA;hscript=2.0.5&#xA;lime=2.8.1&#xA;openfl=3.5.2&#xA;actuate=1.8.6&#xA;utest=1.3.10&#xA;thx_core&#xA;thx.core=0.39.0&#xA;openfl-next&#xA;tools=2.8.3&#xA;no-compilation&#xA;openfl-flash&#xA;web&#xA;display" />
+    <option directives="lime=2.8.3&#xA;delay=1.1.2&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.2&#xA;mlib=2.0.2&#xA;haxeui=1.8.3&#xA;hscript=2.0.5&#xA;lime=2.8.1&#xA;openfl=3.5.2&#xA;actuate=1.8.6&#xA;utest=1.3.10&#xA;thx_core&#xA;thx.core=0.39.0&#xA;rest-client=0.2.0&#xA;haxe-rest-client=0.2.0&#xA;openfl-next&#xA;tools=2.8.3&#xA;no-compilation&#xA;openfl-flash&#xA;web&#xA;display" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />

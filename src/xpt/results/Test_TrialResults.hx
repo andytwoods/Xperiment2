@@ -21,7 +21,7 @@ class Test_TrialResults
 		t.iteration = 33;
 
 
-		var t:TrialResults = 	t.getResults();
+		var t:TrialResults = 	TrialResults.extract_trial_results(t);
 		Assert.isTrue(t == null);
 		
 		

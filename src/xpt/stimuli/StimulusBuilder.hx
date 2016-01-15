@@ -194,4 +194,9 @@ class StimulusBuilder {
 	public function buildPreloadList(props:Map<String, String>):Array<String> {
 		return null;
 	}
+	
+	//override this
+	public function results():Map<String,String> {
+		return null;
+	}
 }

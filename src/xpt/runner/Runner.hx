@@ -27,17 +27,17 @@ class Runner
 		
 	}
 	
-	public function run(script:Xml, url:String = null, params:Object = null) 
+	public function run(script:Xml) 
 	{
 		initiateOverExperimentStuff();
 			
 		Scripting.DO(script, RunCodeEvents.BeforeEverything);
 		
-		//ProcessScript.DO(script);
+
 		var betweenSJs:BetweenSJs = new BetweenSJs();
 		script = betweenSJs.compose(script, UrlParams_service.get('overSJs'));
 	
-		currentExpt = new Experiment(script, url, params);
+		currentExpt = new Experiment(script);
 		
 		
 	}

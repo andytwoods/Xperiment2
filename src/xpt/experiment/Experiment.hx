@@ -7,13 +7,17 @@ import code.Scripting;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.events.EventDispatcher;
 import openfl.utils.Object;
+import xpt.comms.services.REST_Service;
+import xpt.comms.services.UrlParams_service;
 import xpt.debug.DebugManager;
 import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.results.Results;
+import xpt.results.TrialResults;
 import xpt.script.ProcessScript;
 import xpt.stimuli.BaseStimuli;
 import xpt.stimuli.StimuliFactory;
 import xpt.stimuli.Stimulus;
+import xpt.stimuli.StimulusBuilder;
 import xpt.trial.GotoTrial;
 import xpt.trial.NextTrialBoss;
 import xpt.trial.Special_Trial;
@@ -40,29 +44,49 @@ class Experiment extends EventDispatcher {
 		if (script == null) return; //used for testing
 		this.script = script;
 		
-		Scripting.DO(script, RunCodeEvents.BeforeExperiment);
-		
 		//consider remove direct class below and replace purely with Templates.compose(script);
 		var processScript:ProcessScript = new ProcessScript(script);
 		processScript = null;
 
-		scriptEngine = new ScriptInterp();
-		scriptEngine.variables.set("Experiment", this);
-		scriptEngine.variables.set("E", this);
-		scriptEngine.variables.set("Expr", this);
-		DebugManager.instance.experiment = this;
-		scriptEngine.variables.set("Debug", DebugManager.instance);
+		ExptWideSpecs.init();
+		//trace("------------------------------");
+		ExptWideSpecs.set(script);
+		ExptWideSpecs.updateExternalVars(UrlParams_service.params);
 		
-		//TrialOrder.DO(script);
+		#if html5
+			if (UrlParams_service.is_devel_server()) {
+				ExptWideSpecs.override_for_develServer();
+			}
+		#end
+		#if flash
+			ExptWideSpecs.override_for_develServer();
+		#end
+		//ExptWideSpecs.print();
+		
+		linkups_Post_ExptWideSpecs();
+
+		Scripting.init(this);
+		DebugManager.instance.experiment = this;
+		//DebugManager.instance.enabled = true;
 		DebugManager.instance.info("Experiment ready");
 		setupTrials(script);
 		firstTrial();
+		
 	}
 
 	private function linkups() {
 		BaseStimuli.setPermittedStimuli(StimuliFactory.getPermittedStimuli());
-		
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
+		TrialFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
+	}
+	
+	private function linkups_Post_ExptWideSpecs() {
+		REST_Service.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));
+		Results.setup(ExptWideSpecs.exptId(),ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS("trickleToCloud"));
+		Trial._ITI = Std.int(ExptWideSpecs.IS("ITI"));
+		
+		//think redundant since merge, Jan 2016
+		//StimulusBuilder.setStimFolder(ExptWideSpecs.IS('stimuliFolder'));
 	}
 	
 	public function setupTrials(script:Xml) {
@@ -138,29 +162,24 @@ class Experiment extends EventDispatcher {
 		}
 	}
 	
+	private function cleanup_prevTrial() {
+			results.add(TrialResults.extract_trial_results(runningTrial), runningTrial.specialTrial);
+			runningTrial.kill();					
+	}
+	
 	public function startTrial() {
-		var info:NextTrialInfo = currentTrailInfo;
+
 
 		if (runningTrial != null) {
-			for (stim in runningTrial.stimuli) {
-				if (stim.id != null) {
-					scriptEngine.variables.remove(stim.id);
-				}
-			}
-			results.add(runningTrial.getResults(), runningTrial.specialTrial);
-			runningTrial.kill();					
-			/*
-			runningTrial.callBack = function(action:Trial_Action) {
-				switch(action) {	
-					case Trial_Action.End:
-						results.add(runningTrial.getResults(), runningTrial.specialTrial);
-						runningTrial.kill();					
-				}
-			}
-			*/
+			Scripting.DO(null, RunCodeEvents.AfterTrial, runningTrial);
+			Scripting.removeStimuli(runningTrial.stimuli);
+			cleanup_prevTrial();
 		}
 		
+		var info:NextTrialInfo = currentTrailInfo;
+		
 		runningTrial = trialFactory.GET(info.skeleton, info.trialOrder, this);
+		
 		
 		if(info.action !=null) {
 			switch(info.action) {

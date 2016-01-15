@@ -22,6 +22,7 @@
 	<haxelib name="haxeui" />
 	<haxelib name="utest" />
 	<haxelib name="thx.core" />
+	<haxelib name="haxe-rest-client" />
 	
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />

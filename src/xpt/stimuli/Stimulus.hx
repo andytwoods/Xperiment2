@@ -87,8 +87,26 @@ class Stimulus {
 		}
 	}
 	
-	public function results():Map<String,String> {
-		if (hideResults == true) return null;
+	public function results(trial_id:String):Map<String,String> {
+		//does not need below as logic is used elsewhere in ExtractResults
+		//if (hideResults == true) return null;
+		
+		if (builder != null) {
+			var myResults:Map<String,String> = builder.results();
+	
+			var labelledResults:Map<String,String> = new Map<String,String>();
+			var label:String;
+			if(myResults !=null && labelledResults!=null){
+				for (key in myResults.keys()) {
+				
+					if (key.length == 0) label = id;
+					else label = id + "_" + key;
+					labelledResults.set(trial_id+label, myResults.get(key));
+				}
+
+				if(label !=null) return labelledResults;
+			}
+		}
 		return null;
 	}
 	
