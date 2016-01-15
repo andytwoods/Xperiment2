@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<vbox width="100%">
+	<style>
+		.debugWindow #content Image {
+			verticalAlignment: top;
+		}
+	</style>
+	<listview id="log" width="100%" height="300" allowSelection="false">
+		
+	</listview>
+	<hbox width="100%">
+		<textinput width="100%" id="scriptText" />
+		<button icon="img/icons/control.png" height="100%" id="run" />
+	</hbox>
+</vbox>

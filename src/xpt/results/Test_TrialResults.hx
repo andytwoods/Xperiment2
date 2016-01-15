@@ -15,7 +15,7 @@ class Test_TrialResults
 	
 	public function test_getName() {
 	
-		var t:Trial = new Trial();
+		var t:Trial = new Trial(null);
 		t.trialName = "trialName";
 		t.trialBlock = 22;
 		t.iteration = 33;

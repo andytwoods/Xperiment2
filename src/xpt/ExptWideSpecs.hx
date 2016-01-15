@@ -156,7 +156,7 @@ class MultipleKeysMap extends ObjectMap<String, String> {
 			prop = alternateKeys.get(prop);
 			set(prop,val);
 		}
-		else if(exists(val)){
+		else if(val  != null && exists(val)){
 			set(prop,val);
 		}
 		else if(ignoreErr == false) throw "devel error";

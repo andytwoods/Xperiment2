@@ -114,7 +114,7 @@ class Test_TrialOrder
 				var skeleton_trialNum = expt.__nextTrialBoss.computeRunningTrial(i);
 				var skeleton = skeleton_trialNum.skeleton;
 				
-				expt.__runningTrial = TrialFactory.GET(skeleton, i);
+				expt.__runningTrial = TrialFactory.GET(skeleton, i, expt);
 				
 				var testStim:Stimulus = expt.__runningTrial.stimuli[0];
 				
@@ -162,7 +162,7 @@ class Test_TrialOrder
 			else skeleton_trialOrder = __nextTrialBoss.getTrial(GotoTrial.Next, null);
 			//trace(111, __nextTrialBoss.currentTrial,skeleton_trialOrder._1);
 	
-			expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder);
+			expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder, expt);
 			
 			testProps.push(expt.__runningTrial.stimuli[0].get('test'));
 			testTrialNames.push(expt.__runningTrial.trialName);
@@ -240,7 +240,7 @@ class Test_TrialOrder
 				//trace(111, i,skeleton_trialOrder,skeleton_trialOrder._1);
 				//var skel = skeleton_trialOrder._0;
 				//trace(skel.xml);
-				expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder);
+				expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder, expt);
 
 				if (expt.__runningTrial.stimuli.length > 0) {
 					var stim:Stimulus = expt.__runningTrial.stimuli[0];
@@ -322,7 +322,7 @@ class Test_TrialOrder
 				//trace(111, i,skeleton_trialOrder,skeleton_trialOrder._1);
 				//var skel = skeleton_trialOrder._0;
 				//trace(skel.xml);
-				expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder);
+				expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder, expt);
 
 				if (expt.__runningTrial.stimuli.length > 0) {
 					var stim:Stimulus = expt.__runningTrial.stimuli[0];

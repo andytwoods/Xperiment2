@@ -27,7 +27,7 @@ class Engine
 	var interp = new Interp();
 	interp.variables.set("obj", obj);
 	interp.variables.set("me", this);
-	trace(22, interp.execute(ast), 222, obj.t(),obj.a,this.a);
+	//trace(22, interp.execute(ast), 222, obj.t(),obj.a,this.a);
 	
 	
 

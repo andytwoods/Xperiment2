@@ -1,5 +1,6 @@
 package xpt.trial;
 import assets.manager.FolderTree.Error;
+import xpt.experiment.Experiment;
 import xpt.stimuli.StimuliFactory;
 import xpt.trial.TrialSkeleton;
 import xpt.trial.Trial;
@@ -11,9 +12,9 @@ import xpt.trial.Trial;
 class TrialFactory
 {
 
-	static public function GET(skeleton:TrialSkeleton, trialNum:Int):Trial
+	static public function GET(skeleton:TrialSkeleton, trialNum:Int, experiment:Experiment):Trial
 	{		
-		var trial = new Trial();
+		var trial = new Trial(experiment);
 		compose(trial, skeleton, trialNum);
 		StimuliFactory.generate(trial, skeleton);
 		return trial;

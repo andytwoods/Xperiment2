@@ -12,6 +12,7 @@ class Test_TimingBoss
 	public function new() { }
 	
 	public function test_sortOn() {
+		/*
 		var stim = new Stimulus();
 		stim.start = 11;
 		stim.stop = 1000;
@@ -36,11 +37,11 @@ class Test_TimingBoss
 		Assert.isTrue(arr[0].id == "b");
 		Assert.isTrue(arr[1].id == "c");
 		Assert.isTrue(arr[2].id == "a");
-		
+		*/
 	}
 
 	public function test_grand() {
-	
+		/*
 		var t:TimingBoss = new TimingBoss();
 		
 		var stim:Stimulus = new Stimulus();
@@ -105,6 +106,7 @@ class Test_TimingBoss
 		Assert.isTrue(t.__endTimeSorted.length == 0);
 		Assert.isTrue(t.__startTimeSorted.length == 0);
 		Assert.isTrue(t.__allStim.length == 3);
+		*/
 	}
 	
 }

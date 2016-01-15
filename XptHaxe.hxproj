@@ -7,7 +7,7 @@
     <movie path="project.xml" />
     <movie fps="60" />
     <movie width="800" />
-    <movie height="480" />
+    <movie height="600" />
     <movie version="1" />
     <movie minorVersion="0" />
     <movie platform="Lime" />
@@ -16,16 +16,29 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="." />
+    <class path="C:\Servers\Haxe\haxe\lib\delay\1,1,1" />
+    <class path="C:\Servers\Haxe\haxe\lib\assetsmanager\1,2,0" />
+    <class path="C:\Servers\Haxe\haxe\lib\msignal\1,2,2" />
+    <class path="C:\Servers\Haxe\haxe\lib\mlib\2,0,2" />
+    <class path="Z:\GitHub\haxeui" />
+    <class path="C:\Servers\Haxe\haxe\lib\hscript\2,0,5" />
+    <class path="C:\Servers\Haxe\haxe\lib\lime\2,8,3" />
+    <class path="C:\Servers\Haxe\haxe\lib\openfl\3,5,3" />
+    <class path="C:\Servers\Haxe\haxe\lib\actuate\1,8,6" />
+    <class path="C:\Servers\Haxe\haxe\lib\utest\1,3,10\src" />
+    <class path="C:\Servers\Haxe\haxe\lib\thx,core\0,35,0\src" />
+    <class path="src" />
+    <class path="C:\Servers\Haxe\haxe\lib\openfl\3,5,3\extern" />
+    <class path="bin\flash\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="" />
+    <option directives="delay=1.1.1&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.2&#xA;mlib=2.0.2&#xA;haxeui=1.8.4&#xA;hscript=2.0.5&#xA;lime=2.8.3&#xA;openfl=3.5.3&#xA;actuate=1.8.6&#xA;utest=1.3.10&#xA;thx_core&#xA;thx.core=0.35.0&#xA;openfl-next&#xA;tools=2.8.3&#xA;no-compilation&#xA;openfl-flash&#xA;web&#xA;display" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="" />
+    <option additional="-swf-version 11.2&#xA;-debug " />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

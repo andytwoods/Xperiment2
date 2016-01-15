@@ -37,7 +37,7 @@ class XmlToCode
 		return interpXmlFile(path, scope);
 	}
 	macro public static function trace(e:Expr):Expr {
-		trace(e);
+		//trace(e);
 		return macro null;
 	}
 	
