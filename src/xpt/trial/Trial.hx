@@ -3,6 +3,7 @@ package xpt.trial;
 import openfl.Lib;
 import xpt.experiment.Experiment;
 import xpt.results.TrialResults;
+import xpt.stimuli.StimuliFactory;
 import xpt.stimuli.Stimulus;
 import xpt.timing.TimingManager;
 //import xpt.timing.TimingBoss;
@@ -12,6 +13,10 @@ enum Trial_Action {
 }
 
 class Trial {
+	
+	static public var _ITI:Int;
+	
+	public var ITI:Int;
 	public var stimuli:Array<Stimulus> = [];
 	public var iteration:Int;
 	public var trialNum:Int;
@@ -20,6 +25,9 @@ class Trial {
 	public var specialTrial:Special_Trial;
 	public var hideResults:Bool = false;
 	//public var timingBoss:TimingBoss;
+	public var codeStartTrial:String;
+	public var codeEndTrial:String;
+	public var stimuliFactory:StimuliFactory;
 	
 	public static var testing:Bool = false;
 	
@@ -79,5 +87,11 @@ class Trial {
 	
 	public function getResults():TrialResults {
 		return ExtractResults.DO(this);
+	}
+	
+	public function overrideDefaults(potentialOverrides:Map<String, String>) 
+	{
+		//ternary operator (https://learnxinyminutes.com/docs/haxe/).
+		ITI = (potentialOverrides.exists('ITI') == false) ? _ITI : Std.parseInt(potentialOverrides.get('ITI'));
 	}
 }

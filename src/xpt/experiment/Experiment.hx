@@ -1,8 +1,9 @@
 package xpt.experiment;
 
 import assets.manager.FileLoader;
-import code.CheckIsCode.Checks;
-import code.Code;
+import code.CheckIsCode;
+import code.CheckIsCode.RunCodeEvents;
+import code.Scripting;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.events.EventDispatcher;
 import openfl.utils.Object;
@@ -23,12 +24,13 @@ import xpt.trialOrder.TrialOrder;
 
 @:allow(xpt.trialOrder.Test_TrialOrder)
 class Experiment extends EventDispatcher {
-	private var __nextTrialBoss:NextTrialBoss;
-	private var __script:Xml;
-	private var __runningTrial:Trial;
-	private var __results:Results = new Results();
-	private var __currentTrailInfo:NextTrialInfo = null;
-
+	private var nextTrialBoss:NextTrialBoss;
+	private var script:Xml;
+	private var runningTrial:Trial;
+	private var results:Results = new Results();
+	private var currentTrailInfo:NextTrialInfo = null;
+	private var trialFactory:TrialFactory = new TrialFactory();
+	
 	public var scriptEngine:ScriptInterp = new ScriptInterp();
 	
 	public function new(script:Xml, url:String = null, params:Object = null) {
@@ -36,13 +38,13 @@ class Experiment extends EventDispatcher {
 		linkups();
 		
 		if (script == null) return; //used for testing
-		this.__script = script;
+		this.script = script;
 		
-		Code.DO(script, Checks.BeforeExperiment);
+		Scripting.DO(script, RunCodeEvents.BeforeExperiment);
 		
 		//consider remove direct class below and replace purely with Templates.compose(script);
-		ProcessScript.DO(script);
-		ExptWideSpecs.set(script);
+		var processScript:ProcessScript = new ProcessScript(script);
+		processScript = null;
 
 		scriptEngine = new ScriptInterp();
 		scriptEngine.variables.set("Experiment", this);
@@ -53,7 +55,7 @@ class Experiment extends EventDispatcher {
 		
 		//TrialOrder.DO(script);
 		DebugManager.instance.info("Experiment ready");
-		__setupTrials(script);
+		setupTrials(script);
 		firstTrial();
 	}
 
@@ -63,10 +65,16 @@ class Experiment extends EventDispatcher {
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 	}
 	
-	public function __setupTrials(script:Xml) {
-		var trialOrder_skeletons  = TrialOrder.COMPOSE(script);
-		BaseStimuli.createSkeletonParams(trialOrder_skeletons._1);
-		__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
+	public function setupTrials(script:Xml) {
+		var trialOrder:TrialOrder = new TrialOrder();
+		var trialOrder_skeletons  = trialOrder.COMPOSE(script);
+		trialOrder = null;
+		
+		var baseStimuli:BaseStimuli = new BaseStimuli();
+		baseStimuli.createSkeletonParams(trialOrder_skeletons._1);
+		baseStimuli = null;
+		
+		nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 
 		var skeletons:Array<TrialSkeleton> = trialOrder_skeletons._1;
 		var preloadList:Array<String> = new Array<String>();
@@ -105,75 +113,75 @@ class Experiment extends EventDispatcher {
 	}
 	
 	public function firstTrial() {
-		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.First, null);
-		__startTrial();
+		currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.First, null);
+		startTrial();
 	}
 	
 	public function nextTrial() {
-		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Next, null);
-		__startTrial();
+		currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Next, null);
+		startTrial();
 	}
 	
 	public function previousTrial() {
-		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Previous, null);
-		__startTrial();
+		currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Previous, null);
+		startTrial();
 	}
 	
 	public function gotoTrial(trial:Dynamic) {
 		if (Std.is(trial, String) == true) {
-			__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Name(trial), null);
-			__startTrial();
+			currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Name(trial), null);
+			startTrial();
 		} else {
 			var trialIndex = Std.parseInt(trial);
-			__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Number(trialIndex), null);
-			__startTrial();
+			currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Number(trialIndex), null);
+			startTrial();
 		}
 	}
 	
-	public function __startTrial() {
-		var info:NextTrialInfo = __currentTrailInfo;
+	public function startTrial() {
+		var info:NextTrialInfo = currentTrailInfo;
 
-		if (__runningTrial != null) {
-			for (stim in __runningTrial.stimuli) {
+		if (runningTrial != null) {
+			for (stim in runningTrial.stimuli) {
 				if (stim.id != null) {
 					scriptEngine.variables.remove(stim.id);
 				}
 			}
-			__results.add(__runningTrial.getResults(), __runningTrial.specialTrial);
-			__runningTrial.kill();					
+			results.add(runningTrial.getResults(), runningTrial.specialTrial);
+			runningTrial.kill();					
 			/*
-			__runningTrial.callBack = function(action:Trial_Action) {
+			runningTrial.callBack = function(action:Trial_Action) {
 				switch(action) {	
 					case Trial_Action.End:
-						__results.add(__runningTrial.getResults(), __runningTrial.specialTrial);
-						__runningTrial.kill();					
+						results.add(runningTrial.getResults(), runningTrial.specialTrial);
+						runningTrial.kill();					
 				}
 			}
 			*/
 		}
 		
-		__runningTrial = TrialFactory.GET(info.skeleton, info.trialOrder, this);
+		runningTrial = trialFactory.GET(info.skeleton, info.trialOrder, this);
 		
 		if(info.action !=null) {
 			switch(info.action) {
 				
 				case NextTrialBoss_actions.BeforeLastTrial:
-					Code.DO(__script, Checks.BeforeLastTrial, __runningTrial);
-					__runningTrial.setSpecial(Special_Trial.First_Trial);
+					Scripting.DO(script, RunCodeEvents.BeforeLastTrial, runningTrial);
+					runningTrial.setSpecial(Special_Trial.First_Trial);
 					
 				case NextTrialBoss_actions.BeforeFirstTrial:
-					Code.DO(__script, Checks.BeforeFirstTrial, __runningTrial);
-					__runningTrial.setSpecial(Special_Trial.Last_Trial);
+					Scripting.DO(script, RunCodeEvents.BeforeFirstTrial, runningTrial);
+					runningTrial.setSpecial(Special_Trial.Last_Trial);
 				
 			}
 		}
 		
-		for (stim in __runningTrial.stimuli) {
+		for (stim in runningTrial.stimuli) {
 			if (stim.id != null) {
 				scriptEngine.variables.set(stim.id, stim);
 			}
 		}
 		DebugManager.instance.info("Starting trial");
-		__runningTrial.start();
+		runningTrial.start();
 	}
 }

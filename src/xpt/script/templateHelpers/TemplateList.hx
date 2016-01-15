@@ -10,7 +10,9 @@ import xpt.tools.XML_tools;
 class TemplateList
 {
 
-	static public function compose(script:Xml,requireTemplatingIterator:Iterator<Xml>):Array<RequireTemplating>
+	public function new(){}
+	
+	 public function compose(script:Xml,requireTemplatingIterator:Iterator<Xml>):Array<RequireTemplating>
 	{
 		
 		var requireTemplatingList:Array<RequireTemplating> = __generateList(requireTemplatingIterator);
@@ -26,7 +28,7 @@ class TemplateList
 	}
 
 	
-	static private function markTemplatesInList(requireTemplatingList:Array<RequireTemplating>, templateNameList:Array<String>) 
+	private function markTemplatesInList(requireTemplatingList:Array<RequireTemplating>, templateNameList:Array<String>) 
 	{
 		for (requireTemplating in requireTemplatingList) {
 			if (templateNameList.indexOf(requireTemplating.name) != -1) {
@@ -39,7 +41,7 @@ class TemplateList
 		}
 	}
 	
-	static public function __removeDuplicates(templateNameList:Array<String>, requireTemplatingList:Array<RequireTemplating>) 
+	public function __removeDuplicates(templateNameList:Array<String>, requireTemplatingList:Array<RequireTemplating>) 
 	{
 		templateNameList = Arrays.distinct(templateNameList);
 		
@@ -50,7 +52,7 @@ class TemplateList
 		return templateNameList;
 	}
 	
-	static public function __addMissingTemplatesToList(requireTemplatingList:Array<RequireTemplating>, missingTemplateList:Array<String>, script:Xml) 
+	public function __addMissingTemplatesToList(requireTemplatingList:Array<RequireTemplating>, missingTemplateList:Array<String>, script:Xml) 
 	{
 		for (missing in missingTemplateList) {
 			var xmlIterat = XML_tools.findNode(script,missing);
@@ -66,7 +68,7 @@ class TemplateList
 		}
 	}
 	
-	static public function __getTemplateNames(arr:Array<RequireTemplating>):Array<String>
+	public function __getTemplateNames(arr:Array<RequireTemplating>):Array<String>
 	{
 		var arr2:Array<String> = [];
 		for (requiresTemplating in arr) {
@@ -76,7 +78,7 @@ class TemplateList
 		return arr2;
 	}
 	
-	public static function __generateList(requireTemplatingIterator:Iterator<Xml>): Array<RequireTemplating>
+	public function __generateList(requireTemplatingIterator:Iterator<Xml>): Array<RequireTemplating>
 	{
 		var arr:Array<RequireTemplating> = [];
 		

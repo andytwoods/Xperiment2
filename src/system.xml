@@ -33,6 +33,12 @@
 		<text builder="xpt.stimuli.builders.basic.StimText" />
 		
 		<!-- ***********************************************************************************
+			LAYOUT STIMULI
+		************************************************************************************ -->
+		<hbox builder="xpt.stimuli.builders.layout.StimHBox" />
+		
+		
+		<!-- ***********************************************************************************
 			COMPOUND STIMULI
 		************************************************************************************ -->
 		<multiNumberStepper builder="xpt.stimuli.builders.compound.StimMultiNumberStepper" />
@@ -83,5 +89,14 @@
 				Experiment.previousTrial()
 			</action>
 		</previousTrialButton>
+		<teststim builder="xpt.stimuli.builders.layout.StimHBox">
+			<children>
+				<button text="bob 1"></button>
+				<button>
+					<text>bob 2</text>
+				</button>
+				<button text='bob 3'></button>
+			</children>
+		</teststim>
 	</stimuli>
 </system>

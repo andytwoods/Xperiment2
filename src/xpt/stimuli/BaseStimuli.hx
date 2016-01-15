@@ -12,7 +12,9 @@ class BaseStimuli
 {
 	private static var permittedStimuli:Array<String>;
 	
-	static public function createSkeletonParams(skeletons:Array<TrialSkeleton>	)
+	public function new() { }
+	
+	public function createSkeletonParams(skeletons:Array<TrialSkeleton>	)
 	{
 
 		for (skeleton in skeletons) {
@@ -20,7 +22,7 @@ class BaseStimuli
 			}
 		}
 		
-	static public function _generateStimuli(xmlList:Iterator<Xml>,numTrials:Int):Array<BaseStimulus>
+	public function _generateStimuli(xmlList:Iterator<Xml>,numTrials:Int):Array<BaseStimulus>
 	{
 		var baseStimuli = new Array<BaseStimulus>();
 		var baseStim:BaseStimulus;
@@ -49,7 +51,7 @@ class BaseStimuli
 	
 	
 	
-	static public inline function _composeBaseStim(nam:String, stimXML:Xml, numTrials:Int):BaseStimulus
+	public inline function _composeBaseStim(nam:String, stimXML:Xml, numTrials:Int):BaseStimulus
 	{
 		var baseStim = new BaseStimulus(nam);
 		

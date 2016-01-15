@@ -33,7 +33,8 @@ class Test_Templates
 			requireTemplatingList.push(template);
 		}
 		
-		var templateMap:Map<String, RequireTemplating> = Templates.__generateTemplatesMap(requireTemplatingList);
+		var templates:Templates = new Templates(null);
+		var templateMap:Map<String, RequireTemplating> = templates.__generateTemplatesMap(requireTemplatingList);
 		
 		var keys:Array<String> = XTools.iteratorToArray(templateMap.keys());
 		XTools.sort(keys);
@@ -80,11 +81,13 @@ class Test_Templates
 			}
 			return null;
 		}
-
-		var templateMap:Map<String, RequireTemplating> = Templates.__generateTemplatesMap(requireTemplatingList);
+		
+		var templates:Templates = new Templates(null);
+		var templateMap:Map<String, RequireTemplating> = templates.__generateTemplatesMap(requireTemplatingList);
 		
 		var req:RequireTemplating = getReq("a");
-		Templates.__applyTemplates(req, templateMap, Templates.Trial_copyOverId);
+		
+		templates.__applyTemplates(req, templateMap, Templates.Trial_copyOverId);
 		
 
 		Assert.isTrue(req.xml.toString() == "<a dd=\"dd\"><ddd dddd=\"dddd\"/></a>");

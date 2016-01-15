@@ -16,6 +16,7 @@ class TrialSkeleton
 	public var names:Array<String>;
 	public var xml:Xml;
 	public var baseStimuli:Array<BaseStimulus>;
+	public var otherParams:Map<String,String> = new Map<String,String>();
 	
 	private static var permittedStimuli;
 	

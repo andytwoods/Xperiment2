@@ -14,8 +14,10 @@ class BetweenSJs
 	static public inline var PARENT:String = "parent";
 	static public inline var MULTIID:String = "multiId";
 	
+	public function new() { };
 	
-	static public function compose(script:Xml, forceToRun:String=''):Xml
+	
+	public function compose(script:Xml, forceToRun:String=''):Xml
 	{
 		if (	continueCheck(script) == false) return script;
 		
@@ -37,7 +39,7 @@ class BetweenSJs
 		return script;
 	}
 	
-	static public function __applyToParent(parent:Xml, experiment:Xml):Xml
+	public function __applyToParent(parent:Xml, experiment:Xml):Xml
 	{
 		var action:Action;
 		var lookFor:String;
@@ -51,7 +53,7 @@ class BetweenSJs
 		return parent; 
 	}
 	
-	static public inline function applyAction(parent:Xml, action:Action) 
+	public function applyAction(parent:Xml, action:Action) 
 	{
 		
 		var found = XML_tools.find(parent, MULTIID, action.name);
@@ -60,7 +62,7 @@ class BetweenSJs
 		}		
 	}
 	
-	static public inline function __applyParentConditions(condNam:String, condition:BetweenSJcond, betweenSJMap:Map<String, BetweenSJcond>) 
+	public function __applyParentConditions(condNam:String, condition:BetweenSJcond, betweenSJMap:Map<String, BetweenSJcond>) 
 	{
 		if (condition.hasBeenFleshedOut == true) return;
 		
@@ -78,7 +80,7 @@ class BetweenSJs
 		return;
 	}
 	
-	static public inline function getBetweenSJConds(script:Xml, ignore:String):Map<String, BetweenSJcond>
+	public function getBetweenSJConds(script:Xml, ignore:String):Map<String, BetweenSJcond>
 	{
 		var map = new Map<String, BetweenSJcond>();
 		
@@ -100,11 +102,8 @@ class BetweenSJs
 		
 		return map;
 	}
-
 	
-
-	
-	static inline public function continueCheck(script:Xml):Bool {
+	public function continueCheck(script:Xml):Bool {
 		return betweenSJ_nodeName == XML_tools.nodeName(script).toLowerCase();
 	}
 	

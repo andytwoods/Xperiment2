@@ -10,12 +10,16 @@ class StimuliFactory {
 	private static var overTrialSep:String;
 	private static var _stimBuilderMap:Map<String, Class<StimulusBuilder>>;
 	private static var _stimParams:Map<String, Map<String, String>>;
-
-	static public function generate(trial:Trial, skeleton:TrialSkeleton) {
+	private static var _stimChildDefs:Map<String, Array<Xml>>;
+	
+	public function new() {}
+	
+	
+	public function generate(trial:Trial, skeleton:TrialSkeleton) {
 		__recursiveGenerate(trial, null, skeleton.baseStimuli, 0);
 	}
 	
-	private static function __recursiveGenerate(trial:Trial, parent:Stimulus, baseStimuli:Array<BaseStimulus>, unknownIdCount:Int) {
+	private function __recursiveGenerate(trial:Trial, parent:Stimulus, baseStimuli:Array<BaseStimulus>, unknownIdCount:Int) {
 		var baseStimulus:BaseStimulus;
 		var stim:Stimulus;
 		
@@ -39,7 +43,7 @@ class StimuliFactory {
 		}
 	}
 	
-	private static function setProps(stim:Stimulus, howMany:Int, props:Map<String,String>, trial:Trial) {
+	private function setProps(stim:Stimulus, howMany:Int, props:Map<String,String>, trial:Trial) {
 		//var howMany:Int = 1;
 		var trialIteration:Int = trial.iteration;
 
@@ -48,7 +52,7 @@ class StimuliFactory {
 				var val:String = props.get(key);
 				val = XTools.multiCorrection(	val, overTrialSep, trialIteration);
 				val = XTools.multiCorrection(	val, withinTrialSep, count);
-				stim.set(key, specialType(key,val)	);
+				stim.set(key, val	);
 			}
 			
 			stim.set("trial", trial);
@@ -56,11 +60,9 @@ class StimuliFactory {
 		}
 	}
 	
-	private static function specialType(name:String, val:Dynamic):Dynamic {
-		return val;
-	}
+
 	
-	private static function getStim(type:String):Stimulus {
+	private function getStim(type:String):Stimulus {
 		if (_stimBuilderMap == null) {
 			return null;
 		}
