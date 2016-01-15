@@ -1,5 +1,4 @@
 package xpt.stimuli;
-import thx.Ints;
 import xpt.tools.XML_tools;
 import thx.Tuple.Tuple2;
 import xpt.trial.TrialSkeleton;
@@ -73,30 +72,3 @@ class BaseStimuli
 	
 }
 
-class BaseStimulus {
-	
-	public var name:String;
-	public var props:Map<String,String>;
-	public var howMany:Int = 1;
-	public var children:Array<BaseStimulus> = [];
-	
-	
-	
-	public function new(nam:String) {
-		this.name = nam;
-	};
-	
-	
-	public function setProps(_props:Map<String, String>) 
-	{
-		props = _props;
-		if (props.exists("howMany")) {
-			if (Ints.canParse(props.get("howMany"))) {
-				howMany = Ints.parse(props.get("howMany"));
-			}
-			else throw "You must specify 'howMany' as a number";
-		}
-		
-	}
-	
-}

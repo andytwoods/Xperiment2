@@ -7,7 +7,11 @@ import xpt.stimuli.StimulusBuilder;
 
 class StimButton extends StimulusBuilder {
 	
+<<<<<<< HEAD
+	public var clicked:Bool = false;
+=======
 	public var clicked:Int = 0;
+>>>>>>> master
 	
 	public function new() {
 		super();
@@ -32,6 +36,16 @@ class StimButton extends StimulusBuilder {
 	}
 	
 	private function onClick(event:MouseEvent) {
+<<<<<<< HEAD
+		clicked = true;
+		runScriptEvent("action", event);
+	}
+	
+	override public function results():Map<String,String> {
+		var val:String;
+		if (clicked) val = '0';
+		else val = '1';
+=======
 		clicked++;
 		runScriptEvent("action", event);
 	}
@@ -41,6 +55,7 @@ class StimButton extends StimulusBuilder {
 		var val:String;
 		if (clicked> 0) val = '1';
 		else val = '0';
+>>>>>>> master
 		return ['' => val];
 	}
 }

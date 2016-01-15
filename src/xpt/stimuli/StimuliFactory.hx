@@ -1,6 +1,5 @@
 package xpt.stimuli;
-
-import xpt.stimuli.BaseStimuli.BaseStimulus;
+import xpt.stimuli.BaseStimulus;
 import xpt.tools.XTools;
 import xpt.trial.Trial;
 import xpt.trial.TrialSkeleton;
@@ -17,18 +16,19 @@ class StimuliFactory {
 	
 	
 	public function generate(trial:Trial, skeleton:TrialSkeleton) {
-		__recursiveGenerate(trial, null, skeleton.baseStimuli, 0);
+		recursivelyGenerateStimuli(trial, null, skeleton.baseStimuli);
 	}
 	
-	private function __recursiveGenerate(trial:Trial, parent:Stimulus, baseStimuli:Array<BaseStimulus>, unknownIdCount:Int) {
+	public function recursivelyGenerateStimuli(trial:Trial, parent:Stimulus, baseStimuli:Array<BaseStimulus>):Array<Stimulus> {
 		var baseStimulus:BaseStimulus;
-		var stim:Stimulus;
+		var stim:Stimulus = null;
+		var stimuli:Array<Stimulus> = new Array<Stimulus>();
 		
 		for (i in 0...baseStimuli.length) {
 			
 			baseStimulus = baseStimuli[i];
 			
-			stim = getStim(baseStimulus.name);
+			stim = getStim(baseStimulus.type);
 			stim.parent = parent;
 			if (parent != null) {
 				parent.children.push(stim);
@@ -36,11 +36,7 @@ class StimuliFactory {
 
 			setProps(stim, baseStimulus.howMany, baseStimulus.props, trial);
 			
-			if (stim.id == null) {
-				stim.id = "id" + Std.string(unknownIdCount++);
-			}
-			
-			stim.type = baseStimulus.name;
+			stim.type = baseStimulus.type;
 			
 			//trial.stimuli.push(stim);
 			if (parent != null) {
@@ -48,14 +44,17 @@ class StimuliFactory {
 			}
 
 			if (baseStimulus.children.length > 0) {
-				__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount);
+				recursivelyGenerateStimuli(trial, stim, baseStimulus.children);
 			}
 			
 			if (parent == null) {
 				trial.addStimulus(stim);
 			}
+			stimuli.push(stim);
 		}
+		return stimuli;
 	}
+	
 	
 	private function setProps(stim:Stimulus, howMany:Int, props:Map<String,String>, trial:Trial) {
 		//var howMany:Int = 1;
@@ -64,27 +63,22 @@ class StimuliFactory {
 		for(count in 0...howMany){
 			for (key in props.keys()) {
 				var val:String = props.get(key);
-				val = XTools.multiCorrection(	val, overTrialSep, trialIteration);
-				val = XTools.multiCorrection(	val, withinTrialSep, count);
-				stim.set(key, specialType(key,val)	);
+				val = XTools.multiCorrection(val, overTrialSep, trialIteration);
+				val = XTools.multiCorrection(val, withinTrialSep, count);
+				stim.set(key, val);
 			}
 			
 			stim.set("trial", trial);
-			if (stim.parent == null) {
-				//trial.addStimulus(stim);
-			}
 		}
 	}
 	
-	private function specialType(name:String, val:Dynamic):Dynamic {
-		return val;
-	}
 	
 	private function getStim(type:String, stimParams:Map<String, String> = null):Stimulus {
 		if (_stimBuilderMap == null) {
 			return null;
 		}
 		type = type.toLowerCase();
+		
 		var cls:Class<StimulusBuilder> = _stimBuilderMap.get(type);
 		var instance:Stimulus = null;
 		if (cls != null) {

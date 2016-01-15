@@ -10,7 +10,7 @@
 	
 	<haxedef name="dom" />
 	<haxeflag name="-D dom" />
-	
+	<haxeflag name="-D hscriptPos" />
 	<haxedef name="haxeui-no-gif-support" />
 	<haxeflag name="-D haxeui-no-gif-support" />
 	
@@ -24,13 +24,11 @@
 	<haxelib name="openfl" />
 	<haxelib name="haxeui" />
 	<haxelib name="actuate" />
-	<haxelib name="delay" unless="neko || cpp" />
 	<haxelib name="hscript" />
 	<haxelib name="assetsmanager" />
 	<haxelib name="utest" unless="html5" />
 	<haxelib name="thx.core" />
 	<haxelib name="haxe-rest-client" />
-	<haxelib name="singleton" />
 
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />
@@ -40,8 +38,8 @@
 	<assets path="assets/data" rename="data" />
 
 	<assets path="assets/themes" rename="themes" />
+	<assets path="assets/fonts" rename="fonts" />
 	<assets path="experiments" rename="experiments" exclude="*.jpg" />
-	
 	<template path="assets/html5/index.html" if="html5" rename="index.html" />
 
 	

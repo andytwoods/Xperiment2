@@ -62,7 +62,7 @@ class DebugManager {
 			
 			var cx:Float = RootManager.instance.currentRoot.width;
 			var cy:Float = RootManager.instance.currentRoot.height;
-			
+
 			_debugWindowPopup.x = cx - _debugWindowPopup.width;
 			_debugWindowPopup.y = 0;
 			

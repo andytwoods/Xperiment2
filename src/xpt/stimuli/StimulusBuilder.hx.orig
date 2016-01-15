@@ -166,16 +166,44 @@ class StimulusBuilder {
 		experiment.removeEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete, false);
 	}
 	
-	public function runScriptEvent(action:String, event) {
-		Scripting.runScriptEvent(action, event, _stim);
+<<<<<<< HEAD
+	private function runScriptEvent(prop:String, event:Event, logScript:Bool = true) {
+		if (get(prop) != null) {
+			try {
+				addScriptVars(experiment.scriptEngine.variables);
+				experiment.scriptEngine.variables.set("e", event);
+				var parser = new hscript.Parser();
+				var s:String = StringTools.trim(get(prop));
+				s = StringTools.replace(s, "|", ";");
+				s = StringTools.replace(s, "\t", " ");
+				s = StringTools.replace(s, "\r\n", ";\n");
+				if (logScript == true) {
+					DebugManager.instance.event(_stim.get("stimType") + ".on" + StringUtil.capitalizeFirstLetter(event.type), "" + s);
+				}
 				trace(111);
+				var expr = parser.parseString(s);
 				trace(11111);
 				var E = experiment.scriptEngine.variables.get('Experiment');
+				experiment.scriptEngine.execute(expr);
 				trace(1111111111);
+			} catch (e:Dynamic) {
+				trace("ERROR executing script: " + e);
+				DebugManager.instance.error("Error running script event", "" + e);
+			}
+		}
+	}
+	
+=======
+	public function runScriptEvent(action:String, event) {
+		Scripting.runScriptEvent(action, event, _stim);
 	}
 
-	
+
+	//override this
+	public function results():Map<String,String> {
+		return null;
 	}
+>>>>>>> master
 	
 	public function build(stim:Stimulus):Component {
 		_stim = stim;

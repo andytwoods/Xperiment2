@@ -68,11 +68,20 @@ class Experiment extends EventDispatcher {
 		
 		linkups_Post_ExptWideSpecs();
 
-		Scripting.init(this);
+<<<<<<< HEAD
+		scriptEngine = new ScriptInterp();
+		scriptEngine.variables.set("Experiment", this);
 		scriptEngine.variables.set("E", this);
 		scriptEngine.variables.set("Expr", this);
 		DebugManager.instance.experiment = this;
+		DebugManager.instance.enabled = true;
+		scriptEngine.variables.set("Debug", DebugManager.instance);
+		//TrialOrder.DO(script);
+=======
+		Scripting.init(this);
+		DebugManager.instance.experiment = this;
 		//DebugManager.instance.enabled = true;
+>>>>>>> master
 		DebugManager.instance.info("Experiment ready");
 		setupTrials(script);
 		firstTrial();
@@ -115,9 +124,14 @@ class Experiment extends EventDispatcher {
 		startTrial();
 	}
 	
+<<<<<<< HEAD
 	
+	public function nextTrial() {
+		__currentTrailInfo = __nextTrialBoss.getTrial(GotoTrial.Next, null);
+=======
 	public function nextTrial() {		
 		currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Next, null);
+>>>>>>> master
 		startTrial();
 	}
 	

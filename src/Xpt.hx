@@ -1,6 +1,6 @@
 package;
 
-import code.Code;
+import code.Scripting;
 import comms.services.UrlParams_service;
 import haxe.macro.Compiler;
 import openfl.Lib;
@@ -27,10 +27,10 @@ class Xpt {
 		#if (debug && !html5)
 		
 			Trial.testing = true;
-			Code.testing = true;
+			Scripting.testing = true;
 			var tests:xpt.Tests = new xpt.Tests();
 			Trial.testing = false;
-			Code.testing = false;
+			Scripting.testing = false;
 		#end
 		
 		#if html5

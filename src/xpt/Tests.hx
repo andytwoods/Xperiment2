@@ -5,7 +5,6 @@ package xpt;
  * @author 
  */
 import code.Test_CheckIsCode;
-import code.Test_HScriptLayer;
 import openfl.events.Event;
 import openfl.system.System;
 import xpt.results.Test_Results;
@@ -65,13 +64,6 @@ class Tests
 		//results related
 		runner.addCase(new Test_Results());
 		runner.addCase(new Test_TrialResults());
-		
-		//code
-		runner.addCase(new Test_HScriptLayer());
-		
-		//miscel
-		runner.addCase(new Test_ExptWideSpecs());
-		
 		
 		
 		Report.create(runner, NeverShowSuccessResults, AlwaysShowHeader);

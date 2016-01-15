@@ -13,9 +13,26 @@ class Test_XML_Tools
 public function new() { }
 	
 
+	public function test_findDesVals() {
+		var xml:Xml = Xml.parse("<xml><a>a</a><b><bb>bb</bb></b><bbb><![CDATA[abc]]></bbb><c>c</c></xml>");
+		var all = XML_tools.allNodes(xml);
+		Assert.isTrue(all.get('a') == 'a');
+		Assert.isTrue(all.get('bb') == 'bb');
+		Assert.isTrue(all.get('bbb') == 'abc');
+		Assert.isTrue(all.get('c') == 'c');
+	}
+	
+	public function test_getAttribs_map() {
+		var xml:Xml = Xml.parse("<xml><a aa='a'>a</a><b><bb bb='bbb'>bb</bb></b><bbb bbbb='bbbbb'><![CDATA[abc]]></bbb><c ccc='ccccc'>c</c></xml>");
+	
+		var all:Map<String,String> = XML_tools.getAttribs_map(xml);
+		Assert.isTrue(all.get('bb') == 'bbb');
+		Assert.isTrue(all.get('bbbb') == 'bbbbb');
+		Assert.isTrue(all.get('aa') == 'a');
+		Assert.isTrue(all.get('ccc') == 'ccccc');
+	}
 
 	public function test_find() {
-		
 		
 		//just attrib
 		var xml:Xml = Xml.parse("<xml><a></a><b></b><c></c></xml>");
@@ -35,7 +52,12 @@ public function new() { }
 		result = XML_tools.find(xml, "attrib1");
 		Assert.isTrue(len(result) == 3);
 		
-		
+		//find all attribs
+		//just value
+		xml = Xml.parse("<xml attrib1='123hhhh'><a></a><b attrib1='123'></b><c ><d attrib1='123'></d></c></xml>");
+		result = XML_tools.find(xml);	
+		Assert.isTrue(len(result) == 3);
+
 		
 		//attrib and value
 		xml = Xml.parse("<xml attrib1='123'><a></a><b attrib1='123'></b><c ><d attrib1='123'></d></c></xml>");
@@ -427,6 +449,14 @@ public function new() { }
 
 		Assert.isTrue(boss.toString().length == "<a><b bb=\"bb\"/><b/><c/></a>".length);
 		
+	}
+	
+	public function test__getNodeAttribsMap() {
+		var xml = Xml.parse("<a aa='a' aaaa='aaaaa'><c c='ss'/></a>");
+		var map:Map<String,String> = XML_tools.getNodeAttribsMap(xml);
+		Assert.isTrue(map.get('aa') == 'a');
+		Assert.isTrue(map.get('aaaa') == 'aaaaa');
+		Assert.isTrue(map.exists('c') == false);
 	}
 	
 	/*public function test_getImmediateChildren() {

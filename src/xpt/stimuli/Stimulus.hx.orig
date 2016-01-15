@@ -101,6 +101,17 @@ class Stimulus {
 		
 		if (builder != null) {
 			var myResults:Map<String,String> = builder.results();
+<<<<<<< HEAD
+			var labelledResults:Map<String,String> = new Map<String,String>();
+			if(labelledResults!=null){
+				for (key in myResults.keys()) {
+					
+					//if the key is empty, just use this stim's id, else use id+"_"+key.
+					labelledResults.set(key.length > 0?id + "_" + key:id, myResults.get(key));
+				}
+				
+				return labelledResults;
+=======
 	
 			var labelledResults:Map<String,String> = new Map<String,String>();
 			var label:String;
@@ -110,11 +121,10 @@ class Stimulus {
 					if (key.length == 0) label = id;
 					else label = id + "_" + key;
 					labelledResults.set(trial_id+label, myResults.get(key));
-			}
-		}
 				}
 
 				if(label !=null) return labelledResults;
+>>>>>>> master
 			}
 		}
 		return null;
