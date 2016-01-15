@@ -1,6 +1,6 @@
-package xpt.stimuli.all;
+package xpt.stimuli;
 import utest.Assert;
-import xpt.stimuli.BaseStimuli.BaseStimulus;
+import xpt.stimuli.BaseStimulus;
 import xpt.tools.XTools;
 
 /**
@@ -20,11 +20,12 @@ class Test_BaseStimuli
 
 		var xml:Xml = Xml.parse("<bob><child1><child2child2>cccc</child2child2></child1><child2>cc</child2>bla</bob>");
 
-		var baseStim:BaseStimulus = BaseStimuli._composeBaseStim("bob", xml, 1);
+		var b:BaseStimuli = new BaseStimuli();
+		var baseStim:BaseStimulus = b._composeBaseStim("bob", xml, 1);
 		
 		Assert.isTrue(baseStim.children.length == 1);
-		Assert.isTrue(baseStim.children[0].name == "child1");
-		Assert.isTrue(baseStim.name == "bob");
+		Assert.isTrue(baseStim.children[0].type == "child1");
+		Assert.isTrue(baseStim.type == "bob");
 		
 
 		Assert.isTrue(baseStim.props.get("child2") == "cc");
@@ -33,12 +34,12 @@ class Test_BaseStimuli
 		
 		//there was an issue with spacing around nodes.
 		xml = Xml.parse("<bob>  <child1>  <child2child2>cccc</child2child2></child1><child2>cc</child2>bla</bob>");
-
-		var baseStim:BaseStimulus = BaseStimuli._composeBaseStim("bob", xml, 1);
+		var b:BaseStimuli = new BaseStimuli();
+		var baseStim:BaseStimulus = b._composeBaseStim("bob", xml, 1);
 		
 		Assert.isTrue(baseStim.children.length == 1);
-		Assert.isTrue(baseStim.children[0].name == "child1");
-		Assert.isTrue(baseStim.name == "bob");
+		Assert.isTrue(baseStim.children[0].type == "child1");
+		Assert.isTrue(baseStim.type == "bob");
 		
 
 		Assert.isTrue(baseStim.props.get("child2") == "cc");

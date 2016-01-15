@@ -27,15 +27,60 @@ class XML_tools
 	}
 
 	
+	static public inline function getAttribs_map(xml:Xml):Map<String, String > {
+		var attribsXml = find(xml);
+		var child;
+		var map:Map<String,String> = new Map<String, String > ();
+		for (node in attribsXml) {
+			if (node != null) {
+				for (attrib in node.attributes()) {
+					map.set(attrib.toString(), node.get(attrib).toString());
+				}
+			}
+		}
+		return map;
+	}
+	
 	static public function find(xml:Xml, attrib:String = null, value:String = null):Iterator<Xml>
 	{	
 		if (value == null && attrib!=null)	return E4X.x(xml.desc(a(attrib) ));
 		if (value != null && attrib!=null)	return E4X.x(xml._(a(attrib) == value));
-		if (value != null && attrib==null)	return E4X.x(xml._(a() == value));	
+		if (value != null && attrib == null)	return E4X.x(xml._(a() == value));	
+		if (value == null && attrib==null)	return E4X.x(xml._(a()));	
 		throw "";
 		return null;
 	}
 	
+	static public function allNodes(xml:Xml):Map<String,String>
+	{	
+		
+		var list = new Map<String,String>();
+		var child;
+		var str:String;
+
+		for (x in E4X.x(xml.desc())) {
+			if (x != null) {
+				if( x.nodeType == Xml.Element){
+					
+					child =  x.iterator().next();
+					if(child!=null){
+						switch(child.nodeType) {
+							case Xml.Element:
+							case Xml.CData:
+								str = child.toString();
+								list.set(x.nodeName, str.substr(9,str.length-12));
+							case Xml.PCData:
+								list.set(x.nodeName, child.toString());
+							default:
+								trace('who knows', child.nodeType, child);
+						}
+					}
+				}
+			}
+		}
+
+		return list;
+	}
 
 	static public function findNode(xml:Xml, name:String):Iterator<Xml>
 	{	
@@ -108,7 +153,19 @@ class XML_tools
 	static private inline function getAttribs(xml:Xml):Iterator<Xml> {
 		return E4X.x(xml._(a()));
 	}
-
+	
+	
+	static public inline function getNodeAttribsMap(xml:Xml):Map < String, String> {
+		xml = simpleXML(xml);
+		var map:Map<String,String> = new Map<String,String>();
+		if(xml.nodeType == Xml.Element){
+			for (nam in xml.attributes()) {
+				map.set(nam, xml.get(nam));
+			}
+		}
+		return map;
+	}
+	
 	
 	static public function addAttrib(xml:Xml, name:String, newValue:String):Xml {
 		return modifyAttrib(xml, name, newValue);	
@@ -278,6 +335,7 @@ class XML_tools
 	
 	static public function attribsToMap(xml:Xml):Map<String,String> {
 		xml = simpleXML(xml);
+		//trace(111, xml);
 		return _attribsToMap(xml);
 	}
 	

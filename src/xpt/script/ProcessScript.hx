@@ -3,32 +3,12 @@ import assets.manager.FolderTree.Error;
 import xmlTools.E4X;
 
 
-class ProcessScript
+class ProcessScript 
 {
 	
-	public function new() 
-	{
-		
-	}
+	public function new(script:Xml) {
 	
-	public static function DO(script:Xml) {
-		
-		
-		Templates.compose(script);
-		
-		//done via TrialSkeletons now
-		//ETCs.compose(script);
-	
-		
-		/*		
-		sortOutSpecialVariables(script);
-		
-		StimModify.sortOutOverExptMods(script);
-		
-		*/
-		
-		
-		
+		var templates = new Templates(script);
 	}
 
 	

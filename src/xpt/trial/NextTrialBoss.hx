@@ -65,13 +65,6 @@ class NextTrialBoss
 	
 	public function getTrial(nextCommand:GotoTrial,prevTrial:Trial):NextTrialInfo{
 
-		//var nextTrialNum:Int = -1;
-/*		if(progressDict && prevTrial.trialOrderScheme && progressDict.hasOwnProperty(prevTrial.trialOrderScheme) && [GotoTrialEvent.NEXT_TRIAL,GotoTrialEvent.PREV_TRIAL].indexOf(nextCommand)!=-1){
-			var a:int = (progressDict[prevTrial.trialOrderScheme] as Progress).getNextTrial(prevTrial,currentTrial);
-			currentTrial = a;
-			return computeRunningTrial();	
-		}*/
-		
 		switch(nextCommand){
 		
 			case Next:

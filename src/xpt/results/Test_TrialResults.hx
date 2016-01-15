@@ -15,13 +15,13 @@ class Test_TrialResults
 	
 	public function test_getName() {
 	
-		var t:Trial = new Trial();
+		var t:Trial = new Trial(null);
 		t.trialName = "trialName";
 		t.trialBlock = 22;
 		t.iteration = 33;
 
 
-		var t:TrialResults = 	t.getResults();
+		var t:TrialResults = 	TrialResults.extract_trial_results(t);
 		Assert.isTrue(t == null);
 		
 		

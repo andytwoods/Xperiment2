@@ -1,0 +1,47 @@
+Text{color:#666666;}
+Button{backgroundColor:#EDEDED;backgroundColorGradientEnd:#E6E6E6;color:#222222;cornerRadius:4px;paddingLeft:10;paddingTop:5;paddingRight:10;paddingBottom:5;borderSize:1;borderColor:#ABABAB;filter:null;}
+Button:over{backgroundColor:#F5F5F5;backgroundColorGradientEnd:#F1F1F1;color:#000000;borderColor:#ABABAB;}
+Button:down{backgroundColor:#D2D2D2;backgroundColorGradientEnd:#C2C2C2;color:#000000;borderColor:#7F7F7F;filter:dropShadow(1,45,0x999999,1,1,1,1,1,true);}
+ListSelector{backgroundColor:#EDEDED;backgroundColorGradientEnd:#E6E6E6;color:#222222;cornerRadius:4px;paddingLeft:10;paddingTop:10;paddingRight:10;paddingBottom:10;borderSize:1;borderColor:#ABABAB;filter:null;icon:"themes/xpt/down_arrow.png";}
+ListSelector:over{backgroundColor:#F5F5F5;backgroundColorGradientEnd:#F1F1F1;color:#000000;borderColor:#ABABAB;}
+ListSelector:down{backgroundColor:#D2D2D2;backgroundColorGradientEnd:#C2C2C2;color:#000000;borderColor:#7F7F7F;filter:dropShadow(1,45,0x999999,1,1,1,1,1,true);}
+TextInput{borderColor:#ABABAB;backgroundColor:#FFFFFF;paddingLeft:10;paddingTop:5;paddingRight:10;paddingBottom:5;cornerRadius:2;filter:dropShadow(1,45,0x888888,1,2,2,1,3,true);fontSize:13;fontName:"_sans";color:#444444;}
+Triangle{borderColor:#222222;backgroundColor:#EDEDED;borderSize:2;}
+Triangle:over{borderColor:#222222;backgroundColor:#F5F5F5;borderSize:2;}
+Triangle:down{borderColor:#222222;backgroundColor:#D2D2D2;borderSize:2;}
+Line{borderColor:#222222;borderSize:2;}
+ListView{borderColor:#ABABAB;color:0x000000;paddingLeft:2;paddingTop:2;paddingBottom:2;paddingRight:2;borderSize:1;spacingX:2;spacingY:2;cornerRadius:2;backgroundColor:0xFFFFFF;}
+.even{backgroundColor:#F1F1F1;color:0x000000;cornerRadius:2;paddingLeft:2;paddingTop:4;paddingBottom:4;paddingRight:2;borderSize:0;spacingX:2;spacingY:2;}
+.even:disabled{backgroundColor:0xF5F5F5;}
+.odd{backgroundColor:0xFFFFFF;color:0x000000;cornerRadius:2;paddingLeft:2;paddingTop:4;paddingBottom:4;paddingRight:2;borderSize:0;spacingX:2;spacingY:2;}
+.even:over,.odd:over{backgroundColor:#D2D2D2;}
+.even:selected,.odd:selected{backgroundColor:#D2D2D2;}
+.even #text,.odd #text{color:0x222222;}
+.even #subtext,.odd #subtext{color:0x222222;fontSize:11;}
+.even #subtext:over,.odd #subtext:over{color:0x222222;}
+.even #subtext:selected,.odd #subtext:selected{color:0x222222;}
+.even #text:over,.odd #text:over{color:0x222222;}
+.even #text:selected,.odd #text:selected{color:0x222222;}
+.even #subtext:selected,.odd #subtext:selected{color:0x222222;}
+VScroll{width:17;height:100;paddingLeft:1;paddingTop:1;paddingBottom:1;paddingRight:1;spacingY:1;hasButtons:true;backgroundColor:#E9E9E9;cornerRadius:2;}
+VScroll Button{backgroundColor:#E9E9E9;backgroundColorGradientEnd:#E9E9E9;borderColor:#E9E9E9;cornerRadius:1;filter:none;iconPosition:"center";}
+VScroll Button:over{backgroundColor:#D7D7D7;backgroundColorGradientEnd:#D7D7D7;borderColor:#D7D7D7;}
+VScroll Button:down{backgroundColor:#525252;backgroundColorGradientEnd:#525252;borderColor:#525252;}
+VScroll Button.up{icon:"themes/xpt/up_arrow.png";}
+VScroll Button.down{icon:"themes/xpt/down_arrow.png";}
+VScroll Button.thumb{backgroundColor:#C6C6C6;backgroundColorGradientEnd:#C6C6C6;borderColor:#C6C6C6;icon:"themes/xpt/gripper_vertical.png";}
+HScroll{width:100;height:17;paddingLeft:1;paddingTop:1;paddingBottom:1;paddingRight:1;spacingX:1;hasButtons:true;backgroundColor:#E9E9E9;cornerRadius:2;}
+HScroll Button{backgroundColor:#E9E9E9;backgroundColorGradientEnd:#E9E9E9;borderColor:#E9E9E9;cornerRadius:1;filter:null;iconPosition:"center";}
+HScroll Button:over{backgroundColor:#D7D7D7;backgroundColorGradientEnd:#D7D7D7;borderColor:#D7D7D7;}
+HScroll Button:down{backgroundColor:#525252;backgroundColorGradientEnd:#525252;borderColor:#525252;}
+HScroll Button.left{icon:"themes/xpt/left_arrow.png";}
+HScroll Button.right{icon:"themes/xpt/right_arrow.png";}
+HScroll Button.thumb{backgroundColor:#C6C6C6;backgroundColorGradientEnd:#C6C6C6;borderColor:#C6C6C6;icon:"themes/xpt/gripper_horizontal.png";}
+HProgress{width:100;height:20;backgroundColor:0xFFFFFF;borderColor:#ABABAB;paddingTop:2;paddingLeft:2;paddingBottom:2;paddingRight:2;cornerRadius:3;filter:dropShadow(2,45,0x808080,1,4,4,1,3,true);}
+HProgress #background{width:100%;height:100%;backgroundColor:#F1F1F1;backgroundColorGradientEnd:#FFFFFF;borderColor:#FFFFFF;cornerRadius:3;}
+HProgress #value{height:100%;backgroundColor:#6CAADB;backgroundColorGradientEnd:#216AAE;borderColor:0xa5b8da;borderSize:0;cornerRadius:3;}
+Popup{backgroundColor:0xFFFFFF;filter:dropShadow(2,45,0x808080,1,4,4,1,3);borderColor:#444444;borderSize:1;cornerRadius:3;paddingLeft:2;paddingRight:2;paddingTop:2;paddingBottom:2;width:400;spacing:1;}
+Popup #titleBar{backgroundColor:#444444;height:30;paddingTop:4;paddingLeft:5;paddingRight:6;}
+Popup #titleBar Text{color:0xFFFFFF;}
+Popup #buttonBar{paddingTop:10;paddingBottom:5;height:45;}
+

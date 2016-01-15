@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<system debug="false">
+	<!-- ***********************************************************************************
+		TOOLKIT SETTINGS
+	************************************************************************************ -->
+	<toolkit theme="gradient">
+		<styles>
+			<asset resource="themes/xpt/xpt.css" />
+		</styles>
+		<components>
+			<numberStepper class="xpt.ui.custom.NumberStepper" />
+			<triangle class="xpt.ui.custom.Triangle" />
+			<line class="xpt.ui.custom.Line" />
+			<lineScale class="xpt.ui.custom.LineScale" />
+		</components>
+	</toolkit>
+	
+	<timing manager="actuate">
+	</timing>
+	
+	<stimuli>
+		<!-- ***********************************************************************************
+			BASIC STIMULI
+		************************************************************************************ -->
+		<button builder="xpt.stimuli.builders.basic.StimButton" />
+		<numberStepper builder="xpt.stimuli.builders.basic.StimNumberStepper" />
+		<lineScale builder="xpt.stimuli.builders.basic.StimLineScale" />
+		<multipleChoice builder="xpt.stimuli.builders.basic.StimMultipleChoice" />
+		<comboBox builder="xpt.stimuli.builders.basic.StimComboBox" />
+		<imageSequence builder="xpt.stimuli.builders.basic.StimImageSequence" />
+		<progressBar builder="xpt.stimuli.builders.basic.StimProgressBar" />
+		<image builder="xpt.stimuli.builders.basic.StimImage" />
+		<text builder="xpt.stimuli.builders.basic.StimText" />
+
+		<!-- ***********************************************************************************
+			LAYOUT STIMULI
+		************************************************************************************ -->
+		<hbox builder="xpt.stimuli.builders.layout.StimHBox" />
+		
+		<!-- ***********************************************************************************
+			COMPOUND STIMULI
+		************************************************************************************ -->
+		<multiNumberStepper builder="xpt.stimuli.builders.compound.StimMultiNumberStepper" />
+		
+		<!-- ***********************************************************************************
+			ALIAS STIMULI
+		************************************************************************************ -->
+		<age builder="xpt.stimuli.builders.compound.StimMultiNumberStepper">
+			<val>00</val>
+		</age>
+		<sex builder="xpt.stimuli.builders.basic.StimMultipleChoice">
+			<id>sex</id>
+			<labels>Male,Female</labels>
+			<icons>img/icons/user-nude.png,img/icons/user-nude-female.png</icons>
+			<buttonWidth>50%</buttonWidth>
+		</sex>
+		<origin builder="xpt.stimuli.builders.basic.StimComboBox">
+			<text>Where are you from?</text>
+			<data>data/countries.json</data>
+		</origin>
+		<preloadProgress builder="xpt.stimuli.builders.basic.StimProgressBar">
+			<onPreloadProgress>
+				this.pos = e.current
+				this.max = e.total
+			</onPreloadProgress>
+		</preloadProgress>
+		<preloadReadyButton builder="xpt.stimuli.builders.basic.StimButton">
+			<text>Continue</text>
+			<visible>false</visible>
+			<onPreloadComplete>
+				this.visible = true
+			</onPreloadComplete>
+			<action>
+				Experiment.nextTrial()
+			</action>
+		</preloadReadyButton>
+		<nextTrialButton builder="xpt.stimuli.builders.basic.StimButton">
+			<text>Next</text>
+			<action>
+				Experiment.nextTrial()
+			</action>
+		</nextTrialButton>
+		<previousTrialButton builder="xpt.stimuli.builders.basic.StimButton">
+			<text>Previous</text>
+			<action>
+				Experiment.previousTrial()
+			</action>
+		</previousTrialButton>
+		
+		<!-- ***********************************************************************************
+			TEST STIMULI
+		************************************************************************************ -->
+		<testStim builder="xpt.stimuli.builders.layout.StimHBox">
+			<children>
+				<button text="bob 1"></button>
+				<button>
+					<text>bob 2</text>
+				</button>
+				<button text='bob 3'></button>
+			</children>
+		</testStim>
+	</stimuli>
+</system>

@@ -1,0 +1,8 @@
+[
+	{"text": "Argentina", "value": "UK", "icon": "img/icons/flags/flag_argentina.png"},
+	{"text": "Brazil", "value": "UK", "icon": "img/icons/flags/flag_brazil.png"},
+	{"text": "Canada", "value": "UK", "icon": "img/icons/flags/flag_canada.png"},
+	{"text": "Spain", "value": "UK", "icon": "img/icons/flags/flag_spain.png"},
+	{"text": "United Kingdom", "value": "UK", "icon": "img/icons/flags/flag_great_britain.png"},
+	{"text": "United States", "value": "USA", "icon": "img/icons/flags/flag_usa.png"}
+]

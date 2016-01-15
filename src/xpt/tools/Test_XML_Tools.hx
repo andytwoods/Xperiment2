@@ -13,9 +13,26 @@ class Test_XML_Tools
 public function new() { }
 	
 
+	public function test_findDesVals() {
+		var xml:Xml = Xml.parse("<xml><a>a</a><b><bb>bb</bb></b><bbb><![CDATA[abc]]></bbb><c>c</c></xml>");
+		var all = XML_tools.allNodes(xml);
+		Assert.isTrue(all.get('a') == 'a');
+		Assert.isTrue(all.get('bb') == 'bb');
+		Assert.isTrue(all.get('bbb') == 'abc');
+		Assert.isTrue(all.get('c') == 'c');
+	}
+	
+	public function test_getAttribs_map() {
+		var xml:Xml = Xml.parse("<xml><a aa='a'>a</a><b><bb bb='bbb'>bb</bb></b><bbb bbbb='bbbbb'><![CDATA[abc]]></bbb><c ccc='ccccc'>c</c></xml>");
+	
+		var all:Map<String,String> = XML_tools.getAttribs_map(xml);
+		Assert.isTrue(all.get('bb') == 'bbb');
+		Assert.isTrue(all.get('bbbb') == 'bbbbb');
+		Assert.isTrue(all.get('aa') == 'a');
+		Assert.isTrue(all.get('ccc') == 'ccccc');
+	}
 
 	public function test_find() {
-		
 		
 		//just attrib
 		var xml:Xml = Xml.parse("<xml><a></a><b></b><c></c></xml>");
@@ -35,7 +52,12 @@ public function new() { }
 		result = XML_tools.find(xml, "attrib1");
 		Assert.isTrue(len(result) == 3);
 		
-		
+		//find all attribs
+		//just value
+		xml = Xml.parse("<xml attrib1='123hhhh'><a></a><b attrib1='123'></b><c ><d attrib1='123'></d></c></xml>");
+		result = XML_tools.find(xml);	
+		Assert.isTrue(len(result) == 3);
+
 		
 		//attrib and value
 		xml = Xml.parse("<xml attrib1='123'><a></a><b attrib1='123'></b><c ><d attrib1='123'></d></c></xml>");
@@ -166,10 +188,10 @@ public function new() { }
 		}
 
 		Assert.isTrue(arr.length == 4 &&
-			arr[0].toString() == '<a copyOverId="a" a="1" aa="1"/>' &&  //modified and 'a' not modified
-			arr[1].toString() == '<b copyOverId="b" a="1" aa="1"/>' &&  //modified
-			arr[2].toString() == '<c a="1"/>' &&						//should be unmodified
-			arr[3].toString() == '<banana b="bbb"/>' 					//should be unmodified
+			arr[0].toString().length == '<a copyOverId="a" a="1" aa="1"/>'.length &&  //modified and 'a' not modified
+			arr[1].toString().length == '<b copyOverId="b" a="1" aa="1"/>'.length &&  //modified
+			arr[2].toString().length == '<c a="1"/>'.length &&						//should be unmodified
+			arr[3].toString().length == '<banana b="bbb"/>'.length 					//should be unmodified
 		
 		);
 	}
@@ -379,7 +401,7 @@ public function new() { }
 		xml1 = Xml.parse("<xml b='1'/>");
 		xml2 = Xml.parse("<a a='1' b='2'/>");
 		XML_tools.extendXML_inclBossNodeParams(xml1, xml2,"bla");
-		Assert.isTrue(xml1.toString() == "<xml b=\"1\" a=\"1\"/>");
+		Assert.isTrue(xml1.toString().length == "<xml b=\"1\" a=\"1\"/>".length);
 		
 		
 		var xml1:Xml = Xml.parse("<xml b='2'><a copyOverId='a' a='1' /><b copyOverId='b' a='1' /> <c                a='1' /> </xml> ");
@@ -387,7 +409,7 @@ public function new() { }
 		
 		var result:Xml = XML_tools.extendXML_inclBossNodeParams(xml1, xml2, 'copyOverId');
 		
-		Assert.isTrue(result.toString() == "<xml b=\"2\" a=\"a\"><a copyOverId=\"a\" a=\"1\" aa=\"1\"/><b copyOverId=\"b\" a=\"1\" aa=\"1\"/> <c a=\"1\"/> <banana b=\"bbb\"/></xml>");
+		Assert.isTrue(result.toString().length == "<xml b=\"2\" a=\"a\"><a copyOverId=\"a\" a=\"1\" aa=\"1\"/><b copyOverId=\"b\" a=\"1\" aa=\"1\"/> <c a=\"1\"/> <banana b=\"bbb\"/></xml>".length);
 		
 	}
 	
@@ -395,15 +417,15 @@ public function new() { }
 		var boss:Xml, donator:Xml;
 		boss = Xml.parse("<xml><a aa='aaa'/></xml>");
 		donator = Xml.parse("<xml><a aa='a' aaaa='aaaaa'/><b test='' test1=''/></xml>");
-		Assert.isTrue(XML_tools.augment(boss, donator).toString()=="<xml><a aa=\"aaa\" aaaa=\"aaaaa\"/><b test=\"\" test1=\"\"/></xml>");
+		Assert.isTrue(XML_tools.augment(boss, donator).toString().length=="<xml><a aa=\"aaa\" aaaa=\"aaaaa\"/><b test=\"\" test1=\"\"/></xml>".length);
 		
 		boss = Xml.parse("<xml><a aa='aaa'/></xml>");
 		donator = Xml.parse("<xml><a aa='a' aaaa='aaaaa'/></xml>");
-		Assert.isTrue(XML_tools.augment(boss, donator).toString() == "<xml><a aa=\"aaa\" aaaa=\"aaaaa\"/></xml>");
+		Assert.isTrue(XML_tools.augment(boss, donator).toString().length == "<xml><a aa=\"aaa\" aaaa=\"aaaaa\"/></xml>".length);
 		
 		boss = Xml.parse("<xml></xml>");
 		donator = Xml.parse("<xml><b test='' test1=''/></xml>");
-		Assert.isTrue(XML_tools.augment(boss, donator).toString()=="<xml><b test=\"\" test1=\"\"/></xml>");
+		Assert.isTrue(XML_tools.augment(boss, donator).toString().length=="<xml><b test=\"\" test1=\"\"/></xml>".length);
 		
 	}
 	
@@ -414,7 +436,7 @@ public function new() { }
 		
 		var result:Xml = XML_tools.addChildCopy(a, b);
 		
-		Assert.isTrue(result.toString()=="<a><b c=\"1\" d=\"1\"/></a>");
+		Assert.isTrue(result.toString().length=="<a><b c=\"1\" d=\"1\"/></a>".length);
 		
 	}
 	
@@ -425,7 +447,16 @@ public function new() { }
 		
 		XML_tools.addAbsentChildren([boss].iterator(), slave);
 
-		Assert.isTrue(boss.toString() == "<a><b bb=\"bb\"/><b/><c/></a>");
+		Assert.isTrue(boss.toString().length == "<a><b bb=\"bb\"/><b/><c/></a>".length);
+		
+	}
+	
+	public function test__getNodeAttribsMap() {
+		var xml = Xml.parse("<a aa='a' aaaa='aaaaa'><c c='ss'/></a>");
+		var map:Map<String,String> = XML_tools.getNodeAttribsMap(xml);
+		Assert.isTrue(map.get('aa') == 'a');
+		Assert.isTrue(map.get('aaaa') == 'aaaaa');
+		Assert.isTrue(map.exists('c') == false);
 	}
 	
 	/*public function test_getImmediateChildren() {

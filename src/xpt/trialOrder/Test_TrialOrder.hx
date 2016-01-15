@@ -8,6 +8,7 @@ import utest.Assert;
 import xpt.experiment.Experiment;
 import xpt.script.Templates;
 import xpt.stimuli.BaseStimuli;
+import xpt.stimuli.StimuliFactory;
 import xpt.stimuli.Stimulus;
 import xpt.trial.GotoTrial;
 import xpt.trial.NextTrialBoss;
@@ -20,7 +21,11 @@ import xpt.trial.TrialSkeleton;
 class Test_TrialOrder
 {
 
-	public function new() {}
+	public function new() {
+		ExptWideSpecs.set(null);
+		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
+			
+	}
 	
 
 	private function myTest(result:Array<Int>, answer:Array<Int>):Bool{
@@ -40,63 +45,63 @@ class Test_TrialOrder
 	
 	public function test7()
 		{
-		
-			ExptWideSpecs.set(null);
-			
-			
-			
-			var result = TrialOrder.COMPOSE(Xml.parse("<CBCondition1><TRIAL block='0,1' order='fixed' trials='2'/> <TRIAL block='8' order='fixed' trials='3'/> </CBCondition1>"))._0;
+
+			var trialOrder:TrialOrder = new TrialOrder();
+			ExptWideSpecs.init();
+			var result = trialOrder.COMPOSE(Xml.parse("<CBCondition1><TRIAL block='0,1' order='fixed' trials='2'/> <TRIAL block='8' order='fixed' trials='3'/> </CBCondition1>"))._0;
 			Assert.isTrue(myTest(result, [0, 1, 2, 3, 4]));
 						
-			result = TrialOrder.COMPOSE(Xml.parse("<CBCondition1><TRIAL block='0,1,2' order='fixed' trials='1'/><TRIAL block='0,5,2' order='fixed' trials='1'/><TRIAL block='0' order='fixed' trials='1'/></CBCondition1>"))._0;
+			result = trialOrder.COMPOSE(Xml.parse("<CBCondition1><TRIAL block='0,1,2' order='fixed' trials='1'/><TRIAL block='0,5,2' order='fixed' trials='1'/><TRIAL block='0' order='fixed' trials='1'/></CBCondition1>"))._0;
 			Assert.isTrue(myTest(result, [2, 0, 1]));
 				
 				
-			result = TrialOrder.COMPOSE(Xml.parse("<CBCondition1><TRIAL block='0' order='fixed' trials='1'/><TRIAL block='0' order='fixed' trials='1'/></CBCondition1>"))._0;
+			result = trialOrder.COMPOSE(Xml.parse("<CBCondition1><TRIAL block='0' order='fixed' trials='1'/><TRIAL block='0' order='fixed' trials='1'/></CBCondition1>"))._0;
 			Assert.isTrue(myTest(result, [0, 1]));
 						
-				result = TrialOrder.COMPOSE(Xml.parse("<CBCondition1><TRIAL block='0,1' order='fixed' trials='2'/><TRIAL block='0,5' order='fixed' trials='3'/><TRIAL block='0,2' order='fixed' trials='3'/>                    <TRIAL block='0,1' order='fixed' trials='2' /></CBCondition1>"))._0;
+				result = trialOrder.COMPOSE(Xml.parse("<CBCondition1><TRIAL block='0,1' order='fixed' trials='2'/><TRIAL block='0,5' order='fixed' trials='3'/><TRIAL block='0,2' order='fixed' trials='3'/>                    <TRIAL block='0,1' order='fixed' trials='2' /></CBCondition1>"))._0;
 			Assert.isTrue(myTest(result, [0, 1, 8, 9, 5, 6, 7, 2, 3, 4]));
 							
-			result = TrialOrder.COMPOSE(
+			result = trialOrder.COMPOSE(
 			Xml.parse("<CBCondition1><TRIAL block='0,1' order='fixed' trials='2'/><TRIAL block='0,1' order='reversed' trials='2'/></CBCondition1>"))._0;
 			Assert.isTrue(myTest(result,[3,2,1,0]));
 			
 		
-			result = TrialOrder.COMPOSE(
+			result = trialOrder.COMPOSE(
 				Xml.parse("<CBCondition1><TRIAL block='1' order='fixed' trials='1'/><TRIAL block='0,1' order='fixed' trials='1'/></CBCondition1>"))._0;
 		Assert.isTrue(myTest(result, [1, 0]));
 			
 			
-			result = TrialOrder.COMPOSE(
+			result = trialOrder.COMPOSE(
 				Xml.parse("<CBCondition1><TRIAL block='0,1,2' order='reverse' trials='1'/><TRIAL block='0' order='fixed' trials='1'/></CBCondition1>"))._0;
 			Assert.isTrue(myTest(result, [1, 0]));
 			
-			result = TrialOrder.COMPOSE(Xml.parse("<CBCondition1><TRIAL  block='0' order='fixed' trials='1'/><TRIAL  block='0' order='fixed' trials='1'/> <TRIAL  block='0' order='fixed' trials='1'/><TRIAL block='10'/></CBCondition1>"))._0;		
+			result = trialOrder.COMPOSE(Xml.parse("<CBCondition1><TRIAL  block='0' order='fixed' trials='1'/><TRIAL  block='0' order='fixed' trials='1'/> <TRIAL  block='0' order='fixed' trials='1'/><TRIAL block='10'/></CBCondition1>"))._0;		
 			Assert.isTrue(myTest(result, [0, 1, 2, 3]));
 
-			result = TrialOrder.COMPOSE(
+			result = trialOrder.COMPOSE(
 				Xml.parse("<CBCondition1><TRIAL block='0,1,2' order='reverse' trials='2'/><TRIAL block='0,5,2' order='fixed' trials='3'/><TRIAL block='0,2,3' order='fixed' trials='3'/> <TRIAL block='0,2,3' order='reverse' trials='2' /><TRIAL block='0' order='fixed' trials='1'/></CBCondition1>"))._0;
 			Assert.isTrue(myTest(result, [10, 1, 0, 9, 8, 7, 6, 5, 2, 3, 4]));
 
-			result = TrialOrder.COMPOSE( Xml.parse("<CBCondition1><TRIAL block='20' order='fixed' trials='1'></TRIAL><dummy></dummy><TRIAL block='0' order='fixed' trials='1'/></CBCondition1>"))._0;
+			result = trialOrder.COMPOSE( Xml.parse("<CBCondition1><TRIAL block='20' order='fixed' trials='1'></TRIAL><dummy></dummy><TRIAL block='0' order='fixed' trials='1'/></CBCondition1>"))._0;
 			Assert.isTrue(myTest(result, [1, 0]));			
 			
-			result = TrialOrder.COMPOSE(	Xml.parse("<CBCondition1><TRIAL block='20' order='fixed' trials='1'  trialName='v'><d></d></TRIAL></CBCondition1>"))._0;
+			result = trialOrder.COMPOSE(	Xml.parse("<CBCondition1><TRIAL block='20' order='fixed' trials='1'  trialName='v'><d></d></TRIAL></CBCondition1>"))._0;
 		}
 		
 
 	private function init(myScript:Xml):Experiment {
 		var expt:Experiment = new Experiment(null);
-		expt.__script=myScript;
+		expt.script=myScript;
 		ExptWideSpecs.set(myScript);
-		var trialOrder_skeletons = TrialOrder.COMPOSE(myScript);
+		var trialOrder:TrialOrder = new TrialOrder();
+		var trialOrder_skeletons = trialOrder.COMPOSE(myScript);
 		
 		
 		BaseStimuli.setPermittedStimuli(['teststim']);
-		BaseStimuli.createSkeletonParams(trialOrder_skeletons._1);
-		expt.__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
-		expt.__startTrial();
+		var b:BaseStimuli = new BaseStimuli();
+		b.createSkeletonParams(trialOrder_skeletons._1);
+		expt.nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
+		expt.firstTrial();
 		return expt;
 	} 
 		
@@ -106,21 +111,21 @@ class Test_TrialOrder
 		var expt = function(myScript:Xml,labels:Array<String>,ident:Array<String>):Bool{	
 			var expt:Experiment = init(myScript);
 			var skeleton:TrialSkeleton;
-			var trialOrder:Array<Int> = expt.__nextTrialBoss.__trialOrder;
-			
+			var trialOrder:Array<Int> = expt.nextTrialBoss.__trialOrder;
+			var t:TrialFactory = new TrialFactory();
 			
 			for (i in 0...trialOrder.length) {
 
-				var skeleton_trialNum = expt.__nextTrialBoss.computeRunningTrial(i);
+				var skeleton_trialNum = expt.nextTrialBoss.computeRunningTrial(i);
 				var skeleton = skeleton_trialNum.skeleton;
 				
-				expt.__runningTrial = TrialFactory.GET(skeleton, i);
+				expt.runningTrial = t.GET(skeleton, i, expt);
 				
-				var testStim:Stimulus = expt.__runningTrial.stimuli[0];
+				var testStim:Stimulus = expt.runningTrial.stimuli[0];
 				
 				
 				//testing names
-				if (skeleton.names[expt.__runningTrial.iteration] != labels[i])	{
+				if (skeleton.names[expt.runningTrial.iteration] != labels[i])	{
 					trace("failed here:", skeleton.names[i] , labels[i]);
 					return false;
 				}
@@ -135,6 +140,8 @@ class Test_TrialOrder
 			
 			return true;
 		}			
+		
+		ExptWideSpecs.init();
 		
 		var script:Xml = Xml.parse("<test><TRIAL block='20' trials='4' order='fixed' trialName='v'><testStim test='a;b;c;d'></testStim></TRIAL></test>");
 		Assert.isTrue(	expt(script, ['v1', 'v2', 'v3', 'v4'], ['a', 'b', 'c', 'd'])		);
@@ -154,7 +161,8 @@ class Test_TrialOrder
 		var testProps:Array<String>=[];
 		var testTrialNames:Array<String> = [];
 		var skeleton_trialOrder:NextTrialInfo;
-		var __nextTrialBoss = expt.__nextTrialBoss;
+		var __nextTrialBoss = expt.nextTrialBoss;
+		var t:TrialFactory = new TrialFactory();
 		
 		for (i in 0...__nextTrialBoss.__trialOrder.length) {
 			
@@ -162,10 +170,10 @@ class Test_TrialOrder
 			else skeleton_trialOrder = __nextTrialBoss.getTrial(GotoTrial.Next, null);
 			//trace(111, __nextTrialBoss.currentTrial,skeleton_trialOrder._1);
 	
-			expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder);
+			expt.runningTrial = t.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder, expt);
 			
-			testProps.push(expt.__runningTrial.stimuli[0].get('test'));
-			testTrialNames.push(expt.__runningTrial.trialName);
+			testProps.push(expt.runningTrial.stimuli[0].get('test'));
+			testTrialNames.push(expt.runningTrial.trialName);
 		}
 		
 		/*trace("testTrialNames	", testTrialNames);
@@ -183,6 +191,7 @@ class Test_TrialOrder
 	
 	public function test2(){
 		
+		ExptWideSpecs.init();
 		
 		var script:Xml = Xml.parse("<test><TRIAL block='0' trials='2' order='fixed' trialName='u'><testStim test='l;m'/></TRIAL><TRIAL block='20' trials='4' order='fixed' trialName='v'><testStim test='a;b;c;d'/></TRIAL><TRIAL block='20' trials='4' order='fixed' trialName='w'><testStim test='e;f;g;h'/></TRIAL></test>");
 		Assert.isTrue(	t(script,['u1','u2','v1','v2','v3','v4','w1','w2','w3','w4'],['l','m','a','b','c','d','e','f','g','h'])		);
@@ -203,23 +212,25 @@ class Test_TrialOrder
 
 			//script = BetweenSJs.compose(script);
 			//trace(script);
-			Templates.compose(script);
+			var templates:Templates = new Templates(script);
+			
 
 			
 			var expt:Experiment = new Experiment(null);
 			BaseStimuli.setPermittedStimuli(['teststim']);
-			ExptWideSpecs.set(null);
+			ExptWideSpecs.init();
 			//ExptWideSpecs.__testSet("blockDepthOrder","20,*=fixed 20,*,*=fixed");
-			
-			var trialOrder_skeletons:Tuple2 <	Array<Int>,	Array<TrialSkeleton> > = TrialOrder.COMPOSE(script);
+			var trialOrder:TrialOrder = new TrialOrder();
+			var trialOrder_skeletons:Tuple2 <	Array<Int>,	Array<TrialSkeleton> > = trialOrder.COMPOSE(script);
 
-			expt.__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
+			expt.nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 			//trace(111, trialOrder_skeletons);
 			
 			var testProps:Array<String>=[];
 			var testTrialNames:Array<String> = [];
 			var skeleton_trialOrder:NextTrialInfo;
-			BaseStimuli.createSkeletonParams(trialOrder_skeletons._1);
+			var b:BaseStimuli = new BaseStimuli();
+			b.createSkeletonParams(trialOrder_skeletons._1);
 			
 			/*
 			for (skel in trialOrder_skeletons._1) {
@@ -229,21 +240,21 @@ class Test_TrialOrder
 			//trace(expt.__nextTrialBoss.__trialOrder, expt.__nextTrialBoss.__trialOrder.length, 22, "------------------");
 			
 			
-			
+			var t:TrialFactory = new TrialFactory();
 		
-			for (i in 0...expt.__nextTrialBoss.__trialOrder.length) {
+			for (i in 0...expt.nextTrialBoss.__trialOrder.length) {
 				
-				if (i == 0) skeleton_trialOrder = expt.__nextTrialBoss.getTrial(GotoTrial.First, null);
-				else skeleton_trialOrder = expt.__nextTrialBoss.getTrial(GotoTrial.Next, null);
+				if (i == 0) skeleton_trialOrder = expt.nextTrialBoss.getTrial(GotoTrial.First, null);
+				else skeleton_trialOrder = expt.nextTrialBoss.getTrial(GotoTrial.Next, null);
 				
 				if (skeleton_trialOrder.skeleton == null) Assert.isTrue(false);
 				//trace(111, i,skeleton_trialOrder,skeleton_trialOrder._1);
 				//var skel = skeleton_trialOrder._0;
 				//trace(skel.xml);
-				expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder);
+				expt.runningTrial = t.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder, expt);
 
-				if (expt.__runningTrial.stimuli.length > 0) {
-					var stim:Stimulus = expt.__runningTrial.stimuli[0];
+				if (expt.runningTrial.stimuli.length > 0) {
+					var stim:Stimulus = expt.runningTrial.stimuli[0];
 					var val:String;
 					if (stim.__properties.exists('test')) {
 						val = stim.get('test');
@@ -253,7 +264,7 @@ class Test_TrialOrder
 					testProps.push(val);
 				}
 				else testProps.push("pause");
-				testTrialNames.push(expt.__runningTrial.trialName);
+				testTrialNames.push(expt.runningTrial.trialName);
 			}
 				
 		Assert.isTrue(testTrialNames.toString() ==",,,A_sour,B_sour,,C_sour,D_sour,,Csour1,Csour2,,Csour3,Csour4,");
@@ -287,21 +298,23 @@ class Test_TrialOrder
 			
 			//script = BetweenSJs.compose(script);
 			//trace(script);
-			Templates.compose(script);
+			var templates:Templates = new Templates(script);
 
 			
 			var expt:Experiment = new Experiment(null);
 			BaseStimuli.setPermittedStimuli(['teststim']);
-			ExptWideSpecs.set(null);
-			ExptWideSpecs.__testSet("blockDepthOrder","");
-			var trialOrder_skeletons:Tuple2<	Array<Int>,	Array<TrialSkeleton>> = TrialOrder.COMPOSE(script);
-			expt.__nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
+			ExptWideSpecs.init();
+			ExptWideSpecs.__testSet("blockDepthOrder", "");
+			var trialOrder:TrialOrder = new TrialOrder();
+			var trialOrder_skeletons:Tuple2<	Array<Int>,	Array<TrialSkeleton>> = trialOrder.COMPOSE(script);
+			expt.nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 			//trace(111, trialOrder_skeletons);
 			
 			var testProps:Array<String>=[];
 			var testTrialNames:Array<String> = [];
 			var skeleton_trialOrder:NextTrialInfo;
-			BaseStimuli.createSkeletonParams(trialOrder_skeletons._1);
+			var b:BaseStimuli = new BaseStimuli();
+			b.createSkeletonParams(trialOrder_skeletons._1);
 			
 			/*
 			for (skel in trialOrder_skeletons._1) {
@@ -311,21 +324,21 @@ class Test_TrialOrder
 			//trace(expt.__nextTrialBoss.__trialOrder, expt.__nextTrialBoss.__trialOrder.length, 22, "------------------");
 			
 			
-			
+			var t:TrialFactory = new TrialFactory();
 		
-			for (i in 0...expt.__nextTrialBoss.__trialOrder.length) {
+			for (i in 0...expt.nextTrialBoss.__trialOrder.length) {
 				
-				if (i == 0) skeleton_trialOrder = expt.__nextTrialBoss.getTrial(GotoTrial.First, null);
-				else skeleton_trialOrder = expt.__nextTrialBoss.getTrial(GotoTrial.Next, null);
+				if (i == 0) skeleton_trialOrder = expt.nextTrialBoss.getTrial(GotoTrial.First, null);
+				else skeleton_trialOrder = expt.nextTrialBoss.getTrial(GotoTrial.Next, null);
 				
 				if (skeleton_trialOrder.skeleton == null) Assert.isTrue(false);
 				//trace(111, i,skeleton_trialOrder,skeleton_trialOrder._1);
 				//var skel = skeleton_trialOrder._0;
 				//trace(skel.xml);
-				expt.__runningTrial = TrialFactory.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder);
+				expt.runningTrial = t.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder, expt);
 
-				if (expt.__runningTrial.stimuli.length > 0) {
-					var stim:Stimulus = expt.__runningTrial.stimuli[0];
+				if (expt.runningTrial.stimuli.length > 0) {
+					var stim:Stimulus = expt.runningTrial.stimuli[0];
 					var val:String;
 					if (stim.__properties.exists('test')) {
 						val = stim.get('test');
@@ -336,7 +349,7 @@ class Test_TrialOrder
 					testProps.push(val);
 				}
 				else testProps.push("pause");
-				testTrialNames.push(expt.__runningTrial.trialName);
+				testTrialNames.push(expt.runningTrial.trialName);
 			}
 				
 	

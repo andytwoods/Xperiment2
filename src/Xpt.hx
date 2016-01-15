@@ -1,47 +1,56 @@
 package;
 
-import code.Code;
-import hscript.Interp;
-import hscript.Parser;
-import openfl.display.Sprite;
-import openfl.system.System;
+import code.Scripting;
+import comms.services.UrlParams_service;
+import haxe.macro.Compiler;
+import openfl.Lib;
+import screenManager.ScreenManager_web;
 import xpt.error.ErrorMessage;
-import xpt.runner.Runner;
 import xpt.start.WebStart;
-import xpt.Tests;
 import xpt.trial.Trial;
 
 
-class Xpt extends Sprite 
-{
+class Xpt {
 
-	private var localExptDirectory:String = 'C:/Users/Andy/Desktop/Xpt2/XptHaxe/XptHaxe/experiments/';
 	
-	public function new() 
-	{
+	public static inline var localExptDirectory:String = "experiments/";
+	public static var exptName:String;
+	private static var webStart:WebStart;
+	
+	public static function main() {
+		System.init();
+		ErrorMessage.setup(Lib.current.stage);
+		exptName = "test";
+		
+		
 
-		super();
-			
+		#if (debug && !html5)
 		
-		ErrorMessage.setup(stage);
-		
-		
-		var expt:String = "test";
-		var dir:String = localExptDirectory;
-		
-		#if debug
 			Trial.testing = true;
-			Code.testing = true;
+			Scripting.testing = true;
 			var tests:xpt.Tests = new xpt.Tests();
 			Trial.testing = false;
-			Code.testing = false;
+			Scripting.testing = false;
 		#end
 		
-		//var webStart:WebStart = new WebStart(dir,expt);
+		#if html5
+			ScreenManager_web.init(Lib.current.stage);
+			var script:String = UrlParams_service.get('script');
+			if (script.length > 0) {
+				webStart = new WebStart('.', script, true);
+			}
+			else {
+				start();
+			}
+		
+		#else
+			start();
+		#end
 
-
-       
-		//below now in Tests.hx
-		//System.exit(0);
+		
+	}
+	
+	private static function start() {
+		webStart = new WebStart('./' + localExptDirectory, exptName);
 	}
 }

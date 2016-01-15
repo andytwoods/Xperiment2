@@ -51,6 +51,14 @@ class Test_XTools
 		Assert.isTrue( Arrays.equals(XTools.sort(["c", "b", "a"]),["a", "b", "c"]));
 	}
 	
+	
+	
+	public function test_protectCodeBlocks() {
+	
+		Assert.isTrue( XTools.protectCodeBlocks('123<code>222</code>', 'code') == "123<code><![CDATA[222]]></code>");
+	Assert.isTrue( XTools.protectCodeBlocks('123<code>222</code>123<code>222</code>', 'code') == "123<code><![CDATA[222]]></code>123<code><![CDATA[222]]></code>");
+	}
+	
 }
 
 

@@ -21,9 +21,11 @@ class Templates
 	public static inline var betweenSJ_nodeName:String = "multi";
 	
 	
-	
+	public function new(script:Xml) {
+		if(script !=null) compose(script);
+	}
 
-	static public function compose(script:Xml):Xml
+	public inline function compose(script:Xml):Xml
 	{
 	
 		var requireTemplatingIterator = XML_tools.find(script, Trial_TemplateId);
@@ -33,7 +35,8 @@ class Templates
 			return script;
 		}
 
-		var requireTemplatingList:Array<RequireTemplating> = TemplateList.compose(script,requireTemplatingIterator); 
+		var templateList:TemplateList = new TemplateList();
+		var requireTemplatingList:Array<RequireTemplating> = templateList.compose(script,requireTemplatingIterator); 
 
 		var templateMap:Map<String, RequireTemplating> = __generateTemplatesMap(requireTemplatingList);
 
@@ -46,12 +49,12 @@ class Templates
 		return script;
 	}
 	
-	static private inline function checkRequired(script:Xml) 
+	private inline function checkRequired(script:Xml) 
 	{
 		return betweenSJ_nodeName == XML_tools.nodeName(script).toLowerCase();
 	}
 	
-	static public function __applyTemplates(require:RequireTemplating, templateMap:Map<String, RequireTemplating>,copyOverTag:String) 
+	public function __applyTemplates(require:RequireTemplating, templateMap:Map<String, RequireTemplating>,copyOverTag:String) 
 	{
 		if (require.templates.length == 0) return;
 		if (require.hasBeenTemplated) return;
@@ -77,7 +80,7 @@ class Templates
 		}
 	}
 	
-	static public function __generateTemplatesMap(requireTemplatingList:Array<RequireTemplating>):Map<String, RequireTemplating>
+	public function __generateTemplatesMap(requireTemplatingList:Array<RequireTemplating>):Map<String, RequireTemplating>
 	{
 		var templateMap:Map<String, RequireTemplating> = new Map<String, RequireTemplating>();
 		

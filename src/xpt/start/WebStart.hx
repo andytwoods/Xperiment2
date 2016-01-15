@@ -6,6 +6,7 @@ import openfl.utils.Dictionary;
 import openfl.utils.Object;
 import xpt.error.ErrorMessage;
 import xpt.runner.Runner;
+import xpt.tools.XTools;
 
 /**
  * ...
@@ -18,12 +19,17 @@ class WebStart
 		
 	}
 
-	public function new(dir:String, exptName:String) 
+	public function new(dir:String, exptName:String, overrideDir:Bool = false) 
 	{
 
 		var loader = new FileLoader();
 
-		loader.loadText(dir + exptName + "/" + exptName+".xml", listen);
+		if (overrideDir == false) {
+			loader.loadText(dir + exptName + "/" + exptName+".xml", listen);
+		}
+		else {
+			loader.loadText(dir + "/" + exptName, listen);
+		}
 	}
 	
 	private function listen(f:FileInfo):Void {
@@ -38,33 +44,27 @@ class WebStart
 	}
 	
 	function processScript(str:String):Void {
-		
-		var params = new Map();
 		var script:Xml;
-		var prop:String;
-
-		if(str.length>0){
-			var arr:Array<String> = str.split('---end script---');
-			if(arr.length>1){
-				script = Xml.parse(arr[0]);
-				var strSplit:Array<String>;
-				for (str in arr[1].split("\n")){
-					strSplit=str.split(":");
-					if (strSplit.length > 1) {
-						prop = strSplit[0];
-						params.set(prop, strSplit[1]);
-					}
-				}
+		
+		if (str.length > 0) {
+			try {
+				XTools.protectCodeBlocks(str, 'code');
+				script = Xml.parse(str);
 			}
-			else script = Xml.parse(str);
+			catch (e:String) {
+				script = Xml.parse(''); //annoying bodge to allow for non-nested try statements
+				ErrorMessage.error(ErrorMessage.Report_to_experimenter, "loaded script, but it was malformed (not proper xml).");
+			}
 			
-			startExpt(script,params);
+			startExpt(script);
 			kill();
 		}
 		else {
 			ErrorMessage.error(ErrorMessage.Report_to_experimenter, "loaded script, but it was empty.");
 		}
 	}
+	
+
 	
 	public function exptPlatform():Runner {
 		var runner:Runner = new Runner();
@@ -75,18 +75,15 @@ class WebStart
 	private function modifyScript(script:Xml):Void {
 	}
 	
-	private function modifyParams(params:Object):Void {
-	}
+
 	
-	
-	public function startExpt(script:Xml, params:Object):Void
+	public function startExpt(script:Xml):Void
 		{
 			
 			modifyScript(script);
-			modifyParams(params);
-
-			var expt:Runner = exptPlatform();
-			expt.run(script, null, params);
+		
+			var runner:Runner = exptPlatform();
+			runner.run(script);
 			
 			
 		}
