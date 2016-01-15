@@ -5,12 +5,14 @@ import motion.Actuate;
 import openfl.events.TimerEvent;
 import openfl.Lib;
 import openfl.utils.Timer;
+import thx.AnonymousMap;
 import xpt.experiment.Experiment;
 import xpt.results.TrialResults;
 import xpt.stimuli.BaseStimulus;
 import xpt.stimuli.StimuliFactory;
 import xpt.stimuli.Stimulus;
 import xpt.timing.TimingManager;
+import xpt.tools.XTools;
 
 enum Trial_Action {
 	End;
@@ -52,13 +54,22 @@ class Trial {
 		}
 	}
 	
-	public function createStimulus(params:Map<String,Dynamic>):Stimulus {
-		return createStimuli(params)[0];
+	public function createStimulus(params_obj:Dynamic):Stimulus {
+		return createStimuli(params_obj)[0];
 	}
 	
-	public function createStimuli(params:Map<String, Dynamic>):Array<Stimulus> {
+	public function createStimuli(params_obj:Dynamic):Array<Stimulus> {
+		var params:Map<String, String> = XTools.dynamic_to_StringMap(params_obj);
+		
 		if (params.exists('type') == false) throw ("problem creating stimulus. Type not specified:"+ params.toString());
 		var baseStimulus:BaseStimulus = new BaseStimulus(params.get('type'));
+		baseStimulus.props = params;
+		var howMany:Int = 1;
+		if (params.exists('howMany')) {
+			howMany = Std.parseInt(params.get('howMany'));
+		}
+		baseStimulus.howMany = howMany;
+		
 		return stimuliFactory.recursivelyGenerateStimuli(this, null, [baseStimulus]);
 	}
 	

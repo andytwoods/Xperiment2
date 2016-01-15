@@ -63,27 +63,22 @@ class StimuliFactory {
 		for(count in 0...howMany){
 			for (key in props.keys()) {
 				var val:String = props.get(key);
-				val = XTools.multiCorrection(	val, overTrialSep, trialIteration);
-				val = XTools.multiCorrection(	val, withinTrialSep, count);
-				stim.set(key, specialType(key,val)	);
+				val = XTools.multiCorrection(val, overTrialSep, trialIteration);
+				val = XTools.multiCorrection(val, withinTrialSep, count);
+				stim.set(key, val);
 			}
 			
 			stim.set("trial", trial);
-			if (stim.parent == null) {
-				//trial.addStimulus(stim);
-			}
 		}
 	}
 	
-	private function specialType(name:String, val:Dynamic):Dynamic {
-		return val;
-	}
 	
 	private function getStim(type:String, stimParams:Map<String, String> = null):Stimulus {
 		if (_stimBuilderMap == null) {
 			return null;
 		}
 		type = type.toLowerCase();
+		
 		var cls:Class<StimulusBuilder> = _stimBuilderMap.get(type);
 		var instance:Stimulus = null;
 		if (cls != null) {

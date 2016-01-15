@@ -170,5 +170,6 @@ class Experiment extends EventDispatcher {
 		
 		DebugManager.instance.info("Starting trial");
 		runningTrial.start();
+		
 	}
 }

@@ -48,6 +48,16 @@ class XTools
 		
 		return arr;
 	}
+	
+	public static inline function dynamic_to_StringMap(obj:Dynamic):Map<String,String> {
+		var map:Map<String,String> = new Map<String,String>();
+		
+		for (prop in Reflect.fields (obj)) {
+			map.set(prop, Reflect.field (obj, prop));		
+		}
+
+		return map;
+	}
 
 	public static function multiCorrection(s:String,seperator:String,dup:Int):String {
 
@@ -59,7 +69,6 @@ class XTools
 		return s;
 
 	}
-
 
 	
 	public static function iteratorToArray <T>(iterator:Iterator<T>):Array<T>{ 

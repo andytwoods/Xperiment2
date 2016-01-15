@@ -15,7 +15,8 @@
 			//Motion.tween(b.component, 1, {x:300, y:500, rotation:180, width:500}).ease(Quad.easeOut).delay(1).repeat().reflect();
 			trace(111);
 			Motion.tween(image.component, 1, {x:100, y:100, rotation:360}).smartRotation();
-		
+			Trial.createStimulus({type:'text', text:'banana', width:200});
+			
 		</code>
 	<image id="image" x="0" y="0" width="800" height="83" asset="images/oxfordlab.png" />
 	
