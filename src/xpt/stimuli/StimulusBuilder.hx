@@ -168,13 +168,6 @@ class StimulusBuilder {
 	
 	public function runScriptEvent(action:String, event) {
 		Scripting.runScriptEvent(action, event, _stim);
-				trace(111);
-				trace(11111);
-				var E = experiment.scriptEngine.variables.get('Experiment');
-				trace(1111111111);
-	}
-
-	
 	}
 	
 	public function build(stim:Stimulus):Component {

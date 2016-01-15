@@ -69,8 +69,8 @@ class Experiment extends EventDispatcher {
 		linkups_Post_ExptWideSpecs();
 
 		Scripting.init(this);
-		scriptEngine.variables.set("E", this);
-		scriptEngine.variables.set("Expr", this);
+		//scriptEngine.variables.set("E", this);
+		//scriptEngine.variables.set("Expr", this);
 		DebugManager.instance.experiment = this;
 		//DebugManager.instance.enabled = true;
 		DebugManager.instance.info("Experiment ready");
