@@ -195,11 +195,8 @@ class Experiment extends EventDispatcher {
 			}
 		}
 		
-		for (stim in runningTrial.stimuli) {
-			if (stim.id != null) {
-				scriptEngine.variables.set(stim.id, stim);
-			}
-		}
+		Scripting.addStimuli(runningTrial.stimuli);
+		Scripting.DO(null, RunCodeEvents.BeforeTrial, runningTrial);
 		DebugManager.instance.info("Starting trial");
 		runningTrial.start();
 	}
