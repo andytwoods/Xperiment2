@@ -12,9 +12,9 @@
 	
 <TRIAL TYPE="Trial" hideResults="true" ITI="200" block="1" order="fixed" trials="1">
 		<code>
-			Motion.tween(b.component, 1, {x:300, y:500, rotation:180, width:500}).ease(Quad.easeOut).delay(1).repeat().reflect();
+			//Motion.tween(b.component, 1, {x:300, y:500, rotation:180, width:500}).ease(Quad.easeOut).delay(1).repeat().reflect();
 			trace(111);
-			Motion.tween(image.component, 1, {rotation:360}).smartRotation();
+			Motion.tween(image.component, 1, {x:100, y:100, rotation:360}).smartRotation();
 		
 		</code>
 	<image id="image" x="0" y="0" width="800" height="83" asset="images/oxfordlab.png" />

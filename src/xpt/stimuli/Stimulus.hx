@@ -1,5 +1,6 @@
 package xpt.stimuli;
 
+import haxe.Constraints.Function;
 import haxe.ui.toolkit.core.Component;
 
 @:allow(xpt.trialOrder.Test_TrialOrder)
@@ -22,6 +23,7 @@ class Stimulus {
 	public function new() {
 		__properties = new Map<String, Dynamic>();
 	}
+
 	
 	public function addUnderling(stim:Stimulus) {
 		__underlings.push(stim);

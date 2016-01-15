@@ -3,7 +3,7 @@ import openfl.events.EventDispatcher;
 import preloader.Preloader.PreloaderEvent;
 import xpt.debug.DebugManager;
 import xpt.ExptWideSpecs;
-import xpt.stimuli.BaseStimuli.BaseStimulus;
+import xpt.stimuli.BaseStimulus;
 import xpt.stimuli.StimuliFactory;
 import xpt.trial.TrialSkeleton;
 

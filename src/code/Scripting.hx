@@ -30,9 +30,7 @@ class Scripting
 		scriptEngine.variables.set("Debug", DebugManager.instance);
 		scriptEngine.variables.set("Motion", Actuate);
 		scriptEngine.variables.set("Quad", Quad);
-		scriptEngine.variables.set("Stage", Lib.current.stage);
-		trace(11111);
-		
+		scriptEngine.variables.set("Stage", Lib.current.stage);		
 	}
 	
 	static public function DO(script:Xml, c:RunCodeEvents, trial:Trial = null):String {
@@ -40,6 +38,7 @@ class Scripting
 		var code:String;
 		
 		if (RunCodeEvents.BeforeTrial == c) {
+			scriptEngine.variables.set("Trial", trial);	
 			code = trial.codeStartTrial;
 		}
 		else if (RunCodeEvents.AfterTrial == c) {

@@ -10,7 +10,7 @@
 	
 	<haxedef name="dom" />
 	<haxeflag name="-D dom" />
-	
+	<haxeflag name="-D hscriptPos" />
 	<haxedef name="haxeui-no-gif-support" />
 	<haxeflag name="-D haxeui-no-gif-support" />
 	

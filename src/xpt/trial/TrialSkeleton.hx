@@ -1,7 +1,7 @@
 package xpt.trial;
 import thx.Arrays;
 import xpt.stimuli.BaseStimuli;
-import xpt.stimuli.BaseStimuli.BaseStimulus;
+import xpt.stimuli.BaseStimulus;
 import xpt.tools.XML_tools;
 import xpt.tools.XTools;
 import xpt.trialOrder.TrialBlock;

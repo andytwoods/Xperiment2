@@ -35,6 +35,7 @@ class TrialFactory
 		trial.trialNum  = trialNum;
 		trial.trialName = skeleton.names[trial.iteration];
 		trial.trialBlock = skeleton.blockPosition;
+		trial.stimuliFactory = stimuliFactory;
 		seeIfOverrideDefaults(trial, skeleton.otherParams); 
 		CheckIsCode.seekScripts(trial, skeleton.xml);
 	}

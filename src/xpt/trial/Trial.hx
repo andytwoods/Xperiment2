@@ -7,6 +7,8 @@ import openfl.Lib;
 import openfl.utils.Timer;
 import xpt.experiment.Experiment;
 import xpt.results.TrialResults;
+import xpt.stimuli.BaseStimulus;
+import xpt.stimuli.StimuliFactory;
 import xpt.stimuli.Stimulus;
 import xpt.timing.TimingManager;
 
@@ -31,8 +33,9 @@ class Trial {
 	public var codeStartTrial:String;	
 	public var callBack:Trial_Action -> Void;
 	public var ITI:Int;
-	
+	public var unknownIdCount:Int = 0;
 	public var experiment:Experiment;
+	public var stimuliFactory:StimuliFactory;
 	
 	public function setSpecial(special:Special_Trial) {
 		specialTrial = special;
@@ -49,7 +52,22 @@ class Trial {
 		}
 	}
 	
+	public function createStimulus(params:Map<String,Dynamic>):Stimulus {
+		return createStimuli(params)[0];
+	}
+	
+	public function createStimuli(params:Map<String, Dynamic>):Array<Stimulus> {
+		if (params.exists('type') == false) throw ("problem creating stimulus. Type not specified:"+ params.toString());
+		var baseStimulus:BaseStimulus = new BaseStimulus(params.get('type'));
+		return stimuliFactory.recursivelyGenerateStimuli(this, null, [baseStimulus]);
+	}
+	
 	public function addStimulus(stim:Stimulus) {
+		
+		if (stim.id == null) {
+			stim.id = "id" + Std.string(unknownIdCount++);
+		}
+		
 		stimuli.push( stim );
 		if (testing == false) {
 			TimingManager.instance.add(stim);
