@@ -1,7 +1,7 @@
 package xpt.trial;
 import thx.Arrays;
 import xpt.stimuli.BaseStimuli;
-import xpt.stimuli.BaseStimulus;
+import xpt.stimuli.BaseStimuli.BaseStimulus;
 import xpt.tools.XML_tools;
 import xpt.tools.XTools;
 import xpt.trialOrder.TrialBlock;
@@ -16,7 +16,7 @@ class TrialSkeleton
 	public var names:Array<String>;
 	public var xml:Xml;
 	public var baseStimuli:Array<BaseStimulus>;
-	public var otherParams:Map<String,String>;
+	public var otherParams:Map<String,String> = new Map<String,String>();
 	
 	private static var permittedStimuli;
 	

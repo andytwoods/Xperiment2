@@ -1,6 +1,5 @@
 package xpt.debug;
 
-import code.Scripting;
 import haxe.ui.toolkit.core.XMLController;
 import haxe.ui.toolkit.events.UIEvent;
 import openfl.events.KeyboardEvent;
@@ -45,7 +44,7 @@ class DebugWindowController extends XMLController {
 			s = StringTools.replace(s, "\t", " ");
 			s = StringTools.replace(s, "\r\n", ";\n");
 			var expr = parser.parseString(s);
-			Scripting.scriptEngine.execute(expr);
+			experiment.scriptEngine.execute(expr);
 		} catch (e:Dynamic) {
 			error("Error running script", "" + e);
 		}

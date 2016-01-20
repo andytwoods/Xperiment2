@@ -1,9 +1,6 @@
 package xpt.timing;
 
 import haxe.ui.toolkit.core.RootManager;
-import haxe.ui.toolkit.core.Screen;
-import haxe.ui.toolkit.events.UIEvent;
-import openfl.events.Event;
 import xpt.debug.DebugManager;
 import xpt.stimuli.Stimulus;
 
@@ -36,7 +33,6 @@ class TimingManager {
 	}
 
 	public function start() {
-	
 		for (stim in _stims) {
 			var start:Float = stim.start;
 			var stop:Float = stim.stop;
@@ -50,36 +46,32 @@ class TimingManager {
 					duration = stop - start;
 				}
 			}
-
+			
 			if (duration != -1) {
 				addTimingEvent(start, duration, function(e:TimingEvent) {
 					switch (e) {
 						case TimingEvent.SHOW:
 							addToTrial(stim);
 						case TimingEvent.HIDE:
-							removeFromTrial(stim);
+							removeFromTrail(stim);
 					}
 				});
-			}
-			//temporary bodge. More work needed. 
-			if (stop == -1) {
-				addToTrial(stim);
 			}
 		}
 	}
 	
 	public function reset() {
 		for (stim in _stims) {
-			removeFromTrial(stim);
+			removeFromTrail(stim);
 		}
 		_stims = new Array<Stimulus>();
 	}
 	
 	public function add(stim:Stimulus) {
-		if(_stims.indexOf(stim)==-1)	_stims.push(stim);
-		//if (stim.start <= 0) {
-		//	addToTrial(stim);
-		//}
+		_stims.push(stim);
+		if (stim.start <= 0) {
+			addToTrial(stim);
+		}
 	}
 	
 	private function addToTrial(stim:Stimulus) {
@@ -89,7 +81,7 @@ class TimingManager {
 		}
 	}
 	
-	private function removeFromTrial(stim:Stimulus) {
+	private function removeFromTrail(stim:Stimulus) {
 		if (RootManager.instance.currentRoot.contains(stim.component) == true) {
 			DebugManager.instance.stimulus("Removing stimulus, type: " + stim.get("stimType"));
 			RootManager.instance.currentRoot.removeChild(stim.component);

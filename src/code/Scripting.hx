@@ -11,7 +11,6 @@ import openfl.errors.Error;
 import openfl.events.Event;
 import openfl.Lib;
 import openfl.utils.Object;
-import preloader.Preloader.PreloaderEvent;
 import xpt.debug.DebugManager;
 import xpt.experiment.Experiment;
 import xpt.stimuli.Stimulus;

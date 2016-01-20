@@ -3,10 +3,10 @@
 	<!-- NMML reference: https://gist.github.com/1763850 -->
 	
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<meta title="XptHaxe" package="org.xpt.haxe" version="1.0.0" company="org.com.flyingFishResearch" />
+	<meta title="XptHaxe" package="XptHaxe" version="1.0.0" company="com.flyingFishResearch" />
 	
 	<!-- output -->
-	<app main="Xpt" file="XptHaxe" path="bin" preloader="haxe.ui.HaxeUIPreloader" />
+	<app main="Xpt" file="XptHaxe" path="bin" />
 	
 	<haxedef name="dom" />
 	<haxeflag name="-D dom" />
@@ -15,8 +15,7 @@
 	<haxeflag name="-D haxeui-no-gif-support" />
 	
 	<window background="#FFFFFF" fps="60" />
-	<window width="0" height="0" if="html5" />
-
+	<window width="800" height="600" unless="mobile" />
 	<window orientation="landscape" fps="60" hardware="true" vsync="false" antialiasing="0" if="cpp" />
 	
 	<!-- classpath, haxe libs -->
@@ -24,24 +23,22 @@
 	<haxelib name="openfl" />
 	<haxelib name="haxeui" />
 	<haxelib name="actuate" />
+	<haxelib name="delay" unless="neko || cpp" />
 	<haxelib name="hscript" />
 	<haxelib name="assetsmanager" />
-	<haxelib name="utest" unless="html5" />
+	<haxelib name="haxeui" />
+	<haxelib name="utest" />
 	<haxelib name="thx.core" />
 	<haxelib name="haxe-rest-client" />
-
+	
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />
 	<assets path="assets" rename="assets" />
 	<assets path="assets/img" rename="img" />
 	<assets path="assets/ui" rename="ui" />
 	<assets path="assets/data" rename="data" />
-
 	<assets path="assets/themes" rename="themes" />
-	<assets path="assets/fonts" rename="fonts" />
 	<assets path="experiments" rename="experiments" exclude="*.jpg" />
-	<template path="assets/html5/index.html" if="html5" rename="index.html" />
-
 	
 	<!--
 	<haxeflag name="-dce full" /> 	

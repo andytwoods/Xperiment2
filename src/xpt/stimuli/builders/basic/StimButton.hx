@@ -9,6 +9,7 @@ class StimButton extends StimulusBuilder {
 	
 	public var clicked:Int = 0;
 	
+	
 	public function new() {
 		super();
 	}
@@ -36,7 +37,6 @@ class StimButton extends StimulusBuilder {
 		runScriptEvent("action", event);
 	}
 	
-		
 	override public function results():Map<String,String> {
 		var val:String;
 		if (clicked> 0) val = '1';

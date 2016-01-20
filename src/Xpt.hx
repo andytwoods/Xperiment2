@@ -1,10 +1,10 @@
 package;
 
 import code.Scripting;
-import comms.services.UrlParams_service;
+import xpt.comms.services.UrlParams_service;
 import haxe.macro.Compiler;
 import openfl.Lib;
-import screenManager.ScreenManager_web;
+import xpt.screenManager.ScreenManager_web;
 import xpt.error.ErrorMessage;
 import xpt.start.WebStart;
 import xpt.trial.Trial;
@@ -22,8 +22,6 @@ class Xpt {
 		ErrorMessage.setup(Lib.current.stage);
 		exptName = "test";
 		
-		
-
 		#if (debug && !html5)
 		
 			Trial.testing = true;

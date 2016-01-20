@@ -19,17 +19,14 @@ class WebStart
 		
 	}
 
-	public function new(dir:String, exptName:String, overrideDir:Bool = false) 
+	public function new(dir:String, exptName:String) 
 	{
 
 		var loader = new FileLoader();
 
-		if (overrideDir == false) {
-			loader.loadText(dir + exptName + "/" + exptName+".xml", listen);
-		}
-		else {
-			loader.loadText(dir + "/" + exptName, listen);
-		}
+
+		loader.loadText(dir + exptName + "/" + exptName+".xml", listen);
+
 	}
 	
 	private function listen(f:FileInfo):Void {
@@ -81,9 +78,9 @@ class WebStart
 		{
 			
 			modifyScript(script);
-		
-			var runner:Runner = exptPlatform();
-			runner.run(script);
+
+			var expt:Runner = exptPlatform();
+			expt.run(script);
 			
 			
 		}

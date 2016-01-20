@@ -1,10 +1,9 @@
 package xpt.results;
-import comms.CommsResult;
-import comms.services.CrossDomain_service;
-import comms.services.REST_Service;
+import xpt.comms.CommsResult;
+import xpt.comms.services.CrossDomain_service;
 import haxe.ds.StringMap;
+import xpt.comms.services.REST_Service;
 import xpt.debug.DebugManager;
-import xpt.trial.ExtractResults;
 import xpt.trial.Special_Trial;
 import xpt.trial.Trial;
 

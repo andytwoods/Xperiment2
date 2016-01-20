@@ -4,7 +4,7 @@ import haxe.ui.toolkit.controls.Image;
 import openfl.display.Bitmap;
 import openfl.events.MouseEvent;
 import xpt.debug.DebugManager;
-import preloader.Preloader;
+import xpt.experiment.Preloader;
 
 class ImageSequence extends Image {
 	public var resourcePattern:String;

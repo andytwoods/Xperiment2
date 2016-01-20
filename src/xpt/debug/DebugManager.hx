@@ -57,12 +57,11 @@ class DebugManager {
 			};
 			_debugWindowPopup = PopupManager.instance.showCustom(_debugWindowController.view, "Debug", config, function(e) {
 				_debugWindowController = null;
-				_debugWindowPopup = null;
 			});
 			
 			var cx:Float = RootManager.instance.currentRoot.width;
 			var cy:Float = RootManager.instance.currentRoot.height;
-
+			
 			_debugWindowPopup.x = cx - _debugWindowPopup.width;
 			_debugWindowPopup.y = 0;
 			
@@ -80,9 +79,7 @@ class DebugManager {
 	}
 	
 	private function _onAddedToStage(event:Event) {
-		if (_debugWindowPopup != null) {
-			RootManager.instance.currentRoot.addChild(_debugWindowPopup);
-		}
+		RootManager.instance.currentRoot.addChild(_debugWindowPopup);
 	}
 	
 	public function info(message:String, details:String = null) {

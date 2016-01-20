@@ -1,10 +1,9 @@
 package xpt.stimuli.builders.basic;
-import preloader.Preloader;
 
 import haxe.ui.toolkit.controls.HProgress;
 import haxe.ui.toolkit.controls.Progress;
 import haxe.ui.toolkit.core.Component;
-import preloader.Preloader.PreloaderEvent;
+import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.stimuli.StimulusBuilder;
 
 class StimProgressBar extends StimulusBuilder {

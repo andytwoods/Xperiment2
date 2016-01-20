@@ -6,22 +6,16 @@ import haxe.ui.toolkit.core.Root;
 import haxe.ui.toolkit.core.RootManager;
 import haxe.ui.toolkit.util.StringUtil;
 import openfl.events.Event;
-import preloader.Preloader;
 import xpt.debug.DebugManager;
 import xpt.experiment.Experiment;
-import preloader.Preloader.PreloaderEvent;
+import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.trial.Trial;
 
 class StimulusBuilder {
 	private var _stim:Stimulus;
-	public static var stimuliFolder:String;
 	
 	public function new() {
 		
-	}
-	
-	public static function setStimFolder(folder:String) {
-		stimuliFolder = folder;
 	}
 	
 	private var trial(get, null):Trial;
@@ -115,9 +109,7 @@ class StimulusBuilder {
 		}
 		c.text = text;
 		
-		if (get("visible") != null) {
-			c.visible = getBool("visible", true);
-		}
+		c.visible = getBool("visible", true);
 		
 		c.width = getUnit("width", root.width);
 		c.height = getUnit("height", root.height);
@@ -161,19 +153,20 @@ class StimulusBuilder {
 	}
 
 	private function onPreloaderComplete(event:PreloaderEvent) {
-		Scripting.runScriptEvent("onPreloadComplete", event, _stim);
+		runScriptEvent("onPreloadComplete", event);
 		experiment.removeEventListener(PreloaderEvent.PROGRESS, onPreloaderProgress, false);
 		experiment.removeEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete, false);
 	}
 	
-	public function runScriptEvent(action:String, event) {
+	public inline function runScriptEvent(action:String, event) {
 		Scripting.runScriptEvent(action, event, _stim);
 	}
 
-
-	//override this
-	public function results():Map<String,String> {
-		return null;
+	
+	
+	private function addScriptVars(vars:Map<String, Dynamic>) {
+		vars.set("this", _stim.component);
+		vars.set("me", _stim.component);
 	}
 	
 	public function build(stim:Stimulus):Component {
@@ -184,6 +177,11 @@ class StimulusBuilder {
 	}
 	
 	public function buildPreloadList(props:Map<String, String>):Array<String> {
+		return null;
+	}
+	
+	//override this
+	public function results():Map<String,String> {
 		return null;
 	}
 }

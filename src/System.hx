@@ -62,30 +62,10 @@ class System {
 			var stimName = node.nodeName;
 			var stimBuilder = node.get("builder");
 			code += "xpt.stimuli.StimuliFactory.registerStimBuilderClass('" + stimName + "', " + stimBuilder + ");\n";
-		}
-		
-		// add stim params
-		for (node in stimuliNode.elements()) {
-			var stimName = node.nodeName;
 			for (param in node.elements()) {
 				var paramName:String = param.nodeName;
 				var paramValue:String = param.firstChild().nodeValue;
 				code += "xpt.stimuli.StimuliFactory.addStimParam('" + stimName + "', '" + paramName + "', '" + paramValue + "');\n";
-			}
-		}
-			
-		// set stim children
-		for (node in stimuliNode.elements()) {
-			var stimName = node.nodeName;
-			var stimChildren = node.elementsNamed("children");
-			if (stimChildren.hasNext()) {
-				var childElements = node.elementsNamed("children").next();
-				for (child in childElements.elements()) {
-					var xmlString = child.toString();
-					xmlString = StringTools.replace(xmlString, "\"", "\\\"");
-					xmlString = StringTools.replace(xmlString, "\'", "\\\'");
-					code += "xpt.stimuli.StimuliFactory.addStimChildDef('" + stimName + "', Xml.parse('" + xmlString + "').firstElement());\n";
-				}
 			}
 		}
 

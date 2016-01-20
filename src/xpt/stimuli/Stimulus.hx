@@ -1,13 +1,9 @@
 package xpt.stimuli;
 
-import haxe.Constraints.Function;
 import haxe.ui.toolkit.core.Component;
 
 @:allow(xpt.trialOrder.Test_TrialOrder)
 class Stimulus {
-	public var parent:Stimulus;
-	public var children:Array<Stimulus> = new Array<Stimulus>();
-	
 	public var start:Float = -1;
 	public var stop:Float = -1;
 	public var duration:Float = -1;
@@ -93,9 +89,7 @@ class Stimulus {
 		}
 	}
 	
-	//to be overriden by stimuli returning data
 	public function results(trial_id:String):Map<String,String> {
-
 		//does not need below as logic is used elsewhere in ExtractResults
 		//if (hideResults == true) return null;
 		
@@ -138,20 +132,11 @@ class Stimulus {
 			}
 			_component = builder.build(this);
 		}
-		
-		for (child in children) {
-			if (_component.contains(child.component) == false) {
-				_component.addChild(child.component);
-			}
-		}
 		return _component;
 	}
 	
 	private function disposeComponent() {
 		if (_component != null) {
-			for (child in children) {
-				child.disposeComponent();
-			}
 			if (_component.parent != null && _component.parent.contains(_component)) {
 				_component.parent.removeChild(_component);
 			} else {

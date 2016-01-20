@@ -43,6 +43,7 @@ class TrialFactory
 	function seeIfOverrideDefaults(trial:Trial, otherParams:Map<String,String>) 
 	{
 		var overrideDefaults:Map<String,String> = new Map<String,String>();
+
 		for(prop in otherParams.keys()){
 			var val:String = otherParams.get(prop);
 			if(val!=null){
