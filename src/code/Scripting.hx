@@ -95,13 +95,23 @@ class Scripting
 	
 	
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
-
 		if (stim.get(prop) != null) {
 			
 			try {
 				scriptEngine.variables.set("this", stim.component);
 				scriptEngine.variables.set("me", stim.component);
 				scriptEngine.variables.set("e", event);
+                
+                var stimGroups:Map<String,Array<Stimulus>> = Stimulus.groups;
+                if (stimGroups != null) {
+                    for (groupName in stimGroups.keys()) {
+                        var group:Array<Stimulus> = stimGroups.get(groupName);
+                        if (group != null && group.length > 0) {
+                            scriptEngine.variables.set(groupName, group);
+                        }
+                    }
+                }
+                
 				var parser = new hscript.Parser();
 				var s:String = StringTools.trim(stim.get(prop));
 				s = StringTools.replace(s, "|", ";");

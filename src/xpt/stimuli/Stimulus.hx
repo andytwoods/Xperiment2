@@ -20,7 +20,25 @@ class Stimulus {
 		__properties = new Map<String, Dynamic>();
 	}
 
-	
+    private var _groupName:String;
+	public var groupName(get, set):String;   
+    private function get_groupName():String {
+        return _groupName;
+    }
+    private function set_groupName(value:String):String {
+        if (value == _groupName) {
+            return value;
+        }
+        _groupName = value;
+        addToGroup(_groupName, this);
+        return value;
+    }
+    
+    public var group(get, null):Array<Stimulus>;
+    private function get_group():Array<Stimulus> {
+        return getGroup(_groupName);
+    }
+    
 	public function addUnderling(stim:Stimulus) {
 		__underlings.push(stim);
 	}
@@ -36,6 +54,7 @@ class Stimulus {
 			case 'start': return start;
 			case 'stop': return stop;		
 			case 'duration': return duration;
+            case 'group': return _groupName;
 		}
 
 		return __properties.get(what);
@@ -84,6 +103,8 @@ class Stimulus {
 				id = Std.string(val);
 			case 'depth':
 				depth = Std.parseInt(val);
+            case 'group':
+                groupName = Std.string(val);
 			default:
 				__properties.set(what, val);
 		}
@@ -145,5 +166,38 @@ class Stimulus {
 			_component = null;
 		}
 	}
+    
+	//*********************************************************************************
+	// GROUPING
+	//*********************************************************************************
+    private static var _groups:Map<String, Array<Stimulus>>;
+    private static function addToGroup(groupName:String, stim:Stimulus):Void {
+        if (_groups == null) {
+            _groups = new Map<String, Array<Stimulus>>();
+        }
+        
+        var group:Array<Stimulus> = _groups.get(groupName);
+        if (group == null) {
+            group = new Array<Stimulus>();
+            _groups.set(groupName, group);
+        }
+        
+        if (group.indexOf(stim) == -1) {
+            group.push(stim);
+        }
+    }
+    
+    private static function getGroup(groupName:String):Array<Stimulus> {
+        if (_groups == null || groupName == null) {
+            return null;
+        }
+        return _groups.get(groupName);
+    }
+    
+    public static var groups(get, null):Map<String,Array<Stimulus>>;
+    private static function get_groups():Map<String,Array<Stimulus>> {
+        return _groups;
+    }
+    
 }
 

@@ -26,11 +26,11 @@
      -->   
         
         <!--button howMany="3" x="50" y="100---150---200" id="reactionTest1---reactionTest2---reactionTest3" text="Reaction time 1---Reaction time 2---Reaction time 3" start="500---1000---1500" duration="4000" reactionTime="true" /-->
-        <button howMany="${Std.random(10) + 10}" x="50" y="${100 + (index * 30)}" id="reactionTest${index}" text="Reaction time ${index} - ${Std.random(100)}" start="${500 + (index * 100)}" duration="4000" reactionTime="true" />
-    
+        <button group="g1" howMany="${Std.random(10) + 10}" x="50" y="${100 + (index * 30)}" id="reactionTest${index}" text="Reaction time ${index} - ${Std.random(100)}" start="${500 + (index * 100)}" duration="4000" reactionTime="true" />
     
 	<image x="0" y="0" width="800" height="83" asset="img/logos/oxford0${2}.png" />
 	
+        <button text="Test" action="trace('group length: ' + g1.length)" />
     
 	<text width="80%" height="50%" 
 		  text=
