@@ -1,11 +1,13 @@
 package xpt.stimuli;
 
 import code.Scripting;
+import diagnositics.DiagnosticsManager;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.Root;
 import haxe.ui.toolkit.core.RootManager;
 import haxe.ui.toolkit.util.StringUtil;
 import openfl.events.Event;
+import openfl.events.MouseEvent;
 import xpt.debug.DebugManager;
 import xpt.experiment.Experiment;
 import xpt.experiment.Preloader.PreloaderEvent;
@@ -18,6 +20,11 @@ class StimulusBuilder {
 		
 	}
 	
+    public var stimType(get, null):String;
+    private function get_stimType():String {
+        return get("stimType");
+    }
+    
 	private var trial(get, null):Trial;
 	private function get_trial():Trial {
 		var t:Trial = getDynamic("trial");
@@ -162,8 +169,6 @@ class StimulusBuilder {
 		Scripting.runScriptEvent(action, event, _stim);
 	}
 
-	
-	
 	private function addScriptVars(vars:Map<String, Dynamic>) {
 		vars.set("this", _stim.component);
 		vars.set("me", _stim.component);
@@ -180,6 +185,22 @@ class StimulusBuilder {
 		return null;
 	}
 	
+    private function addMouseDiagnostics(event:MouseEvent):Void {
+        var diagnosticsEvent:String = null;
+        switch (event.type) {
+            case MouseEvent.CLICK:
+                diagnosticsEvent = DiagnosticsManager.STIMULUS_CLICK;
+        }
+        if (diagnosticsEvent == null) {
+            DebugManager.instance.warning("Could not map mouse event to diagnostics event: " + event.type);
+            return;
+        }
+        DiagnosticsManager.add(diagnosticsEvent, _stim.id, stimType, [
+            'mouse.x: ${event.localX}',
+            'mouse.y: ${event.localY}'
+        ]);
+    }
+    
 	//override this
 	public function results():Map<String,String> {
 		return null;

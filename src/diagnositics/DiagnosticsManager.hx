@@ -20,22 +20,32 @@ class DiagnosticsManager {
     }
     
     
-    public static function add(type:String, sourceId:String = null, sourceType:String = null):DiagnosticsRecord {
-        return instance.addDiagnosics(type, sourceId, sourceType);
+    public static function add(type:String, sourceId:String = null, sourceType:String = null, additionalInfo:Array<String> = null):DiagnosticsRecord {
+        return instance.addDiagnosics(type, sourceId, sourceType, additionalInfo);
     }
     
 	////////////////////////////////////////////////////////////////////////
 	// INSTANCE
 	////////////////////////////////////////////////////////////////////////
+    private var _records:Array<DiagnosticsRecord> = new Array<DiagnosticsRecord>();
+    
     public function new() {
         
     }
     
-    public function addDiagnosics(type:String, sourceId:String = null, sourceType:String = null):DiagnosticsRecord {
+    public function addDiagnosics(type:String, sourceId:String = null, sourceType:String = null, additionalInfo:Array<String> = null):DiagnosticsRecord {
         var timestamp:Float = Timestamp.get();
-        var record:DiagnosticsRecord = new DiagnosticsRecord(timestamp, type);
+        var record:DiagnosticsRecord = new DiagnosticsRecord(timestamp, type, sourceId, sourceType, additionalInfo);
         
-        DebugManager.instance.info('Adding diagnostics: ${type}', 'timestamp: ${timestamp}\nsourceId: ${sourceId}\nsourceType: ${sourceType}');
+        var details = 'timestamp: ${timestamp}\nsourceId: ${sourceId}\nsourceType: ${sourceType}';
+        if (additionalInfo != null) {
+            for (info in additionalInfo) {
+                details += '\n${info}';
+            }
+        }
+        DebugManager.instance.info('Adding diagnostics: ${type}', details);
+        
+        _records.push(record);
         
         return record;
     }

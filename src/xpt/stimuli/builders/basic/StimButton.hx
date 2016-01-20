@@ -1,5 +1,6 @@
 package xpt.stimuli.builders.basic;
 
+import diagnositics.DiagnosticsManager;
 import haxe.ui.toolkit.controls.Button;
 import haxe.ui.toolkit.core.Component;
 import openfl.events.MouseEvent;
@@ -33,6 +34,7 @@ class StimButton extends StimulusBuilder {
 	}
 	
 	private function onClick(event:MouseEvent) {
+        addMouseDiagnostics(event);
 		clicked++;
 		runScriptEvent("action", event);
 	}
