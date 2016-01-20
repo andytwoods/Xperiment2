@@ -22,7 +22,7 @@ class StimButton extends StimulusBuilder {
 	private override function applyProperties(c:Component) {
 		super.applyProperties(c);
 		var b:Button = cast c;
-		if (get("action") != null) {
+		if (get("action") != null || getBool("reactionTime") == true) {
 			b.addEventListener(MouseEvent.CLICK, onClick);
 		}
 		if (get("icon") != null) {

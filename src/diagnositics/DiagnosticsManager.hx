@@ -21,7 +21,11 @@ class DiagnosticsManager {
     
     
     public static function add(type:String, sourceId:String = null, sourceType:String = null, additionalInfo:Array<String> = null):DiagnosticsRecord {
-        return instance.addDiagnosics(type, sourceId, sourceType, additionalInfo);
+        return instance.addDiagnosicsRecorcd(type, sourceId, sourceType, additionalInfo);
+    }
+    
+    public static function findLast(type:String, sourceId:String = null, sourceType:String = null):DiagnosticsRecord {
+        return instance.findLastDiagnosticsRecord(type, sourceId, sourceType);
     }
     
 	////////////////////////////////////////////////////////////////////////
@@ -33,7 +37,7 @@ class DiagnosticsManager {
         
     }
     
-    public function addDiagnosics(type:String, sourceId:String = null, sourceType:String = null, additionalInfo:Array<String> = null):DiagnosticsRecord {
+    public function addDiagnosicsRecorcd(type:String, sourceId:String = null, sourceType:String = null, additionalInfo:Array<String> = null):DiagnosticsRecord {
         var timestamp:Float = Timestamp.get();
         var record:DiagnosticsRecord = new DiagnosticsRecord(timestamp, type, sourceId, sourceType, additionalInfo);
         
@@ -48,5 +52,29 @@ class DiagnosticsManager {
         _records.push(record);
         
         return record;
+    }
+    
+    public function findLastDiagnosticsRecord(type:String, sourceId:String = null, sourceType:String = null):DiagnosticsRecord {
+        var match:DiagnosticsRecord = null;
+        var copy:Array<DiagnosticsRecord> = _records.copy();
+        copy.reverse();
+        
+        for (record in copy) {
+            var use:Bool = false;
+            if (record.eventType == type) {
+                use = true;
+                if (sourceId != null && record.sourceId != sourceId) {
+                    use = false;
+                }
+                if (sourceType != null && record.sourceType != sourceType) {
+                    use = false;
+                }
+                if (use == true) {
+                    match = record;
+                    break;
+                }
+            }
+        }
+        return match;
     }
 }

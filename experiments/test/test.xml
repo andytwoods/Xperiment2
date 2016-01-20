@@ -16,6 +16,9 @@
 		
 	</code>
 	
+    <button x="50" y="100" id="reactionTest1" text="Reaction time 1" start="10000" duration="3000" reactionTime="true" />
+    
+    
 	<image x="0" y="0" width="800" height="83" asset="img/logos/oxford02.png" />
 	
 	<text width="80%" height="50%" 

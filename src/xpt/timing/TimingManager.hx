@@ -1,5 +1,6 @@
 package xpt.timing;
 
+import diagnositics.DiagnosticsManager;
 import haxe.ui.toolkit.core.RootManager;
 import xpt.debug.DebugManager;
 import xpt.stimuli.Stimulus;
@@ -77,6 +78,7 @@ class TimingManager {
 	private function addToTrial(stim:Stimulus) {
 		if (RootManager.instance.currentRoot.contains(stim.component) == false) {
 			DebugManager.instance.stimulus("Adding stimulus, type: " + stim.get("stimType"));
+            DiagnosticsManager.add(DiagnosticsManager.STIMULUS_SHOW, stim.id, stim.get("stimType"));
 			RootManager.instance.currentRoot.addChild(stim.component);
 		}
 	}
@@ -84,6 +86,7 @@ class TimingManager {
 	private function removeFromTrail(stim:Stimulus) {
 		if (RootManager.instance.currentRoot.contains(stim.component) == true) {
 			DebugManager.instance.stimulus("Removing stimulus, type: " + stim.get("stimType"));
+            DiagnosticsManager.add(DiagnosticsManager.STIMULUS_HIDE, stim.id, stim.get("stimType"));
 			RootManager.instance.currentRoot.removeChild(stim.component);
 		}
 	}

@@ -2,6 +2,9 @@ package xpt.stimuli;
 
 import code.Scripting;
 import diagnositics.DiagnosticsManager;
+import diagnositics.DiagnosticsRecord;
+import diagnositics.Timestamp;
+import flash.desktop.Clipboard;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.Root;
 import haxe.ui.toolkit.core.RootManager;
@@ -20,9 +23,16 @@ class StimulusBuilder {
 		
 	}
 	
+    private var reactionTime:Float = -1;
+    
     public var stimType(get, null):String;
     private function get_stimType():String {
         return get("stimType");
+    }
+    
+    public var stimId(get, null):String;
+    private function get_stimId():String {
+        return _stim.id;
     }
     
 	private var trial(get, null):Trial;
@@ -190,12 +200,21 @@ class StimulusBuilder {
         switch (event.type) {
             case MouseEvent.CLICK:
                 diagnosticsEvent = DiagnosticsManager.STIMULUS_CLICK;
+                if (getBool("reactionTime") == true) {
+                    var timestamp:Float = Timestamp.get();
+                    var diagnosticsRecord:DiagnosticsRecord = DiagnosticsManager.findLast(DiagnosticsManager.STIMULUS_SHOW, stimId, stimType);
+                    if (diagnosticsRecord != null) {
+                        var delta:Float = timestamp - diagnosticsRecord.timestamp;
+                        DebugManager.instance.stimulus('Recording reaction time for ${stimId}', '${delta}ms');
+                        reactionTime = delta;
+                    }
+                }
         }
         if (diagnosticsEvent == null) {
             DebugManager.instance.warning("Could not map mouse event to diagnostics event: " + event.type);
             return;
         }
-        DiagnosticsManager.add(diagnosticsEvent, _stim.id, stimType, [
+        DiagnosticsManager.add(diagnosticsEvent, stimId, stimType, [
             'mouse.x: ${event.localX}',
             'mouse.y: ${event.localY}'
         ]);
