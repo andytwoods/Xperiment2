@@ -1,6 +1,6 @@
 package xpt.stimuli;
 
-import xpt.stimuli.BaseStimuli.BaseStimulus;
+import xpt.stimuli.BaseStimulus;
 import xpt.tools.XTools;
 import xpt.trial.Trial;
 import xpt.trial.TrialSkeleton;
@@ -13,9 +13,6 @@ class StimuliFactory {
 	private static var _stimChildDefs:Map<String, Array<Xml>>;
 	
 	public function new() {}
-	
-	public function new() {}
-	
 	
 	public function generate(trial:Trial, skeleton:TrialSkeleton) {
 		__recursiveGenerate(trial, null, skeleton.baseStimuli, 0);
@@ -31,11 +28,6 @@ class StimuliFactory {
 			baseStimulus = baseStimuli[i];
 			
 			stim = getStim(baseStimulus.type);
-			stim = getStim(baseStimulus.name);
-			if (parent != null) {
-				parent.children.push(stim);
-			}
-
 			setProps(stim, baseStimulus.howMany, baseStimulus.props, trial);
 			
 			if (stim.id == null) {
@@ -47,13 +39,7 @@ class StimuliFactory {
 			
 
 			if(baseStimulus.children.length>0)	__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount);
-			
-		}
-	}
 
-			if (baseStimulus.children.length > 0) {
-				recursivelyGenerateStimuli(trial, stim, baseStimulus.children);
-			}
 			
 			if (parent == null) {
 				trial.addStimulus(stim);
@@ -127,7 +113,7 @@ class StimuliFactory {
 			_stimParams = new Map<String, Map<String, String>>();
 		}
 		
->>>>>>> combine
+
 		type = type.toLowerCase();
 		var params:Map<String, String> = _stimParams.get(type);
 		if (params  == null) {

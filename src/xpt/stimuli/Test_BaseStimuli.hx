@@ -1,6 +1,6 @@
-package xpt.stimuli.all;
+package xpt.stimuli;
 import utest.Assert;
-import xpt.stimuli.BaseStimuli.BaseStimulus;
+import xpt.stimuli.BaseStimulus;
 import xpt.tools.XTools;
 
 /**
@@ -24,8 +24,8 @@ class Test_BaseStimuli
 		var baseStim:BaseStimulus = b._composeBaseStim("bob", xml, 1);
 				
 		Assert.isTrue(baseStim.children.length == 1);
-		Assert.isTrue(baseStim.children[0].name == "child1");
-		Assert.isTrue(baseStim.name == "bob");
+		Assert.isTrue(baseStim.children[0].type == "child1");
+		Assert.isTrue(baseStim.type == "bob");
 		
 
 		Assert.isTrue(baseStim.props.get("child2") == "cc");
@@ -38,8 +38,8 @@ class Test_BaseStimuli
 		var baseStim:BaseStimulus = b._composeBaseStim("bob", xml, 1);
 		
 		Assert.isTrue(baseStim.children.length == 1);
-		Assert.isTrue(baseStim.children[0].name == "child1");
-		Assert.isTrue(baseStim.name == "bob");
+		Assert.isTrue(baseStim.children[0].type == "child1");
+		Assert.isTrue(baseStim.type == "bob");
 		
 
 		Assert.isTrue(baseStim.props.get("child2") == "cc");

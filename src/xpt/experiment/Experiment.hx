@@ -104,7 +104,7 @@ class Experiment extends EventDispatcher {
 		var preloadList:Array<String> = new Array<String>();
 		for (skeleton in skeletons) {
 			for (baseStim in skeleton.baseStimuli) {
-				var stimPreload:Array<String> = StimuliFactory.getStimPreloadList(baseStim.name, baseStim.props);
+				var stimPreload:Array<String> = StimuliFactory.getStimPreloadList(baseStim.type, baseStim.props);
 				if (stimPreload != null) {
 					preloadList = preloadList.concat(stimPreload);
 				}
@@ -118,17 +118,16 @@ class Experiment extends EventDispatcher {
 			Preloader.instance.preloadImages(preloadList);
 		}
 	}
-	
+
 	private function _onPreloadProgress(event:PreloaderEvent) {
-	private function setupTrials(script:Xml) {
 		var progressEvent:PreloaderEvent = new PreloaderEvent(event.type);
-		var trialOrder_skeletons  = trialOrder.COMPOSE(script);
 		progressEvent.total = event.total;
 		progressEvent.current = event.current;
 		dispatchEvent(progressEvent);
 	}
 	
 	private function _onPreloadComplete(event:PreloaderEvent) {
+		
 		DebugManager.instance.progress("Preload complete");
 		Preloader.instance.removeEventListener(PreloaderEvent.PROGRESS, _onPreloadProgress);
 		Preloader.instance.removeEventListener(PreloaderEvent.COMPLETE, _onPreloadComplete);
@@ -164,24 +163,8 @@ class Experiment extends EventDispatcher {
 		}
 	}
 	
-=======
-	public function previousTrial() {
-		currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Previous, null);
-		startTrial();
-	}
 	
-	public function gotoTrial(trial:Dynamic) {
-		if (Std.is(trial, String) == true) {
-			currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Name(trial), null);
-			startTrial();
-		} else {
-			var trialIndex = Std.parseInt(trial);
-			currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Number(trialIndex), null);
-			startTrial();
-		}
-	}
-	
->>>>>>> combine
+
 	private function cleanup_prevTrial() {
 			results.add(TrialResults.extract_trial_results(runningTrial), runningTrial.specialTrial);
 			runningTrial.kill();					
