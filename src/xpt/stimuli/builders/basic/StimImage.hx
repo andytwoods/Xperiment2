@@ -2,7 +2,10 @@ package xpt.stimuli.builders.basic;
 
 import haxe.ui.toolkit.controls.Image;
 import haxe.ui.toolkit.core.Component;
+import openfl.display.Bitmap;
 import xpt.stimuli.StimulusBuilder;
+import xpt.tools.ScriptTools;
+import xpt.experiment.Preloader;
 
 class StimImage extends StimulusBuilder {
 	public function new() {
@@ -18,6 +21,13 @@ class StimImage extends StimulusBuilder {
 		var image:Image = cast c;
 		if (get("asset") != null) {
 			image.resource = get("asset");
+		}
+
+		if (get("resource") != null) {
+            var bmp:Bitmap = Preloader.instance.preloadedImages.get(get("resource"));
+            if (bmp != null) {
+                image.resource = new Bitmap(bmp.bitmapData.clone());
+            }
 		}
 	}
 }

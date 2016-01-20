@@ -10,6 +10,9 @@
 </SETUP>
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+    <var name="var1" value="100" />
+    <var name="var2" value="${var1 + 200}" />
+    <var name="cols" value="${var2 / 3}" />
 	<code>
 		
 		trace(123);
@@ -23,11 +26,12 @@
      -->   
         
         <!--button howMany="3" x="50" y="100---150---200" id="reactionTest1---reactionTest2---reactionTest3" text="Reaction time 1---Reaction time 2---Reaction time 3" start="500---1000---1500" duration="4000" reactionTime="true" /-->
-        <button howMany="${Std.random(10) + 5}" x="50" y="${100 + (index * 30)}" id="reactionTest${index}" text="Reaction time ${index} - ${Std.random(100)}" start="${500 + (index * 500)}" duration="4000" reactionTime="true" />
+        <button howMany="${Std.random(10) + 10}" x="50" y="${100 + (index * 30)}" id="reactionTest${index}" text="Reaction time ${index} - ${Std.random(100)}" start="${500 + (index * 100)}" duration="4000" reactionTime="true" />
     
     
-	<image x="0" y="0" width="800" height="83" asset="img/logos/oxford02.png" />
+	<image x="0" y="0" width="800" height="83" asset="img/logos/oxford0${2}.png" />
 	
+    
 	<text width="80%" height="50%" 
 		  text=
 		  "Welcome to our study! We are the Crossmodal Research Laboratory, Department of Experimental Psychology, Oxford University. 
@@ -41,6 +45,8 @@ We hope you enjoy it. Your participation is very important to us."
 </TRIAL>
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+	<image x="0" y="0" width="350" height="559" resource="./experiments/images/wine_glass/A_${Std.random(67) + 1}.jpg" />
+    
 	<text y="20%" width="90%" height="70%" 
 		  text=
 		  "Before we begin, please read the below: 
