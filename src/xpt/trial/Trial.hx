@@ -1,5 +1,6 @@
 package xpt.trial;
 
+import diagnositics.DiagnosticsManager;
 import openfl.Lib;
 import xpt.experiment.Experiment;
 import xpt.results.TrialResults;
@@ -76,6 +77,7 @@ class Trial {
 	}
 	
 	public function start() {
+        DiagnosticsManager.add(DiagnosticsManager.TRIAL_START, trialName);
 		if (testing == false) {
 			//timingBoss.start(true);
 			TimingManager.instance.start();

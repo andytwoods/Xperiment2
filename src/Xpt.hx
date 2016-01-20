@@ -1,6 +1,7 @@
 package;
 
 import code.Scripting;
+import diagnositics.DiagnosticsManager;
 import xpt.comms.services.UrlParams_service;
 import haxe.macro.Compiler;
 import openfl.Lib;
@@ -21,6 +22,7 @@ class Xpt {
 		System.init();
 		ErrorMessage.setup(Lib.current.stage);
 		exptName = "test";
+        DiagnosticsManager.add(DiagnosticsManager.EXPERIMENT_START, exptName);
 		
 		#if (debug && !html5)
 		
