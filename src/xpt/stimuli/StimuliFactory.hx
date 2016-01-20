@@ -24,47 +24,48 @@ class StimuliFactory {
 		var stimuli:Array<Stimulus> = new Array<Stimulus>();
 		
 		for (i in 0...baseStimuli.length) {
-			
 			baseStimulus = baseStimuli[i];
 			
-			stim = getStim(baseStimulus.type);
-			setProps(stim, baseStimulus.howMany, baseStimulus.props, trial);
-			
-			if (stim.id == null) {
-				stim.id = "id" + Std.string(unknownIdCount++);
-			}
-			
-			trial.stimuli.push(stim);
-			if (parent != null) parent.addUnderling(stim);
-			
+			for(stim_copy in 0...baseStimulus.howMany){
 
-			if(baseStimulus.children.length>0)	__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount);
+				stim = getStim(baseStimulus.type);
+				setProps(stim, stim_copy, baseStimulus.props, trial);
+				
+				if (stim.id == null) {
+					stim.id = "id" + Std.string(unknownIdCount++);
+				}
+				
+				trial.stimuli.push(stim);
+				if (parent != null) parent.addUnderling(stim);
+				
 
-			
-			if (parent == null) {
-				trial.addStimulus(stim);
+				if(baseStimulus.children.length>0)	__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount);
+
+				
+				if (parent == null) {
+					trial.addStimulus(stim);
+				}
+				stimuli.push(stim);
 			}
-			stimuli.push(stim);
 		}
 		return stimuli;
 	}
 	
 	
-	private function setProps(stim:Stimulus, howMany:Int, props:Map<String,String>, trial:Trial) {
+	private function setProps(stim:Stimulus, copyNum:Int, props:Map<String,String>, trial:Trial) {
 		//var howMany:Int = 1;
 		var trialIteration:Int = trial.iteration;
 
-		for(count in 0...howMany){
-			for (key in props.keys()) {
-				var val:String = props.get(key);
-				val = XTools.multiCorrection(	val, overTrialSep, trialIteration);
-				val = XTools.multiCorrection(	val, withinTrialSep, count);
-				stim.set(key, val	);
-			}
-			
-			stim.set("trial", trial);
-			trial.addStimulus(stim);
+		for (key in props.keys()) {
+			var val:String = props.get(key);
+			val = XTools.multiCorrection(	val, overTrialSep, trialIteration);
+			val = XTools.multiCorrection(	val, withinTrialSep, copyNum);
+			stim.set(key, val	);
 		}
+		
+		stim.set("trial", trial);
+		trial.addStimulus(stim);
+		
 	}
 	
 
