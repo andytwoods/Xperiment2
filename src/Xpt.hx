@@ -22,6 +22,7 @@ class Xpt {
 		System.init();
 		ErrorMessage.setup(Lib.current.stage);
 		exptName = "test";
+        diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
         DiagnosticsManager.add(DiagnosticsManager.EXPERIMENT_START, exptName);
 		
 		#if (debug && !html5)

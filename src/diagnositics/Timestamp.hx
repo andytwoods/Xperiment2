@@ -6,6 +6,8 @@ import js.html.Performance;
 #end
 
 class Timestamp {
+    public static var offset:Float = 0;
+    
     public static function get():Float {
         var t:Float = -1;
         #if html5
@@ -18,7 +20,7 @@ class Timestamp {
         #else
             t = getSystemTimestamp();
         #end
-        return t;
+        return t - offset;
     }
     
     private static function getSystemTimestamp():Float {
