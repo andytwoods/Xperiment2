@@ -26,18 +26,18 @@
      -->   
         
         <!--button howMany="3" x="50" y="100---150---200" id="reactionTest1---reactionTest2---reactionTest3" text="Reaction time 1---Reaction time 2---Reaction time 3" start="500---1000---1500" duration="4000" reactionTime="true" /-->
-        <button group="g1" howMany="${Std.random(10) + 10}" x="50" y="${100 + (index * 30)}" id="reactionTest${index}" text="Reaction time ${index} - ${Std.random(100)}" start="${500 + (index * 100)}" duration="4000" reactionTime="true" />
+        <button group="g1" width="300" howMany="${Std.random(10) + 10}" x="50" y="${100 + (index * 30)}" id="reactionTest${index}" text="Reaction time ${index} - ${Std.random(100)}" start__="${500 + (index * 100)}" duration__="4000" reactionTime="true" />
     
 	<image x="0" y="0" width="800" height="83" asset="img/logos/oxford0${2}.png" />
 	
-        <button text="Test" action="trace('group length: ' + g1.length)" />
+        <button text="Shuffle" action="Stims.shuffle(g1, ['x', 'y']);" />
     
 	<text width="80%" height="50%" 
 		  text=
 		  "Welcome to our study! We are the Crossmodal Research Laboratory, Department of Experimental Psychology, Oxford University. 
 We are interested in understanding how people associate information across the senses. If you decide to take part in this experiment, you will be asked to match a variety of shapes to tastes.
 We hope you enjoy it. Your participation is very important to us."
-	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />
+	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" visible="false" />
 	
 	
 	<preloadProgress x="20" y="540" width="450" height="40" />

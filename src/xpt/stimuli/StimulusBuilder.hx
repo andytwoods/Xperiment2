@@ -125,7 +125,7 @@ class StimulusBuilder {
 			text = "";
 		}
 		c.text = text;
-		
+
 		c.visible = getBool("visible", true);
 		
 		c.width = getUnit("width", root.width);
@@ -160,6 +160,8 @@ class StimulusBuilder {
 		}
 		
 		if (get("onPreloadProgress") != null || get("onPreloadComplete") != null) {
+			experiment.removeEventListener(PreloaderEvent.PROGRESS, onPreloaderProgress);
+			experiment.removeEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete);
 			experiment.addEventListener(PreloaderEvent.PROGRESS, onPreloaderProgress);
 			experiment.addEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete);
 		}
@@ -191,6 +193,10 @@ class StimulusBuilder {
 		return c;
 	}
 	
+    public function update():Void {
+        applyProperties(_stim.component);
+    }
+    
 	public function buildPreloadList(props:Map<String, String>):Array<String> {
 		return null;
 	}

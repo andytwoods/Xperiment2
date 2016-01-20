@@ -156,6 +156,10 @@ class Stimulus {
 		return _component;
 	}
 	
+    public function updateComponent():Void {
+        builder.update();
+    }
+    
 	private function disposeComponent() {
 		if (_component != null) {
 			if (_component.parent != null && _component.parent.contains(_component)) {

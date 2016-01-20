@@ -13,6 +13,7 @@ import openfl.Lib;
 import openfl.utils.Object;
 import xpt.debug.DebugManager;
 import xpt.experiment.Experiment;
+import xpt.stimuli.StimHelper;
 import xpt.stimuli.Stimulus;
 import xpt.trial.Trial;
 
@@ -101,6 +102,7 @@ class Scripting
 				scriptEngine.variables.set("this", stim.component);
 				scriptEngine.variables.set("me", stim.component);
 				scriptEngine.variables.set("e", event);
+                scriptEngine.variables.set("Stims", StimHelper);
                 
                 var stimGroups:Map<String,Array<Stimulus>> = Stimulus.groups;
                 if (stimGroups != null) {

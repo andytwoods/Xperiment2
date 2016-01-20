@@ -30,6 +30,7 @@
 	<haxelib name="utest" />
 	<haxelib name="thx.core" />
 	<haxelib name="haxe-rest-client" />
+	<haxelib name="random" />
 	
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />
