@@ -1,5 +1,6 @@
 package xpt.stimuli;
 import thx.Ints;
+import xpt.tools.ScriptTools;
 
 
 class BaseStimulus {
@@ -20,8 +21,9 @@ class BaseStimulus {
 	{
 		props = _props;
 		if (props.exists("howMany")) {
-			if (Ints.canParse(props.get("howMany"))) {
-				howMany = Ints.parse(props.get("howMany"));
+            var howManyString = ScriptTools.expandScriptValues(props.get("howMany"));
+			if (Ints.canParse(howManyString)) {
+				howMany = Ints.parse(howManyString);
 			}
 			else throw "You must specify 'howMany' as a number";
 		}

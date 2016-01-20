@@ -1,6 +1,8 @@
 package xpt.stimuli;
 
+import haxe.ui.toolkit.hscript.ScriptInterp;
 import xpt.stimuli.BaseStimulus;
+import xpt.tools.ScriptTools;
 import xpt.tools.XTools;
 import xpt.trial.Trial;
 import xpt.trial.TrialSkeleton;
@@ -58,6 +60,7 @@ class StimuliFactory {
 
 		for (key in props.keys()) {
 			var val:String = props.get(key);
+            val = ScriptTools.expandScriptValues(val, ["index" => copyNum]);
 			val = XTools.multiCorrection(	val, overTrialSep, trialIteration);
 			val = XTools.multiCorrection(	val, withinTrialSep, copyNum);
 			stim.set(key, val	);

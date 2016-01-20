@@ -15,8 +15,15 @@
 		trace(123);
 		
 	</code>
-	
-    <button howMany="3" x="50" y="100---150---200" id="reactionTest1" text="Reaction time 1" start="500---1000---1500" duration="4000" reactionTime="true" />
+
+	<!--
+    <hbox id="myHBOX">
+        <button howMany="3" x11="50" y11="100---150---200" id="reactionTest1---reactionTest2---reactionTest3" text="Reaction time 1---Reaction time 2---Reaction time 3" start="500---1000---1500" duration="4000" reactionTime="true" />
+    </hbox>        
+     -->   
+        
+        <!--button howMany="3" x="50" y="100---150---200" id="reactionTest1---reactionTest2---reactionTest3" text="Reaction time 1---Reaction time 2---Reaction time 3" start="500---1000---1500" duration="4000" reactionTime="true" /-->
+        <button howMany="${Std.random(10) + 5}" x="50" y="${100 + (index * 30)}" id="reactionTest${index}" text="Reaction time ${index} - ${Std.random(100)}" start="${500 + (index * 500)}" duration="4000" reactionTime="true" />
     
     
 	<image x="0" y="0" width="800" height="83" asset="img/logos/oxford02.png" />
