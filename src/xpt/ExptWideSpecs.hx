@@ -114,6 +114,7 @@ class ExptWideSpecs
 	static public function updateExternalVars(params:Map<String, String>) 
 	{
 		if (params == null) return;
+		
 		for (key in params.keys()) {
 			map.set(key, params.get(key));
 		}

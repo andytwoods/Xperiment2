@@ -38,7 +38,7 @@ class Xpt {
 			ScreenManager_web.init(Lib.current.stage);
 			var script:String = UrlParams_service.get('script');
 			if (script.length > 0) {
-				webStart = new WebStart('.', script, true);
+				webStart = new WebStart('.', script);
 			}
 			else {
 				start();
