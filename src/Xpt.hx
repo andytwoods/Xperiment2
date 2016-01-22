@@ -22,7 +22,8 @@ class Xpt {
 	public static function main() {
 		System.init();
 		ErrorMessage.setup(Lib.current.stage);
-		exptName = "Expt1";
+		//exptName = "Expt1";
+		exptName = 'test';
         diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
         DiagnosticsManager.add(DiagnosticsManager.EXPERIMENT_START, exptName);
 		

@@ -107,8 +107,13 @@ class Experiment extends EventDispatcher {
 		var skeletons:Array<TrialSkeleton> = trialOrder_skeletons._1;
 		
 		
-		//dont think does anything
-		/*
+		/* attempt to incorporate --- and |
+		var find_loadable:Preloader_extract_loadable = new Preloader_extract_loadable();
+		var preloadList:Array<String> = find_loadable.extract(skeletons);
+		find_loadable = null;
+		*/
+		
+		
 		var preloadList:Array<String> = new Array<String>();
 		for (skeleton in skeletons) {
 			for (baseStim in skeleton.baseStimuli) {
@@ -144,7 +149,7 @@ class Experiment extends EventDispatcher {
 		progressEvent.total = event.total;
 		progressEvent.current = event.current;
 		dispatchEvent(progressEvent);
-				*/
+				
 	}
 	
 	public function firstTrial() {

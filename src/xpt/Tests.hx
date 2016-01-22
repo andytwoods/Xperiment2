@@ -8,6 +8,7 @@ import code.Scripting;
 import code.Test_CheckIsCode;
 import openfl.events.Event;
 import openfl.system.System;
+import xpt.preloader.Test_Preloader_extract_loadable;
 import xpt.results.Test_Results;
 import xpt.results.Test_TrialResults;
 import xpt.stimuli.Test_ETCs;
@@ -57,6 +58,7 @@ class Tests
 		runner.addCase(new Test_templateList());
 		runner.addCase(new Test_Templates());
 		runner.addCase(new Test_CheckIsCode());
+		runner.addCase(new Test_Preloader_extract_loadable());
 		
 		//stimuli related
 		runner.addCase(new Test_BaseStimuli());
