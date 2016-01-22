@@ -1,4 +1,4 @@
-package xpt.script;
+package xpt.stimuli;
 import xpt.stimuli.ETCs;
 import thx.Arrays;
 import utest.Assert;
@@ -67,7 +67,7 @@ class Test_ETCs
 		map = genMap("b", "bb---cc---etc---");
 		ETCs.compose(map,  1, 3);
 		Assert.isTrue(map.get("b") == "bb---cc---bb");
-		
+
 		map = genMap("b", "bb0---bb1---etc---");
 		ETCs.compose(map,  1, 3);
 		Assert.isTrue(map.get("b")=="bb0---bb1---bb2");

@@ -11,9 +11,31 @@ using xpt.tools.XML_tools;
 class ETCs
 {
 	
-	public static var list:Array<String>		= ["---etc---"	, ",,,etc,,,", ";;;etc;;;"];
-	public static var splitByList:Array<String> = ["---", ",", ";"];
-
+	public static var list:Array<String>		= ["---etc---"	, ",,,etc,,,", ";;;etc;;;"]; //note this is legacy and only included to stop tests breaking.
+	public static var splitByList:Array<String> = ["---", ",", ";"]; //note this is legacy and only included to stop tests breaking.
+	private static var withinTrialSep:String ="---";
+	private static var overTrialSep:String =";";
+	
+	static public function setLabels(stim_sep:String, trial_sep:String) 
+	{
+		withinTrialSep = stim_sep;
+		overTrialSep = trial_sep;
+		
+		splitByList = [stim_sep, ",", trial_sep];
+		
+		list = new Array<String>();
+		
+		for (sym in splitByList) {
+			list[list.length] = generate_seq(sym);
+			
+		}
+	}
+	
+	static private function generate_seq(sym:String):String {
+		return sym + sym + sym + 'etc' + sym + sym + sym;
+	}
+	
+	
 	/*
 	In a nutshell, search through all prop values looking for both ---etc--- and ,,,etc,,,
 	---etc--- is for multiple objects per trial, where objects seperated by ---
@@ -71,7 +93,7 @@ class ETCs
 		
 		var num = howMany;
 		
-		if (splitter == ";;;etc;;;") {
+		if (splitter == generate_seq(overTrialSep)) {
 			num = trials;
 		}
 

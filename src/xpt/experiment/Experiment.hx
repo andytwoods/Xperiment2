@@ -15,6 +15,7 @@ import xpt.results.Results;
 import xpt.results.TrialResults;
 import xpt.script.ProcessScript;
 import xpt.stimuli.BaseStimuli;
+import xpt.stimuli.ETCs;
 import xpt.stimuli.StimuliFactory;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;
@@ -24,6 +25,7 @@ import xpt.trial.Special_Trial;
 import xpt.trial.Trial;
 import xpt.trial.TrialFactory;
 import xpt.trial.TrialSkeleton;
+import xpt.trialOrder.TrialBlock;
 import xpt.trialOrder.TrialOrder;
 
 @:allow(xpt.trialOrder.Test_TrialOrder)
@@ -78,6 +80,8 @@ class Experiment extends EventDispatcher {
 		BaseStimuli.setPermittedStimuli(StimuliFactory.getPermittedStimuli());
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 		TrialFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
+		TrialBlock.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
+		ETCs.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 	}
 	
 	private function linkups_Post_ExptWideSpecs() {

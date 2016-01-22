@@ -13,7 +13,16 @@ using xpt.trialOrder.ForcePositionType;
 
 class TrialBlock
 {
-
+	private static var withinTrialSep:String;
+	private static var overTrialSep:String;
+	
+	static public function setLabels(stim_sep:String, trial_sep:String) 
+	{
+		withinTrialSep = stim_sep;
+		overTrialSep = trial_sep;
+	}
+	
+	
 	public var xml:Xml;
 	public var blockPosition:Int;
 	public var numTrials:Int = 0;
@@ -245,7 +254,7 @@ class TrialBlock
 	
 	function check(fb:String)
 	{
-		if (fb.indexOf(";") != -1 || fb.indexOf(";") != -1) throw "you currently cannot use the ';' symbol in forcePositionInBlock and forceBlockDepthPositions";		
+		if (fb.indexOf(overTrialSep) != -1 || fb.indexOf(overTrialSep) != -1) throw "you currently cannot use the '"+overTrialSep+"' symbol in forcePositionInBlock and forceBlockDepthPositions";		
 	}
 	
 	public function doOrdering():Void{

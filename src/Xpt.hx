@@ -8,6 +8,7 @@ import openfl.Lib;
 import xpt.screenManager.ScreenManager_web;
 import xpt.error.ErrorMessage;
 import xpt.start.WebStart;
+import xpt.Tests;
 import xpt.trial.Trial;
 
 
@@ -26,12 +27,7 @@ class Xpt {
         DiagnosticsManager.add(DiagnosticsManager.EXPERIMENT_START, exptName);
 		
 		#if (debug && !html5)
-		
-			Trial.testing = true;
-			Scripting.testing = true;
 			var tests:xpt.Tests = new xpt.Tests();
-			Trial.testing = false;
-			Scripting.testing = false;
 		#end
 		
 		#if html5

@@ -39,9 +39,7 @@ class TrialOrder
 				trialBlocks[trialBlocks.length] = trialBlock;
 				counter += trialBlock.numTrials;
 			}
-			//trace("---", trialBlock.trials,block);
 			skeletons[skeletons.length] = new TrialSkeleton(trialBlock);
-			//trace("---", skeletons[skeletons.length - 1].trials);
 			
 		}
 		
