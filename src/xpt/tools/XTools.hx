@@ -1,5 +1,6 @@
 package xpt.tools;
 import thx.Floats;
+import thx.Ints;
 
 /**
  * ...
@@ -8,6 +9,7 @@ import thx.Floats;
 class XTools
 {
 
+	
 	
 	private static var shuffleArrMem:Map<String,Array<Float>>;
 	
@@ -48,6 +50,50 @@ class XTools
 		
 		return arr;
 	}
+	
+	
+	static public function appendUpNumberedProps(map:Map<String,String>)
+		{
+			
+			//concatenates up properties
+			//below, searches for attribs appended with a 1.  These are special you see as they imply an 'appendUp' attribute.
+			var appendUpAttribs:Array<String> = null;
+
+			for (prop in map.keys()) {	
+				
+				if("1"== prop.charAt(prop.length-1) && prop.length > 1 && Ints.canParse(prop.charAt(prop.length-2)) == false){
+					if(appendUpAttribs == null) appendUpAttribs = new Array<String>();
+					if(appendUpAttribs.indexOf(prop)==-1){
+						appendUpAttribs.push(prop.substr(0,prop.length-1));
+					}
+				}
+			}
+			
+			if (appendUpAttribs == null) return;
+			
+
+			var i:Int;
+			var appendUpProp:String;
+			var appendUpVal:String;
+			
+			for(prop in appendUpAttribs){
+				appendUpVal = '';
+				i=0;
+				while(true){
+					appendUpProp=prop;
+					
+					if(i!=0)appendUpProp+=Std.string(i);
+					if(map.exists(appendUpProp)){		
+						appendUpVal+=map.get(appendUpProp);
+						i++;
+					}
+					else break;	
+				}		
+				map[prop]=appendUpVal;
+			}
+					
+		}
+
 	
 	public static inline function dynamic_to_StringMap(obj:Dynamic):Map<String,String> {
 		var map:Map<String,String> = new Map<String,String>();

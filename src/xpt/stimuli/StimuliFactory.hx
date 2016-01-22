@@ -10,6 +10,7 @@ import xpt.trial.TrialSkeleton;
 class StimuliFactory {
 	private static var withinTrialSep:String;
 	private static var overTrialSep:String;
+	
 	private static var _stimBuilderMap:Map<String, Class<StimulusBuilder>>;
 	private static var _stimParams:Map<String, Map<String, String>>;
 	private static var _stimChildDefs:Map<String, Array<Xml>>;
@@ -58,12 +59,20 @@ class StimuliFactory {
 		//var howMany:Int = 1;
 		var trialIteration:Int = trial.iteration;
 
+		var stimProps:Map<String,String> = new Map<String,String>();
+		
 		for (key in props.keys()) {
 			var val:String = props.get(key);
             val = ScriptTools.expandScriptValues(val, ["index" => copyNum]);
 			val = XTools.multiCorrection(	val, overTrialSep, trialIteration);
 			val = XTools.multiCorrection(	val, withinTrialSep, copyNum);
-			stim.set(key, val	);
+			stimProps.set(key, val);
+		}
+		
+		XTools.appendUpNumberedProps(stimProps);
+		
+		for (key in stimProps.keys()) {
+			stim.set(key, stimProps.get(key	));
 		}
 		
 		stim.set("trial", trial);

@@ -105,6 +105,10 @@ class Experiment extends EventDispatcher {
 		nextTrialBoss = new NextTrialBoss(trialOrder_skeletons);
 
 		var skeletons:Array<TrialSkeleton> = trialOrder_skeletons._1;
+		
+		
+		//dont think does anything
+		/*
 		var preloadList:Array<String> = new Array<String>();
 		for (skeleton in skeletons) {
 			for (baseStim in skeleton.baseStimuli) {
@@ -121,6 +125,7 @@ class Experiment extends EventDispatcher {
 			Preloader.instance.addEventListener(PreloaderEvent.COMPLETE, _onPreloadComplete);
 			Preloader.instance.preloadImages(preloadList);
 		}
+
 	}
 
 	private function _onPreloadProgress(event:PreloaderEvent) {
@@ -139,6 +144,7 @@ class Experiment extends EventDispatcher {
 		progressEvent.total = event.total;
 		progressEvent.current = event.current;
 		dispatchEvent(progressEvent);
+				*/
 	}
 	
 	public function firstTrial() {

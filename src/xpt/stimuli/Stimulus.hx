@@ -1,6 +1,7 @@
 package xpt.stimuli;
 
 import haxe.ui.toolkit.core.Component;
+import xpt.tools.XTools;
 
 @:allow(xpt.trialOrder.Test_TrialOrder)
 class Stimulus {

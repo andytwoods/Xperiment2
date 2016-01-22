@@ -14,9 +14,7 @@
     <var name="var2" value="${var1 + 200}" />
     <var name="cols" value="${var2 / 3}" />
 	<code>
-		
 		trace(123);
-		
 	</code>
 
 	<!--

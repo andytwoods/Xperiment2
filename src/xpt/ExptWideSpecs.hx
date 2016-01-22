@@ -11,16 +11,15 @@ class ExptWideSpecs
 	private static var map:Map<String,String> = new Map<String,String>();
 	
 	public static var trial_sep:String  = '|'; //Alt 124
-	public static var stim_sep:String = '•'; //Alt 249
+	public static var stim_sep:String = '---';
 	public static var trialName:String = "trialName";
 	public static var filename:String = "asset";
 	
 	
-	public static var testMods:Map<String,String>;
+	private static var testMods:Map<String,String>;
 	
 	public static function testingOff() {
 		if (testMods == null)  return;
-		
 		if (testMods.exists('trial_sep')) trial_sep = testMods.get('trial_sep');
 		if (testMods.exists('stim_sep')) stim_sep = testMods.get('stim_sep');
 		
@@ -28,9 +27,9 @@ class ExptWideSpecs
 	
 	public static function testingOn(map:Map<String,String>) {
 		
-		function store(what:String, with :String) {
+		function store(val:String, what :String) {
 			if (testMods == null) testMods = new Map<String,String>();
-			testMods.set(what, with );
+			testMods.set(what, val );
 		}
 		
 		if (map.exists('trial_sep')) {
@@ -40,9 +39,7 @@ class ExptWideSpecs
 		if (map.exists('stim_sep')) {
 			store(trial_sep, 'stim_sep');
 			stim_sep = map.get('stim_sep');
-		}
-
-		
+		}		
 	}
 	
 	public static function kill() {

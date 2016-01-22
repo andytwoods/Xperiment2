@@ -19,6 +19,7 @@ class StimImage extends StimulusBuilder {
 	private override function applyProperties(c:Component) {
 		super.applyProperties(c);
 		var image:Image = cast c;
+		
 		if (get("asset") != null) {
 			image.resource = get("asset");
 		}
