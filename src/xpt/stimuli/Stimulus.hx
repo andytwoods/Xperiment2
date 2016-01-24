@@ -204,5 +204,9 @@ class Stimulus {
         return _groups;
     }
     
+    public static function resetGroups():Void {
+        _groups = null;
+    }
+    
 }
 

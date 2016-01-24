@@ -196,6 +196,7 @@ class Experiment extends EventDispatcher {
 		
 		var info:NextTrialInfo = currentTrailInfo;
 		
+        Stimulus.resetGroups();
 		runningTrial = trialFactory.GET(info.skeleton, info.trialOrder, this);
 		
 		
