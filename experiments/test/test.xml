@@ -49,8 +49,8 @@ We hope you enjoy it. Your participation is very important to us."
 <TRIAL TYPE="Trial" hideResults="true" block="-1" order="fixed" trials="4">
     <button group="group1" howMany="2" text="Test ${index} - " text1="Trial 1|Trail 2|Trail 3|Trail 4" x="50" y="200---300" />
     <button text="Test" action="for (stim in group1) { trace(stim.component.text);  };" x="30" y="30" />
+    <button text="Shuffle" action="Stims.shuffle(group1, ['x', 'y']);" x="30" y="60" />
     <text text="Trial #" text1="1|2|3|4" width="200" height="20" />
-    
     <nextTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
 </TRIAL>    
     

@@ -128,8 +128,10 @@ class StimulusBuilder {
 
 		c.visible = getBool("visible", true);
 		
-		c.width = getUnit("width", root.width);
-		c.height = getUnit("height", root.height);
+        var cx = getUnit("width", root.width);
+        var cy = getUnit("height", root.height);
+		c.width = cx;
+		c.height = cy;
 		c.x = getUnit("x", root.width);
 		c.y = getUnit("y", root.height);
 		
@@ -147,9 +149,10 @@ class StimulusBuilder {
 			}
 		}
 		
-		if (c.width != 0 || c.height != 0) {
+		if (cx != 0 || cy != 0) {
 			c.autoSize = false;
 		}
+        
 		if (getInt("fontSize") != -1) {
 			c.style.fontSize = getInt("fontSize");
 		}	
