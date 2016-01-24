@@ -43,6 +43,13 @@ We hope you enjoy it. Your participation is very important to us."
 </TRIAL>
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+    <button group="g2" howMany="2" text="Test ${index}" x="50" y="20---100" />
+    <button text="Test" action="trace('bob');" />
+    <nextTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
+</TRIAL>    
+    
+    
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
 	<image x="0" y="0" width="350" height="559" resource="./experiments/images/wine_glass/A_${Std.random(67) + 1}.jpg" />
     
 	<text y="20%" width="90%" height="70%" 
