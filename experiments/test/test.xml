@@ -42,8 +42,12 @@ We hope you enjoy it. Your participation is very important to us."
 	<preloadReadyButton x="580" y="540" width="200" height="40" fontSize="18" />
 </TRIAL>
 
-<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
-    <button group="g2" howMany="2" text="Test ${index}" x="50" y="20---100" />
+	
+	
+	
+	
+<TRIAL TYPE="Trial" hideResults="true" block="-1" order="fixed" trials="1">
+    <button group="g2" howMany="2" text="Test ${index}" x="50" y="200---300" />
     <button text="Test" action="trace('bob');" />
     <nextTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
 </TRIAL>    

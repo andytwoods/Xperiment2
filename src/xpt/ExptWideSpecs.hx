@@ -20,13 +20,16 @@ class ExptWideSpecs
 	
 	public static function testingOff() {
 		if (testMods == null)  return;
-		if (testMods.exists('trial_sep')) trial_sep = testMods.get('trial_sep');
-		if (testMods.exists('stim_sep')) stim_sep = testMods.get('stim_sep');
-		
+		if (testMods.exists('trial_sep')) {
+			trial_sep = testMods.get('trial_sep');
+		}
+		if (testMods.exists('stim_sep')) {
+			stim_sep = testMods.get('stim_sep');
+		}
 	}
 	
 	public static function testingOn(map:Map<String,String>) {
-		
+
 		function store(val:String, what :String) {
 			if (testMods == null) testMods = new Map<String,String>();
 			testMods.set(what, val );
@@ -37,7 +40,7 @@ class ExptWideSpecs
 			trial_sep = map.get('trial_sep');
 		}
 		if (map.exists('stim_sep')) {
-			store(trial_sep, 'stim_sep');
+			store(stim_sep, 'stim_sep');
 			stim_sep = map.get('stim_sep');
 		}		
 	}
