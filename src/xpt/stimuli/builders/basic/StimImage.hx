@@ -22,26 +22,27 @@ class StimImage extends StimulusBuilder {
 		
 		if (get("asset") != null) {
 			image.resource = get("asset");
+			return;
 		}
+		
+		var resource:String = get("resource");
 
-		else if (get("resource") != null) {
-            setBitmap(Preloader.instance.preloadedImages.get(get("resource")),image);
-		}
-
-		else {
-			if (Preloader.instance.imagesToLoad.indexOf(get("resource")) != -1) {
-				Preloader.instance.callbackWhenLoaded(get("resource"), function(){
-					setBitmap(Preloader.instance.preloadedImages.get(get("resource")),image);	
+		if (resource != null) {
+			//if cannot get data
+            if (false ==	setBitmap(Preloader.instance.preloadedImages.get(resource), image) ) {
+				
+				Preloader.instance.callbackWhenLoaded(resource, function(){
+					setBitmap(Preloader.instance.preloadedImages.get(resource),image);	
 				});
 			}
 		}
-	
 	}
 	
-	private function setBitmap(b:Bitmap, image:Image) {
+	private function setBitmap(b:Bitmap, image:Image):Bool {
 		var bmp:Bitmap = b;
-		if (bmp != null) {
-			image.resource = new Bitmap(bmp.bitmapData.clone());
-		}
+		if (bmp == null) return false;
+		image.resource = new Bitmap(bmp.bitmapData.clone());
+		return true;
+		
 	}
 }

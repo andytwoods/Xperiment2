@@ -57,11 +57,9 @@ class Preloader extends EventDispatcher {
 		event.total = _total;
 		dispatchEvent(event);
 		preloadedImages.set(file.id, new Bitmap(file.data));
-		
 		if (callBacks.exists(file.id)) {
 			while (callBacks.get(file.id).length > 0) {
 				var f:Void -> Void = callBacks.get(file.id).shift();
-				trace(file.id);
 				if (f != null) f();
 			}
 		}
@@ -116,7 +114,6 @@ class Preloader extends EventDispatcher {
 		if (callBacks.exists(nam) == false) {
 			callBacks[nam] = new Array< Void -> Void >  ();
 		}
-		
 		callBacks[nam].push(setBitmap);
 	}
 	
