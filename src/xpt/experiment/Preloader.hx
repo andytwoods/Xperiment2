@@ -37,8 +37,10 @@ class Preloader extends EventDispatcher {
 	private var _loader:FileLoader;
 	private var _total:Int;
 	private var _current:Int;
+	private var callBacks:Map < String, Array <	Void -> Void	>  >  = new Map < String, Array <	Void -> Void	>  >();
 	
 	public var preloadedImages:Map<String, Bitmap> = new Map<String, Bitmap>();
+	public var imagesToLoad:Array<String>;
 	
 	public function new() {
 		super();
@@ -55,6 +57,16 @@ class Preloader extends EventDispatcher {
 		event.total = _total;
 		dispatchEvent(event);
 		preloadedImages.set(file.id, new Bitmap(file.data));
+		
+		if (callBacks.exists(file.id)) {
+			while (callBacks.get(file.id).length > 0) {
+				var f:Void -> Void = callBacks.get(file.id).shift();
+				trace(file.id);
+				if (f != null) f();
+			}
+		}
+		
+		
 		
 		if (_current >= _total) {
 			var event:PreloaderEvent = new PreloaderEvent(PreloaderEvent.COMPLETE);
@@ -80,6 +92,7 @@ class Preloader extends EventDispatcher {
 	}
 	
 	public function preloadImages(images:Array<String>) {
+		imagesToLoad = images;
 		for (image in images) {
 			_loader.queueImage(image);
 		}
@@ -97,4 +110,14 @@ class Preloader extends EventDispatcher {
 		event.total = _total;
 		dispatchEvent(event);
 	}
+	
+	public function callbackWhenLoaded(nam:String, setBitmap:Void -> Void) 
+	{
+		if (callBacks.exists(nam) == false) {
+			callBacks[nam] = new Array< Void -> Void >  ();
+		}
+		
+		callBacks[nam].push(setBitmap);
+	}
+	
 }
