@@ -1,6 +1,7 @@
 package xpt.preloader;
 import thx.Arrays;
 import thx.Ints;
+import xpt.tools.ScriptTools;
 import xpt.tools.XTools;
 import xpt.trial.TrialSkeleton;
 
@@ -9,7 +10,8 @@ class Preloader_extract_loadable
 {
 	static private var trial_sep:String = "|";
 	static private var stim_sep:String = "---";
-	static private var loadableWords:Array<String> = ["resource","resourcePattern"];
+	static private var resourcePattern:String = "resourcePattern";
+	static private var loadableWords:Array<String> = ["resource",resourcePattern];
 	
 	public function new() {}
 	
@@ -47,16 +49,21 @@ class Preloader_extract_loadable
 	public function extract(skeletons:Array<TrialSkeleton>):Array<String>
 	{
 		var preloadList:Array<String> = new Array<String>();
-		
+		var stripped_to_loadable:Map<String, String>;
 		for (skeleton in skeletons) {
 			for (baseStim in skeleton.baseStimuli) {
-				for(loadableWord in loadableWords){
-					var stimPreload:Array<String> = findLoadable( 
-							strip_to_loadable(baseStim.props, loadableWord),
-							skeleton.trials.length, baseStim.howMany 
-						);
-					if (stimPreload.length>0) {
-						preloadList = preloadList.concat(stimPreload);
+				for (loadableWord in loadableWords) {
+					if (baseStim.props.exists(loadableWord) == true) {
+						stripped_to_loadable = strip_to_loadable(baseStim.props, loadableWord);
+						var stimPreload:Array<String> = findLoadable(	stripped_to_loadable, 
+																		skeleton.trials.length, 
+																		baseStim.howMany , 
+																		loadableWord,
+																		baseStim.props	);
+						
+						if (stimPreload.length>0) {
+							preloadList = preloadList.concat(stimPreload);
+						}
 					}
 				}
 			}
@@ -66,8 +73,9 @@ class Preloader_extract_loadable
 	}
 	
 	
+	
 	@:allow(xpt.preloader.Test_Preloader_extract_loadable)
-	function findLoadable(stripped:Map<String, String>, trials:Int, howMany:Int):Array<String> 
+	function findLoadable(stripped:Map<String, String>, trials:Int, howMany:Int, loadableWord:String, props:Map<String,String>):Array<String> 
 	{
 		var arr:Array<String> = new Array<String>();
 		var str:String;
@@ -90,8 +98,10 @@ class Preloader_extract_loadable
 				XTools.appendUpNumberedProps(map);
 				for (modKey in map.keys()) {
 					modVal = map.get(modKey);
-					if(Ints.canParse(modKey.charAt(modKey.length-1)) == false){
-						arr.push(modVal);
+					if (Ints.canParse(modKey.charAt(modKey.length - 1)) == false) {
+						if (loadableWord == resourcePattern) arr = arr.concat(resourcePatternMultiply(modVal, props));
+						else if (modVal.indexOf("${")!=-1) arr.push(ScriptTools.expandScriptValues(modVal));
+						else arr.push(modVal);
 					}
 				}
 			}
@@ -101,13 +111,32 @@ class Preloader_extract_loadable
 		return arr;
 	}
 	
+
+	
+	function resourcePatternMultiply(modVal:String, props:Map<String, String>):Array<String>
+	{
+		var arr:Array<String> = new Array<String>();
+		
+		if (props.exists('count') == false) return arr;
+		
+		var count:Int = Std.parseInt(props.get('count'));
+		
+		for (i in 1...count) {
+			arr.push(modVal.split("${value}").join(Std.string(i)));
+		}
+		return arr;
+	}
+	
+	
+	
 	function strip_to_loadable(map:Map<String,String>, nam:String):Map<String,String> 
 	{
 		var found:Map<String,String> = new Map<String,String>();
 		
+		found.set(nam, map.get(nam));
+		
 		for (key in map.keys()) {
-			trace(111, key,key.length >= nam.length && key.substr(0, nam.length-1) == nam);
-			if (key.substr(0, nam.length-1) == nam) {
+			if (key.substr(0, nam.length) == nam) {
 				found.set(key, map.get(key));
 			}
 		}

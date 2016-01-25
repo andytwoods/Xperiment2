@@ -1,7 +1,9 @@
 package xpt.trial;
 
 import diagnositics.DiagnosticsManager;
+import openfl.events.TimerEvent;
 import openfl.Lib;
+import openfl.utils.Timer;
 import xpt.experiment.Experiment;
 import xpt.results.TrialResults;
 import xpt.stimuli.StimuliFactory;
@@ -79,8 +81,15 @@ class Trial {
 	public function start() {
         DiagnosticsManager.add(DiagnosticsManager.TRIAL_START, trialName);
 		if (testing == false) {
-			//timingBoss.start(true);
-			TimingManager.instance.start();
+				var t:Timer = new Timer(ITI);
+			function timerEnd(e:TimerEvent){
+				t.removeEventListener(TimerEvent.TIMER, timerEnd);
+				t.stop();
+				TimingManager.instance.start();
+			}
+			t.addEventListener(TimerEvent.TIMER, timerEnd);
+			t.start();
+
 		}
 		
 		// TODO: duplication of stimuli here, doesnt happen once they are in TimingBoss - but should be investigated

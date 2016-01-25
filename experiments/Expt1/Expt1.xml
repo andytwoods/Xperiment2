@@ -57,14 +57,13 @@ You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.
 	
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
 	
-	
-	
+
 </TRIAL>
 
-<TRIAL TYPE="Trial" hideResults="true" block="-10" order="random" trials="8">
+<TRIAL TYPE="Trial" hideResults="true" block="-10" order="fixed" trials="8">
 	<button text="Button 2" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
 	
-	<image resource="./experiments/images/Expt1/1FA.png" resource1="1|1|1|1|2|2|2|2" resource2="F|F|N|N" resource3="A|R" resource4=".png" x="0" y="0" width="350" height="559"  />
+	<image resource="experiments/images/Expt1/" resource1="1|1|1|1|2|2|2|2" resource2="F|F|N|N" resource3="A|R" resource4=".png" x="50%" width="350" height="559"  />
 
 </TRIAL>	
 

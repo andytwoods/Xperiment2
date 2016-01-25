@@ -20,6 +20,7 @@ class Stimulus {
 	public function new() {
 		__properties = new Map<String, Dynamic>();
 	}
+	
 
     private var _groupName:String;
 	public var groupName(get, set):String;   

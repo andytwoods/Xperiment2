@@ -11,6 +11,7 @@ import xpt.comms.services.REST_Service;
 import xpt.comms.services.UrlParams_service;
 import xpt.debug.DebugManager;
 import xpt.experiment.Preloader.PreloaderEvent;
+import xpt.preloader.Preloader_extract_loadable;
 import xpt.results.Results;
 import xpt.results.TrialResults;
 import xpt.script.ProcessScript;
@@ -106,23 +107,15 @@ class Experiment extends EventDispatcher {
 
 		var skeletons:Array<TrialSkeleton> = trialOrder_skeletons._1;
 		
+		trace("time1",flash.Lib.getTimer());
 		
-		/* attempt to incorporate --- and |
+		
+		//attempt to incorporate --- and |
 		var find_loadable:Preloader_extract_loadable = new Preloader_extract_loadable();
 		var preloadList:Array<String> = find_loadable.extract(skeletons);
 		find_loadable = null;
-		*/
 		
-		
-		var preloadList:Array<String> = new Array<String>();
-		for (skeleton in skeletons) {
-			for (baseStim in skeleton.baseStimuli) {
-				var stimPreload:Array<String> = StimuliFactory.getStimPreloadList(baseStim.type, baseStim.props);
-				if (stimPreload != null) {
-					preloadList = preloadList.concat(stimPreload);
-				}
-			}
-		}
+		trace("time2",flash.Lib.getTimer());
 		
 		if (preloadList.length > 0) {
 			DebugManager.instance.progress("Preloading " + preloadList.length + " image(s)");
