@@ -1,6 +1,6 @@
 package xpt.stimuli;
 
-import haxe.ui.toolkit.hscript.ScriptInterp;
+import xpt.experiment.Experiment;
 import xpt.stimuli.BaseStimulus;
 import xpt.tools.ScriptTools;
 import xpt.tools.XTools;
@@ -32,30 +32,33 @@ class StimuliFactory {
 			for(stim_copy in 0...baseStimulus.howMany){
 
 				stim = getStim(baseStimulus.type);
-				setProps(stim, stim_copy, baseStimulus.props, trial);
+				var do_continue:Bool = setProps(stim, stim_copy, baseStimulus.props, trial);
 				
-				if (stim.id == null) {
-					stim.id = "id" + Std.string(unknownIdCount++);
-				}
+				if (do_continue) {
 				
-				trial.stimuli.push(stim);
-				if (parent != null) parent.addUnderling(stim);
-				
+					if (stim.id == null) {
+						stim.id = "id" + Std.string(unknownIdCount++);
+					}
+					
+					trial.stimuli.push(stim);
+					if (parent != null) parent.addUnderling(stim);
+					
 
-				if(baseStimulus.children.length>0)	__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount);
+					if(baseStimulus.children.length>0)	__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount);
 
-				
-				if (parent == null) {
-					trial.addStimulus(stim);
+					
+					if (parent == null) {
+						trial.addStimulus(stim);
+					}
+					stimuli.push(stim);
 				}
-				stimuli.push(stim);
 			}
 		}
 		return stimuli;
 	}
 	
 	
-	private function setProps(stim:Stimulus, copyNum:Int, props:Map<String,String>, trial:Trial) {
+	private function setProps(stim:Stimulus, copyNum:Int, props:Map<String,String>, trial:Trial):Bool {
 		//var howMany:Int = 1;
 		var trialIteration:Int = trial.iteration;
 
@@ -75,8 +78,14 @@ class StimuliFactory {
 			stim.set(key, stimProps.get(key	));
 		}
 		
+		if (stimProps.exists('present')) {
+			var result:String = ScriptTools.expandScriptValues(stimProps.get('present'), null); //prob want to add Experiment and trial here.
+			if (result == 'false') return false;
+		}
+		
 		stim.set("trial", trial);
 		trial.addStimulus(stim);
+		return true;
 		
 	}
 	

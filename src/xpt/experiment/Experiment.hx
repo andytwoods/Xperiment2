@@ -41,6 +41,8 @@ class Experiment extends EventDispatcher {
 	
 	public var scriptEngine:ScriptInterp = new ScriptInterp();
 	
+	public var stimuli_loaded:Bool = false;
+	
 	public function new(script:Xml, url:String = null, params:Object = null) {
 		super();
 		linkups();
@@ -135,7 +137,7 @@ class Experiment extends EventDispatcher {
 	}
 	
 	private function _onPreloadComplete(event:PreloaderEvent) {
-		
+		stimuli_loaded = true;
 		DebugManager.instance.progress("Preload complete");
 		Preloader.instance.removeEventListener(PreloaderEvent.PROGRESS, _onPreloadProgress);
 		Preloader.instance.removeEventListener(PreloaderEvent.COMPLETE, _onPreloadComplete);
