@@ -1,15 +1,11 @@
 package;
 
-import code.Scripting;
 import diagnositics.DiagnosticsManager;
-import xpt.comms.services.UrlParams_service;
-import haxe.macro.Compiler;
 import openfl.Lib;
-import xpt.screenManager.ScreenManager_web;
+import xpt.comms.services.UrlParams_service;
 import xpt.error.ErrorMessage;
+import xpt.screenManager.ScreenManager_web;
 import xpt.start.WebStart;
-import xpt.Tests;
-import xpt.trial.Trial;
 
 
 class Xpt {
@@ -22,8 +18,8 @@ class Xpt {
 	public static function main() {
 		System.init();
 		ErrorMessage.setup(Lib.current.stage);
-		exptName = "Expt1";
-		//exptName = 'test';
+		//exptName = "Expt1";
+		exptName = 'test';
         diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
         DiagnosticsManager.add(DiagnosticsManager.EXPERIMENT_START, exptName);
 		

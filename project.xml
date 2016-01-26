@@ -26,8 +26,7 @@
 	<haxelib name="delay" unless="neko || cpp" />
 	<haxelib name="hscript" />
 	<haxelib name="assetsmanager" />
-	<haxelib name="haxeui" />
-	<haxelib name="utest" />
+	<haxelib name="utest" unless="html5" />
 	<haxelib name="thx.core" />
 	<haxelib name="haxe-rest-client" />
 	<haxelib name="random" />
