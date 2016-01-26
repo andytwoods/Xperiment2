@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project version="2">
+  <!-- Output SWF options -->
+  <output>
+    <movie outputType="CustomBuild" />
+    <movie input="" />
+    <movie path="project.xml" />
+    <movie fps="60" />
+    <movie width="800" />
+    <movie height="600" />
+    <movie version="0" />
+    <movie minorVersion="0" />
+    <movie platform="Lime" />
+    <movie background="FFFFFF" />
+    <movie preferredSDK=";3.1.3;" />
+  </output>
+  <!-- Other classes to be compiled into your SWF -->
+  <classpaths>
+    <class path="C:\Servers\Haxe\haxe\lib\delay\1,1,1" />
+    <class path="C:\Servers\Haxe\haxe\lib\assetsmanager\1,2,0" />
+    <class path="C:\Servers\Haxe\haxe\lib\msignal\1,2,2" />
+    <class path="C:\Servers\Haxe\haxe\lib\mlib\2,0,2" />
+    <class path="Z:\GitHub\haxeui" />
+    <class path="C:\Servers\Haxe\haxe\lib\hscript\2,0,5" />
+    <class path="C:\Servers\Haxe\haxe\lib\lime\2,8,3" />
+    <class path="C:\Servers\Haxe\haxe\lib\openfl\3,5,3" />
+    <class path="C:\Servers\Haxe\haxe\lib\actuate\1,8,6" />
+    <class path="C:\Servers\Haxe\haxe\lib\utest\1,3,10\src" />
+    <class path="C:\Servers\Haxe\haxe\lib\thx,core\0,35,0\src" />
+    <class path="C:\Servers\Haxe\haxe\lib\haxe-rest-client\git" />
+    <class path="C:\Servers\Haxe\haxe\lib\random\1,4,1\src" />
+    <class path="src" />
+    <class path="C:\Servers\Haxe\haxe\lib\openfl\3,5,3\extern" />
+    <class path="bin\flash\haxe" />
+  </classpaths>
+  <!-- Build options -->
+  <build>
+    <option directives="delay=1.1.1&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.2&#xA;mlib=2.0.2&#xA;haxeui=1.8.6&#xA;hscript=2.0.5&#xA;lime=2.8.3&#xA;openfl=3.5.3&#xA;actuate=1.8.6&#xA;utest=1.3.10&#xA;thx_core&#xA;thx.core=0.35.0&#xA;rest-client=0.2.0&#xA;haxe-rest-client=0.2.0&#xA;random=1.4.1&#xA;dom&#xA;openfl-next&#xA;tools=2.8.3&#xA;haxeui-no-gif-support&#xA;no-compilation&#xA;openfl-flash&#xA;web&#xA;dom&#xA;hscriptPos&#xA;haxeui-no-gif-support&#xA;display" />
+    <option flashStrict="False" />
+    <option noInlineOnDebug="False" />
+    <option mainClass="ApplicationMain" />
+    <option enabledebug="True" />
+    <option additional="-swf-version 11.2" />
+  </build>
+  <!-- haxelib libraries -->
+  <haxelib>
+    <!-- example: <library name="..." /> -->
+  </haxelib>
+  <!-- Class files to compile (other referenced classes will automatically be included) -->
+  <compileTargets>
+    <compile path="src\Main.hx" />
+    <compile path="src\Xpt.hx" />
+  </compileTargets>
+  <!-- Paths to exclude from the Project Explorer tree -->
+  <hiddenPaths>
+    <hidden path="obj" />
+  </hiddenPaths>
+  <!-- Executed before build -->
+  <preBuildCommand>"$(CompilerPath)/haxelib" run lime build "$(OutputFile)" $(TargetBuild) -$(BuildConfig) -Dfdb</preBuildCommand>
+  <!-- Executed after build -->
+  <postBuildCommand alwaysRun="False">copy_data.bat</postBuildCommand>
+  <!-- Other project options -->
+  <options>
+    <option showHiddenPaths="False" />
+    <option testMovie="Custom" />
+    <option testMovieCommand="" />
+  </options>
+  <!-- Plugin storage -->
+  <storage />
+</project>
