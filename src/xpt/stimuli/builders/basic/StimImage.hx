@@ -42,13 +42,4 @@ class StimImage extends StimulusBuilder {
 		image.resource = new Bitmap(bmp.bitmapData.clone());
 		return true;
 	}
-    
-    public override function buildPreloadList(props:Map<String, String>):Array<String> {
-        var array:Array<String> = new Array<String>();
-        var resource:String = props.get("resource");
-        if (resource != null) {
-            array.push(resource);
-        }
-        return array;
-    }
 }

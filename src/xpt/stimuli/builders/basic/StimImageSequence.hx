@@ -22,28 +22,4 @@ class StimImageSequence extends StimulusBuilder {
 		s.max = getInt("count", 1);
 		s.val = 1;// getInt("start", 1);
 	}
-	
-	public override function buildPreloadList(props:Map<String, String>):Array<String> {
-		var array:Array<String> = new Array<String>();
-		var resourcePattern:String = props.get("resourcePattern");
-		
-		var startString:String = props.get("start");
-		var start:Int = 1;
-		if (startString != null) {
-			start = Std.parseInt(startString);
-		}
-		
-		var countString:String = props.get("count");
-		var count = 1;
-		if (countString != null) {
-			count = Std.parseInt(countString);
-		}
-		
-		if (resourcePattern != null && count >= 1) {
-			for (n in start...count + 1) {
-				array.push(StringTools.replace(resourcePattern, "${value}", "" + n));
-			}
-		}
-		return array;
-	}
 }
