@@ -10,6 +10,7 @@ import openfl.utils.Object;
 import xpt.comms.services.REST_Service;
 import xpt.comms.services.UrlParams_service;
 import xpt.debug.DebugManager;
+import xpt.events.ExperimentEvent;
 import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.preloader.Preloader_extract_loadable;
 import xpt.results.Results;
@@ -183,6 +184,11 @@ class Experiment extends EventDispatcher {
 
 		if (runningTrial != null) {
 			Scripting.DO(null, RunCodeEvents.AfterTrial, runningTrial);
+            
+            var event:ExperimentEvent = new ExperimentEvent(ExperimentEvent.TRAIL_END);
+            event.trail = runningTrial;
+            dispatchEvent(event);
+            
 			Scripting.removeStimuli(runningTrial.stimuli);
 			cleanup_prevTrial();
 		}
@@ -211,5 +217,10 @@ class Experiment extends EventDispatcher {
 		Scripting.DO(null, RunCodeEvents.BeforeTrial, runningTrial);
 		DebugManager.instance.info("Starting trial");
 		runningTrial.start();
+        
+        var event:ExperimentEvent = new ExperimentEvent(ExperimentEvent.TRAIL_START);
+        event.trail = runningTrial;
+        dispatchEvent(event);
+        
 	}
 }
