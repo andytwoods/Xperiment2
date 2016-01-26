@@ -31,8 +31,37 @@ class DebugManager {
 	public var experiment(never, set):Experiment;
 	private function set_experiment(value:Experiment):Experiment {
 		_experiment = value;
-		if (_debugWindowController != null) {
-			_debugWindowController.experiment = _experiment;
+		
+		if (_enabled == true) {
+			if (_debugWindowController == null) {
+				_debugWindowController = new DebugWindowController(_experiment);
+				RootManager.instance.currentRoot.addEventListener(Event.ADDED, _onAddedToStage);
+
+				var config = {
+					buttons: PopupButton.CLOSE,
+					modal: false,
+					styleName: "debugWindow"
+				};
+				_debugWindowPopup = PopupManager.instance.showCustom(_debugWindowController.view, "Debug", config, function(e) {
+					_debugWindowController = null;
+				});
+				
+				var cx:Float = RootManager.instance.currentRoot.width;
+				var cy:Float = RootManager.instance.currentRoot.height;
+				
+				_debugWindowPopup.x = cx - _debugWindowPopup.width;
+				_debugWindowPopup.y = 0;
+				
+				_debugWindowPopup.style.alpha = .15;
+				_debugWindowPopup.onMouseOver = function(e) {
+					_debugWindowPopup.style.alpha = 1;
+				}
+				_debugWindowPopup.onMouseOut = function(e) {
+					_debugWindowPopup.style.alpha = .15;
+				}
+			} else {
+				
+			}
 		}
 		return value;
 	}
@@ -44,37 +73,6 @@ class DebugManager {
 	}
 	private function set_enabled(value:Bool):Bool {
 		_enabled = value;
-		if (_enabled == true) {
-			if (_debugWindowController == null) {
-				_debugWindowController = new DebugWindowController(_experiment);
-				RootManager.instance.currentRoot.addEventListener(Event.ADDED, _onAddedToStage);
-			}
-			
-			var config = {
-				buttons: PopupButton.CLOSE,
-				modal: false,
-				styleName: "debugWindow"
-			};
-			_debugWindowPopup = PopupManager.instance.showCustom(_debugWindowController.view, "Debug", config, function(e) {
-				_debugWindowController = null;
-			});
-			
-			var cx:Float = RootManager.instance.currentRoot.width;
-			var cy:Float = RootManager.instance.currentRoot.height;
-			
-			_debugWindowPopup.x = cx - _debugWindowPopup.width;
-			_debugWindowPopup.y = 0;
-			
-			_debugWindowPopup.style.alpha = .15;
-			_debugWindowPopup.onMouseOver = function(e) {
-				_debugWindowPopup.style.alpha = 1;
-			}
-			_debugWindowPopup.onMouseOut = function(e) {
-				_debugWindowPopup.style.alpha = .15;
-			}
-		} else {
-			
-		}
 		return value;
 	}
 	

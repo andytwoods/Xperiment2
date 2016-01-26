@@ -15,7 +15,7 @@ class StimShuffle extends StimulusBuilder {
     
     public function new() {
         super();
-        Scripting.experiment.addEventListener(ExperimentEvent.TRAIL_START, onTrailStarted);
+        Scripting.experiment.addEventListener(ExperimentEvent.TRIAL_START, onTrailStarted);
     }
     
 	private override function applyProperties(c:Component) {
@@ -23,7 +23,7 @@ class StimShuffle extends StimulusBuilder {
 	}
     
     private function onTrailStarted(e:ExperimentEvent) {
-        Scripting.experiment.removeEventListener(ExperimentEvent.TRAIL_START, onTrailStarted);
+        Scripting.experiment.removeEventListener(ExperimentEvent.TRIAL_START, onTrailStarted);
         _trailStarted = true;
         performShuffle();
     }

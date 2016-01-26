@@ -66,7 +66,7 @@ class Experiment extends EventDispatcher {
 			ExptWideSpecs.override_for_develServer();
 		#end
 		//ExptWideSpecs.print();
-		
+
 		linkups_Post_ExptWideSpecs();
 
 		Scripting.init(this);
@@ -217,8 +217,7 @@ class Experiment extends EventDispatcher {
 		Scripting.DO(null, RunCodeEvents.BeforeTrial, runningTrial);
 		DebugManager.instance.info("Starting trial");
 		runningTrial.start();
-        
-        var event:ExperimentEvent = new ExperimentEvent(ExperimentEvent.TRAIL_START);
+        var event:ExperimentEvent = new ExperimentEvent(ExperimentEvent.TRIAL_START);
         event.trail = runningTrial;
         dispatchEvent(event);
         
