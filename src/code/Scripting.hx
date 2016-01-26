@@ -24,6 +24,8 @@ class Scripting
 	public static var scriptEngine:ScriptInterp = new ScriptInterp();
 	public static var testing:Bool = true; //for testing
 	
+    public static var experiment:Experiment;
+    
 	static public function init(experiment:Experiment) {
 		scriptEngine = new ScriptInterp();
 		scriptEngine.variables.set("Experiment", experiment);
@@ -31,6 +33,8 @@ class Scripting
 		scriptEngine.variables.set("Motion", Actuate);
 		scriptEngine.variables.set("Quad", Quad);
 		scriptEngine.variables.set("Stage", Lib.current.stage);		
+        
+        Scripting.experiment = experiment;
 	}
 	
 	static public function DO(script:Xml, c:RunCodeEvents, trial:Trial = null):String {
