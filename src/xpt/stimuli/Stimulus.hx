@@ -16,6 +16,8 @@ class Stimulus {
 	public var ran:Bool = false;
 	public var type:String;
 	
+    public var value:Dynamic;
+    
 	private var __properties:Map<String,Dynamic>;
 	private var __underlings:Array<Stimulus> = [];
 
@@ -23,6 +25,16 @@ class Stimulus {
 		__properties = new Map<String, Dynamic>();
 	}
 	
+    public var isValid(get, null):Bool;
+    private function get_isValid():Bool {
+        var valid:Bool = true;
+        if (get("valid") != null) {
+            var validScript:String = get("valid");
+            trace("VALID SCRIPT:" + validScript);
+        }
+        return valid;
+    }
+    
     public var experiment(get, null):Experiment;
     private function get_experiment():Experiment {
         return Scripting.experiment;

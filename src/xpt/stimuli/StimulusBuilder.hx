@@ -178,7 +178,9 @@ class StimulusBuilder {
 	}
 	
     private function onStimValueChanged(value:Dynamic) {
-        trace("stim value changed to: " + value);
+        _stim.value = value;
+        trace("stim value changed to: " + value + ", trail stimValuesValid = " + trial.stimValuesValid);
+        
     }
     
 	public inline function runScriptEvent(action:String, event) {

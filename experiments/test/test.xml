@@ -46,7 +46,7 @@ We hope you enjoy it. Your participation is very important to us."
 	
 	
 	
-<TRIAL TYPE="Trial" hideResults="true" block="-1" order="fixed" trials="4">
+<TRIAL TYPE="Trial" hideResults="true" block="-1" order="fixed" trials="1">
     <!--
     <timer start="5000" duration="5000" interval="500" action="Stims.shuffle(group1, ['x', 'y']);Stims.shuffle(group2, ['x', 'y']);" />
     <shuffle groups="group1, group2" fixed="x, y" />
@@ -60,7 +60,7 @@ We hope you enjoy it. Your participation is very important to us."
 	<text text="Some questions:" fontSize="20" width="200" height="30" x="20" y="20" />
 	
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" />
-	<sex x="160" y="80" height="40" width="250" fontSize="20" />
+	<sex x="160" y="80" height="40" width="250" fontSize="20" valid="Male" />
 	
 	<text text="Age:" fontSize="20" width="200" height="30" x="60" y="165" />
 	<age x="160" y="160" height="100" width="122.5" fontSize="20" />

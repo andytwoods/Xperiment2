@@ -40,6 +40,19 @@ class Trial {
 	
 	public var experiment:Experiment;
 	
+    public var stimValuesValid(get, null):Bool;
+    private function get_stimValuesValid():Bool {
+        var valid:Bool = true;
+        for (stim in stimuli) {
+            trace(stim + ", valid: " + stim.isValid);
+            if (stim.isValid == false) {
+                valid = false;
+                break;
+            }
+        }
+        return valid;
+    }
+    
 	public function setSpecial(special:Special_Trial) {
 		specialTrial = special;
 	}
