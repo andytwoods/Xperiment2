@@ -233,4 +233,13 @@ class StimulusBuilder {
 	public function results():Map<String,String> {
 		return null;
 	}
+    
+	//*********************************************************************************
+	// CALLBACKS
+	//*********************************************************************************
+    public function onAddedToTrail() {
+    }
+    
+    public function onRemovedFromTrail() {
+    }
 }

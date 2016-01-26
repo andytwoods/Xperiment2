@@ -79,7 +79,8 @@ class TimingManager {
 		if (RootManager.instance.currentRoot.contains(stim.component) == false) {
 			DebugManager.instance.stimulus("Adding stimulus, type: " + stim.get("stimType"));
             DiagnosticsManager.add(DiagnosticsManager.STIMULUS_SHOW, stim.id, stim.get("stimType"));
-			RootManager.instance.currentRoot.addChild(stim.component);
+		    RootManager.instance.currentRoot.addChild(stim.component);
+            stim.onAddedToTrail();
 		}
 	}
 	
@@ -88,6 +89,7 @@ class TimingManager {
 			DebugManager.instance.stimulus("Removing stimulus, type: " + stim.get("stimType"));
             DiagnosticsManager.add(DiagnosticsManager.STIMULUS_HIDE, stim.id, stim.get("stimType"));
 			RootManager.instance.currentRoot.removeChild(stim.component);
+            stim.onRemovedFromTrail();
 		}
 	}
 }

@@ -172,6 +172,21 @@ class Stimulus {
 			_component = null;
 		}
 	}
+
+	//*********************************************************************************
+	// CALLBACKS
+	//*********************************************************************************
+    public function onAddedToTrail() {
+        if (builder != null) {
+            builder.onAddedToTrail();
+        }
+    }
+    
+    public function onRemovedFromTrail() {
+        if (builder != null) {
+            builder.onRemovedFromTrail();
+        }
+    }
     
 	//*********************************************************************************
 	// GROUPING
