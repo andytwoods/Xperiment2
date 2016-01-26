@@ -36,6 +36,7 @@
 			NON-VISUAL STIMULI
 		************************************************************************************ -->
 		<timer builder="xpt.stimuli.builders.nonvisual.StimTimer" />
+		<shuffle builder="xpt.stimuli.builders.nonvisual.StimShuffle" />
         
 		<!-- ***********************************************************************************
 			LAYOUT STIMULI
