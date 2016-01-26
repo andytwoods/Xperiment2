@@ -15,9 +15,11 @@ class ActuateTimingManager extends BaseTimingManager {
 		
 		Actuate.timer(start / 1000).onComplete(function() {
 			callback(TimingEvent.SHOW);
-			Actuate.timer(duration / 1000).onComplete(function() {
-				callback(TimingEvent.HIDE);
-			});
+            if (duration > -1) {
+                Actuate.timer(duration / 1000).onComplete(function() {
+                    callback(TimingEvent.HIDE);
+                });
+            }
 		});
 		
 		#else

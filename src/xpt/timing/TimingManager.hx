@@ -48,16 +48,14 @@ class TimingManager {
 				}
 			}
 			
-			if (duration != -1) {
-				addTimingEvent(start, duration, function(e:TimingEvent) {
-					switch (e) {
-						case TimingEvent.SHOW:
-							addToTrial(stim);
-						case TimingEvent.HIDE:
-							removeFromTrail(stim);
-					}
-				});
-			}
+            addTimingEvent(start, duration, function(e:TimingEvent) {
+                switch (e) {
+                    case TimingEvent.SHOW:
+                        addToTrial(stim);
+                    case TimingEvent.HIDE:
+                        removeFromTrail(stim);
+                }
+            });
 		}
 	}
 	

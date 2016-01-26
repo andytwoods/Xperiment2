@@ -13,15 +13,23 @@ class DeltaTimingManager extends BaseTimingManager {
 	}
 	
 	private override function addTimingEvent(start:Float, duration:Float, callback:TimingEvent->Void) {
-		Delta.tween(RootManager.instance.currentRoot.sprite)
-			.wait(start / 1000)
-			.onComplete(function() {
-				callback(TimingEvent.SHOW);
-			})
-			.wait(duration / 1000)
-			.onComplete(function() {
-				callback(TimingEvent.HIDE);
-			});
+        if (duration > -1) {
+            Delta.tween(RootManager.instance.currentRoot.sprite)
+                .wait(start / 1000)
+                .onComplete(function() {
+                    callback(TimingEvent.SHOW);
+                })
+                .wait(duration / 1000)
+                .onComplete(function() {
+                    callback(TimingEvent.HIDE);
+                });
+        } else {
+            Delta.tween(RootManager.instance.currentRoot.sprite)
+                .wait(start / 1000)
+                .onComplete(function() {
+                    callback(TimingEvent.SHOW);
+                });
+        }
 	}
 	
 	private function update(e:Event):Void  {

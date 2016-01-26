@@ -15,9 +15,11 @@ class DelayTimingManager extends BaseTimingManager {
 		
 		Delay.byTime(start, function() {
 			callback(TimingEvent.SHOW);
-			Delay.byTime(duration, function() {
-				callback(TimingEvent.HIDE);
-			}, null, Delay.TIME_UNIT_MILLISECONDS);
+            if (duration > -1) {
+                Delay.byTime(duration, function() {
+                    callback(TimingEvent.HIDE);
+                }, null, Delay.TIME_UNIT_MILLISECONDS);
+            }
 		}, null, Delay.TIME_UNIT_MILLISECONDS);
 		
 		#else
