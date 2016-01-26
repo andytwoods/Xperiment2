@@ -41,14 +41,11 @@ class StimulusBuilder {
 		return t;
 	}
 	
-	private var experiment(get, null):Experiment;
-	private function get_experiment():Experiment {
-		if (trial == null) {
-			return null;
-		}
-		return trial.experiment;
-	}
-	
+    public var experiment(get, null):Experiment;
+    private function get_experiment():Experiment {
+        return _stim.experiment;
+    }
+
 	private function getDynamic(what:String, defaultValue:Dynamic = null):Dynamic {
 		var v:Dynamic = defaultValue;
 		if (_stim == null) {

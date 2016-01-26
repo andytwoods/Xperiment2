@@ -1,6 +1,8 @@
 package xpt.stimuli;
 
+import code.Scripting;
 import haxe.ui.toolkit.core.Component;
+import xpt.experiment.Experiment;
 import xpt.tools.XTools;
 
 @:allow(xpt.trialOrder.Test_TrialOrder)
@@ -21,6 +23,10 @@ class Stimulus {
 		__properties = new Map<String, Dynamic>();
 	}
 	
+    public var experiment(get, null):Experiment;
+    private function get_experiment():Experiment {
+        return Scripting.experiment;
+    }
 
     private var _groupName:String;
 	public var groupName(get, set):String;   
@@ -208,7 +214,7 @@ class Stimulus {
         }
     }
     
-    private static function getGroup(groupName:String):Array<Stimulus> {
+    public static function getGroup(groupName:String):Array<Stimulus> {
         if (_groups == null || groupName == null) {
             return null;
         }
