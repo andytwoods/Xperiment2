@@ -1,4 +1,5 @@
 package xpt.stimuli;
+import xpt.debug.DebugManager;
 import xpt.tools.XML_tools;
 import thx.Tuple.Tuple2;
 import xpt.trial.TrialSkeleton;
@@ -37,10 +38,11 @@ class BaseStimuli
 					baseStim = _composeBaseStim(nam, stimXML,numTrials);
 					
 					if(baseStim!=null)	baseStimuli[baseStimuli.length] = baseStim;
+				} else {
+                    #if debug
+                    DebugManager.instance.warning("Unknown stim: " + nam);
+                    #end
 				}
-				/*else {
-					trace('asking for unknown stimulus:', baseStim.name);
-				}*/
 			}
 		}
 		return baseStimuli;
