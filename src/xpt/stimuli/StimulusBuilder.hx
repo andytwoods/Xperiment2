@@ -177,6 +177,10 @@ class StimulusBuilder {
 		experiment.removeEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete, false);
 	}
 	
+    private function onStimValueChanged(value:Dynamic) {
+        trace("stim value changed to: " + value);
+    }
+    
 	public inline function runScriptEvent(action:String, event) {
 		Scripting.runScriptEvent(action, event, _stim);
 	}

@@ -3,6 +3,7 @@ package xpt.stimuli.builders.basic;
 import haxe.ui.toolkit.controls.selection.ListSelector;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.data.JSONDataSource;
+import haxe.ui.toolkit.events.UIEvent;
 import xpt.stimuli.StimulusBuilder;
 
 
@@ -12,7 +13,11 @@ class StimComboBox extends StimulusBuilder {
 	}
 	
 	private override function createComponentInstance():Component {
-		return new ListSelector();
+        var list:ListSelector = new ListSelector();
+        list.addEventListener(UIEvent.CHANGE, function(e) {
+           onStimValueChanged(list.text); 
+        });
+		return list;
 	}
 	
 	private override function applyProperties(c:Component) {

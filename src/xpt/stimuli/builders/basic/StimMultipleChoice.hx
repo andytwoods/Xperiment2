@@ -3,12 +3,15 @@ package xpt.stimuli.builders.basic;
 import haxe.ui.toolkit.containers.HBox;
 import haxe.ui.toolkit.controls.Button;
 import haxe.ui.toolkit.core.Component;
+import haxe.ui.toolkit.events.UIEvent;
 import xpt.stimuli.StimulusBuilder;
 import xpt.ui.custom.NumberStepper;
 
 class StimMultipleChoice extends StimulusBuilder {
 	private var _buttons:Array<Button>;
 
+    private var _currentSelection:String;
+    
 	public function new() {
 		super();
 	}
@@ -58,6 +61,7 @@ class StimMultipleChoice extends StimulusBuilder {
 				if (fontSize != -1) {
 					button.style.fontSize = fontSize;
 				}
+                button.addEventListener(UIEvent.CHANGE, onButtonChange);
 				_buttons.push(button);
 				hbox.addChild(button);
 			}
@@ -70,4 +74,12 @@ class StimMultipleChoice extends StimulusBuilder {
 			}
 		}
 	}
+    
+    private function onButtonChange(event:UIEvent) {
+        var selection:String = event.component.text;
+        if (cast(event.component, Button).selected == true && selection != _currentSelection) {
+            _currentSelection = selection;
+            onStimValueChanged(_currentSelection);
+        }
+    }
 }

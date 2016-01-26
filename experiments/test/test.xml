@@ -47,12 +47,30 @@ We hope you enjoy it. Your participation is very important to us."
 	
 	
 <TRIAL TYPE="Trial" hideResults="true" block="-1" order="fixed" trials="4">
+    <!--
     <timer start="5000" duration="5000" interval="500" action="Stims.shuffle(group1, ['x', 'y']);Stims.shuffle(group2, ['x', 'y']);" />
     <shuffle groups="group1, group2" fixed="x, y" />
     <shuffle groups="group1" start="2000" fixed="x, y" />
     <shuffle groups="group2" start="4000" fixed="x, y" />
     <button group="group1" howMany="5" text="Test ${index} - group1 - " text1="Trial 1|Trail 2|Trail 3|Trail 4" x="50" y="${100 + (index * 30)}" />
     <button group="group2" howMany="5" text="Test ${index} - group2 - " text1="Trial 1|Trail 2|Trail 3|Trail 4" x="250" y="${100 + (index * 30)}" />
+    -->    
+    
+    
+	<text text="Some questions:" fontSize="20" width="200" height="30" x="20" y="20" />
+	
+	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" />
+	<sex x="160" y="80" height="40" width="250" fontSize="20" />
+	
+	<text text="Age:" fontSize="20" width="200" height="30" x="60" y="165" />
+	<age x="160" y="160" height="100" width="122.5" fontSize="20" />
+	
+	<origin x="60" y="300" width="680" height="50" fontSize="20" />
+	
+    <lineScale x="60" y="370" width="400" height="70" fontSize="20" startLabel="Not detectable" endLabel="Very strong" />
+    
+	<nextTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
+    
     <!--
     <button group="group1" howMany="5" text="Test ${index} - " text1="Trial 1|Trail 2|Trail 3|Trail 4" x="50" y="${100 + (index * 30)}" />
     <button text="Test" action="for (stim in group1) { trace(stim.component.text);  };" x="30" y="30" />

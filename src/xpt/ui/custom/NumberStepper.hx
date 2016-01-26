@@ -2,6 +2,7 @@ package xpt.ui.custom;
 
 import haxe.ui.toolkit.containers.Box;
 import haxe.ui.toolkit.core.XMLController;
+import haxe.ui.toolkit.events.UIEvent;
 import openfl.events.MouseEvent;
 
 class NumberStepper extends Box {
@@ -76,12 +77,18 @@ class NumberStepperController extends XMLController {
 	public function new(stepper:NumberStepper) {
 		_stepper = stepper;
 		
+        value.onChange = function(e) {
+            dispatchChanged();
+        }
+        
 		inc.onClick = function(e) {
 			stepper.val++;
+            dispatchChanged();
 		}
 		
 		deinc.onClick = function(e) {
 			stepper.val--;
+            dispatchChanged();
 		}
 		
 		view.addEventListener(MouseEvent.MOUSE_WHEEL, function(e:MouseEvent) {
@@ -92,4 +99,9 @@ class NumberStepperController extends XMLController {
 			}
 		});
 	}
+    
+    private function dispatchChanged() {
+        var event:UIEvent = new UIEvent(UIEvent.CHANGE, _stepper);
+        _stepper.dispatchEvent(event);
+    }
 }

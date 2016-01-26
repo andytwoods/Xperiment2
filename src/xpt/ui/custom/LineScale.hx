@@ -5,6 +5,7 @@ import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.interfaces.InvalidationFlag;
 import haxe.ui.toolkit.core.Screen;
 import haxe.ui.toolkit.core.StateComponent;
+import haxe.ui.toolkit.events.UIEvent;
 import haxe.ui.toolkit.layout.BoxLayout;
 import haxe.ui.toolkit.layout.VerticalLayout;
 import openfl.events.MouseEvent;
@@ -116,8 +117,16 @@ class LineScale extends StateComponent {
 		if (v > _max) {
 			v = _max;
 		}
+        if (v == _val) {
+            return v;
+        }
+        
 		_val = v;
 		invalidate(InvalidationFlag.LAYOUT);
+        
+        var event:UIEvent = new UIEvent(UIEvent.CHANGE, this);
+        dispatchEvent(event);
+        
 		return v;
 	}
 	
