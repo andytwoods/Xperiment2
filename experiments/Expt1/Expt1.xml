@@ -61,7 +61,7 @@ You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.
 </TRIAL>
 
 <TRIAL TYPE="Trial" hideResults="true" block="-10" order="fixed" trials="8">
-	<button text="Button 2" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
+	<button present="true" text="Button 2" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
 	
 	<image resource="experiments/images/Expt1/" resource1="1|1|1|1|2|2|2|2" resource2="F|F|N|N" resource3="A|R" resource4=".png" x="50%" width="350" height="559"  />
 
