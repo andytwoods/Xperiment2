@@ -159,6 +159,9 @@ class LineScaleLayout extends BoxLayout {
 		
 		var selection:Triangle =  container.findChild("selection", Triangle);
 		var line:Line =  container.findChild("line", Line);
+        if (line == null) {
+            return;
+        }
 		var scale:LineScale = cast container;
 		
 		var ucx:Float = line.width - (line.offsetX * 2);
