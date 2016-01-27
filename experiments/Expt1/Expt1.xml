@@ -34,7 +34,7 @@ We hope you enjoy it. Your participation is very important to us."
 By clicking 'I CONSENT' you indicate you have consented to take part
 If you decide to take part in this experiment, you will be told specific links between tastes and shapes and will be asked to respond according to such links
 At the end of the study we will tell you more about the purpose of the study and why we are doing this research.
-You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.ac.uk) or Dr Andy Woods (andy.woods@bristol.ac.uk) for further information at a later date if you wish.
+You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.ac.uk) or Dr Andy Woods (andy.woods@psy.ox.ac.uk) for further information at a later date if you wish.
 (Continued on the next page)"
 	fontSize="18" horizontalAlign="center" />
 	
@@ -42,7 +42,7 @@ You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.
 </TRIAL>
 
 
-<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
 	<text text="Some questions:" fontSize="20" width="200" height="30" x="20" y="20" />
 	
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" />
@@ -56,15 +56,12 @@ You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.
 	<nextTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
 </TRIAL>	
 	
-<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
-	
 
-</TRIAL>
 
-<TRIAL TYPE="Trial" hideResults="true" block="-10" order="fixed" trials="8">
+<TRIAL TYPE="Trial" hideResults="true" block="10" order="fixed" trials="4">
 	<button present="true" text="Button 2" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
 	
-	<image resource="experiments/images/Expt1/" resource1="1|1|1|1|2|2|2|2" resource2="F|F|N|N" multiId="over_image" resource3="A" resource4=".png" x="50%" width="350" height="559"  />
+	<image resource="experiments/images/Expt1/" resource1="1|1|2|2" resource2="F|N" multiId="over_image" resource3="A" resource4=".png" x="50%" width="350" height="559"  />
 
 </TRIAL>	
 
