@@ -78,7 +78,7 @@ class StimuliFactory {
 			stim.set(key, stimProps.get(key	));
 		}
 		
-		if (stimProps.exists('present') && result == 'false') return false;
+		if (stimProps.exists('present') && stimProps.get('present') == 'false') return false;
 		
 		stim.set("trial", trial);
 		trial.addStimulus(stim);
