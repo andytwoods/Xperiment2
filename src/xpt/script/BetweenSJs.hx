@@ -24,6 +24,7 @@ class BetweenSJs
 		
 		var parent:Xml = script.firstChild();
 		var bossCond:String = parent.firstElement().nodeName;
+		var selected:String = bossCond;
 		var condition:BetweenSJcond;
 
 		var betweenSJMap:Map<String, BetweenSJcond> = getBetweenSJConds(script, bossCond);
@@ -49,10 +50,16 @@ class BetweenSJs
 			forceToRun= ToRun.select(HowSelectCond.Random, options);
 		}
 		if (betweenSJMap.exists(forceToRun)) {
-			var selected = 	betweenSJMap.get(forceToRun);
-			return __applyToParent(parent.firstElement(), selected.xml);
+			var selected = betweenSJMap.get(forceToRun);
+			script = __applyToParent(parent.firstElement(), selected.xml);
 		}
-		script = parent.firstChild();
+		else script = parent.firstChild();
+		
+		var Xmls = XML_tools.findNode(script, 'SETUP');
+		if (Xmls.hasNext()) {
+			var setup:Xml = Xmls.next();
+			setup.addChild(Xml.parse("<dynamicallyAdded overSJs='" + forceToRun + "'/>").firstElement());
+		}
 
 		return script;
 	}
@@ -81,7 +88,6 @@ class BetweenSJs
 		if (found.hasNext()) {
 			XML_tools.overwriteAttribs_addAbsentChildren(found, action.map,action.children);
 		}		
-		trace(parent);
 	}
 	
 	public function __applyParentConditions(condNam:String, condition:BetweenSJcond, betweenSJMap:Map<String, BetweenSJcond>) 

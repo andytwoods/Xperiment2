@@ -486,7 +486,7 @@ class XML_tools
 		for (child in children) {
 			childrenArr[childrenArr.length] = child;	
 		}
-trace(123);
+
 		for (key in map.keys()) {
 			val = map.get(key);
 			for (xml in found) {	
