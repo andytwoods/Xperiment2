@@ -3,6 +3,7 @@ package xpt.stimuli;
 import code.Scripting;
 import haxe.ui.toolkit.core.Component;
 import xpt.experiment.Experiment;
+import xpt.stimuli.validation.Validator;
 import xpt.tools.XTools;
 
 @:allow(xpt.trialOrder.Test_TrialOrder)
@@ -29,8 +30,8 @@ class Stimulus {
     private function get_isValid():Bool {
         var valid:Bool = true;
         if (get("valid") != null) {
-            var validScript:String = get("valid");
-            trace("VALID SCRIPT:" + validScript);
+            var validator:Validator = new Validator();
+            valid = validator.validateStim(this, get("valid"));
         }
         return valid;
     }

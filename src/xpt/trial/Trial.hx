@@ -4,8 +4,9 @@ import diagnositics.DiagnosticsManager;
 import openfl.events.TimerEvent;
 import openfl.Lib;
 import openfl.utils.Timer;
+import xpt.debug.DebugManager;
+import xpt.events.ExperimentEvent;
 import xpt.experiment.Experiment;
-import xpt.results.TrialResults;
 import xpt.stimuli.StimuliFactory;
 import xpt.stimuli.Stimulus;
 import xpt.timing.TimingManager;
@@ -40,17 +41,36 @@ class Trial {
 	
 	public var experiment:Experiment;
 	
+    private var _valid:Null<Bool> = null; // lets start the trail off as neither valid or invalid for good measure
+    
     public var stimValuesValid(get, null):Bool;
     private function get_stimValuesValid():Bool {
         var valid:Bool = true;
         for (stim in stimuli) {
-            trace(stim + ", valid: " + stim.isValid);
             if (stim.isValid == false) {
                 valid = false;
                 break;
             }
         }
         return valid;
+    }
+    
+    public function validateStims() {
+        var stimsValid:Bool = stimValuesValid;
+        if (_valid != stimsValid) {
+            _valid = stimsValid;
+            DebugManager.instance.info("Trail valid state changed to: " + _valid);
+            
+            // dispatch the event
+            var event:ExperimentEvent = null;
+            if (_valid == true) {
+                event = new ExperimentEvent(ExperimentEvent.TRAIL_VALID);
+            } else {
+                event = new ExperimentEvent(ExperimentEvent.TRAIL_INVALID);
+            }
+            event.trail = this;
+            experiment.dispatchEvent(event);
+        }
     }
     
 	public function setSpecial(special:Special_Trial) {
@@ -102,7 +122,7 @@ class Trial {
 			}
 			t.addEventListener(TimerEvent.TIMER, timerEnd);
 			t.start();
-
+            validateStims();
 		}
 		
 		// TODO: duplication of stimuli here, doesnt happen once they are in TimingBoss - but should be investigated

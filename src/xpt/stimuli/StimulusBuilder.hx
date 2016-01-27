@@ -12,6 +12,7 @@ import haxe.ui.toolkit.util.StringUtil;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
 import xpt.debug.DebugManager;
+import xpt.events.ExperimentEvent;
 import xpt.experiment.Experiment;
 import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.trial.Trial;
@@ -165,6 +166,16 @@ class StimulusBuilder {
 			experiment.addEventListener(PreloaderEvent.PROGRESS, onPreloaderProgress);
 			experiment.addEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete);
 		}
+        
+        if (get("onTrailValid") != null) {
+            experiment.removeEventListener(ExperimentEvent.TRAIL_VALID, onTrailValid);
+            experiment.addEventListener(ExperimentEvent.TRAIL_VALID, onTrailValid);
+        }
+        
+        if (get("onTrailInvalid") != null) {
+            experiment.removeEventListener(ExperimentEvent.TRAIL_INVALID, onTrailInvalid);
+            experiment.addEventListener(ExperimentEvent.TRAIL_INVALID, onTrailInvalid);
+        }
 	}
 	
 	private function onPreloaderProgress(event:PreloaderEvent) {
@@ -177,10 +188,17 @@ class StimulusBuilder {
 		experiment.removeEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete, false);
 	}
 	
+	private function onTrailValid(event:ExperimentEvent) {
+		Scripting.runScriptEvent("onTrailValid", event, _stim);
+	}
+    
+	private function onTrailInvalid(event:ExperimentEvent) {
+		Scripting.runScriptEvent("onTrailInvalid", event, _stim);
+	}
+    
     private function onStimValueChanged(value:Dynamic) {
         _stim.value = value;
-        trace("stim value changed to: " + value + ", trail stimValuesValid = " + trial.stimValuesValid);
-        
+        trial.validateStims();
     }
     
 	public inline function runScriptEvent(action:String, event) {

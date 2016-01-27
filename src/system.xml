@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<system debug="true">
+<system debug="false">
 	<!-- ***********************************************************************************
 		TOOLKIT SETTINGS
 	************************************************************************************ -->
@@ -88,6 +88,12 @@
 			<action>
 				Experiment.nextTrial()
 			</action>
+            <onTrailValid>
+                this.disabled = false
+            </onTrailValid>
+            <onTrailInvalid>
+                this.disabled = true
+            </onTrailInvalid>
 		</nextTrialButton>
 		<previousTrialButton builder="xpt.stimuli.builders.basic.StimButton">
 			<text>Previous</text>
