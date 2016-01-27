@@ -23,10 +23,18 @@
 			BASIC STIMULI
 		************************************************************************************ -->
 		<button builder="xpt.stimuli.builders.basic.StimButton" />
-		<numberStepper builder="xpt.stimuli.builders.basic.StimNumberStepper" />
-		<lineScale builder="xpt.stimuli.builders.basic.StimLineScale" />
-		<multipleChoice builder="xpt.stimuli.builders.basic.StimMultipleChoice" />
-		<comboBox builder="xpt.stimuli.builders.basic.StimComboBox" />
+		<numberStepper builder="xpt.stimuli.builders.basic.StimNumberStepper">
+            <valid>notEmpty()</valid>
+        </numberStepper>
+		<lineScale builder="xpt.stimuli.builders.basic.StimLineScale">
+            <valid>notEmpty()</valid>
+        </lineScale>    
+		<multipleChoice builder="xpt.stimuli.builders.basic.StimMultipleChoice">
+            <valid>notEmpty()</valid>
+        </multipleChoice>
+		<comboBox builder="xpt.stimuli.builders.basic.StimComboBox">
+            <valid>notEmpty()</valid>
+        </comboBox>    
 		<imageSequence builder="xpt.stimuli.builders.basic.StimImageSequence" />
 		<progressBar builder="xpt.stimuli.builders.basic.StimProgressBar" />
 		<image builder="xpt.stimuli.builders.basic.StimImage" />
@@ -53,17 +61,22 @@
 			ALIAS STIMULI
 		************************************************************************************ -->
 		<age builder="xpt.stimuli.builders.compound.StimMultiNumberStepper">
+            <id>age</id>
 			<val>00</val>
+            <valid>notEmpty() && numeric()</valid>
 		</age>
 		<sex builder="xpt.stimuli.builders.basic.StimMultipleChoice">
 			<id>sex</id>
 			<labels>Male,Female</labels>
 			<icons>img/icons/user-nude.png,img/icons/user-nude-female.png</icons>
 			<buttonWidth>50%</buttonWidth>
+            <valid>Male,Female</valid>
 		</sex>
 		<origin builder="xpt.stimuli.builders.basic.StimComboBox">
+            <id>origin</id>
 			<text>Where are you from?</text>
 			<data>data/countries.json</data>
+            <valid>notEmpty() && notEquals("Where are you from?")</valid>
 		</origin>
 		<preloadProgress builder="xpt.stimuli.builders.basic.StimProgressBar">
 			<onPreloadProgress>
