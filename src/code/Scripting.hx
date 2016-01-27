@@ -11,6 +11,7 @@ import openfl.errors.Error;
 import openfl.events.Event;
 import openfl.Lib;
 import openfl.utils.Object;
+import wrappers.SystemWrapper;
 import xpt.debug.DebugManager;
 import xpt.experiment.Experiment;
 import xpt.stimuli.StimHelper;
@@ -107,6 +108,7 @@ class Scripting
 				scriptEngine.variables.set("me", stim.component);
 				scriptEngine.variables.set("e", event);
                 scriptEngine.variables.set("Stims", StimHelper);
+                scriptEngine.variables.set("System", new SystemWrapper());
                 
                 var stimGroups:Map<String,Array<Stimulus>> = Stimulus.groups;
                 if (stimGroups != null) {
@@ -120,9 +122,11 @@ class Scripting
                 
 				var parser = new hscript.Parser();
 				var s:String = StringTools.trim(stim.get(prop));
+                /*
 				s = StringTools.replace(s, "|", ";");
 				s = StringTools.replace(s, "\t", " ");
 				s = StringTools.replace(s, "\r\n", ";\n");
+                */
 				if (logScript == true) {
 					DebugManager.instance.event(stim.get("stimType") + ".on" + StringUtil.capitalizeFirstLetter(event.type), "" + s);
 				}

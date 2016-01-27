@@ -7,7 +7,7 @@
     <computer  encrypt='false' sstimuliFolder="SG_Words" stimuliFolder="fullness" />
     <style BUTTON_DOWN="0xff5656"  />
     <variables practice='0' />
-    <validation validationEnabled="false" />
+    <validation validationEnabled="false" invalidTrailBehaviour="disable" />
 </SETUP>
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
