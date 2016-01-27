@@ -44,24 +44,29 @@ We hope you enjoy it. Your participation is very important to us."
 </TRIAL>
 
 	
-<TRIAL TYPE="Trial" hideResults="true" block="-2" order="fixed" trials="1">
-    <button text="Shuffle" action="Stims.shuffleArrangement(g1);" />
-    
-    <button group="g1" text="left-top" width="100" height="100"      horizontalAlign="left"   verticalAlign="top" marginLeft="50" marginTop="50" />
-    <button group="g1" text="center-top" width="100" height="100"    horizontalAlign="center" verticalAlign="top" marginTop="50" />
-    <button group="g1" text="right-top" width="100" height="100"     horizontalAlign="right"  verticalAlign="top" marginRight="50" marginTop="50" />
+<TRIAL TYPE="Trial" hideResults="true" block="-2" order="fixed" trials="4">
+    <button text="Test Shuffle" action="Stims.shuffleArrangement(g1);" horizontalAlign="right" marginTop="5" marginRight="5"  />
 
-    <button group="g1" text="left-center" width="100" height="100"   horizontalAlign="left"   verticalAlign="center" marginLeft="50" />
-    <button group="g1" text="center-center" width="100" height="100" horizontalAlign="center" verticalAlign="center" />
-    <button group="g1" text="right-center" width="100" height="100"  horizontalAlign="right"  verticalAlign="center"  marginRight="50"/>
+    <shuffle groups="g1" />
     
-    <button group="g1" text="left-bottom" width="100" height="100"   horizontalAlign="left"   verticalAlign="bottom" marginLeft="50" marginBottom="50" />
-    <button group="g1" text="center-bottom" width="100" height="100" horizontalAlign="center" verticalAlign="bottom" marginBottom="50"/>
-    <button group="g1" text="right-bottom" width="100" height="100"  horizontalAlign="right"  verticalAlign="bottom" marginRight="50" marginBottom="50" />
+    <button group="g1" text="A" width="100" height="100"      horizontalAlign="left"   verticalAlign="top" marginLeft="50" marginTop="50" />
+    <button group="g1" text="B" width="100" height="100"    horizontalAlign="center" verticalAlign="top" marginTop="50" />
+    <button group="g1" text="C" width="100" height="100"     horizontalAlign="right"  verticalAlign="top" marginRight="50" marginTop="50" />
+
+    <button group="g1" text="D" width="100" height="100"   horizontalAlign="left"   verticalAlign="center" marginLeft="50" />
+    <button group="g1" text="E" width="100" height="100" horizontalAlign="center" verticalAlign="center" />
+    <button group="g1" text="F" width="100" height="100"  horizontalAlign="right"  verticalAlign="center"  marginRight="50"/>
+    
+    <button group="g1" text="G" width="100" height="100"   horizontalAlign="left"   verticalAlign="bottom" marginLeft="50" marginBottom="50" />
+    <button group="g1" text="H" width="100" height="100" horizontalAlign="center" verticalAlign="bottom" marginBottom="50"/>
+    <button group="g1" text="I" width="100" height="100"  horizontalAlign="right"  verticalAlign="bottom" marginRight="50" marginBottom="50" />
+
+	<nextTrialButton width="200" height="40" horizontalAlign="right" verticalAlign="bottom" fontSize="18" marginBottom="5" marginRight="5" />
+    
 </TRIAL>	
 	
 	
-<TRIAL TYPE="Trial" hideResults="true" block="-1" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="true" block="-3" order="fixed" trials="1">
     <!--
     <timer start="5000" duration="5000" interval="500" action="Stims.shuffle(group1, ['x', 'y']);Stims.shuffle(group2, ['x', 'y']);" />
     <shuffle groups="group1, group2" fixed="x, y" />
