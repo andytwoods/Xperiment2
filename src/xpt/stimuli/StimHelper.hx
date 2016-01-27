@@ -31,4 +31,12 @@ class StimHelper {
             }
         }
     }
+    
+    public static function shuffleArrangement(list:Array<Stimulus>, fixedProps:Array<String> = null) {
+        if (fixedProps == null) {
+            fixedProps = [];
+        }
+        fixedProps = fixedProps.concat(['x', 'y', 'horizontalAlign', 'verticalAlign', 'marginLeft', 'marginTop', 'marginRight', 'marginBottom']);
+        shuffle(list, fixedProps);
+    }
 }

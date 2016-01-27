@@ -45,17 +45,19 @@ We hope you enjoy it. Your participation is very important to us."
 
 	
 <TRIAL TYPE="Trial" hideResults="true" block="-2" order="fixed" trials="1">
-    <button text="left-top" width="100" height="100" />
-    <button text="center-top" width="100" height="100" horizontalAlign="center" />
-    <button text="right-top" width="100" height="100" horizontalAlign="right" />
-
-    <button text="left-center" width="100" height="100" verticalAlign="center" />
-    <button text="center-center" width="100" height="100" horizontalAlign="center" verticalAlign="center" />
-    <button text="right-center" width="100" height="100" horizontalAlign="right" verticalAlign="center" />
+    <button text="Shuffle" action="Stims.shuffleArrangement(g1);" />
     
-    <button text="left-bottom" width="100" height="100" verticalAlign="bottom" />
-    <button text="center-bottom" width="100" height="100" horizontalAlign="center" verticalAlign="bottom" />
-    <button text="right-bottom" width="100" height="100" horizontalAlign="right" verticalAlign="bottom" />
+    <button group="g1" text="left-top" width="100" height="100"      horizontalAlign="left"   verticalAlign="top" marginLeft="50" marginTop="50" />
+    <button group="g1" text="center-top" width="100" height="100"    horizontalAlign="center" verticalAlign="top" marginTop="50" />
+    <button group="g1" text="right-top" width="100" height="100"     horizontalAlign="right"  verticalAlign="top" marginRight="50" marginTop="50" />
+
+    <button group="g1" text="left-center" width="100" height="100"   horizontalAlign="left"   verticalAlign="center" marginLeft="50" />
+    <button group="g1" text="center-center" width="100" height="100" horizontalAlign="center" verticalAlign="center" />
+    <button group="g1" text="right-center" width="100" height="100"  horizontalAlign="right"  verticalAlign="center"  marginRight="50"/>
+    
+    <button group="g1" text="left-bottom" width="100" height="100"   horizontalAlign="left"   verticalAlign="bottom" marginLeft="50" marginBottom="50" />
+    <button group="g1" text="center-bottom" width="100" height="100" horizontalAlign="center" verticalAlign="bottom" marginBottom="50"/>
+    <button group="g1" text="right-bottom" width="100" height="100"  horizontalAlign="right"  verticalAlign="bottom" marginRight="50" marginBottom="50" />
 </TRIAL>	
 	
 	

@@ -135,6 +135,8 @@ class StimulusBuilder {
 		
 		if (get("horizontalAlign") != null) {
 			switch (get("horizontalAlign")) {
+                case "left":
+                    c.x = 0;
 				case "center":
 					c.x = (root.width / 2) - (c.width / 2);
                 case "right":
@@ -144,6 +146,8 @@ class StimulusBuilder {
 
 		if (get("verticalAlign") != null) {
 			switch (get("verticalAlign")) {
+                case "top":
+                    c.y = 0;
 				case "center":
 					c.y = (root.height / 2) - (c.height / 2);
                 case "bottom":
@@ -151,6 +155,11 @@ class StimulusBuilder {
 			}
 		}
 		
+        if (get("marginLeft") != null)          c.x += getInt("marginLeft", 0);
+        if (get("marginTop") != null)           c.y += getInt("marginTop", 0);
+        if (get("marginRight") != null)         c.x -= getInt("marginRight", 0);
+        if (get("marginBottom") != null)        c.y -= getInt("marginBottom", 0);
+        
 		if (cx != 0 || cy != 0) {
 			c.autoSize = false;
 		}
