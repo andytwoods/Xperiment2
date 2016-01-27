@@ -78,10 +78,7 @@ class StimuliFactory {
 			stim.set(key, stimProps.get(key	));
 		}
 		
-		if (stimProps.exists('present')) {
-			var result:String = ScriptTools.expandScriptValues(stimProps.get('present'), null); //prob want to add Experiment and trial here.
-			if (result == 'false') return false;
-		}
+		if (stimProps.exists('present') && stimProps.get('present') == 'false') return false;
 		
 		stim.set("trial", trial);
 		trial.addStimulus(stim);
