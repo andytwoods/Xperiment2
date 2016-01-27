@@ -4,6 +4,7 @@ import haxe.ui.toolkit.controls.Image;
 import haxe.ui.toolkit.core.Component;
 import openfl.display.Bitmap;
 import xpt.stimuli.StimulusBuilder;
+import xpt.tools.PathTools;
 import xpt.tools.ScriptTools;
 import xpt.experiment.Preloader;
 
@@ -28,6 +29,7 @@ class StimImage extends StimulusBuilder {
 		var resource:String = get("resource");
 		if (resource != null) {
 			//if cannot get data
+            resource = PathTools.fixPath(resource);
             if (false == setBitmap(Preloader.instance.preloadedImages.get(resource), image) ) {
 				Preloader.instance.callbackWhenLoaded(resource, function(){
 					setBitmap(Preloader.instance.preloadedImages.get(resource),image);	

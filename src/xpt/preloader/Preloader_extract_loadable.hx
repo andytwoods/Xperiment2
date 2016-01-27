@@ -1,6 +1,7 @@
 package xpt.preloader;
 import thx.Arrays;
 import thx.Ints;
+import xpt.tools.PathTools;
 import xpt.tools.ScriptTools;
 import xpt.tools.XTools;
 import xpt.trial.TrialSkeleton;
@@ -69,7 +70,13 @@ class Preloader_extract_loadable
 			}
 		}
 		
-		return Arrays.distinct(preloadList);
+        var distinct:Array<String> = Arrays.distinct(preloadList);
+        var final:Array<String> = [];
+        for (path in distinct) {
+            final.push(PathTools.fixPath(path));
+        }
+        
+		return final;
 	}
 	
 	

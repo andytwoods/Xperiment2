@@ -66,7 +66,11 @@ class StimuliFactory {
 		
 		for (key in props.keys()) {
 			var val:String = props.get(key);
-            val = ScriptTools.expandScriptValues(val, ["index" => copyNum]);
+            var exceptions:Array<String> = null;
+            if (key == "resourcePattern") {
+                exceptions = ["value"];
+            }
+            val = ScriptTools.expandScriptValues(val, ["index" => copyNum], exceptions);
 			val = XTools.multiCorrection(	val, overTrialSep, trialIteration);
 			val = XTools.multiCorrection(	val, withinTrialSep, copyNum);
 			stimProps.set(key, val);

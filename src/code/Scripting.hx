@@ -102,7 +102,6 @@ class Scripting
 	
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
 		if (stim.get(prop) != null) {
-			
 			try {
 				scriptEngine.variables.set("this", stim.component);
 				scriptEngine.variables.set("me", stim.component);

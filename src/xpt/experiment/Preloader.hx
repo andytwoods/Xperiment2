@@ -2,10 +2,12 @@ package xpt.experiment;
 
 import assets.manager.FileLoader;
 import assets.manager.misc.FileInfo;
+import assets.manager.misc.LoaderStatus;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import openfl.events.Event;
 import openfl.events.EventDispatcher;
+import xpt.debug.DebugManager;
 
 class PreloaderEvent extends Event {
 	public static inline var BEGIN:String = "preloadBegin";
@@ -37,7 +39,7 @@ class Preloader extends EventDispatcher {
 	private var _loader:FileLoader;
 	private var _total:Int;
 	private var _current:Int;
-	private var callBacks:Map < String, Array <	Void -> Void	>  >  = new Map < String, Array <	Void -> Void	>  >();
+	private var callBacks:Map <String, Array<Void->Void>> = new Map<String,Array<Void->Void>>();
 	
 	public var preloadedImages:Map<String, Bitmap> = new Map<String, Bitmap>();
 	public var imagesToLoad:Array<String>;
@@ -56,10 +58,14 @@ class Preloader extends EventDispatcher {
 		event.current = _current;
 		event.total = _total;
 		dispatchEvent(event);
-		preloadedImages.set(file.id, new Bitmap(file.data));
+        if (file.status == LoaderStatus.LOADED) {
+		    preloadedImages.set(file.id, new Bitmap(file.data));
+        } else {
+            DebugManager.instance.error("Could not preload image", file.id);
+        }
 		if (callBacks.exists(file.id)) {
 			while (callBacks.get(file.id).length > 0) {
-				var f:Void -> Void = callBacks.get(file.id).shift();
+				var f:Void->Void = callBacks.get(file.id).shift();
 				if (f != null) f();
 			}
 		}

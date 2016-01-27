@@ -3,13 +3,14 @@ package xpt.tools;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 
 class ScriptTools {
-    public static function expandScriptValues(script:String, vars:Map<String, Dynamic> = null):String {
+    public static function expandScriptValues(script:String, vars:Map<String, Dynamic> = null, exceptions:Array<String> = null):String {
         var finalResult:String = script;
         var scriptEngine:ScriptInterp = new ScriptInterp();
         if (vars != null) {
             for (key in vars.keys()) {
                 scriptEngine.variables.set(key, vars.get(key));
             }
+            
         }
 
 		var parser = new hscript.Parser();
@@ -17,6 +18,10 @@ class ScriptTools {
         while (n1 != -1) {
             var n2:Int = finalResult.indexOf("}", n1);
             var e:String = finalResult.substring(n1 + 2, n2);
+            if (exceptions != null && exceptions.indexOf(e) != -1) {
+                n1 = finalResult.indexOf("${", n2);
+                continue;
+            }
             var expr = parser.parseString(e);
             var r = scriptEngine.execute(expr);
             var before:String = finalResult.substring(0, n1);

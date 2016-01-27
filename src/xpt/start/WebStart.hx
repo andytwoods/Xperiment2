@@ -6,6 +6,7 @@ import openfl.utils.Dictionary;
 import openfl.utils.Object;
 import xpt.error.ErrorMessage;
 import xpt.runner.Runner;
+import xpt.tools.PathTools;
 import xpt.tools.XTools;
 
 /**
@@ -21,9 +22,10 @@ class WebStart
 
 	public function new(dir:String, exptName:String) 
 	{
-
+        PathTools.experimentPath = dir;
+        PathTools.experimentName = exptName;
+        
 		var loader = new FileLoader();
-
 
 		loader.loadText(dir + exptName + "/" + exptName+".xml", listen);
 

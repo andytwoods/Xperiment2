@@ -5,6 +5,7 @@ import openfl.display.Bitmap;
 import openfl.events.MouseEvent;
 import xpt.debug.DebugManager;
 import xpt.experiment.Preloader;
+import xpt.tools.PathTools;
 
 class ImageSequence extends Image {
 	public var resourcePattern:String;
@@ -72,6 +73,7 @@ class ImageSequence extends Image {
 	
 	private function updateImage():Void {
 		var res:String = StringTools.replace(resourcePattern, "${value}", "" + _val);
+        res = PathTools.fixPath(res);
 		var bmp:Bitmap = Preloader.instance.preloadedImages.get(res);
 		resource = new Bitmap(bmp.bitmapData.clone());
 	}
