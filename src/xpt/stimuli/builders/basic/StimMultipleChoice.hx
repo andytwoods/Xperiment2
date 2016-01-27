@@ -22,6 +22,9 @@ class StimMultipleChoice extends StimulusBuilder {
 	
 	private override function applyProperties(c:Component) {
 		super.applyProperties(c);
+        
+        c.removeAllChildren();
+        
 		var hbox:HBox = cast c;
 		
 		var fontSize:Int = getInt("fontSize");

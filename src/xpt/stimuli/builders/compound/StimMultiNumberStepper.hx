@@ -20,6 +20,7 @@ class StimMultiNumberStepper extends StimulusBuilder {
 	private override function applyProperties(c:Component) {
 		super.applyProperties(c);
 		
+        c.removeAllChildren();
         _steppers = new Array<NumberStepper>();
         
 		var fontSize:Int = getInt("fontSize");
