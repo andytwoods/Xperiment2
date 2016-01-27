@@ -7,6 +7,7 @@ import xpt.stimuli.validation.Validator;
 import xpt.tools.XTools;
 
 @:allow(xpt.trialOrder.Test_TrialOrder)
+@:allow(xpt.stimuli.StimulusBuilder)
 class Stimulus {
 	public var start:Float = -1;
 	public var stop:Float = -1;
@@ -77,6 +78,10 @@ class Stimulus {
             case 'group': return _groupName;
 		}
 
+        if (__properties == null) {
+            return null;
+        }
+        
 		return __properties.get(what);
 	}
 	
@@ -169,7 +174,7 @@ class Stimulus {
 	private function get_component():Component {
 		if (_component == null) {
 			if (builder == null) {
-				throw "No builder set of stimulus";
+				throw "No builder set for stimulus";
 			}
 			_component = builder.build(this);
 		}
@@ -177,7 +182,9 @@ class Stimulus {
 	}
 	
     public function updateComponent():Void {
-        builder.update();
+        if (_component != null) {
+            builder.update();
+        }
     }
     
 	private function disposeComponent() {

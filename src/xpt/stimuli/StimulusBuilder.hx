@@ -231,7 +231,7 @@ class StimulusBuilder {
 	}
 	
     public function update():Void {
-        applyProperties(_stim.component);
+        applyProperties(_stim._component);
     }
 	
 	public function buildPreloadList(props:Map<String, String>):Array<String> {
