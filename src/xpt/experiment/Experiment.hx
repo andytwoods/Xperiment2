@@ -110,15 +110,10 @@ class Experiment extends EventDispatcher {
 
 		var skeletons:Array<TrialSkeleton> = trialOrder_skeletons._1;
 		
-		trace("time1",flash.Lib.getTimer());
-		
-		
 		//attempt to incorporate --- and |
 		var find_loadable:Preloader_extract_loadable = new Preloader_extract_loadable();
 		var preloadList:Array<String> = find_loadable.extract(skeletons);
 		find_loadable = null;
-		
-		trace("time2",flash.Lib.getTimer());
 		
 		if (preloadList.length > 0) {
 			DebugManager.instance.progress("Preloading " + preloadList.length + " image(s)");
