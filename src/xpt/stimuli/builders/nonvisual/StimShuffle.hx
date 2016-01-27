@@ -83,7 +83,7 @@ class StimShuffle extends StimulusBuilder {
                 }
                 
                 DebugManager.instance.info("Shuffling " + stims.length + " stim(s)");
-                StimHelper.shuffle(stims, fixedArray);
+                StimHelper.shuffleArrangement(stims, fixedArray);
             }
             
         }
