@@ -122,11 +122,6 @@ class Scripting
                 
 				var parser = new hscript.Parser();
 				var s:String = StringTools.trim(stim.get(prop));
-                /*
-				s = StringTools.replace(s, "|", ";");
-				s = StringTools.replace(s, "\t", " ");
-				s = StringTools.replace(s, "\r\n", ";\n");
-                */
 				if (logScript == true) {
 					DebugManager.instance.event(stim.get("stimType") + ".on" + StringUtil.capitalizeFirstLetter(event.type), "" + s);
 				}

@@ -80,8 +80,8 @@
 		</origin>
 		<preloadProgress builder="xpt.stimuli.builders.basic.StimProgressBar">
 			<onPreloadProgress>
-				this.pos = e.current
-				this.max = e.total
+				this.pos = e.current;
+				this.max = e.total;
 			</onPreloadProgress>
 		</preloadProgress>
 		<preloadReadyButton builder="xpt.stimuli.builders.basic.StimButton">
