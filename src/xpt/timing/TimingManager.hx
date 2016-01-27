@@ -1,7 +1,10 @@
 package xpt.timing;
 
 import diagnositics.DiagnosticsManager;
+import flash.events.Event;
+import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.RootManager;
+import haxe.ui.toolkit.events.UIEvent;
 import xpt.debug.DebugManager;
 import xpt.stimuli.Stimulus;
 
@@ -77,11 +80,31 @@ class TimingManager {
 		if (RootManager.instance.currentRoot.contains(stim.component) == false) {
 			DebugManager.instance.stimulus("Adding stimulus, type: " + stim.get("stimType"));
             DiagnosticsManager.add(DiagnosticsManager.STIMULUS_SHOW, stim.id, stim.get("stimType"));
+            stim.component.addEventListener(UIEvent.ADDED_TO_STAGE, onStimAddedToStage);
 		    RootManager.instance.currentRoot.addChild(stim.component);
             stim.onAddedToTrail();
 		}
 	}
+    
+    private function onStimAddedToStage(event:UIEvent) {
+        event.component.removeEventListener(UIEvent.ADDED_TO_STAGE, onStimAddedToStage);
+        var stim:Stimulus = findStimFromComponent(event.component);
+        if (stim != null) {
+            stim.updateComponent();
+        }
+    }
 	
+    private function findStimFromComponent(c:Component):Stimulus {
+        var stim:Stimulus = null;
+        for (test in _stims) {
+            if (test.component == c) {
+                stim = test;
+                break;
+            }
+        }
+        return stim;
+    }
+    
 	private function removeFromTrail(stim:Stimulus) {
 		if (RootManager.instance.currentRoot.contains(stim.component) == true) {
 			DebugManager.instance.stimulus("Removing stimulus, type: " + stim.get("stimType"));
