@@ -1,6 +1,7 @@
 package xpt.script;
 import xpt.script.BetweenSJs.Action;
 import xpt.script.BetweenSJs.BetweenSJcond;
+import xpt.script.ToRun.HowSelectCond;
 import xpt.tools.XML_tools;
 import xpt.tools.XTools;
 
@@ -22,20 +23,44 @@ class BetweenSJs
 		if (	continueCheck(script) == false) return script;
 		
 		var parent:Xml = script.firstChild();
+		var bossCond:String = parent.firstElement().nodeName;
+		var selected:String = bossCond;
 		var condition:BetweenSJcond;
-		var betweenSJMap:Map<String, BetweenSJcond> = getBetweenSJConds(script, parent.firstChild().nodeName);
+
+		var betweenSJMap:Map<String, BetweenSJcond> = getBetweenSJConds(script, bossCond);
 
 		for (condNam in betweenSJMap.keys() ) {
 			condition =  betweenSJMap.get(condNam);
 			__applyParentConditions(condNam, condition, betweenSJMap);
 		}
 		
-
-		if(forceToRun=="")	forceToRun= ToRun.compose(script);
-		if(betweenSJMap.exists(forceToRun)){
-			__applyToParent(parent, betweenSJMap.get(forceToRun).xml);
+		if (forceToRun == "") {
+			if (parent.exists('forceToRun')) {
+				forceToRun = parent.get('forceToRun');
+			}
+			
 		}
-		script = parent.firstChild();
+		
+		if (forceToRun == "") {
+			var options:Array<String> = [bossCond];
+			for (condNam in betweenSJMap.keys()) {
+				options.push(condNam);
+			}
+			
+			forceToRun= ToRun.select(HowSelectCond.Random, options);
+		}
+		if (betweenSJMap.exists(forceToRun)) {
+			var selected = betweenSJMap.get(forceToRun);
+			script = __applyToParent(parent.firstElement(), selected.xml);
+		}
+		else script = parent.firstChild();
+		
+		var Xmls = XML_tools.findNode(script, 'SETUP');
+		if (Xmls.hasNext()) {
+			var setup:Xml = Xmls.next();
+			setup.addChild(Xml.parse("<dynamicallyAdded overSJs='" + forceToRun + "'/>").firstElement());
+		}
+
 		return script;
 	}
 	
@@ -46,16 +71,19 @@ class BetweenSJs
 		var found:Iterator<Xml>;
 		
 		for (actionXml in XML_tools.getChildren(experiment)) {
-			action = new Action(actionXml);		
-			applyAction(parent, action);	
+			if(actionXml.nodeType == Xml.Element){
+				action = new Action(actionXml);		
+				applyAction(parent, action);	
+			}
 		}
+		
+
 		
 		return parent; 
 	}
 	
 	public function applyAction(parent:Xml, action:Action) 
 	{
-		
 		var found = XML_tools.find(parent, MULTIID, action.name);
 		if (found.hasNext()) {
 			XML_tools.overwriteAttribs_addAbsentChildren(found, action.map,action.children);
@@ -69,12 +97,19 @@ class BetweenSJs
 		var template:BetweenSJcond;
 		for (templateNam in condition.copyFrom) {
 			template = betweenSJMap.get(templateNam);
-			if (template.hasBeenFleshedOut == false) {
-				if (template.attempt++ > 100) throw "infinite loop in betweenSJs templating: "+ template;
-				__applyParentConditions(templateNam, template, betweenSJMap);
+			if (template == null) throw 'In a between SJs condition, you have specified a non existing parent experiment: '+templateNam;
+			
+			if (template == null) {
+				template.hasBeenFleshedOut = true;
 			}
-			XML_tools.augment(condition.xml, template.xml);
-			XML_tools.extendAttribs(condition.xml, template.xml);
+			else{
+				if (template.hasBeenFleshedOut == false) {
+					if (template.attempt++ > 100) throw "infinite loop in betweenSJs templating: "+ template;
+					__applyParentConditions(templateNam, template, betweenSJMap);
+				}
+				XML_tools.augment(condition.xml, template.xml);
+				XML_tools.extendAttribs(condition.xml, template.xml);
+			}
 		}
 
 		return;
@@ -82,6 +117,8 @@ class BetweenSJs
 	
 	public function getBetweenSJConds(script:Xml, ignore:String):Map<String, BetweenSJcond>
 	{
+
+		
 		var map = new Map<String, BetweenSJcond>();
 		
 		var children = XML_tools.getChildren(script);
@@ -91,13 +128,16 @@ class BetweenSJs
 		var nam:String;
 		
 		for (child in children) {
-			nam = child.nodeName;
-			if(nam!=ignore){
-				betweenSJcond = new BetweenSJcond(child,nam);
-				if (map.exists(betweenSJcond.name)) throw "each experimental between SJ condition must have a unique name, not like these: " + betweenSJcond.name;
-				map[nam] = betweenSJcond;
-				script.removeChild(child);
+			if (child.nodeType == Xml.Element) {
+				nam = child.nodeName;
+				//if(nam!=ignore){
+					betweenSJcond = new BetweenSJcond(child,nam);
+					if (map.exists(betweenSJcond.name)) throw "each experimental between SJ condition must have a unique name, not like these: " + betweenSJcond.name;
+					map[nam] = betweenSJcond;
+					script.removeChild(child);
+				//}
 			}
+
 		}
 		
 		return map;
@@ -146,7 +186,6 @@ class Action {
 		
 		map = XML_tools.attribsToMap(XML_tools.copy(xml)); //crazyness
 		name = XML_tools.nodeName(xml);
-		
 		children = XML_tools.getChildren(xml);		
 	}
 	

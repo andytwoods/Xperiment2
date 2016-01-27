@@ -64,7 +64,6 @@ class ExptWideSpecs
 		map.set("flyingfish_study_id","");
 		map.set("flyingfish_site_id","");
 	//exptInfo
-		map.set("overSJs","");
 		map.set("one_key","");
 		map.set("expt_id","");
 	//encryption
