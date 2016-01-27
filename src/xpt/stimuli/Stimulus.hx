@@ -30,8 +30,7 @@ class Stimulus {
     private function get_isValid():Bool {
         var valid:Bool = true;
         if (get("valid") != null) {
-            var validator:Validator = new Validator();
-            valid = validator.validateStim(this, get("valid"));
+            valid = Validator.instance.validateStim(this, get("valid"));
         }
         return valid;
     }

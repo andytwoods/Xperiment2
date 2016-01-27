@@ -4,9 +4,18 @@ import haxe.ui.toolkit.hscript.ScriptInterp;
 import xpt.stimuli.Stimulus;
 
 class Validator extends ScriptInterp {
+    private static var _instance:Validator;
+    public static var instance(get, null):Validator;
+    private static function get_instance():Validator {
+        if (_instance == null) {
+            _instance = new Validator();
+        }
+        return _instance;
+    }
+    
     private var _stim:Stimulus;
     
-    public function new() {
+    private function new() {
         super();
         
         variables.set("notEmpty", notEmpty);
