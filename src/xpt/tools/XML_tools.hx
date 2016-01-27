@@ -486,10 +486,11 @@ class XML_tools
 		for (child in children) {
 			childrenArr[childrenArr.length] = child;	
 		}
-		
+trace(123);
 		for (key in map.keys()) {
 			val = map.get(key);
 			for (xml in found) {	
+			
 				xml.set(key, val);				
 				for (child in childrenArr) {			
 					xml.addChild(copy(child).firstChild());

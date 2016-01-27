@@ -1,4 +1,5 @@
-<expt exptType="WEB">
+<multi forceToRun="exptR">
+<exptA exptType="WEB">
 
 <SETUP>  
 	  <screen BGcolour="black" orientation="vertical" ></screen>                          
@@ -63,8 +64,17 @@ You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.
 <TRIAL TYPE="Trial" hideResults="true" block="-10" order="fixed" trials="8">
 	<button present="true" text="Button 2" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
 	
-	<image resource="experiments/images/Expt1/" resource1="1|1|1|1|2|2|2|2" resource2="F|F|N|N" resource3="A|R" resource4=".png" x="50%" width="350" height="559"  />
+	<image resource="experiments/images/Expt1/" resource1="1|1|1|1|2|2|2|2" resource2="F|F|N|N" multiId="over_image" resource3="A" resource4=".png" x="50%" width="350" height="559"  />
 
 </TRIAL>	
 
-</expt>	
+</exptA>
+	
+<exptR>
+	
+	<over_image resource3="R" />
+	
+	
+</exptR>	
+	
+</multi>

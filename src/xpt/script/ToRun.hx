@@ -1,15 +1,18 @@
 package xpt.script;
+import xpt.tools.XTools;
 
-/**
- * ...
- * @author 
- */
+
+enum HowSelectCond {
+	Random;	
+}
+
+
 class ToRun
 {
 
-	static public inline function compose(script:Xml):String
+	static public function select(how:HowSelectCond, options:Array<String>):String
 	{
-		return "";
+		return XTools.arrayShuffle(options)[0];
 	}
 	
 }

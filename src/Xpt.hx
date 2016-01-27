@@ -28,7 +28,7 @@ class Xpt {
         DiagnosticsManager.add(DiagnosticsManager.EXPERIMENT_START, exptName);
             
         #if (debug && !html5)
-            var tests:xpt.Tests = new xpt.Tests();
+            //var tests:xpt.Tests = new xpt.Tests();
         #end
 
         #if html5
