@@ -44,7 +44,19 @@ We hope you enjoy it. Your participation is very important to us."
 </TRIAL>
 
 	
-	
+<TRIAL TYPE="Trial" hideResults="true" block="-2" order="fixed" trials="1">
+    <button text="left-top" width="100" height="100" />
+    <button text="center-top" width="100" height="100" horizontalAlign="center" />
+    <button text="right-top" width="100" height="100" horizontalAlign="right" />
+
+    <button text="left-center" width="100" height="100" verticalAlign="center" />
+    <button text="center-center" width="100" height="100" horizontalAlign="center" verticalAlign="center" />
+    <button text="right-center" width="100" height="100" horizontalAlign="right" verticalAlign="center" />
+    
+    <button text="left-bottom" width="100" height="100" verticalAlign="bottom" />
+    <button text="center-bottom" width="100" height="100" horizontalAlign="center" verticalAlign="bottom" />
+    <button text="right-bottom" width="100" height="100" horizontalAlign="right" verticalAlign="bottom" />
+</TRIAL>	
 	
 	
 <TRIAL TYPE="Trial" hideResults="true" block="-1" order="fixed" trials="1">

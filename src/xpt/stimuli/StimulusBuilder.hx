@@ -137,6 +137,8 @@ class StimulusBuilder {
 			switch (get("horizontalAlign")) {
 				case "center":
 					c.x = (root.width / 2) - (c.width / 2);
+                case "right":
+                    c.x = (root.width - c.width);
 			}
 		}
 
@@ -144,6 +146,8 @@ class StimulusBuilder {
 			switch (get("verticalAlign")) {
 				case "center":
 					c.y = (root.height / 2) - (c.height / 2);
+                case "bottom":
+                    c.y = (root.height - c.height);
 			}
 		}
 		
