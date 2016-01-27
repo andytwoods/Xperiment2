@@ -31,6 +31,13 @@ Button:down {
 	filter: dropShadow(1, 45, 0x999999, 1, 1, 1, 1, 1, true);
 }
 
+Button:disabled {
+	backgroundColor: #EDEDED;
+	backgroundColorGradientEnd: #E6E6E6;
+	color: #222222;
+	borderColor: #ABABAB;
+    alpha: .3;
+}
 
 ListSelector {
 	backgroundColor: #EDEDED;
