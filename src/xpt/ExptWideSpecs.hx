@@ -112,8 +112,8 @@ class ExptWideSpecs
 		return map.get("expt_id");
 	}
 	
-	public static function IS(what:String):Dynamic {
-		if (map.exists(what) == false) {
+	public static function IS(what:String, throwException:Bool = true):Dynamic {
+		if (map.exists(what) == false && throwException == true) {
 			trace(map);
 			throw "requested prop does not exist in ExptWideSpecs: "+what;
 		}

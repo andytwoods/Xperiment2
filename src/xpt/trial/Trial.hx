@@ -45,6 +45,10 @@ class Trial {
     
     public var stimValuesValid(get, null):Bool;
     private function get_stimValuesValid():Bool {
+        if (ExptWideSpecs.IS("validationEnabled", false) == "false") {
+            return true;
+        }
+
         var valid:Bool = true;
         for (stim in stimuli) {
             if (stim.isValid == false) {
