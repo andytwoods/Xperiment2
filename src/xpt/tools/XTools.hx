@@ -9,7 +9,8 @@ import thx.Ints;
 class XTools
 {
 
-	
+	private static inline var startProtected:String = "<![CDATA[";
+	private static inline var endProtected:String = "]]>";
 	
 	private static var shuffleArrMem:Map<String,Array<Float>>;
 	
@@ -219,12 +220,20 @@ class XTools
 				startPos = txt.indexOf(">");
 				if (startPos != -1) {
 					startPos++;	
-					arr[i] = txt.substr(0, startPos) + "<![CDATA[" + txt.substr(startPos, endPos - startPos) + "]]>" + txt.substr(endPos);
+					arr[i] = txt.substr(0, startPos) + startProtected + txt.substr(startPos, endPos - startPos) + endProtected + txt.substr(endPos);
 				}
 			}
 		}
 		return arr.join("<"+searchNodeName);
 
+	}
+
+	
+	static public inline function removeProtectedTextIndicators(nodeVal:String) 
+	{
+		if (nodeVal.substr(0, startProtected.length) == startProtected) {
+			nodeVal = nodeVal.substr(startProtected.length, nodeVal.length - startProtected.length - endProtected.length);
+		}
 	}
 
 }
