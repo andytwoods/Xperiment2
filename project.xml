@@ -33,12 +33,16 @@
 	
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />
+    <!--
 	<assets path="assets" rename="assets" />
+    -->    
 	<assets path="assets/img" rename="img" />
 	<assets path="assets/ui" rename="ui" />
 	<assets path="assets/data" rename="data" />
 	<assets path="assets/themes" rename="themes" />
+    <!--
 	<assets path="experiments" rename="experiments" exclude="*.jpg" />
+    -->    
 	
 	<!--
 	<haxeflag name="-dce full" /> 	
