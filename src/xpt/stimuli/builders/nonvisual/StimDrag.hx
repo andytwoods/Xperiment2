@@ -94,6 +94,18 @@ class StimDrag extends StimulusBuilder {
             }
         }
         
+        if (get("groups") != null) {
+            var groupIds:Array<String> = getStringArray("groups");
+            if (groupIds != null) {
+                for (groupId in groupIds) {
+                    var groupStims:Array<Stimulus> = Stimulus.getGroup(groupId);
+                    if (groupStims != null) {
+                        stims = stims.concat(groupStims);
+                    }
+                }
+            }
+        }
+        
         return stims;
     }
 }

@@ -13,7 +13,7 @@
 <TRIAL TYPE="Trial" hideResults="true" block="-11" order="fixed" trials="1">
     <shuffle groups="g1" />
     
-    <drag target="dragTarget" stims="b1, b2, b3, b4, b5" capture="x" dragTransparency=".5" />
+    <drag target="dragTarget" groups="g1" capture="x" dragTransparency=".5" />
     
     <box group="g1" id="b1" x="20" y="20" width="100" height="100" borderColour="#FF0000" cornerRadius="10" borderSize="3" fillColour="#880000" />
     <box group="g1" id="b2" x="140" y="20" width="100" height="100" borderColour="#00FF00" cornerRadius="10" borderSize="3" fillColour="#008800" />
