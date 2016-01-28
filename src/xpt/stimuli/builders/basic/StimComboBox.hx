@@ -8,12 +8,14 @@ import xpt.stimuli.StimulusBuilder;
 
 
 class StimComboBox extends StimulusBuilder {
+    private var _dsSet:Bool = false;
 	public function new() {
 		super();
 	}
 	
 	private override function createComponentInstance():Component {
         var list:ListSelector = new ListSelector();
+        list.lazyLoad = false;
         list.addEventListener(UIEvent.CHANGE, function(e) {
            onStimValueChanged(list.text); 
         });
@@ -26,9 +28,12 @@ class StimComboBox extends StimulusBuilder {
 		
 		var data:String = get("data");
 		if (data != null) {
-			var ds:JSONDataSource = new JSONDataSource();
-			ds.createFromResource(data);
-			list.dataSource = ds;
+            if (_dsSet == false) {
+                var ds:JSONDataSource = new JSONDataSource();
+                ds.createFromResource(data);
+                list.dataSource = ds;
+                _dsSet = true;
+            }
 		} else {
 			var labels:String = get("labels");
 			var values:String = get("values");
