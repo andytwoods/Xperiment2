@@ -22,6 +22,7 @@
 		<!-- ***********************************************************************************
 			BASIC STIMULI
 		************************************************************************************ -->
+        <box builder="xpt.stimuli.builders.basic.StimBox" />
 		<button builder="xpt.stimuli.builders.basic.StimButton" />
 		<input builder="xpt.stimuli.builders.basic.StimInputText" >
             <valid>notEmpty()</valid>

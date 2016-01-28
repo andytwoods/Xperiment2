@@ -10,6 +10,16 @@
     <validation validationEnabled="false" invalidTrailBehaviour="disable" />
 </SETUP>
 
+<TRIAL TYPE="Trial" hideResults="true" block="-11" order="fixed" trials="1">
+    <box x="20" y="20" width="100" height="100" borderColour="#FF0000" cornerRadius="10" borderSize="3" fillColour="#880000" />
+    <box x="140" y="20" width="100" height="100" borderColour="#00FF00" cornerRadius="10" borderSize="3" fillColour="#008800" />
+    <box x="260" y="20" width="100" height="100" borderColour="#0000FF" cornerRadius="10" borderSize="3" fillColour="#000088" />
+    <box x="380" y="20" width="100" height="100" borderColour="#FFFF00" cornerRadius="10" borderSize="3" fillColour="#888800" />
+    <box x="500" y="20" width="100" height="100" borderColour="#00FFFF" cornerRadius="10" borderSize="3" fillColour="#008888" />
+</TRIAL>    
+
+    
+    
 <TRIAL TYPE="Trial" hideResults="true" block="-10" order="fixed" trials="1">
     <var name="var1" value="100" />
     <var name="var2" value="${var1 + 200}" />

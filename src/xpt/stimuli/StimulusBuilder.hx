@@ -111,7 +111,24 @@ class StimulusBuilder {
 		return v;
 	}
 	
-	private function createComponentInstance():Component {
+    private function getColour(propName:String):Int {
+        var stringValue:String = get(propName, null);
+        if (stringValue == null) {
+            return 0;
+        }
+        
+        if (StringTools.startsWith(stringValue, "#") == true) {
+            stringValue = stringValue.substr(1, stringValue.length - 1);
+        }
+        
+        if (StringTools.startsWith(stringValue, "0x") == false) {
+            stringValue = "0x" + stringValue;
+        }
+        
+        return Std.parseInt(stringValue);
+    }
+	
+    private function createComponentInstance():Component {
 		return new Component();
 	}
 	
@@ -177,6 +194,19 @@ class StimulusBuilder {
 			c.style.borderColor = 0x000000;
 		}
 		
+        if (get("borderSize") != null) {
+            c.style.borderSize = getInt("borderSize", 1);
+        }
+        if (get("borderColour") != null) {
+            c.style.borderColor = getColour("borderColour");
+        }
+        if (get("fillColour") != null) {
+            c.style.backgroundColor = getColour("fillColour");
+        }
+        if (get("cornerRadius") != null) {
+            c.style.cornerRadius = getInt("borderSize", 1);
+        }
+        
 		if (get("onPreloadProgress") != null || get("onPreloadComplete") != null) {
 			experiment.removeEventListener(PreloaderEvent.PROGRESS, onPreloaderProgress);
 			experiment.removeEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete);
