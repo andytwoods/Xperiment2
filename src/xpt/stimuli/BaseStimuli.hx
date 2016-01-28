@@ -64,6 +64,7 @@ class BaseStimuli
 		var props:Map<String,String> = XML_tools.flattened_attribsToMap(stimXML, permittedStimuli);
 		
 		var nodeName:String;
+		var nodeVal:String;
 		
 		for (child in children) {
 		
@@ -71,7 +72,8 @@ class BaseStimuli
 				nodeName = child.nodeName;
 				trace(nodeName, 33);
 				if (nodeName.charAt(0) == ".") {
-					props.set(nodeName.substr(1), child.firstChild().nodeValue);
+					nodeVal = child.firstChild().nodeValue;
+					props.set(nodeName.substr(1), XTools.removeProtectedTextIndicators(nodeVal));
 					children.remove(child);
 				}
 				
