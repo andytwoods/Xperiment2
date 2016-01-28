@@ -7,10 +7,8 @@ import openfl.events.MouseEvent;
 import xpt.stimuli.StimulusBuilder;
 
 class StimButton extends StimulusBuilder {
-	
 	public var clicked:Int = 0;
-	
-	
+
 	public function new() {
 		super();
 	}
@@ -23,6 +21,7 @@ class StimButton extends StimulusBuilder {
 		super.applyProperties(c);
 		var b:Button = cast c;
 		if (get("action") != null || getBool("reactionTime") == true) {
+            b.removeEventListener(MouseEvent.CLICK, onClick);
 			b.addEventListener(MouseEvent.CLICK, onClick);
 		}
 		if (get("icon") != null) {
