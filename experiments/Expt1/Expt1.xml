@@ -42,12 +42,12 @@ You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.
 </TRIAL>
 
 
-<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
 	<text text="Some questions:" fontSize="20" width="200" height="30" x="20" y="20" />
 	
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" />
 	<sex x="160" y="80" height="40" width="250" fontSize="20" />
-	
+	<origin x="20" y="280" width="300" height="50" fontSize="20" />
 	<text text="Age:" fontSize="20" width="200" height="30" x="60" y="165" />
 	<age x="160" y="160" height="100" width="122.5" fontSize="20" />
 	
@@ -56,10 +56,18 @@ You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.
 	
 
 
-<TRIAL TYPE="Trial" hideResults="true" block="10" order="fixed" trials="4">
+<TRIAL TYPE="Trial" hideResults="true" block="-10" order="fixed" trials="4">
 	<button present="true" text="Button 2" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
 	
-	<image  resource="1|1|2|2" resource1="F|N" multiId="over_image" resource2="A" resource3=".png" x="50%" width="350" height="559"  />
+	<image  howMany="4" group="g1" id="1---1---2---2" id1="F---N" resource="1---1---2---2" resource1="F---N" multiId="over_image" resource2="A" resource3=".png" x="20%---40%---60%---80%" width="100" height="100"  />
+	
+	<shuffle groups="g1" />
+    
+    <drag target="dragTarget" groups="g1" capture="x" dragTransparency=".5" />
+	
+    
+    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="center" y="75%" width="80%" height="50%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" fillColour="#FFFFFF" />
+	
 
 </TRIAL>	
 	
