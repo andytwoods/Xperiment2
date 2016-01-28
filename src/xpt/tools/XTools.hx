@@ -229,11 +229,12 @@ class XTools
 	}
 
 	
-	static public inline function removeProtectedTextIndicators(nodeVal:String) 
+	static public inline function removeProtectedTextIndicators(nodeVal:String) :String
 	{
 		if (nodeVal.substr(0, startProtected.length) == startProtected) {
 			nodeVal = nodeVal.substr(startProtected.length, nodeVal.length - startProtected.length - endProtected.length);
 		}
+		return nodeVal;
 	}
 
 }
