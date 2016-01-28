@@ -59,16 +59,17 @@ You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.
 <TRIAL TYPE="Trial" hideResults="true" block="-10" order="fixed" trials="4">
 	<button present="true" text="Button 2" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
 	
-	<image  howMany="4" group="g1" id="1---1---2---2" id1="F---N" resource="1---1---2---2" resource1="F---N" multiId="over_image" resource2="A" resource3=".png" x="20%---40%---60%---80%" width="100" height="100"  />
+	<image marginTop="20" howMany="4" group="g1" id="1---1---2---2" id1="F---N" resource="1---1---2---2" resource1="F---N" multiId="over_image" resource2="A" resource3=".png" x="20%---40%---60%---80%" width="100" __height="100"  />
 	
 	<shuffle groups="g1" />
     
     <drag target="dragTarget" groups="g1" capture="x" dragTransparency=".5" />
 	
     
-    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="center" y="75%" width="80%" height="50%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" fillColour="#FFFFFF" />
+    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="center" marginTop="50" y="85%" width="80%" height="50%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" fillColour="#FFFFFF" />
 	
 
+    <nextTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
 </TRIAL>	
 	
 	
