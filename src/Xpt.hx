@@ -21,8 +21,8 @@ class Xpt {
             
         ErrorMessage.setup(Lib.current.stage);
             
-        exptName = "Expt1";
-        //exptName = 'test';
+        //exptName = "Expt1";
+        exptName = 'test';
         diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
     
         DiagnosticsManager.add(DiagnosticsManager.EXPERIMENT_START, exptName);

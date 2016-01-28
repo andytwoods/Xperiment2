@@ -101,6 +101,17 @@ class Trial {
 		}
 	}
 	
+    public function findStimulus(stimId:String):Stimulus {
+        var stim:Stimulus = null;
+        for (s in stimuli) {
+            if (s.id == stimId) {
+                stim = s;
+                break;
+            }
+        }
+        return stim;
+    }
+    
 	public function kill() {
 		if (testing == false) {
 			TimingManager.instance.reset();

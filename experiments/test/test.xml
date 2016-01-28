@@ -11,11 +11,18 @@
 </SETUP>
 
 <TRIAL TYPE="Trial" hideResults="true" block="-11" order="fixed" trials="1">
-    <box x="20" y="20" width="100" height="100" borderColour="#FF0000" cornerRadius="10" borderSize="3" fillColour="#880000" />
-    <box x="140" y="20" width="100" height="100" borderColour="#00FF00" cornerRadius="10" borderSize="3" fillColour="#008800" />
-    <box x="260" y="20" width="100" height="100" borderColour="#0000FF" cornerRadius="10" borderSize="3" fillColour="#000088" />
-    <box x="380" y="20" width="100" height="100" borderColour="#FFFF00" cornerRadius="10" borderSize="3" fillColour="#888800" />
-    <box x="500" y="20" width="100" height="100" borderColour="#00FFFF" cornerRadius="10" borderSize="3" fillColour="#008888" />
+    <shuffle groups="g1" />
+    
+    <drag target="dragTarget" stims="b1, b2, b3, b4, b5" capture="x" dragTransparency=".5" />
+    
+    <box group="g1" id="b1" x="20" y="20" width="100" height="100" borderColour="#FF0000" cornerRadius="10" borderSize="3" fillColour="#880000" />
+    <box group="g1" id="b2" x="140" y="20" width="100" height="100" borderColour="#00FF00" cornerRadius="10" borderSize="3" fillColour="#008800" />
+    <box group="g1" id="b3" x="260" y="20" width="100" height="100" borderColour="#0000FF" cornerRadius="10" borderSize="3" fillColour="#000088" />
+    <box group="g1" id="b4" x="380" y="20" width="100" height="100" borderColour="#FFFF00" cornerRadius="10" borderSize="3" fillColour="#888800" />
+    <box group="g1" id="b5" x="500" y="20" width="100" height="100" borderColour="#00FFFF" cornerRadius="10" borderSize="3" fillColour="#008888" />
+    
+    <box id="dragTarget" x="20" y="140" width="580" height="200" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" fillColour="#FFFFFF" />
+    
 </TRIAL>    
 
     

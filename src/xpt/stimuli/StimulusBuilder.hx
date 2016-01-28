@@ -72,6 +72,21 @@ class StimulusBuilder {
 		return v;
 	}
 	
+    private function getStringArray(what:String, defaultValue:Array<String> = null, delim:String = ","):Array<String> {
+        var arr:Array<String> = defaultValue;
+        var v:String = get(what);
+        if (v != null) {
+            if (arr == null) {
+                arr = [];
+            }
+            var temp:Array<String> = v.split(delim);
+            for (s in temp) {
+                arr.push(StringTools.trim(s));
+            }
+        }
+        return arr;
+    }
+    
 	public function getInt(what:String, defaultValue:Int = -1):Int {
 		var i = defaultValue;
 		var v = get(what);

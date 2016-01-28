@@ -49,6 +49,7 @@
 		************************************************************************************ -->
 		<timer builder="xpt.stimuli.builders.nonvisual.StimTimer" />
 		<shuffle builder="xpt.stimuli.builders.nonvisual.StimShuffle" />
+		<drag builder="xpt.stimuli.builders.nonvisual.StimDrag" />
         
 		<!-- ***********************************************************************************
 			LAYOUT STIMULI
