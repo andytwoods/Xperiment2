@@ -7,7 +7,7 @@
     <computer  encrypt='false' sstimuliFolder="SG_Words" stimuliFolder="fullness" />
     <style BUTTON_DOWN="0xff5656"  />
     <variables practice='0' />
-    <validation validationEnabled="false" invalidTrailBehaviour="disable" />
+    <validation validationEnabled="true" invalidTrailBehaviour="disable" />
 </SETUP>
 
 <TRIAL TYPE="Trial" hideResults="true" block="-11" order="fixed" trials="1">
@@ -22,6 +22,8 @@
     <box group="g1" id="b5" x="500" y="20" width="100" height="100" borderColour="#00FFFF" cornerRadius="10" borderSize="3" fillColour="#008888" />
     
     <box id="dragTarget" x="20" y="140" width="580" height="200" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" fillColour="#FFFFFF" />
+    
+	<nextTrialButton width="200" height="40" horizontalAlign="right" verticalAlign="bottom" fontSize="18" marginBottom="5" marginRight="5" />
     
 </TRIAL>    
 

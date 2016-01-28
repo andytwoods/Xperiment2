@@ -43,6 +43,9 @@ class StimDrag extends StimulusBuilder {
         for (stim in _dragStims) {
             stim.component.removeEventListener(UIEvent.MOUSE_DOWN, onDragStimMouseDown);
             stim.component.addEventListener(UIEvent.MOUSE_DOWN, onDragStimMouseDown);
+            
+            stim.component.sprite.useHandCursor = true;
+            stim.component.sprite.buttonMode = true;
         }
         
     }
@@ -64,19 +67,38 @@ class StimDrag extends StimulusBuilder {
     
     private function onScreenMouseUp(event:UIEvent) {
         if (_dragTarget != null && _currentDrag != null) {
-            var rcTarget:Rectangle = new Rectangle(_dragTarget.component.stageX,
-                                                   _dragTarget.component.stageY,
-                                                   _dragTarget.component.width,
-                                                   _dragTarget.component.height);
-            var rcDrag:Rectangle = new Rectangle(_currentDrag.stageX,
-                                                 _currentDrag.stageY,
-                                                 _currentDrag.width,
-                                                 _currentDrag.height);
-            if (rcTarget.containsRect(rcDrag) == false) {
-                Actuate.tween(_currentDrag, .5, { x: _origin.x, y: _origin.y } );
+            if (isStimInTarget(_currentDrag, _dragTarget.component) == false) {
+                Actuate.tween(_currentDrag, .5, { x: _origin.x, y: _origin.y } ).onComplete(updateValue);
             }
         }
         _currentDrag = null;
+        updateValue();
+    }
+    
+    private function updateValue() {
+        var stimIds:Array<String> = [];
+        if (_dragTarget != null) {
+            for (stim in _dragStims) {
+                if (isStimInTarget(stim.component, _dragTarget.component) == true) {
+                    stimIds.push(stim.id);
+                }
+            }
+        }
+        
+        var newValue:String = stimIds.join(",");
+        onStimValueChanged(newValue);
+    }
+    
+    private function isStimInTarget(stim:Component, target:Component):Bool {
+        var rcTarget:Rectangle = new Rectangle(target.stageX,
+                                               target.stageY,
+                                               target.width,
+                                               target.height);
+        var rcStim:Rectangle = new Rectangle(stim.stageX,
+                                             stim.stageY,
+                                             stim.width,
+                                             stim.height);
+        return rcTarget.containsRect(rcStim);
     }
     
     private function getDraggableStims():Array<Stimulus> {

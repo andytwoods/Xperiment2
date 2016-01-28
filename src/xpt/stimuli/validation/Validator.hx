@@ -25,6 +25,8 @@ class Validator extends ScriptInterp {
         variables.set("endsWith", endsWith);
         variables.set("numeric", numeric);
         variables.set("greaterThan", greaterThan);
+        variables.set("prop", prop);
+        variables.set("groups", groups);
     }
 
     public function validateStim(stim:Stimulus, validation:String):Bool {
@@ -89,6 +91,21 @@ class Validator extends ScriptInterp {
     
     private function greaterThan(stim:Stimulus, v:Float):Bool {
         return numeric(stim) && (stim.value > v);
+    }
+    
+    private function prop(stim:Stimulus, v:String):Dynamic {
+        return stim.get(v);
+    }
+    
+    private function groups(stim:Stimulus, v:String):String { 
+        var groupIds:Array<String> = [];
+        var groupStims:Array<Stimulus> = Stimulus.getGroup(v);
+        if (groupStims != null) {
+            for (groupStim in groupStims) {
+                groupIds.push(groupStim.id);
+            }
+        }
+        return groupIds.join(",");
     }
 	//*********************************************************************************
 	// OVERRIDES
