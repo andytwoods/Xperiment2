@@ -23,6 +23,9 @@
 			BASIC STIMULI
 		************************************************************************************ -->
 		<button builder="xpt.stimuli.builders.basic.StimButton" />
+		<input builder="xpt.stimuli.builders.basic.StimInputText" >
+            <valid>notEmpty()</valid>
+        </input>
 		<numberStepper builder="xpt.stimuli.builders.basic.StimNumberStepper">
             <valid>notEmpty()</valid>
         </numberStepper>

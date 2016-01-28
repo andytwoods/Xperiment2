@@ -31,6 +31,8 @@
 	
         <button text="Shuffle" action="Stims.shuffle(g1, ['x', 'y']);" />
     
+    <input text="Test" x="100" y="10" />
+    
 	<text width="80%" height="50%" 
 		  text=
 		  "Welcome to our study! We are the Crossmodal Research Laboratory, Department of Experimental Psychology, Oxford University. 

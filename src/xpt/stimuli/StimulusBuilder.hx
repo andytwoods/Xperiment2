@@ -127,9 +127,13 @@ class StimulusBuilder {
 		c.visible = getBool("visible", true);
 		
         var cx = getUnit("width", root.width);
+        if (cx > 0) {
+		    c.width = cx;
+        }
         var cy = getUnit("height", root.height);
-		c.width = cx;
-		c.height = cy;
+        if (cy > 0) {
+		    c.height = cy;
+        }
 		c.x = getUnit("x", root.width);
 		c.y = getUnit("y", root.height);
 		
