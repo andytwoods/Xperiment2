@@ -66,7 +66,11 @@ class StimDrag extends StimulusBuilder {
     }
     
     private function onScreenMouseUp(event:UIEvent) {
-        if (_dragTarget != null && _currentDrag != null) {
+        if (_currentDrag == null) {
+            return;
+        }
+        
+        if (_dragTarget != null) {
             if (isStimInTarget(_currentDrag, _dragTarget.component) == false) {
                 Actuate.tween(_currentDrag, .5, { x: _origin.x, y: _origin.y } ).onComplete(updateValue);
             }
