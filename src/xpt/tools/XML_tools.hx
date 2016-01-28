@@ -499,7 +499,6 @@ class XML_tools
 		}
 	}
 	
-
 	
 
 }

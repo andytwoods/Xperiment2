@@ -53,14 +53,17 @@ class Test_BetweenSJs
 		var ignore:String = "boss";
 		var map = b.getBetweenSJConds(script, ignore);
 		
-		Assert.isTrue(XTools.iteratorToArray(map.keys()).length == 2 && map.exists(ignore) == false);
+
+		Assert.isTrue(XTools.iteratorToArray(map.keys()).length == 3 );
+		
+		
 		Assert.isTrue(map.get("a").xml != null && map.get("b").xml != null);
 
 		var script:Xml = getScript();
 		map = b.getBetweenSJConds(script, ignore);
 		
 		
-		Assert.isTrue(XTools.iteratorToArray(map.keys()).length == 4);
+		Assert.isTrue(XTools.iteratorToArray(map.keys()).length == 5);
 		
 	}
 	

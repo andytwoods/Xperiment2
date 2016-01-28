@@ -26,7 +26,7 @@ We hope you enjoy it. Your participation is very important to us."
 	
 </TRIAL>
 
-<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="false" block="1" order="fixed" trials="10">
 	 
 	<text y="20%" width="90%" height="70%" 
 		  text=
@@ -42,7 +42,7 @@ You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.
 </TRIAL>
 
 
-<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
 	<text text="Some questions:" fontSize="20" width="200" height="30" x="20" y="20" />
 	
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" />
@@ -50,8 +50,6 @@ You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.
 	
 	<text text="Age:" fontSize="20" width="200" height="30" x="60" y="165" />
 	<age x="160" y="160" height="100" width="122.5" fontSize="20" />
-	
-	<origin x="60" y="300" width="680" height="50" fontSize="20" />
 	
 	<nextTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
 </TRIAL>	
@@ -61,15 +59,29 @@ You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.
 <TRIAL TYPE="Trial" hideResults="true" block="10" order="fixed" trials="4">
 	<button present="true" text="Button 2" x="10" y="10" height="100" width="100" fontSize="20" action="Experiment.nextTrial();" />
 	
-	<image resource="experiments/images/Expt1/" resource1="1|1|2|2" resource2="F|N" multiId="over_image" resource3="A" resource4=".png" x="50%" width="350" height="559"  />
+	<image  resource="1|1|2|2" resource1="F|N" multiId="over_image" resource2="A" resource3=".png" x="50%" width="350" height="559"  />
 
 </TRIAL>	
+	
+	
+<TRIAL TYPE="Trial" hideResults="false" block="-1" order="fixed" trials="10">
+
+<text  colour="black---blue" height="50%---10%" y="50%---85%" howMany="2" 
+	timeStart="0" width="80%"  align="center" timeEnd="forever" fontSize="30">
+	<.text>Thank you for your participation to this study. We're exploring the way people associate colours with tastes.
+If you have any questions or would like to here more about our research, please contact us at andy.woods@psy.ox.ac.uk---{a href='https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB'}https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB{/a}</.text>
+</text>
+
+	
+	<nextTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
+</TRIAL>	
+	
 
 </exptA>
 	
 <exptR>
 	
-	<over_image resource3="R" />
+	<over_image resource2="R" />
 	
 	
 </exptR>	
