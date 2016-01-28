@@ -17,8 +17,8 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="Z:\GitHub\haxeui" />
-    <class path="C:\Servers\Haxe\haxe\lib\lime\2,8,3" />
-    <class path="C:\Servers\Haxe\haxe\lib\openfl\3,5,3" />
+    <class path="C:\Servers\Haxe\haxe\lib\lime\2,9,0" />
+    <class path="C:\Servers\Haxe\haxe\lib\openfl\3,6,0" />
     <class path="C:\Servers\Haxe\haxe\lib\actuate\1,8,6" />
     <class path="C:\Servers\Haxe\haxe\lib\delay\1,1,1" />
     <class path="C:\Servers\Haxe\haxe\lib\hscript\2,0,5" />
@@ -30,17 +30,17 @@
     <class path="C:\Servers\Haxe\haxe\lib\haxe-rest-client\git" />
     <class path="C:\Servers\Haxe\haxe\lib\random\1,4,1\src" />
     <class path="src" />
-    <class path="C:\Servers\Haxe\haxe\lib\openfl\3,5,3\extern" />
+    <class path="C:\Servers\Haxe\haxe\lib\openfl\3,6,0\extern" />
     <class path="bin\flash\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="haxeui=1.8.7&#xA;lime=2.8.3&#xA;openfl=3.5.3&#xA;actuate=1.8.6&#xA;delay=1.1.1&#xA;hscript=2.0.5&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.2&#xA;mlib=2.0.2&#xA;utest=1.3.10&#xA;thx_core&#xA;thx.core=0.35.0&#xA;rest-client=0.2.0&#xA;haxe-rest-client=0.2.0&#xA;random=1.4.1&#xA;dom&#xA;openfl-next&#xA;tools=2.8.3&#xA;haxeui-no-gif-support&#xA;no-compilation&#xA;openfl-flash&#xA;web&#xA;dom&#xA;hscriptPos&#xA;haxeui-no-gif-support&#xA;display" />
+    <option directives="haxeui=1.8.8&#xA;lime=2.9.0&#xA;openfl=3.6.0&#xA;actuate=1.8.6&#xA;delay=1.1.1&#xA;hscript=2.0.5&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.2&#xA;mlib=2.0.2&#xA;utest=1.3.10&#xA;thx_core&#xA;thx.core=0.35.0&#xA;rest-client=0.2.0&#xA;haxe-rest-client=0.2.0&#xA;random=1.4.1&#xA;dom&#xA;openfl-next&#xA;tools=2.9.0&#xA;haxeui-no-gif-support&#xA;no-compilation&#xA;openfl-flash&#xA;web&#xA;dom&#xA;hscriptPos&#xA;haxeui-no-gif-support&#xA;display" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="-swf-version 11.2" />
+    <option additional="-swf-version 11.2&#xA;-debug " />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
