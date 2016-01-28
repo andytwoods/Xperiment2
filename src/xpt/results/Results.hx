@@ -84,7 +84,9 @@ public inline function __send_to_cloud(trialResults:TrialResults, special:Specia
 			}
 		}
 		
+		trace(111, trialResults.results);
 		#if html5
+		
 			var restService:REST_Service = new REST_Service(trialResults.results, serviceResult('REST'));
 		#end
 		

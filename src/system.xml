@@ -125,6 +125,12 @@
 				Experiment.previousTrial()
 			</action>
 		</previousTrialButton>
+		<text builder="xpt.stimuli.builders.basic.StimText">
+			<verticalAlign>center</verticalAlign>
+			<horizontalAlign>center</horizontalAlign>
+		</text>
+	
+			
 		<teststim builder="xpt.stimuli.builders.layout.StimHBox">
 			<children>
 				<button text="bob 1"></button>

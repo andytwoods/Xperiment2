@@ -64,8 +64,13 @@ class TrialResults
 		var val:String;
 		for (prop in stimResults.keys()) {
 			val = stimResults.get(prop);
-			__addResult(trialResults, prepend+prop, val);
+			__addResult(trialResults, removeFullStops(prepend+prop), val);
 		}
+	}
+	
+	static private inline function removeFullStops(str:String):String 
+	{
+		return str.split(".").join("_");
 	}
 	
 	static public inline function __addResult(trialResults:Map<String, String>, prop:String, val:String) 

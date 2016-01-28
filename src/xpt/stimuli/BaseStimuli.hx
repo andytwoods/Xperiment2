@@ -2,6 +2,7 @@ package xpt.stimuli;
 import xpt.debug.DebugManager;
 import xpt.tools.XML_tools;
 import thx.Tuple.Tuple2;
+import xpt.tools.XTools;
 import xpt.trial.TrialSkeleton;
 
 /**
@@ -16,13 +17,15 @@ class BaseStimuli
 	
 	public function createSkeletonParams(skeletons:Array<TrialSkeleton>	)
 	{
-
+		var children:Array<Xml>;
+		
 		for (skeleton in skeletons) {
-			skeleton.baseStimuli = _generateStimuli(XML_tools.getChildren(skeleton.xml), skeleton.trials.length); 
+			children = XTools.iteratorToArray( XML_tools.getChildren(skeleton.xml) );
+			skeleton.baseStimuli = _generateStimuli(children, skeleton.trials.length); 
 			}
 		}
 		
-	public function _generateStimuli(xmlList:Iterator<Xml>,numTrials:Int):Array<BaseStimulus>
+	public function _generateStimuli(xmlList:Array<Xml>,numTrials:Int):Array<BaseStimulus>
 	{
 		var baseStimuli = new Array<BaseStimulus>();
 		var baseStim:BaseStimulus;
@@ -55,9 +58,31 @@ class BaseStimuli
 	{
 		var baseStim = new BaseStimulus(nam);
 		
-		baseStim.children = _generateStimuli(XML_tools.getChildren(stimXML) , numTrials);
+		var children:Array<Xml> = XTools.iteratorToArray( XML_tools.getChildren(stimXML) );
+
 		
-		var props:Map<String,String> = XML_tools.flattened_attribsToMap(stimXML,permittedStimuli);
+		var props:Map<String,String> = XML_tools.flattened_attribsToMap(stimXML, permittedStimuli);
+		
+		var nodeName:String;
+		
+		for (child in children) {
+		
+			if (child.nodeType == Xml.Element) {
+				nodeName = child.nodeName;
+				trace(nodeName, 33);
+				if (nodeName.charAt(0) == ".") {
+					props.set(nodeName.substr(1), child.firstChild().nodeValue);
+					children.remove(child);
+				}
+				
+			}
+		}
+		
+		baseStim.children = _generateStimuli(children , numTrials);
+		
+		//var nodeVal:String = XML_tools.getNodeVal(stimXML);
+		//if (nodeVal != null) props.set('nodeValue', nodeVal);
+		
 		ETCs.compose(props, numTrials, baseStim.howMany);
 		baseStim.setProps(	props	);
 		return baseStim;

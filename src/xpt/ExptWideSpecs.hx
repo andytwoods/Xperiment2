@@ -65,7 +65,7 @@ class ExptWideSpecs
 		map.set("flyingfish_site_id","");
 	//exptInfo
 		map.set("one_key","");
-		map.set("expt_id","");
+		map.set("exptId","");
 	//encryption
 		map.set("encryptKey","");
 		map.set("one_key","");
@@ -76,7 +76,7 @@ class ExptWideSpecs
 		map.set("overSJs","");
 		map.set("ip","autoset");
 		map.set("deviceUUID","");
-		map.set('uuid',Uuid.create());
+		map.set('uuid',Uuid.create().split("-").join(""));
 	//blocking
 		map.set("blockDepthOrder","");
 	//saving
@@ -108,7 +108,7 @@ class ExptWideSpecs
 	}
 	
 	public static function exptId():String {
-		return map.get("expt_id");
+		return map.get("exptId");
 	}
 	
 	public static function IS(what:String, throwException:Bool = true):Dynamic {
@@ -137,7 +137,7 @@ class ExptWideSpecs
 	static public function override_for_develServer() 
 	{
 		map.set('cloudUrl', 'http://127.0.0.1:8000/api/sj_data');
-		map.set('expt_id', '17c23b394aab4c4da6f4acbcf458e065');
+		//map.set('exptId', '17c23b394aab4c4da6f4acbcf458e065');
 	}
 	
 	static public function updateExternalVars(params:Map<String, String>) 
