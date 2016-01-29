@@ -11,6 +11,7 @@
 </SETUP>
 
 <TRIAL TYPE="Trial" hideResults="true" block="-11" order="fixed" trials="1">
+    <link text="Click me" url="http://www.google.com" />
     <shuffle groups="g1" />
     
     <drag target="dragTarget" groups="g1" capture="x" dragTransparency=".5" />

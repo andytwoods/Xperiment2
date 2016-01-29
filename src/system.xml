@@ -51,6 +51,7 @@
 		<progressBar builder="xpt.stimuli.builders.basic.StimProgressBar" />
 		<image builder="xpt.stimuli.builders.basic.StimImage"/>
 		<text builder="xpt.stimuli.builders.basic.StimText" />
+        <link builder="xpt.stimuli.builders.basic.StimLink" />
 		
 		<!-- ***********************************************************************************
 			NON-VISUAL STIMULI
