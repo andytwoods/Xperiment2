@@ -14,6 +14,7 @@ class ExptWideSpecs
 	public static var stim_sep:String = '---';
 	public static var trialName:String = "trialName";
 	public static var filename:String = "asset";
+	static public var readabilitySpaces_props:Array<String> = ['groups','stims'];
 	
 	
 	private static var testMods:Map<String,String>;

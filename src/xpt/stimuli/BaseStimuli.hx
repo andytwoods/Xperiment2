@@ -13,6 +13,8 @@ class BaseStimuli
 {
 	private static var permittedStimuli:Array<String>;
 	
+	public static var readabilitySpaces_props = [];
+	
 	public function new() { }
 	
 	public function createSkeletonParams(skeletons:Array<TrialSkeleton>	)
@@ -70,7 +72,7 @@ class BaseStimuli
 		
 			if (child.nodeType == Xml.Element) {
 				nodeName = child.nodeName;
-				trace(nodeName, 33);
+				
 				if (nodeName.charAt(0) == ".") {
 					nodeVal = child.firstChild().nodeValue;
 					props.set(nodeName.substr(1), XTools.removeProtectedTextIndicators(nodeVal));
@@ -80,6 +82,8 @@ class BaseStimuli
 			}
 		}
 		
+		removeSpacesForKeyParams(props);
+		
 		baseStim.children = _generateStimuli(children , numTrials);
 		
 		//var nodeVal:String = XML_tools.getNodeVal(stimXML);
@@ -88,6 +92,17 @@ class BaseStimuli
 		ETCs.compose(props, numTrials, baseStim.howMany);
 		baseStim.setProps(	props	);
 		return baseStim;
+	}
+	
+	function removeSpacesForKeyParams(props:Map<String, String>) 
+	{
+		for (prop in props.keys()) {
+			if (readabilitySpaces_props.indexOf(prop) != -1) {
+				props.set(prop, props.get(prop).split(" ").join(""));
+			}
+			
+		}
+		
 	}
 	
 	
