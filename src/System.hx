@@ -56,6 +56,14 @@ class System {
 			}
 		}
 		
+		var defaultsNode:Xml = systemNode.elementsNamed("defaults").next();
+		var defaults:Map<String,String> = new Map<String,String>();
+		if(defaultsNode!= null && defaultsNode.nodeType == Xml.Element){
+			for (param in defaultsNode.elements()) {
+				defaults.set(param.nodeName, param.firstChild().nodeValue);
+			}
+		}
+		
 		// register stim classes
 		var stimuliNode:Xml = systemNode.elementsNamed("stimuli").next();
 		for (node in stimuliNode.elements()) {
@@ -66,6 +74,9 @@ class System {
 				var paramName:String = param.nodeName;
 				var paramValue:String = param.firstChild().nodeValue;
 				code += "xpt.stimuli.StimuliFactory.addStimParam('" + stimName + "', '" + paramName + "', '" + paramValue + "');\n";
+			}
+			for (key in defaults.keys()) {
+				code += "xpt.stimuli.StimuliFactory.addStimParam('" + stimName + "', '" + key + "', '" + defaults.get(key) + "');\n";
 			}
 		}
 

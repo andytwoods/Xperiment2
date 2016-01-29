@@ -18,6 +18,13 @@
 	<timing manager="actuate">
 	</timing>
 	
+	<defaults>
+		<x>50%</x>
+		<y>50%</y>
+		<verticalAlign>center</verticalAlign>
+		<horizontalAlign>center</horizontalAlign>
+	</defaults>
+	
 	<stimuli>
 		<!-- ***********************************************************************************
 			BASIC STIMULI
@@ -35,18 +42,14 @@
         </lineScale>    
 		<multipleChoice builder="xpt.stimuli.builders.basic.StimMultipleChoice">
             <valid>notEmpty()</valid>
+			
         </multipleChoice>
 		<comboBox builder="xpt.stimuli.builders.basic.StimComboBox">
             <valid>notEmpty()</valid>
         </comboBox>    
 		<imageSequence builder="xpt.stimuli.builders.basic.StimImageSequence" />
 		<progressBar builder="xpt.stimuli.builders.basic.StimProgressBar" />
-		<image builder="xpt.stimuli.builders.basic.StimImage" >
-			<x>50%</x>
-			<y>50%</y>
-			<verticalAlign>center</verticalAlign>
-			<horizontalAlign>center</horizontalAlign>
-		</image>
+		<image builder="xpt.stimuli.builders.basic.StimImage"/>
 		<text builder="xpt.stimuli.builders.basic.StimText" />
 		
 		<!-- ***********************************************************************************
@@ -76,8 +79,16 @@
             <id>age</id>
 			<val>00</val>
             <valid>notEmpty() && numeric()</valid>
+			<x>50%</x>
+			<y>50%</y>
+			<verticalAlign>center</verticalAlign>
+			<horizontalAlign>center</horizontalAlign>
 		</age>
 		<sex builder="xpt.stimuli.builders.basic.StimMultipleChoice">
+			<x>50%</x>
+			<y>50%</y>
+			<verticalAlign>center</verticalAlign>
+			<horizontalAlign>center</horizontalAlign>
 			<id>sex</id>
 			<labels>Male,Female</labels>
 			<icons>img/icons/user-nude.png,img/icons/user-nude-female.png</icons>
@@ -85,6 +96,10 @@
             <valid>Male,Female</valid>
 		</sex>
 		<origin builder="xpt.stimuli.builders.basic.StimComboBox">
+			<x>50%</x>
+			<y>50%</y>
+			<verticalAlign>center</verticalAlign>
+			<horizontalAlign>center</horizontalAlign>
             <id>origin</id>
 			<text>Where are you from?</text>
 			<data>data/countries.json</data>
@@ -139,6 +154,8 @@
 		<text builder="xpt.stimuli.builders.basic.StimText">
 			<verticalAlign>center</verticalAlign>
 			<horizontalAlign>center</horizontalAlign>
+			<x>50%</x>
+			<y>50%</y>
 		</text>
 	
 			
