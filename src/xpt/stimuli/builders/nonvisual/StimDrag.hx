@@ -87,7 +87,6 @@ class StimDrag extends StimulusBuilder {
             for (stim in _dragStims) {
                 if (isStimInTarget(stim.component, _dragTarget.component) == true) {
                     stimIds.push(stim.id);
-					trace(get_percent_loc(stim, 'y'));
                 }
             }
         }

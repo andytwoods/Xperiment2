@@ -49,7 +49,7 @@ class Experiment extends EventDispatcher {
 		
 		if (script == null) return; //used for testing
 		this.script = script;
-		
+
 		//consider remove direct class below and replace purely with Templates.compose(script);
 		var processScript:ProcessScript = new ProcessScript(script);
 		processScript = null;
@@ -74,6 +74,7 @@ class Experiment extends EventDispatcher {
 		Scripting.init(this);
 		DebugManager.instance.experiment = this;
 		//DebugManager.instance.enabled = true;
+
 		DebugManager.instance.info("Experiment ready");
 		setupTrials(script);
 		firstTrial();

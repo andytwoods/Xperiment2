@@ -175,7 +175,7 @@ class StimulusBuilder {
 		if (get("horizontalAlign") != null) {
 			switch (get("horizontalAlign").toLowerCase()) {
                 case "left":
-                    c.x = 0;
+                    //
 				case "center" | "middle" | "centre":
 					c.x -= .5 * c.width;
                 case "right":

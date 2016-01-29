@@ -89,7 +89,10 @@ class ExptWideSpecs
 		map.set("saveWaitDuration","10");
 	//timing
 		map.set('timeStart', Date.now().toString());
-		map.set("ITI","500");
+		map.set("ITI", "500");
+		
+	//validation
+		map.set('invalidTrailBehaviour', 'hide');
 
 	}
 	

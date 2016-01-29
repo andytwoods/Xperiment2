@@ -9,7 +9,7 @@ class SystemWrapper {
     
     public var invalidTrailBehaviour(get, null):String;
     public function get_invalidTrailBehaviour():String {
-        var value:String = "disable";
+        var value:String = "hide";
         if (ExptWideSpecs.IS("invalidTrailBehaviour", false) != null) {
             value = ExptWideSpecs.IS("invalidTrailBehaviour", false);
         }

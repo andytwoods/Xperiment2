@@ -22,9 +22,11 @@ class CheckIsCode
 		if (xml == null) return null;
 		var code:Xml = xml;
 		
+
 		switch check {
 			
 			case BeforeEverything | BeforeExperiment:
+
 				if (checkIsCode(code) == false) return null;
 				
 			case BeforeFirstTrial:
@@ -41,6 +43,7 @@ class CheckIsCode
 				code = null;
 			
 		}
+
 
 		if (code != null) return code.toString();
 		
@@ -70,6 +73,7 @@ class CheckIsCode
 	
 	
 	public static inline function checkIsCode(xml:Xml):Bool {
+		//if ( xml.firstElement() == null) throw 'PROBLEM WITH YOUR EXPERIMENT SCRIPT';
 		if (XML_tools.nodeName(xml).toLowerCase() != "code") return false;
 		else return true;
 	}

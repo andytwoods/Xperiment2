@@ -32,7 +32,12 @@ class StimImage extends StimulusBuilder {
             resource = PathTools.fixPath(resource);
             if (false == setBitmap(Preloader.instance.preloadedImages.get(resource), image) ) {
 				Preloader.instance.callbackWhenLoaded(resource, function(){
-					setBitmap(Preloader.instance.preloadedImages.get(resource),image);	
+					setBitmap(Preloader.instance.preloadedImages.get(resource), image);	
+					if (get('width') == null && get('height') == null) {
+					_stim.set('width', image.width);
+					_stim.set('height', image.height);
+					applyProperties(image);
+					}
 				});
 			}
 		}
@@ -41,17 +46,7 @@ class StimImage extends StimulusBuilder {
 	private function setBitmap(b:Bitmap, image:Image):Bool {
 		var bmp:Bitmap = b;
 		if (bmp == null) return false;
-		image.resource = new Bitmap(bmp.bitmapData.clone());
-		
-		
-		if (get('width') == null && get('height') == null) {
-			_stim.set('width', image.width);
-			_stim.set('height', image.height);
-			
-			applyProperties(image);
-			
-		}
-		
+		image.resource = new Bitmap(bmp.bitmapData.clone());		
 		return true;
 	}
 }

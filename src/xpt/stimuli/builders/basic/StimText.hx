@@ -17,6 +17,7 @@ class StimText extends StimulusBuilder {
 		super.applyProperties(c);
 		var text:Text = cast c;
 		text.wrapLines = true;
+		text.multiline = true;
 		if (get("textAlign") != null) {
 			text.textAlign = get("textAlign");
 		}
