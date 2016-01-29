@@ -18,6 +18,8 @@ import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.trial.Trial;
 
 class StimulusBuilder {
+	
+	@:allow(StimImage)
 	private var _stim:Stimulus;
 	
 	public function new() {
@@ -60,7 +62,7 @@ class StimulusBuilder {
 		return v;
 	}
 	
-	private function get(what:String, defaultValue:String = null):String {
+	public function get(what:String, defaultValue:String = null):String {
 		var v:String = defaultValue;
 		if (_stim == null) {
 			return v;
@@ -147,6 +149,7 @@ class StimulusBuilder {
 		return new Component();
 	}
 	
+	@:allow(StimImage)
 	private function applyProperties(c:Component) {
 		var root:Root = RootManager.instance.currentRoot;
 		
@@ -170,24 +173,24 @@ class StimulusBuilder {
 		c.y = getUnit("y", root.height);
 		
 		if (get("horizontalAlign") != null) {
-			switch (get("horizontalAlign")) {
+			switch (get("horizontalAlign").toLowerCase()) {
                 case "left":
                     c.x = 0;
-				case "center":
-					c.x = (root.width / 2) - (c.width / 2);
+				case "center" | "middle" | "centre":
+					c.x -= .5 * c.width;
                 case "right":
-                    c.x = (root.width - c.width);
+                    c.x -= c.width;
 			}
 		}
 
 		if (get("verticalAlign") != null) {
-			switch (get("verticalAlign")) {
+			switch (get("verticalAlign").toLowerCase()) {
                 case "top":
-                    c.y = 0;
-				case "center":
-					c.y = (root.height / 2) - (c.height / 2);
+                   //
+				case "center" | "middle" | "centre":
+					c.y -= .5 * c.height;	
                 case "bottom":
-                    c.y = (root.height - c.height);
+                    c.y -=  c.height;
 			}
 		}
 		

@@ -82,6 +82,7 @@ class Experiment extends EventDispatcher {
 
 	private function linkups() {
 		BaseStimuli.setPermittedStimuli(StimuliFactory.getPermittedStimuli());
+		BaseStimuli.readabilitySpaces_props = ExptWideSpecs.readabilitySpaces_props;
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 		TrialFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 		TrialBlock.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);

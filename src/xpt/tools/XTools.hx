@@ -236,5 +236,6 @@ class XTools
 		}
 		return nodeVal;
 	}
+	
 
 }

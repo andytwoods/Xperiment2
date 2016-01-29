@@ -6,10 +6,12 @@ import haxe.ui.toolkit.events.UIEvent;
 import motion.Actuate;
 import openfl.geom.Point;
 import openfl.geom.Rectangle;
+import thx.Floats;
 import xpt.events.ExperimentEvent;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;
 import haxe.ui.toolkit.core.Component;
+import xpt.tools.XTools;
 
 class StimDrag extends StimulusBuilder {
     private var _dragStims:Array<Stimulus>;
@@ -85,10 +87,11 @@ class StimDrag extends StimulusBuilder {
             for (stim in _dragStims) {
                 if (isStimInTarget(stim.component, _dragTarget.component) == true) {
                     stimIds.push(stim.id);
+					trace(get_percent_loc(stim, 'y'));
                 }
             }
         }
-        
+
         var newValue:String = stimIds.join(",");
         onStimValueChanged(newValue);
     }
@@ -102,7 +105,8 @@ class StimDrag extends StimulusBuilder {
                                              stim.stageY,
                                              stim.width,
                                              stim.height);
-        return rcTarget.containsRect(rcStim);
+															 
+		return rcTarget.containsRect(rcStim);
     }
     
     private function getDraggableStims():Array<Stimulus> {
@@ -134,4 +138,43 @@ class StimDrag extends StimulusBuilder {
         
         return stims;
     }
+	
+	
+	override public function results():Map<String,String> {
+		
+		var propsStr:String = get("capture");
+		if (propsStr.length == 0) return super.results();
+		
+		var props:Array<String> = propsStr.split(',');
+		
+		
+		var data:Map<String,String> = new Map<String,String>();		
+		
+		for (stim in _dragStims) {
+			if (isStimInTarget(stim.component, _dragTarget.component)){
+				for (prop in props) {
+					data.set(stim.id+"_"+prop, get_percent_loc(stim, prop));	
+				}
+			}
+		}
+		
+		return data;
+	}
+	
+	private function get_percent_loc(s:Stimulus, p:String):String {
+		var val:Float = -1;
+		switch(p.toLowerCase()) {
+			case 'x':
+				val =  s.component.stageX;
+				val = val - _dragTarget.component.stageX + s.component.width *.5;
+				val = val / _dragTarget.component.width * 100;
+					
+			case 'y':
+				val = s.component.stageY;
+				val = val - _dragTarget.component.stageY + s.component.height *.5;
+				val = val / _dragTarget.component.height * 100;
+				val = 100 - val;
+		}
+		return Std.string(Floats.roundTo(val,2));
+	}
 }

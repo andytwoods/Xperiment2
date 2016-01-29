@@ -27,6 +27,7 @@ class StimShuffle extends StimulusBuilder {
         _trailStarted = true;
         performShuffle();
     }
+		
     
     /*
     We want to be a little careful here as if we put the shuffle before the group in the xml

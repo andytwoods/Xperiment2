@@ -42,6 +42,16 @@ class StimImage extends StimulusBuilder {
 		var bmp:Bitmap = b;
 		if (bmp == null) return false;
 		image.resource = new Bitmap(bmp.bitmapData.clone());
+		
+		
+		if (get('width') == null && get('height') == null) {
+			_stim.set('width', image.width);
+			_stim.set('height', image.height);
+			
+			applyProperties(image);
+			
+		}
+		
 		return true;
 	}
 }

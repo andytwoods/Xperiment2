@@ -41,7 +41,12 @@
         </comboBox>    
 		<imageSequence builder="xpt.stimuli.builders.basic.StimImageSequence" />
 		<progressBar builder="xpt.stimuli.builders.basic.StimProgressBar" />
-		<image builder="xpt.stimuli.builders.basic.StimImage" />
+		<image builder="xpt.stimuli.builders.basic.StimImage" >
+			<x>50%</x>
+			<y>50%</y>
+			<verticalAlign>center</verticalAlign>
+			<horizontalAlign>center</horizontalAlign>
+		</image>
 		<text builder="xpt.stimuli.builders.basic.StimText" />
 		
 		<!-- ***********************************************************************************
@@ -105,6 +110,8 @@
 		</preloadReadyButton>
 		<nextTrialButton builder="xpt.stimuli.builders.basic.StimButton">
 			<text>Next</text>
+			<x>50%</x>
+			<y>50%</y>
 			<action>
 				Experiment.nextTrial()
 			</action>
