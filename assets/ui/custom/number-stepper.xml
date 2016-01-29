@@ -19,6 +19,11 @@
 			iconPosition: center;
 		}
 		
+        .numberStepper #inc #icon, .numberStepper #deinc #icon {
+            backgroundColor: 0xFFFFFF;
+            backgroundAlpha: 0;
+        }
+        
 		.numberStepper #value {
 			cornerRadius: 0;
 			textAlign: center;

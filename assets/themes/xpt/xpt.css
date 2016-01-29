@@ -16,6 +16,10 @@ Button {
 	filter: null;
 }
 
+Button #label {
+}
+
+
 Button:over {
 	backgroundColor: #F5F5F5;
 	backgroundColorGradientEnd: #F1F1F1;
