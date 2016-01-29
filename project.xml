@@ -8,14 +8,14 @@
 	<!-- output -->
 	<app main="Xpt" file="XptHaxe" path="bin" />
 	
-<!--	<haxedef name="dom" />
+	<!--<haxedef name="dom" />
 	<haxeflag name="-D dom" />-->
 	<haxeflag name="-D hscriptPos" />
 	<haxedef name="haxeui-no-gif-support" />
 	<haxeflag name="-D haxeui-no-gif-support" />
-	
+
 	<window background="#FFFFFF" fps="60" />
-	<window width="800" height="600" unless="mobile" />
+	<window width="1024" height="768" unless="mobile" />
 	<window orientation="landscape" fps="60" hardware="true" vsync="false" antialiasing="0" if="cpp" />
 	
 	<!-- classpath, haxe libs -->
@@ -39,8 +39,9 @@
 	<assets path="assets/data" rename="data" />
 	<assets path="assets/themes" rename="themes" />
   
-	<!--
+	
 	<template path="assets/html5/index.html" if="html5" rename="index.html" />
+	<!--
 	<assets path="experiments" rename="experiments" exclude="*.jpg" />
     -->    
 	

@@ -46,7 +46,7 @@ STATEMENT OF INFORMED CONSENT
 </TRIAL>
 
 
-<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
 	<text text="Some questions:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
 	
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left"/>
@@ -60,13 +60,13 @@ STATEMENT OF INFORMED CONSENT
 	
 
 
-<TRIAL TYPE="Trial" hideResults="true" block="10" order="fixed" trials="4">
+<TRIAL TYPE="Trial" hideResults="false" block="10" order="fixed" trials="4">
 	
 	<text text1="sweetness" text2="." fontSize="18" width="100%" height="100" verticalAlign="top"  y="0">
 		<.text>Please drap the items into the box, arranging them according to how much you relate each to be associated with </.text>
 	</text>
 	
-	<image howMany="4" verticalAlign="bottom" y="35%" group="g1" id="1---1---2---2" id1="F---N" resource="1---1---2---2" resource1="F---N" multiId="over_image" resource2="A" resource3=".png" x="20%---40%---60%---80%"   />
+	<image howMany="4" verticalAlign="bottom" y="32%" group="g1" id="1---1---2---2" id1="F---N" resource="1---1---2---2" resource1="F---N" multiId="over_image" resource2="A" resource3=".png" x="20%---40%---60%---80%"   />
 	
 	<shuffle groups="g1" />
     
@@ -75,20 +75,19 @@ STATEMENT OF INFORMED CONSENT
     
     <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="center" marginTop="50" y="53%" width="99%" height="50%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" fillColour="#FFFFFF" />
 
-    <nextTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
+    <nextTrialButton y="99%" verticalAlign="bottom" width="200" height="40" horizontalAlign="center" fontSize="18" />
 </TRIAL>	
 	
 	
 <TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="10">
 
-<text  colour="black---blue" height="50%---10%" y="50%---85%" howMany="2" 
-	timeStart="0" width="80%"  align="center" timeEnd="forever" fontSize="30">
+<text  colour="black" timeStart="0" width="80%"  height="50%" fontSize="30">
 	<.text>Thank you for your participation to this study. We're exploring the way people associate colours with tastes.
-If you have any questions or would like to here more about our research, please contact us at andy.woods@psy.ox.ac.uk---{a href='https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB'}https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB{/a}</.text>
+If you have any questions or would like to here more about our research, please contact us at andy.woods@psy.ox.ac.uk</.text>
 </text>
 
-	
-	<nextTrialButton y="540" width="200" height="40" horizontalAlign="center" fontSize="18" />
+<link text="Prolific Academic Link" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB" />
+
 </TRIAL>	
 	
 

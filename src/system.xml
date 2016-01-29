@@ -92,7 +92,6 @@
 			<horizontalAlign>center</horizontalAlign>
 			<id>sex</id>
 			<labels>Male,Female</labels>
-			<icons>img/icons/user-nude.png,img/icons/user-nude-female.png</icons>
 			<buttonWidth>50%</buttonWidth>
             <valid>Male,Female</valid>
 		</sex>

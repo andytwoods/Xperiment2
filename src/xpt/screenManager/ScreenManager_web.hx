@@ -1,5 +1,6 @@
 package xpt.screenManager;
 import openfl.display.Stage;
+import openfl.display.StageScaleMode;
 import openfl.events.Event;
 import openfl.Lib;
 
