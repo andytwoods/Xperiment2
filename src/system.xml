@@ -115,6 +115,8 @@
 			</onPreloadProgress>
 		</preloadProgress>
 		<preloadReadyButton builder="xpt.stimuli.builders.basic.StimButton">
+			<icon>img/icons/control.png</icon>
+			<iconPosition>right</iconPosition>
 <!--			<icon>img/icons/control.png</icon>
 			<iconPosition>right</iconPosition>-->
 			<text>Continue</text>
