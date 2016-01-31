@@ -133,22 +133,10 @@ class Trial {
 		if (testing == false) {
 			XTools.delay(ITI, function() { 
 				TimingManager.instance.start();
-				
-				XTools.delay(500, function() { 
-					trace('validate stims',111);
-					for (stim in stimuli) {
-						var c:Component = stim.component;
-						c.invalidate();
-						
-					}
-					
-				} );
-				
-				
-			} );
-			
-
-            
+				for (stim in stimuli) {
+					stim.component.invalidate();
+				}				
+			});
 		}
 		
 		// TODO: duplication of stimuli here, doesnt happen once they are in TimingBoss - but should be investigated
