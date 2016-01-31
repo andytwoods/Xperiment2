@@ -31,12 +31,12 @@ class StimMultiNumberStepper extends StimulusBuilder {
 			var stepper:NumberStepper = new NumberStepper();
 			stepper.percentWidth = 100 / n;
 			stepper.percentHeight = 100;
-			stepper.val = Std.parseInt(val.charAt(x));
-			c.addChild(stepper);
-			
 			if (fontSize != -1) {
 				stepper.style.fontSize = fontSize;
 			}
+			stepper.val = Std.parseInt(val.charAt(x));
+			c.addChild(stepper);
+			
             
             stepper.addEventListener(UIEvent.CHANGE, onStepperChanged);
             _steppers.push(stepper);
