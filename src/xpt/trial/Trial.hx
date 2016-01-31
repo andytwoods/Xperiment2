@@ -1,6 +1,7 @@
 package xpt.trial;
 
 import diagnositics.DiagnosticsManager;
+import haxe.ui.toolkit.core.Component;
 import openfl.events.TimerEvent;
 import openfl.Lib;
 import openfl.utils.Timer;
@@ -10,6 +11,7 @@ import xpt.experiment.Experiment;
 import xpt.stimuli.StimuliFactory;
 import xpt.stimuli.Stimulus;
 import xpt.timing.TimingManager;
+import xpt.tools.XTools;
 //import xpt.timing.TimingBoss;
 
 enum Trial_Action {
@@ -129,15 +131,12 @@ class Trial {
 	public function start() {
         DiagnosticsManager.add(DiagnosticsManager.TRIAL_START, trialName);
 		if (testing == false) {
-				var t:Timer = new Timer(ITI);
-			function timerEnd(e:TimerEvent){
-				t.removeEventListener(TimerEvent.TIMER, timerEnd);
-				t.stop();
+			XTools.delay(ITI, function() { 
 				TimingManager.instance.start();
-			}
-			t.addEventListener(TimerEvent.TIMER, timerEnd);
-			t.start();
-            validateStims();
+				for (stim in stimuli) {
+					stim.component.invalidate();
+				}				
+			});
 		}
 		
 		// TODO: duplication of stimuli here, doesnt happen once they are in TimingBoss - but should be investigated

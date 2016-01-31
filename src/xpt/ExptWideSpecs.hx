@@ -92,7 +92,7 @@ class ExptWideSpecs
 		map.set("ITI", "500");
 		
 	//validation
-		map.set('invalidTrailBehaviour', 'hide');
+		map.set('invalidTrailBehaviour', 'disable');
 
 	}
 	

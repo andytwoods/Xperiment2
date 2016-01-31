@@ -1,4 +1,6 @@
 package xpt.tools;
+import openfl.events.TimerEvent;
+import openfl.utils.Timer;
 import thx.Floats;
 import thx.Ints;
 
@@ -235,6 +237,20 @@ class XTools
 			nodeVal = nodeVal.substr(startProtected.length, nodeVal.length - startProtected.length - endProtected.length);
 		}
 		return nodeVal;
+	}
+	
+	static public inline function delay(time:Int, f:Void -> Void) 
+	{
+		var t:Timer = new Timer(time,0);
+		function timerEnd(e:TimerEvent){
+			t.removeEventListener(TimerEvent.TIMER, timerEnd);
+			f();
+		}
+		t.addEventListener(TimerEvent.TIMER, timerEnd);
+		t.start();
+
+		
+		
 	}
 	
 
