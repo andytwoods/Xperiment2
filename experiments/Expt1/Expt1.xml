@@ -11,10 +11,10 @@
 
 <TRIAL TYPE="Trial" hideResults="true" block="-1" order="fixed" trials="1">
 
-	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford0${2}.png" />
+	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
 
     
-	<text width="80%" height="50%" 
+	<text width="80%" height="25%" 
 		  text=
 		  "Welcome to our study! We are the Crossmodal Research Laboratory, Department of Experimental Psychology, Oxford University. 
 We are interested in understanding how people associate information across the senses. If you decide to take part in this experiment, you will be asked to match a variety of shapes to tastes.
