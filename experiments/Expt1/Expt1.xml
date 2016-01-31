@@ -6,7 +6,7 @@
 	  <computer  encrypt='false' />
 	  <style BUTTON_DOWN="0xff5656"  />
 	  <variables practice='0' />
-	  <validation validationEnabled="true" invalidTrailBehaviour="hide" />
+	  <validation validationEnabled="false" invalidTrailBehaviour="hide" />
 </SETUP>
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
@@ -27,26 +27,27 @@ We hope you enjoy it. Your participation is very important to us."
 	
 </TRIAL>
 
-<TRIAL TYPE="Trial" hideResults="false" block="1" order="fixed" trials="1">
-	 
-	<text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top"><.text>Before we begin, please read the below: 
+<TRIAL TYPE="Trial" hideResults="false" block="-110" order="fixed" trials="1">
+	 <!--
+	<text  width="100%" height="65%" fontSize="17" y="0" verticalAlign="top" fillColour="#FF0000"><.text>Before we begin, please read the below: 
 By clicking 'I CONSENT' you indicate you have consented to take part.
 If you decide to take part in this experiment, you will be told specific links between tastes and shapes and will be asked to respond according to such links
 At the end of the study we will tell you more about the purpose of the study and why we are doing this research.
 You can also contact the researchers - Dr Carlos Velasco (carlos.velasco@psy.ox.ac.uk) or Dr Andy Woods (andy.woods@psy.ox.ac.uk) for further information at a later date if you wish.
 Please read the below consent statement and indicate whether you consent.
 STATEMENT OF INFORMED CONSENT
-1. I have read and understand the information above, and understand general purpose of this experiment.
-2. I understand that I can withdraw from the study at any time and that doing so we will destroy your data. You can withdraw at any time, for any reason. (NB – Please be aware that data collected is anonymous - if you change your mind after completing the experiment, we will be unable to trace your specific data to remove it).
-3. I understand that my responses are anonymous.
-4. I agree to take part in this online experiment.	
+    1. I have read and understand the information above, and understand general purpose of this experiment.
+    2. I understand that I can withdraw from the study at any time and that doing so we will destroy your data. You can withdraw at any time, for any reason. (NB – Please be aware that data collected is anonymous - if you change your mind after completing the experiment, we will be unable to trace your specific data to remove it).
+    3. I understand that my responses are anonymous.
+    4. I agree to take part in this online experiment.	
 		</.text></text>
+         -->
 	
-	<nextTrialButton y="540" width="200" height="40" text="I CONSENT" horizontalAlign="right" x="99%" fontSize="18" />
+	<nextTrialButton __y="540" width="200" height="40" text="I CONSENT" __verticalAlign="bottom" __horizontalAlign="right" __x="99%" fontSize="18" />
 </TRIAL>
 
 
-<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
+<TRIAL TYPE="Trial"  block="-1000" order="fixed" trials="1">
 	<text text="Some questions:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
 	
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
@@ -55,7 +56,7 @@ STATEMENT OF INFORMED CONSENT
 	<input  y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
     <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
 	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
-	<nextTrialButton y="540" width="200" height="40" horizontalAlign="center"  fontSize="18" />
+	<nextTrialButton y="140" width="200" height="40" horizontalAlign="center"  fontSize="18" />
 </TRIAL>	
 	
 

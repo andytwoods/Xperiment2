@@ -1,5 +1,7 @@
 Text {
 	color: #666666;
+    backgroundColor: #FFFFFF; 
+    backgroundAlpha: 0;
 }
 
 Button {
@@ -17,8 +19,15 @@ Button {
 }
 
 Button #label {
+    backgroundColor: #FFFFFF; 
+    backgroundAlpha: 0;
 }
 
+
+TextInput {
+    backgroundColor: #FF0000; 
+    __backgroundAlpha: 0;
+}
 
 Button:over {
 	backgroundColor: #F5F5F5;
