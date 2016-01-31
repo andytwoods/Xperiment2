@@ -216,6 +216,7 @@ class Experiment extends EventDispatcher {
 		Scripting.DO(null, RunCodeEvents.BeforeTrial, runningTrial);
 		DebugManager.instance.info("Starting trial");
 		runningTrial.start();
+        runningTrial.validateStims();
         var event:ExperimentEvent = new ExperimentEvent(ExperimentEvent.TRIAL_START);
         event.trail = runningTrial;
         dispatchEvent(event);
