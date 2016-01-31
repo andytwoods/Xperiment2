@@ -133,9 +133,11 @@ class Trial {
 		if (testing == false) {
 			XTools.delay(ITI, function() { 
 				TimingManager.instance.start();
+                /*
 				for (stim in stimuli) {
 					stim.component.invalidate();
-				}				
+				}
+				*/
 			});
 		}
 		
