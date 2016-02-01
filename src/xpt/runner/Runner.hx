@@ -5,6 +5,7 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.utils.Object;
 import xpt.comms.services.UrlParams_service;
+import xpt.events.ExperimentEvent;
 import xpt.script.BetweenSJs;
 
 import xpt.script.ProcessScript;
@@ -38,7 +39,6 @@ class Runner
 		script = betweenSJs.compose(script, UrlParams_service.get('overSJs'));
 
 		currentExpt = new Experiment(script);
-		
 		
 	}
 	

@@ -178,6 +178,11 @@ class Experiment extends EventDispatcher {
 			runningTrial.kill();					
 	}
 	
+	public function changeLanguage(lang:String) {
+	
+		trace(11,lang);
+	}
+	
 	public function startTrial() {
 
 

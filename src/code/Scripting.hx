@@ -105,6 +105,7 @@ class Scripting
 			try {
 				scriptEngine.variables.set("this", stim.component);
 				scriptEngine.variables.set("me", stim.component);
+				scriptEngine.variables.set("stim", stim);
 				scriptEngine.variables.set("e", event);
                 scriptEngine.variables.set("Stims", StimHelper);
                 scriptEngine.variables.set("System", new SystemWrapper());

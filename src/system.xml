@@ -79,6 +79,12 @@
 		<!-- ***********************************************************************************
 			ALIAS STIMULI
 		************************************************************************************ -->
+		<language builder="xpt.stimuli.builders.basic.StimMultipleChoice">
+			<action>
+				Experiment.changeLanguage(stim.value)
+			</action>
+		</language>
+		
 		<age builder="xpt.stimuli.builders.compound.StimMultiNumberStepper">
             <id>age</id>
 			<val>00</val>
@@ -97,9 +103,7 @@
 			<labels>Male,Female</labels>
 			<buttonWidth>50%</buttonWidth>
             <valid>Male,Female</valid>
-            <!--
-            <icons>img/icons/user-nude.png,img/icons/user-nude-female.png</icons>
-            -->    
+            <icons>img/icons/user-nude.png,img/icons/user-nude-female.png</icons>   
 		</sex>
 		<origin builder="xpt.stimuli.builders.basic.StimComboBox">
 			<x>50%</x>

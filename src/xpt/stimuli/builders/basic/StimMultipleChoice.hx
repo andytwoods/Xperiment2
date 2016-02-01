@@ -83,6 +83,8 @@ class StimMultipleChoice extends StimulusBuilder {
         if (cast(event.component, Button).selected == true && selection != _currentSelection) {
             _currentSelection = selection;
             onStimValueChanged(_currentSelection);
+			runScriptEvent("action", event);
         }
+		
     }
 }

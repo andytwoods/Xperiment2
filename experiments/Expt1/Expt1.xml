@@ -24,7 +24,7 @@ We hope you enjoy it. Your participation is very important to us."
 	
 	<preloadProgress x="20" y="540"  horizontalAlign="left" width="70%" height="40" />
 	<preloadReadyButton x="85%" y="540" width="20%" height="40" fontSize="18" />
-	
+	<language labels="English,French" y="90%" />
 </TRIAL>
 
 <TRIAL TYPE="Trial" hideResults="false" block="-1" order="fixed" trials="1">
