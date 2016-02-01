@@ -29,7 +29,7 @@ We hope you enjoy it. Your participation is very important to us."
 
 <TRIAL TYPE="Trial" hideResults="false" block="-1" order="fixed" trials="1">
 	 
-<!--	<text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top"><.text>Before we begin, please read the below: 
+<text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top"><.text>Before we begin, please read the below: 
 By clicking 'I CONSENT' you indicate you have consented to take part.
 If you decide to take part in this experiment, you will be told specific links between tastes and shapes and will be asked to respond according to such links
 At the end of the study we will tell you more about the purpose of the study and why we are doing this research.
@@ -40,9 +40,8 @@ STATEMENT OF INFORMED CONSENT
 2. I understand that I can withdraw from the study at any time and that doing so we will destroy your data. You can withdraw at any time, for any reason. (NB – Please be aware that data collected is anonymous - if you change your mind after completing the experiment, we will be unable to trace your specific data to remove it).
 3. I understand that my responses are anonymous.
 4. I agree to take part in this online experiment.	
-		</.text></text>-->
+		</.text></text>
 	
-	<button text="1111" width="20%" height="20%" />
 	
 	<nextTrialButton y="540" width="200" height="40" text="I CONSENT" horizontalAlign="right" x="99%" fontSize="18" />
 </TRIAL>
@@ -61,11 +60,24 @@ STATEMENT OF INFORMED CONSENT
 	
 
 
-<TRIAL TYPE="Trial" hideResults="false" block="10" order="fixed" trials="4">
+<TRIAL template="template"  block="10" trials="2">
+	<text copyOverId="taste1" text1="sweet|sour"/>
+	<text copyOverId="taste2" text="not sweet---very sweet|not sour---very sour" />
+</TRIAL>	
+
+<TRIAL template="template"  block="15" >
+	<text copyOverId="taste1" text="Please drap the items into the box, arranging them according to how much you " text1="like" text2=" each item."/>
+	<text copyOverId="taste2" text="not at all liked---liked very much" />
+</TRIAL>	
 	
-	<text text1="sweetness" text2="." fontSize="18" width="100%" height="100" verticalAlign="top"  y="0">
-		<.text>Please drap the items into the box, arranging them according to how much you relate each to be associated with </.text>
-	</text>
+<TRIAL template="template"  block="15" >
+	<text copyOverId="taste1" text="Please drap the items into the box, arranging them according to how " text1="familar" text2=" each item is to you."/>
+	<text copyOverId="taste2" text="not familiar---very familiar" />
+</TRIAL>	
+
+<template order="random" trials="1">
+
+	<text id="taste" textAlign="center" copyOverId="taste1" text2="." fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" text="Please drap the items into the box, arranging them according to how much you relate each to be associated with being "/>
 	
 	<image howMany="4" verticalAlign="bottom" y="32%" group="g1" id="1---1---2---2" id1="F---N" resource="1---1---2---2" resource1="F---N" multiId="over_image" resource2="A" resource3=".png" x="20%---40%---60%---80%"   />
 	
@@ -73,12 +85,14 @@ STATEMENT OF INFORMED CONSENT
     
     <drag target="dragTarget" groups="g1" capture="x" dragTransparency=".5" />
 	
+	<text copyOverId="taste2" horizontalAlign="left---right" y="90%" textAlign="left---right" x="0%---100%" howMany="2" fontSize="30" height="50" width="400" />
     
     <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="center" marginTop="50" y="53%" width="99%" height="50%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" fillColour="#FFFFFF" />
 
     <nextTrialButton y="99%" verticalAlign="bottom" width="200" height="40" horizontalAlign="center" fontSize="18" />
-</TRIAL>	
 	
+	<results dv="taste.text1" />
+</template>
 	
 <TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="10">
 

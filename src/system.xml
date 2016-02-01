@@ -60,7 +60,10 @@
 		<shuffle builder="xpt.stimuli.builders.nonvisual.StimShuffle" />
 		<drag builder="xpt.stimuli.builders.nonvisual.StimDrag">
             <valid>equals(groups(prop("groups")))</valid>
-        </drag>    
+        </drag> 
+		<results builder="xpt.stimuli.builders.nonvisual.StimResults" >
+			<id>results</id>
+		</results>
         
 		<!-- ***********************************************************************************
 			LAYOUT STIMULI
@@ -132,6 +135,7 @@
 			<text>Next</text>
 			<x>50%</x>
 			<y>50%</y>
+			<hideResults>true</hideResults>
 			<action>
 				Experiment.nextTrial()
 			</action>

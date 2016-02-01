@@ -19,6 +19,7 @@ class Stimulus {
 	public var type:String;
 	
     public var value:Dynamic;
+	public var props:Map<String,String>;
     
 	private var __properties:Map<String,Dynamic>;
 	private var __underlings:Array<Stimulus> = [];
@@ -67,6 +68,14 @@ class Stimulus {
 	public function tidy_beforeRun() {
 		if (duration != -1) {
 			stop = start += duration;
+		}
+	}
+	
+	public function setProps(stimProps:Map<String, String>) 
+	{
+		props = stimProps;
+		for (key in stimProps.keys()) {
+			this.set(key, stimProps.get(key	));
 		}
 	}
 	
@@ -248,6 +257,8 @@ class Stimulus {
     public static function resetGroups():Void {
         _groups = null;
     }
+	
+
     
 }
 

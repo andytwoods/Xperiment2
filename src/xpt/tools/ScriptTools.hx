@@ -4,7 +4,9 @@ import haxe.ui.toolkit.hscript.ScriptInterp;
 
 class ScriptTools {
     public static function expandScriptValues(script:String, vars:Map<String, Dynamic> = null, exceptions:Array<String> = null):String {
-        var finalResult:String = script;
+   
+		var finalResult:String = script;
+		var n1:Int = finalResult.indexOf("${");
         var scriptEngine:ScriptInterp = new ScriptInterp();
         if (vars != null) {
             for (key in vars.keys()) {
@@ -14,7 +16,7 @@ class ScriptTools {
         }
 
 		var parser = new hscript.Parser();
-        var n1:Int = finalResult.indexOf("${");
+        
         while (n1 != -1) {
             var n2:Int = finalResult.indexOf("}", n1);
             var e:String = finalResult.substring(n1 + 2, n2);
@@ -32,4 +34,8 @@ class ScriptTools {
         
         return finalResult;
     }
+	
+	public static inline function checkIsCode(str:String):Bool {
+		return str.indexOf("${") != -1;
+	}
 }

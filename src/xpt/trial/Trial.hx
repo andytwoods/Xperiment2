@@ -96,10 +96,12 @@ class Trial {
 	}
 	
 	public function addStimulus(stim:Stimulus) {
-		stimuli[stimuli.length] = stim;
-		if (testing == false) {
-			//timingBoss.add(stim);
-			TimingManager.instance.add(stim);
+
+		if(stimuli.indexOf(stim)==-1){
+			stimuli[stimuli.length] = stim;
+			if (testing == false) {
+				TimingManager.instance.add(stim);
+			}
 		}
 	}
 	
@@ -117,10 +119,6 @@ class Trial {
 	public function kill() {
 		if (testing == false) {
 			TimingManager.instance.reset();
-			/*
-			timingBoss.kill();
-			timingBoss = null;
-			*/
 		}
 		
 		for (stimulus in stimuli) {
@@ -129,18 +127,13 @@ class Trial {
 	}
 	
 	public function start() {
-        DiagnosticsManager.add(DiagnosticsManager.TRIAL_START, trialName);
-		if (testing == false) {
-			XTools.delay(ITI, function() { 
-				TimingManager.instance.start();
-                /*
-				for (stim in stimuli) {
-					stim.component.invalidate();
-				}
-				*/
-			});
-		}
 		
+        DiagnosticsManager.add(DiagnosticsManager.TRIAL_START, trialName);
+		XTools.delay(ITI, function() { 
+			TimingManager.instance.start();
+			
+		});
+
 		// TODO: duplication of stimuli here, doesnt happen once they are in TimingBoss - but should be investigated
 		// trace("" + stimuli);
 	}

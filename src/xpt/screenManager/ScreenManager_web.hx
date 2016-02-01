@@ -17,10 +17,15 @@ class ScreenManager_web
 	private static var stage:Stage;
 	
 	static public function init(_stage:Stage) 
-	{
+	{		
 		stage = _stage;
-		stage.addEventListener(Event.RESIZE, onResize);
-        onResize(null);
+		
+		#if !html5
+			stage.addEventListener(Event.RESIZE, onResize);
+			onResize(null);
+		#else
+			
+		#end
 	}
 	
 	private static function onResize(e:Event):Void {
@@ -41,7 +46,7 @@ class ScreenManager_web
 		} else {
 			Lib.current.y = (stage.stageHeight - NOMINAL_HEIGHT * stageScale) / 2;
 		}
-		//trace(Lib.current.x, Lib.current.y,stage.stageWidth,stage.stageHeight);
+		trace(Lib.current.x, Lib.current.y,stage.stageWidth,stage.stageHeight);
     }
 	
 	

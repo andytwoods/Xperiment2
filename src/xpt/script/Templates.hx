@@ -72,10 +72,9 @@ class Templates
 				template.requested++;
 				__applyTemplates(template, templateMap, copyOverTag);
 			}
-			
-			XML_tools.extendXML_inclBossNodeParams(require.xml, template.xml, copyOverTag, true);
-			//trace(require.xml,"	",template.xml);
-			
+			//nb really dislike cloning xml that way https://groups.google.com/forum/#!topic/haxelang/Waz0taglqMk
+			XML_tools.extendXML_inclBossNodeParams(require.xml, Xml.parse(template.xml.toString()) , copyOverTag, false);
+			trace(require.xml);
 			require.hasBeenTemplated = true;
 		}
 	}

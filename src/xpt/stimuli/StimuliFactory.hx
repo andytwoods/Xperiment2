@@ -25,12 +25,13 @@ class StimuliFactory {
 		var baseStimulus:BaseStimulus;
 		var stim:Stimulus;
 		var stimuli:Array<Stimulus> = new Array<Stimulus>();
-		
+
 		for (i in 0...baseStimuli.length) {
 			baseStimulus = baseStimuli[i];
-			
+
 			for(stim_copy in 0...baseStimulus.howMany){
 
+				
 				stim = getStim(baseStimulus.type);
 				var do_continue:Bool = setProps(stim, stim_copy, baseStimulus.props, trial);
 				
@@ -40,16 +41,11 @@ class StimuliFactory {
 						stim.id = "id" + Std.string(unknownIdCount++);
 					}
 					
-					trial.stimuli.push(stim);
 					if (parent != null) parent.addUnderling(stim);
 					
 
 					if(baseStimulus.children.length>0)	__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount);
 
-					
-					if (parent == null) {
-						trial.addStimulus(stim);
-					}
 					stimuli.push(stim);
 				}
 			}
@@ -70,17 +66,17 @@ class StimuliFactory {
             if (key == "resourcePattern") {
                 exceptions = ["value"];
             }
-            val = ScriptTools.expandScriptValues(val, ["index" => copyNum], exceptions);
+			if (ScriptTools.checkIsCode(val)) {
+				val = ScriptTools.expandScriptValues(val, ["index" => copyNum], exceptions);
+			}
 			val = XTools.multiCorrection(	val, overTrialSep, trialIteration);
 			val = XTools.multiCorrection(	val, withinTrialSep, copyNum);
 			stimProps.set(key, val);
 		}
 		
 		XTools.appendUpNumberedProps(stimProps);
-		
-		for (key in stimProps.keys()) {
-			stim.set(key, stimProps.get(key	));
-		}
+
+		stim.setProps(stimProps);
 		
 		if (stimProps.exists('present') && stimProps.get('present') == 'false') return false;
 		

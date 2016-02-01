@@ -226,7 +226,6 @@ class XML_tools
 	*/
 	static public function extendXML_inclBossNodeParams(xml1:Xml, xml2:Xml, param:String, _override:Bool = false ):Xml {
 		extendAttribs(xml1, xml2, _override);
-		//trace(xml1, xml2);
 		var xml:Xml = extendXML(xml1, xml2, param);
 		return xml;
 	}
@@ -238,7 +237,6 @@ class XML_tools
 	static public function extendXML_multi(bossXML:Xml, xml2:Xml, param:String):Xml {
 		bossXML = simpleXML(bossXML);
 		xml2 = simpleXML(xml2);
-		
 		for (child in xml2.elements()) {
 			child = simpleXML(child);
 			var paramVal:String = child.get(param);
@@ -269,7 +267,7 @@ class XML_tools
 
 			if (paramVal != null) {
 				var bossNodes = find(xml1_, param, paramVal);
-				nodes_extendAttribs(bossNodes, child);
+				nodes_extendAttribs_copyOverChildren(bossNodes, child);
 			}
 			else {
 				xml1_.addChild(child);
@@ -279,10 +277,28 @@ class XML_tools
 		return xml1_;
 	}
 	
-	static private inline function nodes_extendAttribs(bossNodes:Iterator<Xml>, child:Xml) 
+	static private inline function nodes_addChildren(bossNodes:Iterator<Xml>, child:Xml) 
+	{
+		for (childNode in child.elements()) {
+			for (bossNode in bossNodes) {
+				bossNode.addChild(childNode);
+
+			}	
+		}
+	}
+	
+	static private inline function nodes_extendAttribs_copyOverChildren(bossNodes:Iterator<Xml>, child:Xml) 
 	{
 		for (bossNode in bossNodes) {
 			extendAttribs(bossNode, child);
+			addChildren(bossNode, child);
+		}
+	}
+	
+	static private inline function addChildren(bossNode:Xml, child:Xml) 
+	{
+		for (childNode in child.elements()) {	
+				bossNode.addChild(childNode);
 		}
 	}
 	
