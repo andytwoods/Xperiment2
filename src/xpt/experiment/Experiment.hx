@@ -32,15 +32,15 @@ import xpt.trialOrder.TrialOrder;
 
 @:allow(xpt.trialOrder.Test_TrialOrder)
 class Experiment extends EventDispatcher {
+	
 	private var nextTrialBoss:NextTrialBoss;
 	private var script:Xml;
-	private var runningTrial:Trial;
 	private var results:Results = new Results();
 	private var currentTrialInfo:NextTrialInfo = null;
 	private var trialFactory:TrialFactory = new TrialFactory();
 	
+	public var runningTrial:Trial;
 	public var scriptEngine:ScriptInterp = new ScriptInterp();
-	
 	public var stimuli_loaded:Bool = false;
 	
 	public function new(script:Xml, url:String = null, params:Object = null) {

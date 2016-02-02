@@ -6,7 +6,6 @@ import flash.events.MouseEvent;
 import haxe.ui.toolkit.core.Component;
 import thx.Strings;
 import xpt.experiment.Experiment;
-import xpt.stimuli.builders.Test_Stimulus;
 import xpt.stimuli.validation.Validator;
 import xpt.tools.XTools;
 

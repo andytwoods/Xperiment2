@@ -114,9 +114,11 @@ class TrialResults
 	static private inline function extract_helper(trial:Trial,trialResults:TrialResults):TrialResults {
 		
 
-		var stimRes:Map<String,String>;
+		var stimRes:Map<String,String> = trial.results();
 		var stimulus:Stimulus;
-		var prepend_trial_id:String = 'b' + Std.string(trial.trialBlock) + 'i' + Std.string(trial.trialNum)+"_";
+		var prepend_trial_id:String = 'b' + Std.string(trial.trialBlock) + 'i' + Std.string(trial.trialNum) + "_";
+		
+		trialResults.addMultipleResults(stimRes,prepend_trial_id);
 		
 		for (i in 0...trial.stimuli.length) {
 			stimulus = trial.stimuli[i]; //ensures order

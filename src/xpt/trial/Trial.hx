@@ -124,6 +124,8 @@ class Trial {
 		for (stimulus in stimuli) {
 			stimulus.kill();
 		}	
+		
+		trial_results = null;
 	}
 	
 	public function start() {
@@ -144,5 +146,16 @@ class Trial {
 	{
 		//ternary operator (https://learnxinyminutes.com/docs/haxe/).
 		ITI = (potentialOverrides.exists('ITI') == false) ? _ITI : Std.parseInt(potentialOverrides.get('ITI'));
+	}
+	
+	public function save(what:String, val:Dynamic) {
+		if (trial_results == null) trial_results = new Map<String,String>();
+		trial_results.set(what, Std.string(val));
+	}
+	
+	private var trial_results:Map<String,String>;
+	public function results():Map<String,String> 
+	{
+		return trial_results;
 	}
 }

@@ -105,9 +105,7 @@ class Scripting
 		
 					experiment.nextTrial();
 					return;
-					
 		}
-		
 		
 		if (stim.get(prop) != null) {
 			try {
@@ -118,6 +116,7 @@ class Scripting
                 scriptEngine.variables.set("Stims", StimHelper);
                 scriptEngine.variables.set("System", new SystemWrapper());
                 scriptEngine.variables.set("Experiment", experiment);
+				scriptEngine.variables.set("Trial", experiment.runningTrial);
 				
                 var stimGroups:Map<String,Array<Stimulus>> = Stimulus.groups;
                 if (stimGroups != null) {
