@@ -101,6 +101,14 @@ class Scripting
 	
 	
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
+		if (prop == 'action') {
+		
+					experiment.nextTrial();
+					return;
+					
+		}
+		
+		
 		if (stim.get(prop) != null) {
 			try {
 				scriptEngine.variables.set("this", stim.component);
@@ -109,7 +117,8 @@ class Scripting
 				scriptEngine.variables.set("e", event);
                 scriptEngine.variables.set("Stims", StimHelper);
                 scriptEngine.variables.set("System", new SystemWrapper());
-                
+                scriptEngine.variables.set("Experiment", experiment);
+				
                 var stimGroups:Map<String,Array<Stimulus>> = Stimulus.groups;
                 if (stimGroups != null) {
                     for (groupName in stimGroups.keys()) {
@@ -126,8 +135,8 @@ class Scripting
 					DebugManager.instance.event(stim.get("stimType") + ".on" + StringUtil.capitalizeFirstLetter(event.type), "" + s);
 				}
 				var expr = parser.parseString(s);
-
 				Scripting.scriptEngine.execute(expr);
+				
 			} catch (e:Dynamic) {
 				trace("ERROR executing script: " + e);
 				DebugManager.instance.error("Error running script event", "" + e);

@@ -12,6 +12,7 @@ import xpt.experiment.Test_Translate;
 import xpt.preloader.Test_Preloader_extract_loadable;
 import xpt.results.Test_Results;
 import xpt.results.Test_TrialResults;
+import xpt.stimuli.builders.Test_Stimulus;
 import xpt.stimuli.Test_ETCs;
 import xpt.script.Test_BetweenSJs;
 import xpt.script.templateHelpers.Test_templateList;
@@ -64,6 +65,7 @@ class Tests
 		
 		//stimuli related
 		runner.addCase(new Test_BaseStimuli());
+		runner.addCase(new Test_Stimulus());
 		
 		//results related
 		runner.addCase(new Test_Results());

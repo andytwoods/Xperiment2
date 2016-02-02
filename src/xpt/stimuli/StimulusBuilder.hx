@@ -279,6 +279,7 @@ class StimulusBuilder {
 		_stim = stim;
 		var c = createComponentInstance();
 		applyProperties(c);
+
 		return c;
 	}
 	

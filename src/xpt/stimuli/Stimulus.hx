@@ -6,9 +6,11 @@ import flash.events.MouseEvent;
 import haxe.ui.toolkit.core.Component;
 import thx.Strings;
 import xpt.experiment.Experiment;
+import xpt.stimuli.builders.Test_Stimulus;
 import xpt.stimuli.validation.Validator;
 import xpt.tools.XTools;
 
+@:allow(xpt.stimuli.builders.Test_Stimulus)
 @:allow(xpt.trialOrder.Test_TrialOrder)
 @:allow(xpt.stimuli.StimulusBuilder)
 class Stimulus {
@@ -265,12 +267,15 @@ class Stimulus {
 	//*********************************************************************************
 	// LISTENERS
 	//*********************************************************************************
-    private static var possibleMouseListeners:Map<String,String> = ['click'=>MouseEvent.CLICK ];
+    private static var possibleMouseListeners:Map<String,String> = ['onClick'=>MouseEvent.CLICK ];
 	private var listeners:Map<String, Stim_Listener>;
 	
 	
 	private function removeListeners() {
+		if (listeners == null) return;
+		
 		var listener:Stim_Listener;
+
 		for (nam in listeners.keys()) {
 			listener = listeners.get(nam);
 			listener.remove();
@@ -283,21 +288,22 @@ class Stimulus {
 		var found:String;
 		var stim_listener:Stim_Listener;
 		var type:String;
-		var abbrevType:String;
 		
-		for (listener in possibleMouseListeners) {
-			abbrevType = 'on' + Strings.capitalize(listener);
-			found = get(abbrevType);
-			if (found != null) {
+		for (listener in possibleMouseListeners.keys()) {
+			
+			found = get(listener);
+			if (found != null && found.length>0) {
 				if (listeners == null) listeners = new Map<String,Stim_Listener>();
 				type = possibleMouseListeners.get(listener);
-				
+				trace(listener,type);
 				stim_listener = new Stim_Listener();	
-				stim_listener.abbrevType = abbrevType;
+				stim_listener.type = listener;
 				stim_listener.remove = function() {
-					_component.removeEventListener(type, listenerF);
+					if(_component!=null)	_component.removeEventListener(type, listenerF);
 				}
-				_component.addEventListener(type, listenerF);	
+	
+				//if logic used for testing purposes
+				if(_component!=null)	_component.addEventListener(type, listenerF);	
 				listeners.set(type, stim_listener);
 			}
 		}
@@ -306,7 +312,7 @@ class Stimulus {
 	private function listenerF(e:Event) {
 		var listener:Stim_Listener = listeners.get(e.type);
 		trace(get('resource'));
-		Scripting.runScriptEvent(listener.abbrevType, e, this);
+		Scripting.runScriptEvent(listener.type, e, this);
 		
 
 	}
@@ -314,7 +320,7 @@ class Stimulus {
 
 
 class Stim_Listener {
-	public var abbrevType:String;
+	public var type:String;
 	public var remove:Void->Void;
 
 	public function new() {}

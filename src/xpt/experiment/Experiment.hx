@@ -171,8 +171,6 @@ class Experiment extends EventDispatcher {
 		}
 	}
 	
-	
-
 	private function cleanup_prevTrial() {
 			results.add(TrialResults.extract_trial_results(runningTrial), runningTrial.specialTrial);
 			runningTrial.kill();					
@@ -180,10 +178,10 @@ class Experiment extends EventDispatcher {
 	
 	public function changeLanguage(lang:String, all_langs:Array<String>, _default:String) {
 		Translate.DO(nextTrialBoss.__trialSkeletons, lang, all_langs, _default);
+		nextTrial();
 	}
 	
 	public function startTrial() {
-
 
 		if (runningTrial != null) {
 			Scripting.DO(null, RunCodeEvents.AfterTrial, runningTrial);
