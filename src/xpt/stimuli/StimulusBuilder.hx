@@ -266,7 +266,7 @@ class StimulusBuilder {
         trial.validateStims();
     }
     
-	public inline function runScriptEvent(action:String, event) {
+	public inline function runScriptEvent(action:String, event:Event) {
 		Scripting.runScriptEvent(action, event, _stim);
 	}
 

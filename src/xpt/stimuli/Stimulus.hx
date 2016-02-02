@@ -305,6 +305,7 @@ class Stimulus {
 	
 	private function listenerF(e:Event) {
 		var listener:Stim_Listener = listeners.get(e.type);
+		trace(get('resource'));
 		Scripting.runScriptEvent(listener.abbrevType, e, this);
 		
 
