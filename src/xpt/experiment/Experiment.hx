@@ -178,9 +178,8 @@ class Experiment extends EventDispatcher {
 			runningTrial.kill();					
 	}
 	
-	public function changeLanguage(lang:String) {
-	
-		trace(11,lang);
+	public function changeLanguage(lang:String, all_langs:Array<String>, _default:String) {
+		Translate.DO(nextTrialBoss.__trialSkeletons, lang, all_langs, _default);
 	}
 	
 	public function startTrial() {

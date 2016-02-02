@@ -80,8 +80,10 @@
 			ALIAS STIMULI
 		************************************************************************************ -->
 		<language builder="xpt.stimuli.builders.basic.StimMultipleChoice">
+			<default></default>
 			<action>
-				Experiment.changeLanguage(stim.value)
+				var labels = stim.get("labels").split(",");
+				Experiment.changeLanguage(stim.value,labels, stim.get("default"));
 			</action>
 		</language>
 		
