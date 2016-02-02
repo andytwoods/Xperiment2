@@ -31,22 +31,27 @@ class Translate
 		var actual:String;
 		var old_val:String;
 		
+		var addBack:Map<String,String> = null;
+		
 		for (prop in props.keys()) {
 		
 			if (prop.substr(prop.length - len) == find) {
+				if (addBack == null) addBack = new Map<String,String>();
 				actual = prop.substr(0, prop.length - len);
-				
 				if (_default.length > 0) {
 					old_val = props.get(actual);
 					if (old_val == null) old_val = '';
-					props.set(actual+"."+_default, old_val); 
+					addBack.set(actual+"."+_default, old_val); 
 				}
 				
-				props.set(actual, props.get(prop)); 
+				addBack.set(actual, props.get(prop)); 
 			}
-			
-			
-			
+		}
+		
+		if (addBack != null) {
+			for (prop in addBack.keys()) {
+				props.set(prop, addBack.get(prop));
+			}
 		}
 	}
 	
