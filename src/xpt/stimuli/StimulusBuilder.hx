@@ -232,14 +232,14 @@ class StimulusBuilder {
 			experiment.addEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete);
 		}
         
-        if (get("onTrailValid") != null) {
-            experiment.removeEventListener(ExperimentEvent.TRAIL_VALID, onTrailValid);
-            experiment.addEventListener(ExperimentEvent.TRAIL_VALID, onTrailValid);
+        if (get("onTrialValid") != null) {
+            experiment.removeEventListener(ExperimentEvent.TRIAL_VALID, onTrialValid);
+            experiment.addEventListener(ExperimentEvent.TRIAL_VALID, onTrialValid);
         }
         
-        if (get("onTrailInvalid") != null) {
-            experiment.removeEventListener(ExperimentEvent.TRAIL_INVALID, onTrailInvalid);
-            experiment.addEventListener(ExperimentEvent.TRAIL_INVALID, onTrailInvalid);
+        if (get("onTrialInvalid") != null) {
+            experiment.removeEventListener(ExperimentEvent.TRIAL_INVALID, onTrialInvalid);
+            experiment.addEventListener(ExperimentEvent.TRIAL_INVALID, onTrialInvalid);
         }
 	}
 	
@@ -253,12 +253,12 @@ class StimulusBuilder {
 		experiment.removeEventListener(PreloaderEvent.COMPLETE, onPreloaderComplete, false);
 	}
 	
-	private function onTrailValid(event:ExperimentEvent) {
-		Scripting.runScriptEvent("onTrailValid", event, _stim);
+	private function onTrialValid(event:ExperimentEvent) {
+		Scripting.runScriptEvent("onTrialValid", event, _stim);
 	}
     
-	private function onTrailInvalid(event:ExperimentEvent) {
-		Scripting.runScriptEvent("onTrailInvalid", event, _stim);
+	private function onTrialInvalid(event:ExperimentEvent) {
+		Scripting.runScriptEvent("onTrialInvalid", event, _stim);
 	}
     
     private function onStimValueChanged(value:Dynamic) {
@@ -323,9 +323,9 @@ class StimulusBuilder {
 	//*********************************************************************************
 	// CALLBACKS
 	//*********************************************************************************
-    public function onAddedToTrail() {
+    public function onAddedToTrial() {
     }
     
-    public function onRemovedFromTrail() {
+    public function onRemovedFromTrial() {
     }
 }

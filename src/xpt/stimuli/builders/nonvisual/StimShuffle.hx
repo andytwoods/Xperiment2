@@ -9,34 +9,34 @@ import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;
 
 class StimShuffle extends StimulusBuilder {
-    private var _trailStarted:Bool = false;
+    private var _trialStarted:Bool = false;
     private var _suffleAdded:Bool = false;
     private var _shuffled:Bool = false;
     
     public function new() {
         super();
-        Scripting.experiment.addEventListener(ExperimentEvent.TRIAL_START, onTrailStarted);
+        Scripting.experiment.addEventListener(ExperimentEvent.TRIAL_START, onTrialStarted);
     }
     
 	private override function applyProperties(c:Component) {
         c.visible = false;
 	}
     
-    private function onTrailStarted(e:ExperimentEvent) {
-        Scripting.experiment.removeEventListener(ExperimentEvent.TRIAL_START, onTrailStarted);
-        _trailStarted = true;
+    private function onTrialStarted(e:ExperimentEvent) {
+        Scripting.experiment.removeEventListener(ExperimentEvent.TRIAL_START, onTrialStarted);
+        _trialStarted = true;
         performShuffle();
     }
 		
     
     /*
     We want to be a little careful here as if we put the shuffle before the group in the xml
-    then the stims might not exist in the trail / groups. The way round that is to use the event
-    listeners to make sure that the trail has started AND the suffle stim is added (it might not be
+    then the stims might not exist in the trial / groups. The way round that is to use the event
+    listeners to make sure that the trial has started AND the suffle stim is added (it might not be
     added until a timer event of course
     */
     private function performShuffle() {
-        if (_trailStarted == false || _suffleAdded == false || _shuffled == true) {
+        if (_trialStarted == false || _suffleAdded == false || _shuffled == true) {
             return;
         }
         
@@ -95,7 +95,7 @@ class StimShuffle extends StimulusBuilder {
 	//*********************************************************************************
 	// CALLBACKS
 	//*********************************************************************************
-    public override function onAddedToTrail() { // could happen instantly, could happen after a give time
+    public override function onAddedToTrial() { // could happen instantly, could happen after a give time
         _suffleAdded = true;
         performShuffle();
     }

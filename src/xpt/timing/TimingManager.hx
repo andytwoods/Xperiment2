@@ -56,7 +56,7 @@ class TimingManager {
                     case TimingEvent.SHOW:
                         addToTrial(stim);
                     case TimingEvent.HIDE:
-                        removeFromTrail(stim);
+                        removeFromTrial(stim);
                 }
             });
 		}
@@ -64,7 +64,7 @@ class TimingManager {
 	
 	public function reset() {
 		for (stim in _stims) {
-			removeFromTrail(stim);
+			removeFromTrial(stim);
 		}
 		_stims = new Array<Stimulus>();
 	}
@@ -82,7 +82,7 @@ class TimingManager {
             DiagnosticsManager.add(DiagnosticsManager.STIMULUS_SHOW, stim.id, stim.get("stimType"));
             stim.component.addEventListener(UIEvent.ADDED_TO_STAGE, onStimAddedToStage);
 		    RootManager.instance.currentRoot.addChild(stim.component);
-            stim.onAddedToTrail();
+            stim.onAddedToTrial();
 		}
 	}
     
@@ -105,12 +105,12 @@ class TimingManager {
         return stim;
     }
     
-	private function removeFromTrail(stim:Stimulus) {
+	private function removeFromTrial(stim:Stimulus) {
 		if (RootManager.instance.currentRoot.contains(stim.component) == true) {
 			DebugManager.instance.stimulus("Removing stimulus, type: " + stim.get("stimType"));
             DiagnosticsManager.add(DiagnosticsManager.STIMULUS_HIDE, stim.id, stim.get("stimType"));
 			RootManager.instance.currentRoot.removeChild(stim.component);
-            stim.onRemovedFromTrail();
+            stim.onRemovedFromTrial();
 		}
 	}
 }

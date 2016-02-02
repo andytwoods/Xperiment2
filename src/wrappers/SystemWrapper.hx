@@ -7,11 +7,11 @@ class SystemWrapper {
         
     }
     
-    public var invalidTrailBehaviour(get, null):String;
-    public function get_invalidTrailBehaviour():String {
+    public var invalidTrialBehaviour(get, null):String;
+    public function get_invalidTrialBehaviour():String {
         var value:String = "hide";
-        if (ExptWideSpecs.IS("invalidTrailBehaviour", false) != null) {
-            value = ExptWideSpecs.IS("invalidTrailBehaviour", false);
+        if (ExptWideSpecs.IS("invalidTrialBehaviour", false) != null) {
+            value = ExptWideSpecs.IS("invalidTrialBehaviour", false);
         }
         return value;
     }

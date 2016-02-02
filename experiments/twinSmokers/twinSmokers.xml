@@ -1,7 +1,7 @@
 <exptA exptType="WEB">
 
 <SETUP>  
-	  <screen BGcolour="black" orientation="vertical" ></screen>                          
+	  <screen BGcolour="808080" orientation="vertical" ></screen>                          
 	  <computer  encrypt='false' />
 	  <style BUTTON_DOWN="0xff5656"  />
 	  <variables practice='0' />
@@ -67,16 +67,14 @@ STATEMENT OF INFORMED CONSENT
 
 <template order="random" trials="1">
 
-	<text id="taste" textAlign="center"  text2="." fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" text="Please click on the photo of the face you think is most attractive."/>
+	<text id="taste" textAlign="center" fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" text="Please click on the photo of the face you think is most attractive."/>
 	
-	<image howMany="2" verticalAlign="bottom" y="32%" group="g1" id="1---1---2---2" id1="F---N" resource="001|002|003|004|005|006|007|008|009|010|011|012|013|014|015|016|017|018|019|020|021|022|023|024|025" resource1="s---ns" resource2=".png"  x="25%---75%"   />
+	<image howMany="2" y="55%" group="g1" id="image1---image2" id1="F---N" resource="001|002|003|004|005|006|007|008|009|010|011|012|013|014|015|016|017|018|019|020|021|022|023|024|025" resource1="s---ns" resource2=".png"  x="25%---75%" 
+		   onClick="trace('banana')"
+		   />
 	
 	<shuffle groups="g1" />
-    
-    
-    <nextTrialButton y="99%" verticalAlign="bottom" width="200" height="40" horizontalAlign="center" fontSize="18" />
 	
-	<results dv="taste.text1" />
 </template>
 	
 <TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="10">

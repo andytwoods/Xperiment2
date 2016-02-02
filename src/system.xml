@@ -145,20 +145,20 @@
 			<action>
 				Experiment.nextTrial()
 			</action>
-            <onTrailValid>
-                if (System.invalidTrailBehaviour == "disable") {
+            <onTrialValid>
+                if (System.invalidTrialBehaviour == "disable") {
                     this.disabled = false;
-                } else if (System.invalidTrailBehaviour == "hide") {
+                } else if (System.invalidTrialBehaviour == "hide") {
                     this.visible = true;
                 }
-            </onTrailValid>
-            <onTrailInvalid>
-                if (System.invalidTrailBehaviour == "disable") {
+            </onTrialValid>
+            <onTrialInvalid>
+                if (System.invalidTrialBehaviour == "disable") {
                     this.disabled = true;
-                } else if (System.invalidTrailBehaviour == "hide") {
+                } else if (System.invalidTrialBehaviour == "hide") {
                     this.visible = false;
                 }
-            </onTrailInvalid>
+            </onTrialInvalid>
 		</nextTrialButton>
 		<previousTrialButton builder="xpt.stimuli.builders.basic.StimButton">
 			<text>Previous</text>

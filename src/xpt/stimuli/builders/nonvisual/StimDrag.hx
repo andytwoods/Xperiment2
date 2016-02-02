@@ -22,15 +22,15 @@ class StimDrag extends StimulusBuilder {
     
     public function new() {
         super();
-        Scripting.experiment.addEventListener(ExperimentEvent.TRIAL_START, onTrailStarted);
+        Scripting.experiment.addEventListener(ExperimentEvent.TRIAL_START, onTrialStarted);
     }
     
 	private override function applyProperties(c:Component) {
         c.visible = false;
 	}
     
-    private function onTrailStarted(e:ExperimentEvent) {
-        Scripting.experiment.removeEventListener(ExperimentEvent.TRIAL_START, onTrailStarted);
+    private function onTrialStarted(e:ExperimentEvent) {
+        Scripting.experiment.removeEventListener(ExperimentEvent.TRIAL_START, onTrialStarted);
         
         RootManager.instance.currentRoot.removeEventListener(UIEvent.MOUSE_MOVE, onScreenMouseMove);
         RootManager.instance.currentRoot.removeEventListener(UIEvent.MOUSE_UP, onScreenMouseUp);

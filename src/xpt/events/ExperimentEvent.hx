@@ -4,12 +4,12 @@ import openfl.events.Event;
 import xpt.trial.Trial;
 
 class ExperimentEvent extends Event {
-    public static inline var TRIAL_START:String = "TrailStart";
-    public static inline var TRAIL_END:String = "TrailEnd";
-    public static inline var TRAIL_VALID:String = "TrailValid";
-    public static inline var TRAIL_INVALID:String = "TrailInvalid";
+    public static inline var TRIAL_START:String = "TrialStart";
+    public static inline var TRIAL_END:String = "TrialEnd";
+    public static inline var TRIAL_VALID:String = "TrialValid";
+    public static inline var TRIAL_INVALID:String = "TrialInvalid";
     
-    public var trail(default, default):Trial;
+    public var trial(default, default):Trial;
     
     public function new(type:String) {
         super(type);

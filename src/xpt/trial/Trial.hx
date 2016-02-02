@@ -43,7 +43,7 @@ class Trial {
 	
 	public var experiment:Experiment;
 	
-    private var _valid:Null<Bool> = null; // lets start the trail off as neither valid or invalid for good measure
+    private var _valid:Null<Bool> = null; // lets start the trial off as neither valid or invalid for good measure
     
     public var stimValuesValid(get, null):Bool;
     private function get_stimValuesValid():Bool {
@@ -65,16 +65,16 @@ class Trial {
         var stimsValid:Bool = stimValuesValid;
         if (_valid != stimsValid) {
             _valid = stimsValid;
-            DebugManager.instance.info("Trail valid state changed to: " + _valid);
+            DebugManager.instance.info("Trial valid state changed to: " + _valid);
             
             // dispatch the event
             var event:ExperimentEvent = null;
             if (_valid == true) {
-                event = new ExperimentEvent(ExperimentEvent.TRAIL_VALID);
+                event = new ExperimentEvent(ExperimentEvent.TRIAL_VALID);
             } else {
-                event = new ExperimentEvent(ExperimentEvent.TRAIL_INVALID);
+                event = new ExperimentEvent(ExperimentEvent.TRIAL_INVALID);
             }
-            event.trail = this;
+            event.trial = this;
             experiment.dispatchEvent(event);
         }
     }

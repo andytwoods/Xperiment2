@@ -23,7 +23,7 @@ class StimTimer extends StimulusBuilder {
 	//*********************************************************************************
 	// CALLBACKS
 	//*********************************************************************************
-    public override function onAddedToTrail() {
+    public override function onAddedToTrial() {
         if (_interval <= 0) { // one off fire
             _timer = new Timer(0, 1);
         } else {
@@ -46,7 +46,7 @@ class StimTimer extends StimulusBuilder {
         }
     }
     
-    public override function onRemovedFromTrail() {
+    public override function onRemovedFromTrial() {
         if (_timer  != null) {
             _timer.removeEventListener(TimerEvent.TIMER_COMPLETE, onTimer);
             _timer.stop();

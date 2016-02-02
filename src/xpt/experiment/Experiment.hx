@@ -36,7 +36,7 @@ class Experiment extends EventDispatcher {
 	private var script:Xml;
 	private var runningTrial:Trial;
 	private var results:Results = new Results();
-	private var currentTrailInfo:NextTrialInfo = null;
+	private var currentTrialInfo:NextTrialInfo = null;
 	private var trialFactory:TrialFactory = new TrialFactory();
 	
 	public var scriptEngine:ScriptInterp = new ScriptInterp();
@@ -146,27 +146,27 @@ class Experiment extends EventDispatcher {
 	}
 	
 	public function firstTrial() {
-		currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.First, null);
+		currentTrialInfo = nextTrialBoss.getTrial(GotoTrial.First, null);
 		startTrial();
 	}
 	
 	public function nextTrial() {
-		currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Next, null);
+		currentTrialInfo = nextTrialBoss.getTrial(GotoTrial.Next, null);
 		startTrial();
 	}
 	
 	public function previousTrial() {
-		currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Previous, null);
+		currentTrialInfo = nextTrialBoss.getTrial(GotoTrial.Previous, null);
 		startTrial();
 	}
 	
 	public function gotoTrial(trial:Dynamic) {
 		if (Std.is(trial, String) == true) {
-			currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Name(trial), null);
+			currentTrialInfo = nextTrialBoss.getTrial(GotoTrial.Name(trial), null);
 			startTrial();
 		} else {
 			var trialIndex = Std.parseInt(trial);
-			currentTrailInfo = nextTrialBoss.getTrial(GotoTrial.Number(trialIndex), null);
+			currentTrialInfo = nextTrialBoss.getTrial(GotoTrial.Number(trialIndex), null);
 			startTrial();
 		}
 	}
@@ -188,15 +188,15 @@ class Experiment extends EventDispatcher {
 		if (runningTrial != null) {
 			Scripting.DO(null, RunCodeEvents.AfterTrial, runningTrial);
             
-            var event:ExperimentEvent = new ExperimentEvent(ExperimentEvent.TRAIL_END);
-            event.trail = runningTrial;
+            var event:ExperimentEvent = new ExperimentEvent(ExperimentEvent.TRIAL_END);
+            event.trial = runningTrial;
             dispatchEvent(event);
             
 			Scripting.removeStimuli(runningTrial.stimuli);
 			cleanup_prevTrial();
 		}
 		
-		var info:NextTrialInfo = currentTrailInfo;
+		var info:NextTrialInfo = currentTrialInfo;
 		
         Stimulus.resetGroups();
 		runningTrial = trialFactory.GET(info.skeleton, info.trialOrder, this);
@@ -222,7 +222,7 @@ class Experiment extends EventDispatcher {
 		runningTrial.start();
         runningTrial.validateStims();
         var event:ExperimentEvent = new ExperimentEvent(ExperimentEvent.TRIAL_START);
-        event.trail = runningTrial;
+        event.trial = runningTrial;
         dispatchEvent(event);
         
 	}

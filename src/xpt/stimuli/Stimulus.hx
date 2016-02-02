@@ -1,7 +1,10 @@
 package xpt.stimuli;
 
 import code.Scripting;
+import flash.events.Event;
+import flash.events.MouseEvent;
 import haxe.ui.toolkit.core.Component;
+import thx.Strings;
 import xpt.experiment.Experiment;
 import xpt.stimuli.validation.Validator;
 import xpt.tools.XTools;
@@ -169,7 +172,7 @@ class Stimulus {
 	public function kill() {
 		__underlings = null;
 		__properties = null;
-		
+		removeListeners();
 		disposeComponent();
 	}
 	
@@ -210,15 +213,16 @@ class Stimulus {
 	//*********************************************************************************
 	// CALLBACKS
 	//*********************************************************************************
-    public function onAddedToTrail() {
+    public function onAddedToTrial() {
         if (builder != null) {
-            builder.onAddedToTrail();
+			addListeners();
+            builder.onAddedToTrial();
         }
     }
     
-    public function onRemovedFromTrail() {
+    public function onRemovedFromTrial() {
         if (builder != null) {
-            builder.onRemovedFromTrail();
+            builder.onRemovedFromTrial();
         }
     }
     
@@ -258,7 +262,61 @@ class Stimulus {
         _groups = null;
     }
 	
+	//*********************************************************************************
+	// LISTENERS
+	//*********************************************************************************
+    private static var possibleMouseListeners:Map<String,String> = ['click'=>MouseEvent.CLICK ];
+	private var listeners:Map<String, Stim_Listener>;
+	
+	
+	private function removeListeners() {
+		var listener:Stim_Listener;
+		for (nam in listeners.keys()) {
+			listener = listeners.get(nam);
+			listener.remove();
+			listener = null;
+		}
+		listeners = null;
+	}
+	
+	private function addListeners() {
+		var found:String;
+		var stim_listener:Stim_Listener;
+		var type:String;
+		var abbrevType:String;
+		
+		for (listener in possibleMouseListeners) {
+			abbrevType = 'on' + Strings.capitalize(listener);
+			found = get(abbrevType);
+			if (found != null) {
+				if (listeners == null) listeners = new Map<String,Stim_Listener>();
+				type = possibleMouseListeners.get(listener);
+				
+				stim_listener = new Stim_Listener();	
+				stim_listener.abbrevType = abbrevType;
+				stim_listener.remove = function() {
+					_component.removeEventListener(type, listenerF);
+				}
+				_component.addEventListener(type, listenerF);	
+				listeners.set(type, stim_listener);
+			}
+		}
+	}
+	
+	private function listenerF(e:Event) {
+		var listener:Stim_Listener = listeners.get(e.type);
+		Scripting.runScriptEvent(listener.abbrevType, e, this);
+		
 
-    
+	}
 }
 
+
+class Stim_Listener {
+	public var abbrevType:String;
+	public var remove:Void->Void;
+
+	public function new() {}
+	
+	
+}

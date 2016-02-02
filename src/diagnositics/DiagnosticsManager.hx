@@ -4,8 +4,8 @@ import xpt.debug.DebugManager;
 class DiagnosticsManager {
     public static inline var EXPERIMENT_START:String = "experiment.start";
     public static inline var EXPERIMENT_END:String = "experiment.end";
-    public static inline var TRIAL_START:String = "trail.start";
-    public static inline var TRIAL_END:String = "trail.start";
+    public static inline var TRIAL_START:String = "trial.start";
+    public static inline var TRIAL_END:String = "trial.start";
     public static inline var STIMULUS_SHOW:String = "stimulus.show";
     public static inline var STIMULUS_HIDE:String = "stimulus.hide";
     public static inline var STIMULUS_CLICK:String = "stimulus.click";
