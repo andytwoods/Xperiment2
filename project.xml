@@ -8,8 +8,10 @@
 	<!-- output -->
 	<app main="Xpt" file="XptHaxe" path="bin" />
 	
+    <!--
     <haxedef name="dom" />
 	<haxeflag name="-D dom" />
+    -->    
 	
 	<haxeflag name="-D hscriptPos" />
 	<haxedef name="haxeui-no-gif-support" />

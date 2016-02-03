@@ -34,7 +34,7 @@
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="haxeui=1.8.9&#xA;lime=2.9.0&#xA;openfl=3.6.0&#xA;actuate=1.8.6&#xA;delay=1.1.1&#xA;hscript=2.0.5&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.2&#xA;mlib=2.0.2&#xA;thx_core&#xA;thx.core=0.35.0&#xA;rest-client=0.2.0&#xA;haxe-rest-client=0.2.0&#xA;random=1.4.1&#xA;dom&#xA;openfl-next&#xA;tools=2.9.0&#xA;haxeui-no-gif-support&#xA;no-compilation&#xA;openfl-html5&#xA;canvas&#xA;lime-html5&#xA;html5&#xA;web&#xA;dom&#xA;hscriptPos&#xA;haxeui-no-gif-support&#xA;html5&#xA;display" />
+    <option directives="haxeui=1.8.10&#xA;lime=2.9.0&#xA;openfl=3.6.0&#xA;actuate=1.8.6&#xA;delay=1.1.1&#xA;hscript=2.0.5&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.2&#xA;mlib=2.0.2&#xA;thx_core&#xA;thx.core=0.35.0&#xA;rest-client=0.2.0&#xA;haxe-rest-client=0.2.0&#xA;random=1.4.1&#xA;openfl-next&#xA;tools=2.9.0&#xA;haxeui-no-gif-support&#xA;no-compilation&#xA;openfl-html5&#xA;canvas&#xA;lime-html5&#xA;html5&#xA;web&#xA;hscriptPos&#xA;haxeui-no-gif-support&#xA;html5&#xA;display" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
