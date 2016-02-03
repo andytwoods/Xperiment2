@@ -40,6 +40,17 @@ class StimMultipleChoice extends StimulusBuilder {
 				buttonWidth = Std.parseFloat(bw);
 			}
 		}
+
+		var buttonHeight:Float = -1;
+		var buttonPercentHeight:Float = -1;
+		if (get("buttonHeight") != null) {
+			var bh:String = get("buttonHeight");
+			if (bh.indexOf("%") != -1) {
+				buttonPercentHeight = Std.parseFloat(StringTools.replace(bh, "%", ""));
+			} else {
+				buttonHeight = Std.parseFloat(bh);
+			}
+		}
 		
 		var iconPosition:String = get("iconPosition");
 		var group:String = "" + Math.random();
@@ -48,7 +59,6 @@ class StimMultipleChoice extends StimulusBuilder {
 			for (label in labels.split(",")) {
 				var button:Button = new Button();
 				button.text = label;
-				button.percentHeight = 100;
 				button.toggle = true;
 				button.group = group + "_group";
 				if (buttonWidth != -1) {
@@ -58,9 +68,18 @@ class StimMultipleChoice extends StimulusBuilder {
 				if (buttonPercentWidth != -1) {
 					button.percentWidth = buttonPercentWidth;
 				}
+                
+				if (buttonHeight != -1) {
+					button.height = buttonHeight;
+					button.autoSize = false;
+				}
+				if (buttonPercentHeight != -1) {
+					button.percentHeight = buttonPercentHeight;
+				}
 				if (iconPosition != null) {
 					button.iconPosition = iconPosition;
 				}
+                
 				if (fontSize != -1) {
 					button.style.fontSize = fontSize;
 				}

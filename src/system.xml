@@ -83,7 +83,7 @@
 			<default></default>
 			<action>
 				var labels = stim.get("labels").split(",");
-				Experiment.changeLanguage(stim.value,labels, stim.get("default"));
+				Experiment.changeLanguage(stim.value, labels, stim.get("default"));
 			</action>
 		</language>
 		
