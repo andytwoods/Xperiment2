@@ -70,7 +70,7 @@ class Scripting
 		
 	}
 	
-	static public function removeStimuli(stimuli:Array<Stimulus>) 
+	static public inline function removeStimuli(stimuli:Array<Stimulus>) 
 	{
 		for (stim in stimuli) {
 			if (stim.id != null) {
@@ -79,7 +79,7 @@ class Scripting
 		}
 	}
 	
-	static public function addStimuli(stimuli:Array<Stimulus>) 
+	static public inline function addStimuli(stimuli:Array<Stimulus>) 
 	{
 		for(stim in stimuli){
 			if (stim.id != null) {
@@ -108,20 +108,9 @@ class Scripting
 				scriptEngine.variables.set("me", stim.component);
 				scriptEngine.variables.set("stim", stim);
 				scriptEngine.variables.set("e", event);
-                scriptEngine.variables.set("Stims", StimHelper);
-                scriptEngine.variables.set("System", new SystemWrapper());
-                scriptEngine.variables.set("Experiment", experiment);
-				scriptEngine.variables.set("Trial", experiment.runningTrial);
+
 				
-                var stimGroups:Map<String,Array<Stimulus>> = Stimulus.groups;
-                if (stimGroups != null) {
-                    for (groupName in stimGroups.keys()) {
-                        var group:Array<Stimulus> = stimGroups.get(groupName);
-                        if (group != null && group.length > 0) {
-                            scriptEngine.variables.set(groupName, group);
-                        }
-                    }
-                }
+				addExtraVars(scriptEngine.variables, experiment.runningTrial.stimuli);
                 
 				var parser = new hscript.Parser();
 				var s:String = StringTools.trim(stim.get(prop));
@@ -138,13 +127,80 @@ class Scripting
 		}
 	}
 	
-	var rand:Float = Math.random();
 	
-	//override this
-	public function results():Map<String,String> {
-		return null;
+	private static function addExtraVars(variables:Map<String, Dynamic>, stimuli:Array<Stimulus> = null) 
+	{
+		scriptEngine.variables.set("Trial", experiment.runningTrial);
+		scriptEngine.variables.set("Stims", StimHelper);
+		scriptEngine.variables.set("System", new SystemWrapper());
+		scriptEngine.variables.set("Experiment", experiment);
+		var stimGroups:Map<String,Array<Stimulus>> = Stimulus.groups;
+		if (stimGroups != null) {
+			for (groupName in stimGroups.keys()) {
+				var group:Array<Stimulus> = stimGroups.get(groupName);
+				if (group != null && group.length > 0 && groupName != null) {
+					scriptEngine.variables.set(groupName, group);
+				}
+			}
+		}
+		
+		if(stimuli != null ){
+			for (stim in stimuli) {
+				scriptEngine.variables.set(stim.id, stim);
+			}
+		}
 	}
 	
+
+	
+	//TO DO: merge below with above F
+	 public static function expandScriptValues(script:String, vars:Map<String, Dynamic> = null, exceptions:Array<String> = null, stimuli:Array<Stimulus> = null):String {
+   
+		var finalResult:String = script;
+		var n1:Int = finalResult.indexOf("${");
+        var scriptEngine:ScriptInterp = new ScriptInterp();
+        if (vars != null) {
+			
+            for (key in vars.keys()) {
+				if(key!=null)   scriptEngine.variables.set(key, vars.get(key));
+            }
+            
+        }
+		if(stimuli!=null){
+			for (stim in stimuli) {
+				scriptEngine.variables.set(stim.id, stim);	
+			}
+		}
+		
+		//addExtraVars(scriptEngine.variables, stimuli);
+		
+		
+
+		var parser = new hscript.Parser();
+        
+        while (n1 != -1) {
+            var n2:Int = finalResult.indexOf("}", n1);
+            var e:String = finalResult.substring(n1 + 2, n2);
+            if (exceptions != null && exceptions.indexOf(e) != -1) {
+                n1 = finalResult.indexOf("${", n2);
+                continue;
+            }
+            var expr = parser.parseString(e);
+            var r = scriptEngine.execute(expr);
+            var before:String = finalResult.substring(0, n1);
+            var after:String = finalResult.substring(n2 + 1, finalResult.length);
+            finalResult = before + r + after;
+            n1 = finalResult.indexOf("${");
+        }
+        
+        return finalResult;
+    }
+	
+
+	
+	public static inline function checkIsCode(str:String):Bool {
+		return str.indexOf("${") != -1;
+	}
 
 }
 

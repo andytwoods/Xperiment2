@@ -42,7 +42,6 @@
         </lineScale>    
 		<multipleChoice builder="xpt.stimuli.builders.basic.StimMultipleChoice">
             <valid>notEmpty()</valid>
-			
         </multipleChoice>
 		<comboBox builder="xpt.stimuli.builders.basic.StimComboBox">
             <valid>notEmpty()</valid>

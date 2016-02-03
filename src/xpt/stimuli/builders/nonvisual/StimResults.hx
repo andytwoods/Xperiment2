@@ -23,16 +23,15 @@ class StimResults extends StimulusBuilder {
 		
 		var stimuli:Array<Stimulus> = trial.stimuli;
 		
-		
-		//only can access attributes that were set in the xml script.
+	
 		for (prop in _stim.props.keys()) {
-			
-			res.set(prop, retrieveInfo(_stim.props.get(prop), stimuli));
+			//res.set(prop, retrieveInfo(_stim.props.get(prop), stimuli));
+			res.set(prop, _stim.props.get(prop));
 		}
 		return res;
 	}
 	
-	function retrieveInfo(getWhat:String, stimuli:Array<Stimulus>):String
+/*	function retrieveInfo(getWhat:String, stimuli:Array<Stimulus>):String
 	{
 		var arr:Array<String> = getWhat.split(".");
 		if (arr.length != 2) throw 'must be of format stimId:prop';
@@ -49,7 +48,7 @@ class StimResults extends StimulusBuilder {
 		return 'not found: '+getWhat;
 		
 	}
-	
+	*/
 	
     
 }

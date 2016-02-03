@@ -8,7 +8,7 @@
 	  <validation validationEnabled="true" invalidTrailBehaviour="hide" />
 </SETUP>
 
-<TRIAL TYPE="Trial" hideResults="true" block="-11" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
 
 	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
 
@@ -24,7 +24,7 @@ We hope you enjoy it. Your participation is very important to us."
 	<preloadProgress x="20" y="540"  horizontalAlign="left" width="70%" height="40" />
 	<preloadReadyButton x="85%" y="540" width="20%" height="40" fontSize="18" />
 	
-	<language y="90%" x="10%" labels="french,english" />
+	<language height="40" width="250" fontSize="20" y="90%" labels="french,english" />
 	
 </TRIAL>
 
@@ -61,7 +61,7 @@ STATEMENT OF INFORMED CONSENT
 	
 
 
-<TRIAL template="template"  block="-10" trials="2">
+<TRIAL template="template"  block="10" trials="25">
 </TRIAL>	
 
 
@@ -69,11 +69,13 @@ STATEMENT OF INFORMED CONSENT
 
 	<text textAlign="center" fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" text="Please click on the photo of the face you think is most attractive."/>
 	
-	<image howMany="2" y="55%" group="g1" id="image1---image2" id1="F---N" resource="001|002|003|004|005|006|007|008|009|010|011|012|013|014|015|016|017|018|019|020|021|022|023|024|025" resource1="s---ns" resource2=".png"  x="25%---75%" 
-		   onClick="trace(stim.get('resource'))"
+	<image howMany="2" y="55%" group="g1" id="image1---image2"  resource="001|002|003|004|005|006|007|008|009|010|011|012|013|014|015|016|017|018|019|020|021|022|023|024|025" resource1="s---ns" resource2=".png"  x="25%---75%" 
+		   onClick="Trial.save('liked',stim.get('resource1'));Experiment.nextTrial();"
 		   />
 	
 	<shuffle groups="g1" />
+	
+	<results  face="${image1.get('resource0')}" />
 	
 </template>
 	

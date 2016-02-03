@@ -1,6 +1,7 @@
 package xpt.stimuli;
+import code.Scripting;
 import thx.Ints;
-import xpt.tools.ScriptTools;
+
 
 
 class BaseStimulus {
@@ -21,7 +22,7 @@ class BaseStimulus {
 	{
 		props = _props;
 		if (props.exists("howMany")) {
-            var howManyString = ScriptTools.expandScriptValues(props.get("howMany"));
+            var howManyString = Scripting.expandScriptValues(props.get("howMany"));
 			if (Ints.canParse(howManyString)) {
 				howMany = Ints.parse(howManyString);
 			}

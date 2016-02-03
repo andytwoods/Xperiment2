@@ -1,8 +1,8 @@
 package xpt.preloader;
+import code.Scripting;
 import thx.Arrays;
 import thx.Ints;
 import xpt.tools.PathTools;
-import xpt.tools.ScriptTools;
 import xpt.tools.XTools;
 import xpt.trial.TrialSkeleton;
 
@@ -107,7 +107,7 @@ class Preloader_extract_loadable
 					modVal = map.get(modKey);
 					if (Ints.canParse(modKey.charAt(modKey.length - 1)) == false) {
 						if (loadableWord == resourcePattern) arr = arr.concat(resourcePatternMultiply(modVal, props));
-						else if (modVal.indexOf("${")!=-1) arr.push(ScriptTools.expandScriptValues(modVal));
+						else if (modVal.indexOf("${")!=-1) arr.push(Scripting.expandScriptValues(modVal));
 						else arr.push(modVal);
 					}
 				}

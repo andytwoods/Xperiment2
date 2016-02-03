@@ -294,14 +294,14 @@ class Stimulus {
 			if (found != null && found.length>0) {
 				if (listeners == null) listeners = new Map<String,Stim_Listener>();
 				type = possibleMouseListeners.get(listener);
-				trace(listener,type);
 				stim_listener = new Stim_Listener();	
 				stim_listener.type = listener;
 				stim_listener.remove = function() {
+					//if necessary used for testing purposes
 					if(_component!=null)	_component.removeEventListener(type, listenerF);
 				}
 	
-				//if logic used for testing purposes
+				//if logic necessary for testing purposes
 				if(_component!=null)	_component.addEventListener(type, listenerF);	
 				listeners.set(type, stim_listener);
 			}
@@ -310,9 +310,7 @@ class Stimulus {
 	
 	private function listenerF(e:Event) {
 		var listener:Stim_Listener = listeners.get(e.type);
-		trace(get('resource'));
-		Scripting.runScriptEvent(listener.type, e, this);
-		
+		Scripting.runScriptEvent(listener.type, e, this);	
 
 	}
 }

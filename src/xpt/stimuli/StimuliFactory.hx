@@ -1,8 +1,9 @@
 package xpt.stimuli;
 
+import code.Scripting;
 import xpt.experiment.Experiment;
 import xpt.stimuli.BaseStimulus;
-import xpt.tools.ScriptTools;
+import xpt.stimuli.StimuliFactory.ScriptBasedProp;
 import xpt.tools.XTools;
 import xpt.trial.Trial;
 import xpt.trial.TrialSkeleton;
@@ -18,14 +19,25 @@ class StimuliFactory {
 	public function new() {}
 	
 	public function generate(trial:Trial, skeleton:TrialSkeleton) {
-		__recursiveGenerate(trial, null, skeleton.baseStimuli, 0);
+		
+		var scriptedBasedProps:Array<ScriptBasedProp> = new Array<ScriptBasedProp>();
+		__recursiveGenerate(trial, null, skeleton.baseStimuli, 0, scriptedBasedProps);
+		
+
+		for (scriptedBasedProp in scriptedBasedProps) {
+			scriptedBasedProp.f(trial.stimuli);
+			scriptedBasedProp.f = null;
+		}
+		scriptedBasedProps = null;
+	
+		
 	}
 	
-	private function __recursiveGenerate(trial:Trial, parent:Stimulus, baseStimuli:Array<BaseStimulus>, unknownIdCount:Int) {
+	private function __recursiveGenerate(trial:Trial, parent:Stimulus, baseStimuli:Array<BaseStimulus>, unknownIdCount:Int, scriptedBasedProps:Array<ScriptBasedProp>) {
 		var baseStimulus:BaseStimulus;
 		var stim:Stimulus;
 		var stimuli:Array<Stimulus> = new Array<Stimulus>();
-
+		
 		for (i in 0...baseStimuli.length) {
 			baseStimulus = baseStimuli[i];
 
@@ -33,7 +45,7 @@ class StimuliFactory {
 
 				
 				stim = getStim(baseStimulus.type);
-				var do_continue:Bool = setProps(stim, stim_copy, baseStimulus.props, trial);
+				var do_continue:Bool = setProps(stim, stim_copy, baseStimulus.props, trial,scriptedBasedProps);
 				
 				if (do_continue) {
 				
@@ -44,34 +56,46 @@ class StimuliFactory {
 					if (parent != null) parent.addUnderling(stim);
 					
 
-					if(baseStimulus.children.length>0)	__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount);
+					if(baseStimulus.children.length>0)	__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount,scriptedBasedProps);
 
 					stimuli.push(stim);
 				}
 			}
 		}
+
 		return stimuli;
 	}
 	
 	
-	private function setProps(stim:Stimulus, copyNum:Int, props:Map<String,String>, trial:Trial):Bool {
-		//var howMany:Int = 1;
+	private function setProps(stim:Stimulus, copyNum:Int, props:Map<String,String>, trial:Trial, scriptedBasedProps:Array<ScriptBasedProp>):Bool {
 		var trialIteration:Int = trial.iteration;
-
+		var scriptBasedProp:ScriptBasedProp;
 		var stimProps:Map<String,String> = new Map<String,String>();
 		
 		for (key in props.keys()) {
 			var val:String = props.get(key);
-            var exceptions:Array<String> = null;
-            if (key == "resourcePattern") {
-                exceptions = ["value"];
-            }
-			if (ScriptTools.checkIsCode(val)) {
-				val = ScriptTools.expandScriptValues(val, ["index" => copyNum], exceptions);
-			}
+
+			
 			val = XTools.multiCorrection(	val, overTrialSep, trialIteration);
 			val = XTools.multiCorrection(	val, withinTrialSep, copyNum);
-			stimProps.set(key, val);
+			
+			if (Scripting.checkIsCode(val)) {
+				
+				var exceptions:Array<String> = null;
+				if (key == "resourcePattern") {
+					exceptions = ["value"];
+				}
+				scriptBasedProp = new ScriptBasedProp();
+				scriptBasedProp.f = function(stimuli:Array<Stimulus>) {	
+					
+					val = Scripting.expandScriptValues(val, ["index" => copyNum, 'Trial'=> trial], exceptions, stimuli);
+					stimProps.set(key, val);
+				}
+				
+				scriptedBasedProps.push(scriptBasedProp);
+			}
+
+			else stimProps.set(key, val);
 		}
 		
 		XTools.appendUpNumberedProps(stimProps);
@@ -168,4 +192,14 @@ class StimuliFactory {
 		withinTrialSep = within;
 		overTrialSep = outside;
 	}
+}
+
+class ScriptBasedProp {
+	public var f:Array<Stimulus>->Void;
+
+	public function new() {
+		
+	}
+	
+	
 }

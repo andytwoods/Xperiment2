@@ -5,7 +5,6 @@ import haxe.ui.toolkit.core.Component;
 import openfl.display.Bitmap;
 import xpt.stimuli.StimulusBuilder;
 import xpt.tools.PathTools;
-import xpt.tools.ScriptTools;
 import xpt.experiment.Preloader;
 
 class StimImage extends StimulusBuilder {

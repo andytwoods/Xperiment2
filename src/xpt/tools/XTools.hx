@@ -85,10 +85,15 @@ class XTools
 				while(true){
 					appendUpProp=prop;
 					
-					if(i!=0)appendUpProp+=Std.string(i);
+					if (i != 0) appendUpProp += Std.string(i);
+
 					if(map.exists(appendUpProp)){		
-						appendUpVal+=map.get(appendUpProp);
+						appendUpVal += map.get(appendUpProp);
+						if (i == 0) {
+							map.set(prop + "0", appendUpVal);
+						}
 						i++;
+
 					}
 					else break;	
 				}		
