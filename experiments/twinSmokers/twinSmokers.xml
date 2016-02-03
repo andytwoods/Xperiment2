@@ -28,7 +28,7 @@ We hope you enjoy it. Your participation is very important to us."
 	
 </TRIAL>
 
-<TRIAL TYPE="Trial" hideResults="false" block="-11" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="false" block="1" order="fixed" trials="1">
 	 
 <text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top"><.text>Before we begin, please read the below: 
 By clicking 'I CONSENT' you indicate you have consented to take part.
@@ -53,7 +53,7 @@ STATEMENT OF INFORMED CONSENT
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
 	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
 	<text text="What country do you come from?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
-	<input text="a" y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
+	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
     <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
 	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
 	<nextTrialButton y="50%" x="50%" width="200" height="40" horizontalAlign="center"  fontSize="18" />

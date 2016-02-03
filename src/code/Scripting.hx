@@ -101,11 +101,6 @@ class Scripting
 	
 	
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
-		if (prop == 'action') {
-		
-					experiment.nextTrial();
-					return;
-		}
 		
 		if (stim.get(prop) != null) {
 			try {

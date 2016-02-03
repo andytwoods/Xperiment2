@@ -17,7 +17,8 @@ class Xpt {
 	private static var webStart:WebStart;
 	
 	public static function main() {
-        System.init();
+       
+		System.init();
             
         ErrorMessage.setup(Lib.current.stage);
             
@@ -47,6 +48,8 @@ class Xpt {
             start();
         #end
 	}
+	
+	
 	
 	private static function start() {
 		webStart = new WebStart('./' + localExptDirectory, exptName);
