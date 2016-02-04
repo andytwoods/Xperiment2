@@ -92,7 +92,7 @@ STATEMENT OF INFORMED CONSENT
 	<image   width="256"  id="image1"  resource="Beer|Coffee|Juice|Soda|Yoghurt" resource1="_" resource2="Bottom|Bottom|Bottom|Middle|Middle|Middle|Top|Top|Top" resource3=".jpg"  />
 	
 	<lineScale y="80%" labels="not sweet,very sweet" />
-	<nextTrialButton y="95%" x="50%" width="200" height="40" verticalAlign="bottom" text="next" fontSize="18" />
+	<nextTrialButton key=" " y="95%" x="50%" width="200" height="40" verticalAlign="bottom" text="next (SPACE)" fontSize="18" />
 	<results  item="${image1.get('resource0')}" pos="${image1.get('resource2')}"/>
 	
 </template>
