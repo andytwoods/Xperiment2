@@ -89,7 +89,7 @@ STATEMENT OF INFORMED CONSENT
 
 	<text textAlign="center" fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" text="Please click on the photo of the face you think is most attractive."/>
 	
-	<image  width="256" y="45%" id="image1---image2"  resource="Beer|Coffee|Juice|Soda|Yoghurt" resource1="_" resource2="Bottom|Bottom|Bottom|Middle|Middle|Middle|Top|Top|Top" resource3=".jpg"  />
+	<image   width="256"  id="image1"  resource="Beer|Coffee|Juice|Soda|Yoghurt" resource1="_" resource2="Bottom|Bottom|Bottom|Middle|Middle|Middle|Top|Top|Top" resource3=".jpg"  />
 	
 	<lineScale y="80%" labels="not sweet,very sweet" />
 	<nextTrialButton y="95%" x="50%" width="200" height="40" verticalAlign="bottom" text="next" fontSize="18" />
