@@ -4,6 +4,11 @@ import haxe.ui.toolkit.core.RootManager;
 import haxe.ui.toolkit.style.Style;
 import haxe.ui.toolkit.style.StyleManager;
 import openfl.Lib;
+import xpt.tools.XTools;
+
+#if html5
+	import js.Browser;
+#end	
 
 /**
  * ...
@@ -30,15 +35,15 @@ class ScreenManager
 		
 	}
 	
-	public function background(col:Int) {
-		trace(1111);
+	public function background(colStr:String) {
+
+		var col:Int = XTools.getColour(colStr);
 		
-		RootManager.instance.currentRoot.
+		RootManager.instance.currentRoot.style.backgroundColor = col;
 		
-		StyleManager.instance.addStyle("Root.fullscreen", new Style( {
-			backgroundColor: 0x888888,
-		} ));
-		
+		#if html5
+			Browser.document.body.style.background = colStr;
+		#end
 	}
 	
 }

@@ -79,11 +79,15 @@ class Experiment extends EventDispatcher {
 
 		DebugManager.instance.info("Experiment ready");
 		ScreenManager.init();
-
-		ScreenManager.instance.background(	XTools.getColour(ExptWideSpecs.IS("backgroundColour"))   ); 
+		background(ExptWideSpecs.IS("backgroundColour"));
+		
 		setupTrials(script);
 		firstTrial();
 		
+	}
+	
+	public function background(colStr:String) {
+		ScreenManager.instance.background(colStr); 
 	}
 
 	private function linkups() {

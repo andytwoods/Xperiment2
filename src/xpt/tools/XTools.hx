@@ -280,8 +280,7 @@ class XTools
 				return 0xA52A2A;
 			case "black":
 				return 0x000000;
-			case "gray":
-			case "grey":
+			case "grey" | "gray":
 				return 0x808080;
 			case "purple":
 				return 0x800080;

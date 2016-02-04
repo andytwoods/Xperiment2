@@ -2,7 +2,7 @@
 <exptA exptType="WEB">
 
 <SETUP>  
-	  <screen backgroundColour="black" orientation="vertical" ></screen>                          
+	  <screen backgroundColour="gray" orientation="vertical" ></screen>                          
 	  <computer  encrypt='false' />
 	  <style BUTTON_DOWN="0xff5656"  />
 	  <variables practice='0' />
