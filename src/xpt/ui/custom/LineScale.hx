@@ -1,6 +1,7 @@
 package xpt.ui.custom;
 
 import haxe.ui.toolkit.containers.VBox;
+import haxe.ui.toolkit.controls.Text;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.interfaces.InvalidationFlag;
 import haxe.ui.toolkit.core.Screen;
@@ -129,14 +130,33 @@ class LineScale extends StateComponent {
 		return v;
 	}
 	
-	
-	
-	public function sortLabels(labelList:Array<String>, labelPositionsList:Array<Float>) 
-	{
-		_line.sortLabels(labelList, labelPositionsList);
+	private var _labels:Array<String>;
+    private var _labelPositions:Array<Float>;
+	private var _labelComponents:Array<Text>;
+	public function sortLabels(labelList:Array<String>, labelPositionsList:Array<Float>) {
+        _labels = labelList;
+        _labelPositions = labelPositionsList;
+        createLabels();
 	}
+    
+    private function createLabels():Void {
+        if (_labelComponents == null) {
+            _labelComponents = new Array<Text>();
+        }
+        var n:Int = _labelComponents.length;
+        for (i in 0..._labels.length - n) { // create any that are needed
+            var text:Text = new Text();
+            addChild(text);
+            _labelComponents.push(text);
+        }
+        
+        for (i in 0..._labels.length) {
+            _labelComponents[i].text = _labels[i];
+        }
+    }
 }
 
+@:access(xpt.ui.custom.LineScale)
 class LineScaleLayout extends BoxLayout {
 	public function new() {
 		super();
@@ -150,6 +170,7 @@ class LineScaleLayout extends BoxLayout {
         if (line == null) {
             return;
         }
+        
 		var scale:LineScale = cast container;
 		
 		var ucx:Float = line.width - (line.offsetX * 2);
@@ -157,6 +178,17 @@ class LineScaleLayout extends BoxLayout {
 		var n = ucx / m;
 		var v = scale.val;
 		selection.x = (v * n) + (selection.width / 2) - (line.offsetX - 10);
-		selection.y += line.offsetY;
+        selection.y = usableHeight - selection.height - 10;
+        
+        // now lets position the labels
+        if (scale._labelComponents != null) {
+            var labelPositions:Array<Float> = scale._labelPositions;
+            var ucx:Float = line.width - (line.offsetX * 2);
+            for (i in 0...scale._labelComponents.length) {
+                var label:Text = scale._labelComponents[i];
+                label.x = ucx * labelPositions[i];
+                label.y = scale.height;
+            }
+        }
 	}
 }
