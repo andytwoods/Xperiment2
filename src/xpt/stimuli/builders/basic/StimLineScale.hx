@@ -41,7 +41,6 @@ class StimLineScale extends StimulusBuilder {
 			case 'hidden':
 				if(lineScale.hasEventListener(MouseEvent.MOUSE_OVER)==false) lineScale.addEventListener(MouseEvent.MOUSE_OVER, mouseOverL);
 				lineScale.selectionVisible(false);
-				lineScale.bufferZone(true);
 		}
 	}
 	
@@ -49,7 +48,6 @@ class StimLineScale extends StimulusBuilder {
 	{
 		lineScale.pos_from_stageX(e.stageX);
 		lineScale.removeEventListener(e.type, mouseOverL);
-		lineScale.bufferZone(false);
 		lineScale.selectionVisible(true);		
 				
 	}

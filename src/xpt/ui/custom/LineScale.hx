@@ -16,7 +16,7 @@ import openfl.events.MouseEvent;
 class LineScale extends StateComponent {
 	private var _selection:Triangle;
 	private var _line:Line;
-	private var _buffer:Box;
+	private var _bufferZone:Box;
 	
 	public function new() {
 		super();
@@ -28,6 +28,15 @@ class LineScale extends StateComponent {
 		_line.id = "line";
 		_line.verticalAlign = "bottom";
 		addChild(_line);
+
+		_bufferZone = new Box();
+		_bufferZone.percentWidth = 100;
+		_bufferZone.percentHeight = 100;
+		_bufferZone.style.backgroundColor = 0x000000;
+		_bufferZone.style.backgroundAlpha = 0;
+		_bufferZone.verticalAlign = "center";
+		_bufferZone.addEventListener(MouseEvent.MOUSE_DOWN, _onTriangleMouseDown);
+		addChild(_bufferZone);
 		
 		_selection = new Triangle();
 		_selection.x = 10;
@@ -37,30 +46,7 @@ class LineScale extends StateComponent {
 		_selection.id = "selection";
 		_selection.addEventListener(MouseEvent.MOUSE_DOWN, _onTriangleMouseDown);
 		addChild(_selection);
-		
-	}
-	
-	public function bufferZone(b:Bool):Bool {
-		if (b) {
-			if (_buffer == null) {
-				_buffer = new Box();
-				
-				_buffer.graphics.beginFill(0x000000, 0);
-				_buffer.graphics.lineStyle(3, 0, 0);
-				_buffer.graphics.drawRect(0, 0, width, 60);
-				addChild(_buffer);
-			}
 
-			
-		}
-		else {
-			if (_buffer != null) {
-				removeChild(_buffer);
-				_buffer = null;
-			}			
-		}
-		
-		return b;
 	}
 	
 	public function selectionVisible(b:Bool):Bool 
@@ -75,6 +61,7 @@ class LineScale extends StateComponent {
 
 	private var _mouseDownOffset:Float = -1;
 	private function _onTriangleMouseDown(event:MouseEvent):Void {
+		trace(event.target);
 		_mouseDownOffset = event.stageX - _selection.stageX;
 		Screen.instance.addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
 		Screen.instance.addEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
