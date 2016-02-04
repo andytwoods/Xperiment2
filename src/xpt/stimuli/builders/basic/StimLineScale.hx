@@ -1,5 +1,6 @@
 package xpt.stimuli.builders.basic;
 
+import flash.events.MouseEvent;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.events.UIEvent;
 import thx.Floats;
@@ -7,12 +8,15 @@ import xpt.stimuli.StimulusBuilder;
 import xpt.ui.custom.LineScale;
 
 class StimLineScale extends StimulusBuilder {
+	
+	var lineScale:LineScale;
+	
 	public function new() {
 		super();
 	}
 	
 	private override function createComponentInstance():Component {
-        var lineScale:LineScale = new LineScale();
+        lineScale = new LineScale();
         lineScale.addEventListener(UIEvent.CHANGE, function(e) {
            onStimValueChanged(lineScale.val); 
         });
@@ -24,9 +28,32 @@ class StimLineScale extends StimulusBuilder {
 		var lineScale:LineScale = cast c;
 		
 		sortLabels(lineScale, get("labels"), get("labelPositions"));
-		
+		sortStartPosition(lineScale, get('startPosition'));
 		
 	}
+	
+	function sortStartPosition(lineScale:LineScale, startPosition:String) 
+	{
+		
+		switch(startPosition.toLowerCase()) {
+			case 'random':
+				lineScale.position_percent(Random.float(0, 1));
+			case 'hidden':
+				if(lineScale.hasEventListener(MouseEvent.MOUSE_OVER)==false) lineScale.addEventListener(MouseEvent.MOUSE_OVER, mouseOverL);
+				lineScale.selectionVisible(false);
+				lineScale.bufferZone(true);
+		}
+	}
+	
+	private function mouseOverL(e:MouseEvent):Void 
+	{
+		lineScale.pos_from_stageX(e.stageX);
+		lineScale.removeEventListener(e.type, mouseOverL);
+		lineScale.bufferZone(false);
+		lineScale.selectionVisible(true);		
+				
+	}
+	
 	
 	function sortLabels(lineScale:LineScale, labels:String, labelPositions:String) 
 	{
