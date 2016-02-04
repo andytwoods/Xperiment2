@@ -15,12 +15,14 @@ import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.preloader.Preloader_extract_loadable;
 import xpt.results.Results;
 import xpt.results.TrialResults;
+import xpt.screenManager.ScreenManager;
 import xpt.script.ProcessScript;
 import xpt.stimuli.BaseStimuli;
 import xpt.stimuli.ETCs;
 import xpt.stimuli.StimuliFactory;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;
+import xpt.tools.XTools;
 import xpt.trial.GotoTrial;
 import xpt.trial.NextTrialBoss;
 import xpt.trial.Special_Trial;
@@ -76,6 +78,9 @@ class Experiment extends EventDispatcher {
 		//DebugManager.instance.enabled = true;
 
 		DebugManager.instance.info("Experiment ready");
+		ScreenManager.init();
+
+		ScreenManager.instance.background(	XTools.getColour(ExptWideSpecs.IS("backgroundColour"))   ); 
 		setupTrials(script);
 		firstTrial();
 		

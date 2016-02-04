@@ -2,7 +2,7 @@
 <exptA exptType="WEB">
 
 <SETUP>  
-	  <screen BGcolour="black" orientation="vertical" ></screen>                          
+	  <screen backgroundColour="black" orientation="vertical" ></screen>                          
 	  <computer  encrypt='false' />
 	  <style BUTTON_DOWN="0xff5656"  />
 	  <variables practice='0' />
@@ -24,8 +24,6 @@ We hope you enjoy it. Your participation is very important to us."
 	
 	<preloadProgress x="20" y="540"  horizontalAlign="left" width="70%" height="40" />
 	<preloadReadyButton x="85%" y="540" width="20%" height="40" fontSize="18" />
-	
-	<language y="90%" x="10%" labels="french,english" />
 	
 </TRIAL>
 
@@ -54,7 +52,7 @@ STATEMENT OF INFORMED CONSENT
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
 	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
 	<text text="What country do you come from?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
-	<input text="a" y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
+	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
     <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
 	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
 	<nextTrialButton y="50%" x="50%" width="200" height="40" horizontalAlign="center"  fontSize="18" />

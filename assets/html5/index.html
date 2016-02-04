@@ -104,7 +104,15 @@
 	
 	
 	<script type="text/javascript">
-		lime.embed ("openfl-content", 0, 0, "FFFFFF");
+		if(window.innerWidth >= 1024 && window.innerHeight >= 768) lime.embed ("openfl-content", 0, 0, "FFFFFF");
+		else{
+			var element = document.getElementById("openfl-content");
+			element.parentNode.removeChild(element);
+			document.write("<h2>Sorry, we are afraid that this experiment requires your browser window to be larger than 1024 x 768 pixels. Yours is currently " + window.innerWidth + " x " + window.innerHeight + ". You could try maximising your browser window, or rotating your device so that you are holding it horizotally, and then reload this webpage.</h2>");
+		}
+		
+		
+		
 	</script>
 </body>
 </html>

@@ -17,7 +17,7 @@
 	<haxedef name="haxeui-no-gif-support" />
 	<haxeflag name="-D haxeui-no-gif-support" />
 
-	<window background="#FFFFFF" fps="60" />
+	<window background="#FFF000" fps="60" />
 	<window width="1024" height="768" unless="mobile" />
 	<window orientation="landscape" fps="60" hardware="true" vsync="false" antialiasing="0" if="cpp" />
 	

@@ -258,5 +258,44 @@ class XTools
 		
 	}
 	
+	
+	public static function getColour(colour:String):Int{
+					
+		switch((colour).toLowerCase()){
+			case "red":
+				return 0xFF0000;
+			case "green":
+				return 0x00FF00;
+			case "blue":
+				return 0x0000FF;
+			case "yellow":
+				return 0xFFFF00;
+			case "pink":
+				return 0xFFC0CB;
+			case "orange":
+				return 0xFFA500;
+			case "white":
+				return 0xFFFFFF;
+			case "brown":
+				return 0xA52A2A;
+			case "black":
+				return 0x000000;
+			case "gray":
+			case "grey":
+				return 0x808080;
+			case "purple":
+				return 0x800080;
+				//colours defined here http://www.htmlgoodies.com/tutorials/colors/article.php/3478961/So-You-Want-A-Basic-Color-Code-Huh.htm
+		}
+		
+		if(colour.charAt(0)=="#")colour = "0x" + colour.substr(1);
+		
+		if(Ints.canParse(colour)) {
+			return Ints.parse(colour);
+		}
+		
+		throw "you have specified a colour incorrectly or have used text I don't understand:"+colour;
+		return 0;
+	}
 
 }

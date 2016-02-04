@@ -77,7 +77,8 @@ class ExptWideSpecs
 		map.set("overSJs","");
 		map.set("ip","autoset");
 		map.set("deviceUUID","");
-		map.set('uuid',Uuid.create().split("-").join(""));
+		map.set('uuid', Uuid.create().split("-").join(""));
+		map.set('backgroundColour', 'white');
 	//blocking
 		map.set("blockDepthOrder","");
 	//saving

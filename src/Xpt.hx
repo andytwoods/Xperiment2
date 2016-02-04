@@ -6,6 +6,7 @@ import xpt.comms.services.UrlParams_service;
 import xpt.error.ErrorMessage;
 import xpt.screenManager.ScreenManager_web;
 import xpt.start.WebStart;
+import xpt.tools.XTools;
 
 
 class Xpt {
@@ -17,16 +18,17 @@ class Xpt {
 	private static var webStart:WebStart;
 	
 	public static function main() {
-       
+	
 		System.init();
-            
+		
         ErrorMessage.setup(Lib.current.stage);
             
-        //exptName = "Expt1";
+        exptName = "Expt1";
         //exptName = 'test';
-		exptName = 'twinSmokers';
+		//exptName = 'twinSmokers';
         diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
-    
+		
+		
         DiagnosticsManager.add(DiagnosticsManager.EXPERIMENT_START, exptName);
             
         #if (debug && !html5)
