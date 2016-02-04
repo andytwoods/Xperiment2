@@ -5,8 +5,7 @@ import haxe.ui.toolkit.controls.Text;
 import haxe.ui.toolkit.core.Component;
 
 class Line extends Box {
-	private var _startLabel:Text;
-	private var _endLabel:Text;
+	private var labels:Array<Text>;
 	
 	public var offsetX:Int = 30;
 	public var offsetY:Int = -5;
@@ -29,39 +28,32 @@ class Line extends Box {
 		_sprite.graphics.lineTo(_width - offsetX, offsetY + 5);
 	}
 	
-	public var startLabel(get, set):String;
-	private function get_startLabel():String {
-		if (_startLabel == null) {
-			return null;
+	public function sortLabels(labelList:Array<String>, labelPositionsList:Array<Float>) 
+	{
+		if (labels == null) {
+			labels = new Array<Text>();
 		}
-		return _startLabel.text;
-	}
-	private function set_startLabel(value:String):String {
-		if (_startLabel == null) {
-			_startLabel = new Text();
-			_startLabel.horizontalAlign = "left";
-			_startLabel.verticalAlign = "bottom";
-			addChild(_startLabel);
+
+		
+		var label:Text;
+		for (i in 0...labelList.length) {
+			if (labels.length > i) label = labels[i];
+			else {
+				label = new Text();
+				labels.push(label);
+			}
+			
+			
+			label.verticalAlign = "bottom";
+			label.textAlign = "center";
+			label.text = labelList[i];
+			label.x = _width * labelPositionsList[i] - label.width * .5;
+			
+			addChild(label);
+
 		}
-		_startLabel.text = value;
-		return value;
 	}
 	
-	public var endLabel(get, set):String;
-	private function get_endLabel():String {
-		if (_endLabel == null) {
-			return null;
-		}
-		return _endLabel.text;
-	}
-	private function set_endLabel(value:String):String {
-		if (_endLabel == null) {
-			_endLabel = new Text();
-			_endLabel.horizontalAlign = "right";
-			_endLabel.verticalAlign = "bottom";
-			addChild(_endLabel);
-		}
-		_endLabel.text = value;
-		return value;
-	}
+
+
 }

@@ -21,8 +21,6 @@ class LineScale extends StateComponent {
 		_line = new Line();
 		_line.height = 30;
 		_line.percentWidth = 100;
-		_line.startLabel = " ";
-		_line.endLabel = " ";
 		_line.id = "line";
 		_line.verticalAlign = "bottom";
 		addChild(_line);
@@ -41,6 +39,7 @@ class LineScale extends StateComponent {
 	public override function initialize():Void {
 		super.initialize();
 	}
+	
 
 	private var _mouseDownOffset:Float = -1;
 	private function _onTriangleMouseDown(event:MouseEvent):Void {
@@ -130,22 +129,11 @@ class LineScale extends StateComponent {
 		return v;
 	}
 	
-	public var startLabel(get, set):String;
-	private function get_startLabel():String {
-		return _line.startLabel;
-	}
-	private function set_startLabel(value:String):String {
-		_line.startLabel = value;
-		return value;
-	}
 	
-	public var endLabel(get, set):String;
-	private function get_endLabel():String {
-		return _line.endLabel;
-	}
-	private function set_endLabel(value:String):String {
-		_line.endLabel = value;
-		return value;
+	
+	public function sortLabels(labelList:Array<String>, labelPositionsList:Array<Float>) 
+	{
+		_line.sortLabels(labelList, labelPositionsList);
 	}
 }
 

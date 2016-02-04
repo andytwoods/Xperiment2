@@ -38,6 +38,7 @@
             <valid>notEmpty()</valid>
         </numberStepper>
 		<lineScale builder="xpt.stimuli.builders.basic.StimLineScale">
+			<width>50%</width>
             <valid>notEmpty()</valid>
         </lineScale>    
 		<multipleChoice builder="xpt.stimuli.builders.basic.StimMultipleChoice">

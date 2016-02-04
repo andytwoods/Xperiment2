@@ -1,0 +1,113 @@
+<exptA exptType="WEB">
+
+<SETUP>  
+	  <screen BGcolour="808080" orientation="vertical" ></screen>                          
+	  <computer  encrypt='false' />
+	  <style BUTTON_DOWN="0xff5656"  />
+	  <variables practice='0' />
+	  <validation validationEnabled="true" invalidTrailBehaviour="hide" />
+</SETUP>
+
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+
+	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
+
+    
+	<text width="80%" height="25%" 
+		  text=
+		  "Welcome to our study! We are the Imagineering Institute, Iskandar, Malaysia, and the Crossmodal Research Laboratory, Department of Experimental Psychology, Oxford University. 
+We are interested in understanding how people associate information across the senses. If you decide to take part in this experiment, you will be asked to match a variety of packaging shapes to tastes.
+We hope you enjoy it. Your participation is very important to us."
+	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />
+	
+	
+	<preloadProgress x="20" y="540"  horizontalAlign="left" width="70%" height="40" />
+	<preloadReadyButton x="85%" y="540" width="20%" height="40" fontSize="18" />
+	
+</TRIAL>
+
+<TRIAL TYPE="Trial" hideResults="false" block="1" order="fixed" trials="1">
+	 
+<text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top"><.text>Before we begin, please read the below: 
+By clicking 'I CONSENT' you indicate you have consented to take part.
+If you decide to take part in this experiment, you will be told specific links between tastes and packaging shapes and will be asked to respond according to such links
+At the end of the study we will tell you more about the purpose of the study and why we are doing this research.
+You can also contact the researchers - Dr Carlos Velasco (carlos@imagineeringinstitute.org) or Dr Andy Woods (andy.woods@psy.ox.ac.uk) for further information at a later date if you wish.
+Please read the below consent statement and indicate whether you consent.
+STATEMENT OF INFORMED CONSENT
+1. I have read and understand the information above, and understand general purpose of this experiment.
+2. I understand that I can withdraw from the study at any time and that doing so we will destroy your data. You can withdraw at any time, for any reason. (NB – Please be aware that data collected is anonymous - if you change your mind after completing the experiment, we will be unable to trace your specific data to remove it).
+3. I understand that my responses are anonymous.
+4. I agree to take part in this online experiment.	
+		</.text></text>
+	
+	
+	<nextTrialButton y="540" width="200" height="40" text="I CONSENT" horizontalAlign="right" x="99%" fontSize="18" />
+</TRIAL>
+
+
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="What is your Prolific Academic ID?" fontSize="20" width="400" height="30" textAlign="center"  y="40%" />
+	
+	
+	<input y="50%" width="300" height="50" fontSize="20"  />
+   
+	<nextTrialButton y="80%" x="50%" width="200" height="40" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+	
+
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="Some questions:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
+	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
+	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
+	<text text="What country do you come from?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
+	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
+    <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
+	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
+	<nextTrialButton y="50%" x="50%" width="200" height="40" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+	
+	
+<TRIAL block="5">
+	
+	<text width="80%" height="25%" y="15%"
+		  text="In this task you will see an image of a food item. There will be a line scale beneath the item. Please rate the item on the scale. There are 4 different scales (how sweet, salty, bitter and sour) and 15 different food items. Note that some of the food items differ only slightly in terms of appearence from each other."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
+	
+	<image howMany="15" width="200" group="g1" id="image1---image2"  resource="Beer---Coffee---Juice---Soda---Yoghurt" resource1="_" resource2="Bottom---Bottom---Bottom---Bottom---Bottom---Middle---Middle---Middle---Middle---Middle---Top---Top---Top---Top---Top" resource3=".jpg" 
+		   y="20%---20%---20%---20%---20%---40%---40%---40%---40%---40%---60%---60%---60%---60%---60%" x="20%---35%---50%---65%---80%" />
+	
+	<nextTrialButton y="90%" x="50%" width="200" height="40" verticalAlign="bottom" text="begin" fontSize="18" />
+</TRIAL>
+	
+
+
+<TRIAL template="template"  block="-10" trials="25">
+</TRIAL>	
+
+
+<template order="random" trials="15">
+
+	<text textAlign="center" fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" text="Please click on the photo of the face you think is most attractive."/>
+	
+	<image  width="256" y="45%" id="image1---image2"  resource="Beer|Coffee|Juice|Soda|Yoghurt" resource1="_" resource2="Bottom|Bottom|Bottom|Middle|Middle|Middle|Top|Top|Top" resource3=".jpg"  />
+	
+	<lineScale y="80%" labels="not sweet,very sweet" />
+	<nextTrialButton y="95%" x="50%" width="200" height="40" verticalAlign="bottom" text="next" fontSize="18" />
+	<results  item="${image1.get('resource0')}" pos="${image1.get('resource2')}"/>
+	
+</template>
+	
+<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="10">
+
+<text  colour="black" timeStart="0" width="80%"  height="50%" fontSize="30">
+	<.text>Thank you for your participation to this study. We're exploring the way people associate colours with tastes.
+If you have any questions or would like to here more about our research, please contact us at andy.woods@psy.ox.ac.uk</.text>
+</text>
+
+<link text="Prolific Academic Link" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB" />
+
+</TRIAL>	
+	
+
+</exptA>
+	
