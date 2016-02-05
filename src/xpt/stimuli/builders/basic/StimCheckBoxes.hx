@@ -56,7 +56,7 @@ class StimCheckBoxes extends StimulusBuilder {
 		if (get("labels") != null) {
 			var labels:String = get("labels");
 			var labelsArr:Array<String> = labels.split(",");
-			//if (getBool('random', false)) Random.shuffle(labelsArr);
+			if (getBool('random', false)) Random.shuffle(labelsArr);
 			for (label in labelsArr) {
 				var checkBox:CheckBox = new CheckBox();
 				checkBox.text = label;

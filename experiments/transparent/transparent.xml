@@ -1,0 +1,121 @@
+<exptA exptType="WEB">
+
+<SETUP>  
+	  <screen BGcolour="808080" orientation="vertical" ></screen>                          
+	  <computer  encrypt='false' />
+	  <style BUTTON_DOWN="0xff5656"  />
+	  <variables practice='0' />
+</SETUP>
+
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+
+	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
+
+	<text width="100%" height="70%" 
+		  text=
+		  "Crossmodal Research Laboratory, Department of Experimental Psychology, Tinbergen Building, 9 South Parks Road, Oxford, OX1 3UD, England. Researcher Contact Details: Gregory Simmonds (Email: gregory.simmonds@psy.ox.ac.uk)
+		  
+“TO SEE OR NOT TO SEE”: THE EFFICACY OF TRANSPARENT WINDOWS IN PACKAGING
+Dear participant,
+Welcome to our study! We are the Crossmodal Research Laboratory, Department of Experimental Psychology, Oxford University. 
+We are interested in understanding how people associate information across the senses. If you decide to take part in this experiment, you will be asked to look at some different types of food and drink packaging and will be asked some questions about your opinions of them.
+There are no right or wrong responses, so please respond according to what feels right to you. We hope you enjoy it. Your participation is very important to us.
+You are being invited to participate because you are a member of the Prolific Academic online participant panel. The questionnaire will take around 15 minutes to complete.
+You would still be free to withdraw from the study at any time during the questionnaire, without needing to give a reason, and without penalty. The data will be fully anonymized, and stored on a secure computer at the Crossmodal Research Laboratory, University of Oxford. The data will only be accessible by members of the Crossmodal Research Laboratory, and will be destroyed on 30th September 2016. Prolific Academic staff will not be able to access your responses. This research has been reviewed by and received favourable opinion through the University of Oxford Central University Research Ethics Committee."
+	fontSize="15" />
+	
+	
+	<preloadProgress x="20" y="90%"  horizontalAlign="left" width="70%" height="40" />
+	<preloadReadyButton x="85%" y="90%" width="20%" height="40" fontSize="18" />
+	
+</TRIAL>
+
+<TRIAL TYPE="Trial" hideResults="false" block="1" order="fixed" trials="1">
+	 
+<text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top">
+<.text>CONSENT FORM.
+Before we begin, please read below. By clicking I CONSENT you indicate you have consented to take part.
+If you decide to take part in this experiment, you will be asked to look at some different types of food and drink packaging and will be asked some questions about your opinions of them.
+At the end of the study we will tell you more about the purpose of the study and why we are doing this research. You can also contact Gregory Simmonds (gregory.simmonds@psy.ox.ac.uk) for further information at a later date if you wish.
+If you have a concern about any aspect of this project, please contact the chair of the Medical Sciences Inter-divisional Research Ethics Committee at the University of Oxford (Chair, MS IDREC; Email: ethics@medsci.ox.ac.uk; Address: Research Services, University of Oxford, Wellington Square, Oxford OX1 2JD). The chair will seek to resolve the matter in a reasonably expeditious manner.
+Please read the below consent statement and indicate whether you consent.
+Statement of informed consent
+1.	I have read and understand the information above and understand the general purpose of this experiment.
+2.	I understand that I can withdraw from the questionnaire at any time, for any reason, and without penalty, and that doing so will destroy my data. (NB – Please be aware that data collected is anonymous – if you change your mind after completing the experiment, we will be unable to trace your specific data to remove it).
+3.	I understand how to raise a concern or make a complaint (detailed above).
+4.	I understand that my responses are anonymous.
+5.	I agree to take part in this online experiment.
+		</.text></text>
+	
+	
+	<nextTrialButton y="90%" width="200" height="40" text="I CONSENT" fontSize="18" />
+</TRIAL>
+
+
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="What is your Prolific Academic ID?" fontSize="20" width="400" height="30" textAlign="center"  y="40%" />
+	
+	
+	<input y="50%" width="300" height="50" fontSize="20"  />
+   
+	<nextTrialButton y="80%" x="50%" width="200" height="40" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+	
+
+<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
+	<text text="Some questions:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
+	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
+	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
+	<text text="What country do you come from?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
+	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
+    <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
+	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
+	<text text="Which of these types of products have you bought for yourself in the past 6 months?" fontSize="20" width="100%" height="30"  y="60%" />
+	<checkBoxes selectMany="true" labels="dried pasta,chocolate,granola or muesli,salmon" random="true"/>
+	<nextTrialButton y="90%" x="50%" width="200" height="40" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+	
+	
+<TRIAL block="5">
+	
+	<text width="80%" height="25%" y="15%"
+		  text="In this task you will see an image of a food item. There will be a line scale beneath the item. Please rate the item on the scale. There are 4 different scales (how sweet, salty, bitter and sour) and 15 different food items. Note that some of the food items differ only slightly in terms of appearence from each other."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
+	
+	<image howMany="15" width="200" group="g1" id="image1---image2"  resource="Beer---Coffee---Juice---Soda---Yoghurt" resource1="_" resource2="Bottom---Bottom---Bottom---Bottom---Bottom---Middle---Middle---Middle---Middle---Middle---Top---Top---Top---Top---Top" resource3=".jpg" 
+		   y="30%---30%---30%---30%---30%---50%---50%---50%---50%---50%---70%---70%---70%---70%---70%" x="20%---35%---50%---65%---80%" />
+	
+	<nextTrialButton y="90%" x="50%" width="200" height="40" verticalAlign="bottom" text="begin" fontSize="18" />
+</TRIAL>
+	
+
+
+<TRIAL template="template"  block="10" trials="25">
+</TRIAL>	
+
+
+<template order="random" trials="15">
+
+	<text textAlign="center" fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" text="Please click on the photo of the face you think is most attractive."/>
+	
+	<image   width="256"  id="image1"  resource="Beer|Coffee|Juice|Soda|Yoghurt" resource1="_" resource2="Bottom|Bottom|Bottom|Middle|Middle|Middle|Top|Top|Top" resource3=".jpg"  />
+	
+	<lineScale y="80%" labels="not sweet,very sweet" />
+	<nextTrialButton key=" " y="95%" x="50%" width="200" height="40" verticalAlign="bottom" text="next (SPACE)" fontSize="18" />
+	<results  item="${image1.get('resource0')}" pos="${image1.get('resource2')}"/>
+	
+</template>
+	
+<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="10">
+
+<text  colour="black" timeStart="0" width="80%"  height="50%" fontSize="30">
+	<.text>Thank you for your participation to this study. We're exploring the way people associate colours with tastes.
+If you have any questions or would like to here more about our research, please contact us at andy.woods@psy.ox.ac.uk</.text>
+</text>
+
+<link text="Prolific Academic Link" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB" />
+
+</TRIAL>	
+	
+
+</exptA>
+	
