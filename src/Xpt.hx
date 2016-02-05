@@ -22,8 +22,9 @@ class Xpt {
 		System.init();
 		
         ErrorMessage.setup(Lib.current.stage);
-            
-        exptName = 'tastePosition';
+          
+		exptName = 'transparent';
+        //exptName = 'tastePosition';
 		//exptName = "Expt1";
         //exptName = 'test';
 		//exptName = 'twinSmokers';

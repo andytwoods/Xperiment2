@@ -56,7 +56,9 @@ class StimMultipleChoice extends StimulusBuilder {
 		var group:String = "" + Math.random();
 		if (get("labels") != null) {
 			var labels:String = get("labels");
-			for (label in labels.split(",")) {
+			var labelsArr:Array<String> = labels.split(",");
+			if (getBool('random', false)) Random.shuffle(labelsArr);
+			for (label in labelsArr) {
 				var button:Button = new Button();
 				button.text = label;
 				button.toggle = true;
