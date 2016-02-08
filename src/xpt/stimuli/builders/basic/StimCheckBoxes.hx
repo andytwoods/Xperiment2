@@ -4,6 +4,8 @@ import haxe.ui.toolkit.containers.HBox;
 import haxe.ui.toolkit.controls.CheckBox;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.events.UIEvent;
+import thx.Arrays;
+import thx.Strings;
 import xpt.stimuli.StimulusBuilder;
 import xpt.ui.custom.NumberStepper;
 
@@ -86,9 +88,24 @@ class StimCheckBoxes extends StimulusBuilder {
 		
 	}
 	
+	override public function results():Map<String,String> {
+		var map:Map<String,String> = new Map<String,String>();
+		for (checkBox in _checkBoxes) {
+			map.set(checkBox.text, Std.string(checkBox.selected));
+		}
+		return map;
+	}
+	
 
     
     private function oncheckBoxChange(event:UIEvent) {
+		_currentSelection = [];
+		for (checkBox in _checkBoxes) {
+			if (checkBox.selected == true) {
+				_currentSelection.push(checkBox.text);
+			}
+		}
+		
         onStimValueChanged(_currentSelection);
 		runScriptEvent("action", event);
     }
