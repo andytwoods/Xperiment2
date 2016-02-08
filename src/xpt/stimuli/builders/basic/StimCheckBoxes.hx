@@ -9,7 +9,7 @@ import xpt.ui.custom.NumberStepper;
 
 class StimCheckBoxes extends StimulusBuilder {
 	private var _checkBoxes:Array<CheckBox>;
-
+	private var once:Bool = false;
     private var _currentSelection:Array<String>;
     
 	public function new() {
@@ -17,16 +17,13 @@ class StimCheckBoxes extends StimulusBuilder {
 	}
 	
 	private override function createComponentInstance():Component {
-		return new HBox();
+		var h:HBox = new HBox();
+		create(h);
+		return h;
 	}
 	
-	private override function applyProperties(c:Component) {
-		super.applyProperties(c);
-        
-		c.removeAllChildren();
-        
-		var hbox:HBox = cast c;
-		
+	function create(hbox:HBox) 
+	{
 		var fontSize:Int = getInt("fontSize");
 		_checkBoxes = new Array<CheckBox>();
 		
@@ -87,8 +84,9 @@ class StimCheckBoxes extends StimulusBuilder {
 			}
 		}
 		
-		
 	}
+	
+
     
     private function oncheckBoxChange(event:UIEvent) {
         onStimValueChanged(_currentSelection);
