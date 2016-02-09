@@ -11,7 +11,6 @@ import xpt.ui.custom.NumberStepper;
 
 class StimCheckBoxes extends StimulusBuilder {
 	private var _checkBoxes:Array<CheckBox>;
-	private var once:Bool = false;
     private var _currentSelection:Array<String>;
 	
 	public function new() {
@@ -20,7 +19,6 @@ class StimCheckBoxes extends StimulusBuilder {
 	
 	private override function createComponentInstance():Component {
 		var h:HBox = new HBox();
-		
 		return h;
 	}
 	
@@ -28,10 +26,8 @@ class StimCheckBoxes extends StimulusBuilder {
 	
 	private override function applyProperties(c:Component) {
 		super.applyProperties(c);
-		if (once == false) {
-			create(cast(c, HBox));
-			once = true;
-		}
+		c.removeAllChildren();
+		create(cast(c, HBox));
 	}
 	
 	function create(hbox:HBox) 
