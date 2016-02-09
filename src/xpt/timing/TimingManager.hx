@@ -2,6 +2,7 @@ package xpt.timing;
 
 import diagnositics.DiagnosticsManager;
 import flash.events.Event;
+import haxe.ds.ArraySort;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.RootManager;
 import haxe.ui.toolkit.events.UIEvent;
@@ -71,6 +72,12 @@ class TimingManager {
 	
 	public function add(stim:Stimulus) {
 		_stims.push(stim);
+		ArraySort.sort(_stims, function(a:Stimulus, b:Stimulus):Int {
+			if (a.depth == b.depth) return 0;
+			if (a.depth < b.depth) return 1;
+			return -1;
+			
+		});
 		if (stim.start <= 0) {
 			addToTrial(stim);
 		}
@@ -81,7 +88,19 @@ class TimingManager {
 			DebugManager.instance.stimulus("Adding stimulus, type: " + stim.get("stimType"));
             DiagnosticsManager.add(DiagnosticsManager.STIMULUS_SHOW, stim.id, stim.get("stimType"));
             stim.component.addEventListener(UIEvent.ADDED_TO_STAGE, onStimAddedToStage);
-		    RootManager.instance.currentRoot.addChild(stim.component);
+		    
+			RootManager.instance.currentRoot.addChild(stim.component);
+			
+
+			for (s in _stims) {
+				if(s.depth < stim.depth){
+					if (RootManager.instance.currentRoot.contains(s.component)) {
+						s.component.parent.setChildIndex(s.component, s.component.parent.numChildren - 1);
+					}
+				}
+			}
+			
+			
             stim.onAddedToTrial();
 		}
 	}

@@ -18,7 +18,7 @@ class Stimulus {
 	public var duration:Float = -1;
 	public var hideResults:Bool = false;
 	public var id:String;
-	public var depth:Int;
+	public var depth:Int = 50;
 	public var ran:Bool = false;
 	public var type:String;
 	
