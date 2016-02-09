@@ -259,23 +259,34 @@ class XML_tools
 		//trace(xml2_, xml2_.elements().hasNext());
 		var elements:Iterator<Xml> = xml2_.elements();
 		
-		
+		var bossElementsCopyOver:Array<String> = new Array<String>();
+		for (child in xml1_.elements()) {
+			if (child.exists(param)) bossElementsCopyOver.push(child.get(param));
+		}
+
 		for (child in elements) {
-			
+
 			child = simpleXML(child);
 			var paramVal:String = child.get(param);
-
 			if (paramVal != null) {
-				var bossNodes = find(xml1_, param, paramVal);
+				var bossNodes = find(xml1_, param, paramVal);		
 				nodes_extendAttribs_copyOverChildren(bossNodes, child);
+				
+				if (bossElementsCopyOver.indexOf(paramVal) == -1) {
+					xml1_.addChild(child);
+				}
+				
 			}
 			else {
+
 				xml1_.addChild(child);
 			}
 		}
 
 		return xml1_;
 	}
+	
+
 	
 	static private inline function nodes_addChildren(bossNodes:Iterator<Xml>, child:Xml) 
 	{

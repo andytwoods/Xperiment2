@@ -94,16 +94,20 @@ class Test_Templates
 	}
 	
 	
-	//dont think below does anything!
-	public function test__compose__overSJs() {
 	
-		var xml:Xml = Xml.parse("<multi></multi>");
-		
-		
-		Assert.isTrue(true);
+	public function test_templates() {
+/*<exptA exptType="WEB">
+<SETUP>  </SETUP>
+<TRIAL template="cereal,template"  block="10" trials="25"></TRIAL>	
+<cereal><image copyOverId="image" resource="cereal" /></cereal>	
+<template order="random" trials="15"><image copyOverId="image"  /></template>
+</exptA>*/
+
+		var xml:Xml = Xml.parse("<exptA exptType='WEB'><TRIAL template='cereal,template'  block='10' trials='25'></TRIAL>	<cereal><image copyOverId='image' resource='cereal' /></cereal>	<template order='random' trials='15'><image copyOverId='image'  /></template></exptA>");
+		var templates:Templates = new Templates(xml);
+		Assert.isTrue(xml.firstElement().firstElement().firstElement().nodeName == "image") ;
 		
 	}
-	
 	
 
 	

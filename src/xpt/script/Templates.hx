@@ -25,7 +25,7 @@ class Templates
 		if(script !=null) compose(script);
 	}
 
-	public inline function compose(script:Xml):Xml
+	public function compose(script:Xml):Xml
 	{
 	
 		var requireTemplatingIterator = XML_tools.find(script, Trial_TemplateId);
@@ -72,7 +72,7 @@ class Templates
 				template.requested++;
 				__applyTemplates(template, templateMap, copyOverTag);
 			}
-			//nb really dislike cloning xml that way https://groups.google.com/forum/#!topic/haxelang/Waz0taglqMk
+			//nb dislike cloning xml this way https://groups.google.com/forum/#!topic/haxelang/Waz0taglqMk
 			XML_tools.extendXML_inclBossNodeParams(require.xml, Xml.parse(template.xml.toString()) , copyOverTag, false);
 			
 			require.hasBeenTemplated = true;
