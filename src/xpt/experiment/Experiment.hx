@@ -4,6 +4,7 @@ import assets.manager.FileLoader;
 import code.CheckIsCode;
 import code.CheckIsCode.RunCodeEvents;
 import code.Scripting;
+import flash.events.Event;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.events.EventDispatcher;
 import openfl.utils.Object;
@@ -191,6 +192,12 @@ class Experiment extends EventDispatcher {
 	}
 	
 	public function startTrial() {
+		if (stimuli_loaded == false) {
+			XTools.callBack_onEvent(Preloader.instance,PreloaderEvent.COMPLETE, function(e:Event){
+				startTrial();
+			});
+			return;
+		}
 
 		if (runningTrial != null) {
 			Scripting.DO(null, RunCodeEvents.AfterTrial, runningTrial);
