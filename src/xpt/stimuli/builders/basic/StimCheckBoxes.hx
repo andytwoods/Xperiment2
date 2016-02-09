@@ -13,22 +13,32 @@ class StimCheckBoxes extends StimulusBuilder {
 	private var _checkBoxes:Array<CheckBox>;
 	private var once:Bool = false;
     private var _currentSelection:Array<String>;
-    
+	
 	public function new() {
 		super();
 	}
 	
 	private override function createComponentInstance():Component {
 		var h:HBox = new HBox();
-		create(h);
+		
 		return h;
+	}
+	
+	
+	
+	private override function applyProperties(c:Component) {
+		super.applyProperties(c);
+		if (once == false) {
+			create(cast(c, HBox));
+			once = true;
+		}
 	}
 	
 	function create(hbox:HBox) 
 	{
 		var fontSize:Int = getInt("fontSize");
+		var checkBox:CheckBox = null;
 		_checkBoxes = new Array<CheckBox>();
-		
 		var checkBoxWidth:Float = -1;
 		var checkBoxPercentWidth:Float = -1;
 		if (get("checkBoxWidth") != null) {
@@ -57,7 +67,7 @@ class StimCheckBoxes extends StimulusBuilder {
 			var labelsArr:Array<String> = labels.split(",");
 			if (getBool('random', false)) Random.shuffle(labelsArr);
 			for (label in labelsArr) {
-				var checkBox:CheckBox = new CheckBox();
+				checkBox = new CheckBox();
 				checkBox.text = label;
 				
 				if (checkBoxWidth != -1) {
@@ -80,12 +90,19 @@ class StimCheckBoxes extends StimulusBuilder {
 					checkBox.style.fontSize = fontSize;
 				}
                 checkBox.addEventListener(UIEvent.CHANGE, oncheckBoxChange);
+				trace(checkBox.clipWidth,33);
 				_checkBoxes.push(checkBox);
 
 				hbox.addChild(checkBox);
 			}
 		}
 		
+
+		trace(checkBox.sprite.width);
+		
+		
+		
+	
 	}
 	
 	override public function results():Map<String,String> {
