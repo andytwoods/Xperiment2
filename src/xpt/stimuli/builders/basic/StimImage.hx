@@ -26,7 +26,6 @@ class StimImage extends StimulusBuilder {
 		}
 
 		var resource:String = get("resource");
-		trace(resource,33);
 		if (resource != null) {
            resource = PathTools.fixPath(resource);
            setBitmap(Preloader.instance.preloadedImages.get(resource), image);	
