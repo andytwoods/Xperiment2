@@ -1,8 +1,11 @@
 package xpt.tools;
+import flash.events.Event;
+import flash.events.EventDispatcher;
 import openfl.events.TimerEvent;
 import openfl.utils.Timer;
 import thx.Floats;
 import thx.Ints;
+import xpt.experiment.Preloader;
 
 /**
  * ...
@@ -295,6 +298,18 @@ class XTools
 		
 		throw "you have specified a colour incorrectly or have used text I don't understand:"+colour;
 		return 0;
+	}
+	
+	static public function callBack_onEvent(listenOn:EventDispatcher, listenFor:String, callBackF:Event->Void) 
+	{
+		function caller(e:Event) {
+			listenOn.removeEventListener(listenFor, caller);
+			callBackF(e);
+		}
+		
+		listenOn.addEventListener(listenFor, caller);
+		
+		
 	}
 
 }

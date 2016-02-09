@@ -1,5 +1,7 @@
 package xpt.ui.custom;
 
+import haxe.Constraints.FlatEnum;
+import haxe.ui.toolkit.containers.Box;
 import haxe.ui.toolkit.containers.VBox;
 import haxe.ui.toolkit.controls.Text;
 import haxe.ui.toolkit.core.Component;
@@ -14,6 +16,7 @@ import openfl.events.MouseEvent;
 class LineScale extends StateComponent {
 	private var _selection:Triangle;
 	private var _line:Line;
+	private var _bufferZone:Box;
 	
 	public function new() {
 		super();
@@ -25,6 +28,15 @@ class LineScale extends StateComponent {
 		_line.id = "line";
 		_line.verticalAlign = "bottom";
 		addChild(_line);
+
+		_bufferZone = new Box();
+		_bufferZone.percentWidth = 100;
+		_bufferZone.percentHeight = 100;
+		_bufferZone.style.backgroundColor = 0x000000;
+		_bufferZone.style.backgroundAlpha = 0;
+		_bufferZone.verticalAlign = "center";
+		_bufferZone.addEventListener(MouseEvent.MOUSE_DOWN, _onTriangleMouseDown);
+		addChild(_bufferZone);
 		
 		_selection = new Triangle();
 		_selection.x = 10;
@@ -34,7 +46,12 @@ class LineScale extends StateComponent {
 		_selection.id = "selection";
 		_selection.addEventListener(MouseEvent.MOUSE_DOWN, _onTriangleMouseDown);
 		addChild(_selection);
-		
+
+	}
+	
+	public function selectionVisible(b:Bool):Bool 
+	{
+		return _selection.visible = b;
 	}
 	
 	public override function initialize():Void {
@@ -44,6 +61,7 @@ class LineScale extends StateComponent {
 
 	private var _mouseDownOffset:Float = -1;
 	private function _onTriangleMouseDown(event:MouseEvent):Void {
+		trace(event.target);
 		_mouseDownOffset = event.stageX - _selection.stageX;
 		Screen.instance.addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
 		Screen.instance.addEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
@@ -53,10 +71,13 @@ class LineScale extends StateComponent {
 		if (_mouseDownOffset == -1) {
 			return;
 		}
-		var xpos:Float = event.stageX - this.stageX - _mouseDownOffset;
+		pos_from_stageX(event.stageX);
+	}
+	
+	public inline function pos_from_stageX(pos:Float) {
+		var xpos:Float = pos - this.stageX - _mouseDownOffset;
 		var newVal = calcPosFromCoord(xpos + _mouseDownOffset);
-		val = newVal;
-		
+		val = newVal;	
 	}
 	
 	private function _onMouseUp(event:MouseEvent):Void {
@@ -93,6 +114,14 @@ class LineScale extends StateComponent {
 	private function set_min(v:Float):Float {
 		_min = v;
 		return v;
+	}
+	
+	public function position_percent(p:Float):Float {
+		var range:Float = _max - _min;
+		_val = p * range + _min;
+		invalidate(InvalidationFlag.LAYOUT);
+		trace(11);
+		return val;
 	}
 	
 	private var _max:Float = 100;

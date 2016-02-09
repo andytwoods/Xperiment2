@@ -150,6 +150,32 @@ class StimulusBuilder {
 	}
 	
 	@:allow(StimImage)
+	private inline function sort_alignment(c:Component) {
+		if (get("horizontalAlign") != null) {
+			switch (get("horizontalAlign").toLowerCase()) {
+                case "left":
+                    //
+				case "center" | "middle" | "centre":
+					c.x -= .5 * c.width;
+                case "right":
+                    c.x -= c.width;
+			}
+		}
+
+		if (get("verticalAlign") != null) {
+			switch (get("verticalAlign").toLowerCase()) {
+                case "top":
+                   //
+				case "center" | "middle" | "centre":
+					c.y -= .5 * c.height;	
+                case "bottom":
+                    c.y -=  c.height;
+			}
+		}	
+	}
+	
+	
+
 	private function applyProperties(c:Component) {
 		var root:Root = RootManager.instance.currentRoot;
 		
@@ -172,27 +198,7 @@ class StimulusBuilder {
 		c.x = getUnit("x", root.width);
 		c.y = getUnit("y", root.height);
 		
-		if (get("horizontalAlign") != null) {
-			switch (get("horizontalAlign").toLowerCase()) {
-                case "left":
-                    //
-				case "center" | "middle" | "centre":
-					c.x -= .5 * c.width;
-                case "right":
-                    c.x -= c.width;
-			}
-		}
-
-		if (get("verticalAlign") != null) {
-			switch (get("verticalAlign").toLowerCase()) {
-                case "top":
-                   //
-				case "center" | "middle" | "centre":
-					c.y -= .5 * c.height;	
-                case "bottom":
-                    c.y -=  c.height;
-			}
-		}
+		sort_alignment(c);
 		
         if (get("marginLeft") != null)          c.x += getInt("marginLeft", 0);
         if (get("marginTop") != null)           c.y += getInt("marginTop", 0);

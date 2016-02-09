@@ -19,26 +19,17 @@ class StimImage extends StimulusBuilder {
 	private override function applyProperties(c:Component) {
 		super.applyProperties(c);
 		var image:Image = cast c;
-		
+
 		if (get("asset") != null) {
 			image.resource = get("asset");
 			return;
 		}
-		
+
 		var resource:String = get("resource");
+		trace(resource,33);
 		if (resource != null) {
-			//if cannot get data
-            resource = PathTools.fixPath(resource);
-            if (false == setBitmap(Preloader.instance.preloadedImages.get(resource), image) ) {
-				Preloader.instance.callbackWhenLoaded(resource, function(){
-					setBitmap(Preloader.instance.preloadedImages.get(resource), image);	
-					if (get('width') == null && get('height') == null) {
-					_stim.set('width', image.width);
-					_stim.set('height', image.height);
-					applyProperties(image);
-					}
-				});
-			}
+           resource = PathTools.fixPath(resource);
+           setBitmap(Preloader.instance.preloadedImages.get(resource), image);	
 		}
 	}
 	

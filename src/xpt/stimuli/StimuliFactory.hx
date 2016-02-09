@@ -48,10 +48,10 @@ class StimuliFactory {
 				var do_continue:Bool = setProps(stim, stim_copy, baseStimulus.props, trial,scriptedBasedProps);
 				
 				if (do_continue) {
-				
 					if (stim.id == null) {
 						stim.id = "id" + Std.string(unknownIdCount++);
 					}
+
 					
 					if (parent != null) parent.addUnderling(stim);
 					
