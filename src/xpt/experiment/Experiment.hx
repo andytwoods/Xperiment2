@@ -192,12 +192,14 @@ class Experiment extends EventDispatcher {
 	}
 	
 	public function startTrial() {
-		if (stimuli_loaded == false) {
-			XTools.callBack_onEvent(Preloader.instance,PreloaderEvent.COMPLETE, function(e:Event){
-				startTrial();
-			});
-			return;
-		}
+		#if debug
+			if (stimuli_loaded == false) {
+				XTools.callBack_onEvent(Preloader.instance,PreloaderEvent.COMPLETE, function(e:Event){
+					startTrial();
+				});
+				return;
+			}
+		#end
 
 		if (runningTrial != null) {
 			Scripting.DO(null, RunCodeEvents.AfterTrial, runningTrial);
