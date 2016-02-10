@@ -14,6 +14,7 @@ import xpt.stimuli.StimulusBuilder;
 class StimTrialCounter extends StimulusBuilder {
 	
 	private static var counters:Map<String,Int>;
+	private var once:Bool = false;
 	
     public function new() {
         super();
@@ -28,7 +29,13 @@ class StimTrialCounter extends StimulusBuilder {
 		if (counters == null) counters = new Map<String,Int>();
 		
 		if (counters.exists(stimId) == false) {
-			counters.set(stimId, 1);
+			counters.set(stimId, 0);
+		}
+		else {
+			if (once == false) {
+				counters.set(stimId, counters.get(stimId) + 1);
+				once = true;
+			}
 		}
 		
 		var totalStr:String;

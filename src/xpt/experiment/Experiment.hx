@@ -56,7 +56,7 @@ class Experiment extends EventDispatcher {
 		//consider remove direct class below and replace purely with Templates.compose(script);
 		var processScript:ProcessScript = new ProcessScript(script);
 		processScript = null;
-trace(script);
+
 		ExptWideSpecs.init();
 		//trace("------------------------------");
 		ExptWideSpecs.set(script);

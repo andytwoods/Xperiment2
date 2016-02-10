@@ -67,7 +67,6 @@ class TrialOrder
 		var remove:Array<Xml> = null;
 		var split:String;
 		var blockArr:Array<String>;
-		trace(blockXMLs.length);
 		var block:Xml;
 		for (i in 0...blockXMLs.length) {
 			block = blockXMLs[i];
