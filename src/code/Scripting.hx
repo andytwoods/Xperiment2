@@ -110,8 +110,8 @@ class Scripting
 				scriptEngine.variables.set("stim", stim);
 				scriptEngine.variables.set("e", event);
 
-				
-				addExtraVars(scriptEngine.variables, experiment.runningTrial.stimuli);
+
+				addExtraVars();
                 
 				var parser = new hscript.Parser();
 				var s:String = StringTools.trim(stim.get(prop));
@@ -129,14 +129,15 @@ class Scripting
 	}
 	
 	
-	private static function addExtraVars(variables:Map<String, Dynamic>, stimuli:Array<Stimulus> = null) 
+	private static function addExtraVars(stimuli:Array<Stimulus> = null) 
 	{
-		scriptEngine.variables.set("Trial", experiment.runningTrial);
+		
+		if(experiment.runningTrial !=null) scriptEngine.variables.set("Trial", experiment.runningTrial);
 		scriptEngine.variables.set("Stims", StimHelper);
 		scriptEngine.variables.set("System", new SystemWrapper());
 		scriptEngine.variables.set("Experiment", experiment);
 		scriptEngine.variables.set("Text", Text);
-		
+
 		var stimGroups:Map<String,Array<Stimulus>> = Stimulus.groups;
 		if (stimGroups != null) {
 			for (groupName in stimGroups.keys()) {

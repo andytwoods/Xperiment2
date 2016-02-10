@@ -374,4 +374,60 @@ class Test_TrialOrder
 				
 			}
 	}
+	
+	public function test_update_overTrials_allAttribs() {
+		
+		TrialOrder.setLabels("|");
+		
+		var str:String = "<TRIAL TYPE='Trial'  order='fixed' trials='1'>	<text a1='aa|bb|cc'><banana  a2='aa|bb|cc'></banana></text>	<input><banana1  a3='aa|bb|cc'></banana1></input>	<nextTrialButton /></TRIAL>";
+		
+		var xml:Xml = Xml.parse(str);
+		
+		TrialOrder.__update_overTrials_allAttribs(xml, 1);
+		var result:String = xml.toString().split(String.fromCharCode(34)).join("'");
+		Assert.isTrue(result.indexOf("a1='bb'") != -1);
+		Assert.isTrue(result.indexOf("a2='bb'") != -1);
+		Assert.isTrue(result.indexOf("a3='bb'") != -1);
+
+		xml = Xml.parse(str);
+		TrialOrder.__update_overTrials_allAttribs(xml, 2);
+		result = xml.toString().split(String.fromCharCode(34)).join("'");
+		Assert.isTrue(result.indexOf("a1='cc'") != -1);
+		Assert.isTrue(result.indexOf("a2='cc'") != -1);
+		Assert.isTrue(result.indexOf("a3='cc'") != -1);
+		
+		
+		xml = Xml.parse(str);
+		TrialOrder.__update_overTrials_allAttribs(xml, 4);
+		result = xml.toString().split(String.fromCharCode(34)).join("'");
+		Assert.isTrue(result.indexOf("a1='bb'") != -1);
+		Assert.isTrue(result.indexOf("a2='bb'") != -1);
+		Assert.isTrue(result.indexOf("a3='bb'") != -1);
+		
+	}
+	
+	public function test___add_overTrial_blocks() {
+	
+		var blockXMLs:Array<Xml> = new Array<Xml>();
+		blockXMLs[0] = Xml.parse("<a></a>");
+		blockXMLs[1] = Xml.parse("<b trials ='1|2' block='3|4|5|6'><bb bbb='1|2|3'/></b>");
+		blockXMLs[2] = Xml.parse("<c></c>");
+		
+		TrialOrder.__add_overTrial_blocks(blockXMLs);
+		
+		Assert.isTrue(blockXMLs.length == 6);
+		
+		Assert.isTrue(blockXMLs[2].firstElement().firstElement().get('bbb') == "1");
+		Assert.isTrue(blockXMLs[3].firstElement().firstElement().get('bbb') == "2");
+		Assert.isTrue(blockXMLs[4].firstElement().firstElement().get('bbb') == "3");
+		Assert.isTrue(blockXMLs[5].firstElement().firstElement().get('bbb') == "1");
+		
+		
+		Assert.isTrue(blockXMLs[2].firstElement().get('trials') == "1");
+		Assert.isTrue(blockXMLs[3].firstElement().get('trials') == "2");
+		Assert.isTrue(blockXMLs[4].firstElement().get('trials') == "1");
+		Assert.isTrue(blockXMLs[5].firstElement().get('trials') == "2");
+
+
+	}
 }

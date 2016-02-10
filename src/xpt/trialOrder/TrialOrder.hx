@@ -7,10 +7,7 @@ import xpt.tools.XTools;
 import xpt.trial.TrialSkeleton;
 import xpt.trialOrder.TrialBlock;
 
-/**
- * ...
- * @author 
- */
+
 class TrialOrder
 {
 	static private var trial_sep:String;
@@ -24,7 +21,7 @@ class TrialOrder
 		var blockXMLs:Array<Xml> = XTools.iteratorToArray(XML_tools.findNode(script, "TRIAL")) 	;
 		
 		
-		add_overTrial_blocks(blockXMLs);
+		__add_overTrial_blocks(blockXMLs);
 		
 		
 		var trialBlock:TrialBlock;
@@ -59,7 +56,7 @@ class TrialOrder
 	}
 	
 	
-	private function add_overTrial_blocks(blockXMLs:Array<Xml>) 
+	public static function __add_overTrial_blocks(blockXMLs:Array<Xml>) 
 	{
 		var trial_iteration:Int = 0;
 
@@ -89,9 +86,10 @@ class TrialOrder
 					copyXml.firstChild().set("block", split);
 					copyXml.firstChild().set("trials", Std.string(trials[trial_iteration%trials.length]));
 
-					update_overTrials_allAttribs(copyXml, trial_iteration );
+					__update_overTrials_allAttribs(copyXml, trial_iteration );
 					addBack.push(copyXml);
 				}
+				blockXMLs.remove(block);
 			}
 		}
 
@@ -103,7 +101,7 @@ class TrialOrder
 		}
 	}
 	
-	private function update_overTrials_allAttribs(xml:Xml, i:Int) 
+	public static function __update_overTrials_allAttribs(xml:Xml, i:Int) 
 	{
 		var val:String;
 		for (x in E4X.x(xml.desc())) {
@@ -125,7 +123,7 @@ class TrialOrder
 	}
 	
 	
-	static public function setLabels(_trial_sep:String) 
+	public static function setLabels(_trial_sep:String) 
 	{
 		trial_sep = _trial_sep;
 	}

@@ -189,7 +189,7 @@
 			<verticalAlign>bottom</verticalAlign>
 			<textAlign>center</textAlign>
 			<width>200</width>
-			<height>70</height>
+			<height>40</height>
 			<x>50%</x>
 			<y>100%</y>
 			<text>trial</text>

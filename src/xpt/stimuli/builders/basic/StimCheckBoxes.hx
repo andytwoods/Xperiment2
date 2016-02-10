@@ -86,18 +86,13 @@ class StimCheckBoxes extends StimulusBuilder {
 					checkBox.style.fontSize = fontSize;
 				}
                 checkBox.addEventListener(UIEvent.CHANGE, oncheckBoxChange);
-				trace(checkBox.clipWidth,33);
 				_checkBoxes.push(checkBox);
-
 				hbox.addChild(checkBox);
 			}
 		}
 		
-
-		trace(checkBox.sprite.width);
-		
-		
-		
+		hbox.x -= hbox.width * .5;
+		hbox.y -= hbox.height * .5;
 	
 	}
 	

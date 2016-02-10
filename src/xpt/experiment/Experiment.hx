@@ -224,11 +224,11 @@ class Experiment extends EventDispatcher {
 				
 				case NextTrialBoss_actions.BeforeLastTrial:
 					Scripting.DO(script, RunCodeEvents.BeforeLastTrial, runningTrial);
-					runningTrial.setSpecial(Special_Trial.First_Trial);
+					runningTrial.setSpecial(Special_Trial.Last_Trial);
 					
 				case NextTrialBoss_actions.BeforeFirstTrial:
 					Scripting.DO(script, RunCodeEvents.BeforeFirstTrial, runningTrial);
-					runningTrial.setSpecial(Special_Trial.Last_Trial);
+					runningTrial.setSpecial(Special_Trial.First_Trial);
 				
 			}
 		}

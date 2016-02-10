@@ -42,7 +42,7 @@ public inline function __send_to_cloud(trialResults:TrialResults, special:Specia
 		trialResults.addResult(specialTag+'expt_id', expt_id);
 		trialResults.addResult(specialTag + 'uuid', uuid);
 
-		if( special !=null ){
+		if ( special != null ) {
 			switch(special) {
 				case Special_Trial.First_Trial:
 					//required

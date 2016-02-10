@@ -48,4 +48,10 @@ class StimInputText extends StimulusBuilder {
     private override function applyProperties(c:Component) {
         super.applyProperties(c);
     }
+	
+	override public function results():Map<String,String> {
+		var map:Map<String,String> = new Map<String,String>();
+		map.set('', _stim.value);
+		return map;
+	}
 }
