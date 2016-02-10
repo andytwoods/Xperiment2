@@ -1,8 +1,11 @@
 package xpt.trialOrder;
+import thx.Ints;
+import xmlTools.E4X;
 import xpt.tools.XML_tools;
 import thx.Tuple.Tuple2;
 import xpt.tools.XTools;
 import xpt.trial.TrialSkeleton;
+import xpt.trialOrder.TrialBlock;
 
 /**
  * ...
@@ -10,6 +13,7 @@ import xpt.trial.TrialSkeleton;
  */
 class TrialOrder
 {
+	static private var trial_sep:String;
 	public function new() { };
 	
 	public function COMPOSE(script:Xml):Tuple2<	Array<Int>,	Array<TrialSkeleton>	>
@@ -17,14 +21,17 @@ class TrialOrder
 		var trialBlocks:Array<TrialBlock> = [];
 		
 		
-		var blockXMLs:Iterator<Xml> = XML_tools.findNode(script, "TRIAL") 	;
-		var trialBlock:TrialBlock;
+		var blockXMLs:Array<Xml> = XTools.iteratorToArray(XML_tools.findNode(script, "TRIAL")) 	;
 		
+		
+		add_overTrial_blocks(blockXMLs);
+		
+		
+		var trialBlock:TrialBlock;
 		var i:Int = 0;
 		var counter:Int = 0;
-		
 		var skeletons:Array<TrialSkeleton> = [];
-		var block:Xml;
+		
 		for (block in blockXMLs) {
 
 			//not happy about the below. But keeps independence from the overall script I guess. 
@@ -49,6 +56,78 @@ class TrialOrder
 		
 		return new Tuple2(trialOrder, skeletons);
 		
+	}
+	
+	
+	private function add_overTrial_blocks(blockXMLs:Array<Xml>) 
+	{
+		var trial_iteration:Int = 0;
+
+		var trials:Array<String>;
+		
+		var copyXml:Xml;
+		var addBack:Array<Xml> = null;
+		var split:String;
+		var blockArr:Array<String>;
+		
+		for (block in blockXMLs) {
+			var blo:String = XML_tools.findAttr(block, "block"); 
+			if (blo !=null && blo.indexOf(trial_sep) != -1) {
+				if (addBack == null) addBack = new Array<Xml>();
+				blockArr = blo.split(trial_sep);
+				
+				var trialsStr:String = XML_tools.findAttr(block, "trials");
+
+				if (trialsStr == null) trialsStr = '1';
+				trials = trialsStr.split(trial_sep);
+				
+				for (trial_iteration in 0...blockArr.length) {
+
+					split = blockArr[trial_iteration];
+
+					copyXml = Xml.parse(block.toString());
+					copyXml.firstChild().set("block", split);
+					copyXml.firstChild().set("trials", Std.string(trials[trial_iteration%trials.length]));
+
+					update_overTrials_allAttribs(copyXml, trial_iteration );
+					addBack.push(copyXml);
+				}
+			}
+		}
+
+		if(addBack!=null){
+			while (addBack.length > 0) {
+
+				blockXMLs.push(addBack.shift());
+			}
+		}
+	}
+	
+	private function update_overTrials_allAttribs(xml:Xml, i:Int) 
+	{
+		var val:String;
+		for (x in E4X.x(xml.desc())) {
+			if (x != null) {
+				if ( x.nodeType == Xml.Element) {
+				
+					for (attrib in x.attributes()) {
+						val = x.get(attrib);
+						if (val.indexOf(trial_sep) != -1) {
+							val = XTools.multiCorrection(val, trial_sep, i);
+							x.set(attrib, val);
+						}
+					}
+					
+					
+				}
+			}
+		}
+	}
+	
+	
+	static public function setLabels(_trial_sep:String) 
+	{
+		trial_sep = _trial_sep;
 	}
 
 	
