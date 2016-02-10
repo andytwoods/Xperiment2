@@ -88,31 +88,52 @@ Statement of informed consent
 	
 
 
-<TRIAL template="cereal,template"  block="-10" trials="25">
-</TRIAL>	
+<TRIAL template="cereal,template"></TRIAL>
+<TRIAL template="chocolates_box,template"></TRIAL>
+<TRIAL template="green_fusilli_box,template"></TRIAL>
+<TRIAL template="salmon,template"></TRIAL>
+
+	
 
 <cereal>
 	<image copyOverId="image" resource="cereal" />
 </cereal>
 	
-
-<template order="random" trials="15">
-
-	<text textAlign="center" fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" text="Please click on the photo of the face you think is most attractive."/>
 	
-	<image copyOverId="image"   x="25%---50%---75%" y="25%" width="200" group="g1" howMany="3" resource1="_" resource2="graphic---neither---window" resource3=".png"  />
+<chocolates_box>
+	<image copyOverId="image" resource="chocolates_box" />
+</chocolates_box>
+	
+<green_fusilli_box>
+	<image copyOverId="image" resource="green_fusilli_box" />
+</green_fusilli_box>
+	
+<salmon>
+	<image copyOverId="image" resource="salmon" />
+</salmon>
+	
+
+<template order="random" trials="1" block="10|11|-12|13|14|15|16|17">
+
+	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text1=" Please drag the items into the box below, arranging the items according to the labels at the bottom of the screen." text=
+	"How much do you like the product shown overall?|How likely would you be to buy this product, assuming it was available and at a reasonable price?|How tasty would you expect this product to be?|How fresh would you expect this product to be?|What quality would you expect this product to be?|How innovative do you think this product is?|How strong and sturdy do you think the packaging is?|How attractive is this packaging design to you?"
+		/>
+	
+	<image copyOverId="image"   x="25%---50%---75%" y="28%" width="200" group="g1" howMany="3" resource1="_" resource2="graphic---neither---window" resource3=".png"  />
 	
 	<shuffle groups="g1" />
     
     <drag target="dragTarget" groups="g1" capture="x" dragTransparency=".5" />
 	
-	<text copyOverId="taste2" horizontalAlign="left---right" y="90%" textAlign="left---right" x="0%---100%" howMany="2" fontSize="30" height="50" width="400" />
+	<text copyOverId="taste2" id="dv2---dv1" horizontalAlign="left---right" y="100%" verticalAlign="bottom" textAlign="left---right" x="0%---100%" howMany="2" fontSize="18" height="50" width="400"
+		text="dont like the product at all---like the product very much|definately would not buy---definately would buy|not at all tasty---very tasty|not at all fresh---very fresh|very low quality---very high quality|not innovative at all---very innovative|very weak packaging---very strong packaging|not attractive---very attractive"  
+		  />
     
-    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="bottom" marginTop="50" y="98%" width="99%" height="60%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" alpha=".5" />
+    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="bottom"  y="93%" width="99%" height="45%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" />
 
-    <nextTrialButton y="20%" depth="100" key=" " verticalAlign="bottom" text="next (SPACE)" width="170" height="40" horizontalAlign="center" fontSize="18" />
+    <nextTrialButton y="100%"  key=" " verticalAlign="bottom" text="next (SPACE)" width="170" height="40"  fontSize="18" />
 	
-	<results />
+	<results dv="${Text.word(dv1.get('text'),-1)}" />
 	
 </template>
 	

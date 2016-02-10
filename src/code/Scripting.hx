@@ -1,5 +1,6 @@
 package code;
 import code.CheckIsCode.RunCodeEvents;
+import code.utils.Text;
 import haxe.io.StringInput;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import haxe.ui.toolkit.util.StringUtil;
@@ -134,6 +135,8 @@ class Scripting
 		scriptEngine.variables.set("Stims", StimHelper);
 		scriptEngine.variables.set("System", new SystemWrapper());
 		scriptEngine.variables.set("Experiment", experiment);
+		scriptEngine.variables.set("Text", Text);
+		
 		var stimGroups:Map<String,Array<Stimulus>> = Stimulus.groups;
 		if (stimGroups != null) {
 			for (groupName in stimGroups.keys()) {
@@ -171,7 +174,7 @@ class Scripting
 				scriptEngine.variables.set(stim.id, stim);	
 			}
 		}
-		
+		scriptEngine.variables.set("Text", Text);
 		//addExtraVars(scriptEngine.variables, stimuli);
 		
 		

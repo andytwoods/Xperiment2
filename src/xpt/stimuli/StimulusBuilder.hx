@@ -331,8 +331,10 @@ class StimulusBuilder {
 	// CALLBACKS
 	//*********************************************************************************
     public function onAddedToTrial() {
+		Scripting.runScriptEvent("onAddedToTrial", null, _stim, false);
     }
     
     public function onRemovedFromTrial() {
+		Scripting.runScriptEvent("onRemovedToTrial", null, _stim, false);
     }
 }

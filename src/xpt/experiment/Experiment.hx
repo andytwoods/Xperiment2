@@ -97,6 +97,7 @@ class Experiment extends EventDispatcher {
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 		TrialFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 		TrialBlock.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
+		TrialOrder.setLabels(ExptWideSpecs.trial_sep);
 		ETCs.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 	}
 	
@@ -193,7 +194,7 @@ class Experiment extends EventDispatcher {
 	
 	public function startTrial() {
 		#if debug
-			if (stimuli_loaded == false) {
+			if (runningTrial == null && stimuli_loaded == false) {
 				XTools.callBack_onEvent(Preloader.instance,PreloaderEvent.COMPLETE, function(e:Event){
 					startTrial();
 				});

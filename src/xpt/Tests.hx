@@ -6,6 +6,7 @@ package xpt;
  */
 import code.Scripting;
 import code.Test_CheckIsCode;
+import code.utils.Test_Text;
 import openfl.events.Event;
 import openfl.system.System;
 import xpt.experiment.Test_Translate;
@@ -66,6 +67,7 @@ class Tests
 		//stimuli related
 		runner.addCase(new Test_BaseStimuli());
 		runner.addCase(new Test_Stimulus());
+		runner.addCase(new Test_Text());
 		
 		//results related
 		runner.addCase(new Test_Results());

@@ -124,6 +124,11 @@
 				this.pos = e.current;
 				this.max = e.total;
 			</onPreloadProgress>
+			<onAddedToTrial>
+				if(Experiment.stimuli_loaded == true){
+					this.pos = 100;
+				}
+			</onAddedToTrial>
 		</preloadProgress>
 		<preloadReadyButton builder="xpt.stimuli.builders.basic.StimButton">
 			<icon>img/icons/control.png</icon>
@@ -132,6 +137,11 @@
 			<iconPosition>right</iconPosition>-->
 			<text>Continue</text>
 			<visible>false</visible>
+			<onAddedToTrial>
+				if(Experiment.stimuli_loaded == true){
+					this.visible = true;
+				}
+			</onAddedToTrial>
 			<onPreloadComplete>
 				this.visible = true
 			</onPreloadComplete>
