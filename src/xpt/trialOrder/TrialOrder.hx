@@ -64,13 +64,19 @@ class TrialOrder
 		
 		var copyXml:Xml;
 		var addBack:Array<Xml> = null;
+		var remove:Array<Xml> = null;
 		var split:String;
 		var blockArr:Array<String>;
-		
-		for (block in blockXMLs) {
+		trace(blockXMLs.length);
+		var block:Xml;
+		for (i in 0...blockXMLs.length) {
+			block = blockXMLs[i];
 			var blo:String = XML_tools.findAttr(block, "block"); 
 			if (blo !=null && blo.indexOf(trial_sep) != -1) {
-				if (addBack == null) addBack = new Array<Xml>();
+				if (addBack == null) {
+					addBack = new Array<Xml>();
+					remove = new Array<Xml>();
+				}
 				blockArr = blo.split(trial_sep);
 				
 				var trialsStr:String = XML_tools.findAttr(block, "trials");
@@ -88,14 +94,16 @@ class TrialOrder
 
 					__update_overTrials_allAttribs(copyXml, trial_iteration );
 					addBack.push(copyXml);
+					remove.push(block);
 				}
-				blockXMLs.remove(block);
 			}
 		}
 
-		if(addBack!=null){
+		if (addBack != null) {
+			while (remove.length > 0) {
+				blockXMLs.remove(remove.shift());
+			}
 			while (addBack.length > 0) {
-
 				blockXMLs.push(addBack.shift());
 			}
 		}
