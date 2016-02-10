@@ -184,6 +184,18 @@
 			<x>50%</x>
 			<y>50%</y>
 		</text>
+			
+		<trialCounter builder="xpt.stimuli.builders.basic.StimTrialCounter">
+			<verticalAlign>bottom</verticalAlign>
+			<textAlign>center</textAlign>
+			<width>200</width>
+			<height>70</height>
+			<x>50%</x>
+			<y>100%</y>
+			<text>trial</text>
+			<id>trialCounter</id>
+			<total>10</total>
+		</trialCounter>
 	
 			
 		<teststim builder="xpt.stimuli.builders.layout.StimHBox">
