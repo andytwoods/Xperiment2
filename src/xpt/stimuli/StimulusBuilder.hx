@@ -210,7 +210,11 @@ class StimulusBuilder {
 		}
         
 		if (getInt("fontSize") != -1) {
-			c.style.fontSize = getInt("fontSize");
+            var n = getInt("fontSize");
+            if (n % 2 != 0) {
+                n++;
+            }
+			c.style.fontSize = n;
 		}	
 		
 		if (getBool("drawBox") == true) {
