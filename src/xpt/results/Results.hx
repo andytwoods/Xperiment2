@@ -37,19 +37,36 @@ class Results
 		
 	}
 	
-public inline function __send_to_cloud(trialResults:TrialResults, special:Special_Trial) 
+	public function startOfStudy() 
+	{
+		__send_to_cloud(new TrialResults(), Special_Trial.First_Submit);
+	}
+	
+	public function endOfStudy() 
+	{
+		__send_to_cloud(new TrialResults(), Special_Trial.Final_Submit);
+	}
+	
+	public function __send_to_cloud(trialResults:TrialResults, special:Special_Trial) 
 	{
 		trialResults.addResult(specialTag+'expt_id', expt_id);
 		trialResults.addResult(specialTag + 'uuid', uuid);
+		trace(uuid);
 
 		if ( special != null ) {
 			switch(special) {
-				case Special_Trial.First_Trial:
+				case Special_Trial.First_Submit:
+					
+					
 					//required
 					trialResults.addMultipleResults(ComputerInfo.GET(), specialTag);					
 					trialResults.addResult(specialTag+"ip",'ip');
-					trialResults.addResult(specialTag+'overSJs',ExptWideSpecs.IS("overSJs"));
-					
+					trialResults.addResult(specialTag + 'overSJs', ExptWideSpecs.IS("overSJs"));
+					trialResults.addResult(specialTag + "special", "first");
+					#if html5
+						var tzOffset = untyped Date.now().getTimezoneOffset();
+						trialResults.addResult(specialTag + "timeZone", tzOffset);
+					#end
 					var test:String;
 					//courseInfo
 					test = ExptWideSpecs.IS("xpt_user_id");
@@ -74,17 +91,20 @@ public inline function __send_to_cloud(trialResults:TrialResults, special:Specia
 						trialResults.addResult("flyingfish_site_id", ExptWideSpecs.IS("flyingfish_site_id"));
 					}
 					
-				case Special_Trial.Last_Trial:
-					//solitary
-						//trialResults
-						trialResults.addResult(specialTag+"final","True");
+				case Special_Trial.Final_Submit:
+					trialResults.addResult(specialTag + "special", "last");
+					trialResults.addResult(specialTag + "duration", Std.string(ExptWideSpecs.IS('duration')/1000));
 					
+				case Special_Trial.First_Trial:
+					//
+				case Special_Trial.Last_Trial:
+					//
 				case Special_Trial.Not_Special:
 					//
 			}
 		}
 		
-		trace(111, trialResults.results);
+		trace(trialResults.results);
 		#if html5
 		
 			var restService:REST_Service = new REST_Service(trialResults.results, serviceResult('REST'));
@@ -125,6 +145,8 @@ public inline function __send_to_cloud(trialResults:TrialResults, special:Specia
 		}
 		return existing_info;
 	}
+	
+
 	
 
 	

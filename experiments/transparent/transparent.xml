@@ -35,6 +35,8 @@ You would still be free to withdraw from the study at any time during the questi
 	
 </TRIAL>
 
+
+
 <TRIAL TYPE="Trial" hideResults="false" block="1" order="fixed" trials="1">
 	 
 <text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top">
@@ -70,7 +72,7 @@ Statement of informed consent
 </TRIAL>	
 	
 
-<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
 	<text text="Some questions before we start:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
 	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
@@ -81,7 +83,7 @@ Statement of informed consent
 	<text text="Which of these types of products have you bought for yourself in the past 6 months?" fontSize="20" textAlign="center" width="100%" height="30"  y="60%" />
 	
 	<checkBoxes selectMany="true" y="70%" x="50%" labels="Dried pasta,Chocolate,Granola or muesli,Salmon" random="true"/>
-	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+	<nextTrialButton y="90%" x="50%" width="200" id="dg" height="50" horizontalAlign="center"  fontSize="18" />
 </TRIAL>	
 	
 	
@@ -121,7 +123,7 @@ Statement of informed consent
 </salmon>
 	
 
-<template order="random" trials="1" block="-10|11|12|13|14|15|16|17">
+<template order="random" trials="1" block="10|11|12|13|14|15|16|17">
 
 	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text1=" Please drag the items into the box below, arranging the items according to the labels at the bottom of the screen." text=
 	"How much do you like the product shown overall?|How likely would you be to buy this product, assuming it was available and at a reasonable price?|How tasty would you expect this product to be?|How fresh would you expect this product to be?|What quality would you expect this product to be?|How innovative do you think this product is?|How strong and sturdy do you think the packaging is?|How attractive is this packaging design to you?"
@@ -150,7 +152,9 @@ Statement of informed consent
 	
 </template>
 	
-<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="10">
+
+	
+<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
 
 <text  colour="black" timeStart="0" width="80%" y="40%" height="70%" fontSize="16">
 	<.text>“To see or not to see”: The efficacy of transparent windows in packaging

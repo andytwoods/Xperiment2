@@ -18,6 +18,7 @@ class ExptWideSpecs
 	
 	
 	private static var testMods:Map<String,String>;
+	public static var startTime:Date;
 	
 	public static function testingOff() {
 		if (testMods == null)  return;
@@ -52,6 +53,7 @@ class ExptWideSpecs
 	}
 	
 	public static function init() {
+		startTime = Date.now();
 
 	//courseInfo
 		map.set("xpt_user_id","");
@@ -89,7 +91,6 @@ class ExptWideSpecs
 		map.set("cloudUrl","https://www.xpt.mobi/api/sj_data");
 		map.set("saveWaitDuration","10");
 	//timing
-		map.set('timeStart', Date.now().toString());
 		map.set("ITI", "500");
 		
 	//validation
@@ -117,11 +118,20 @@ class ExptWideSpecs
 	}
 	
 	public static function IS(what:String, throwException:Bool = true):Dynamic {
-		if (map.exists(what) == false && throwException == true) {
-			trace(map);
-			throw "requested prop does not exist in ExptWideSpecs: "+what;
+		if (map.exists(what) == false) { 
+			if (what == 'startTime') return startTime;
+			if (what == 'duration') return getDuration();
+			if(throwException == true) {
+				trace(map);
+				throw "requested prop does not exist in ExptWideSpecs: "+what;
+			}
 		}
 		return map.get(what);
+	}
+	
+	static private function getDuration():Float
+	{
+		return Date.now().getTime() - startTime.getTime();
 	}
 	
 	static public function __testSet(what:String, to:String) {

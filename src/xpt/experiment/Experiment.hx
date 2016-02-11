@@ -83,6 +83,7 @@ class Experiment extends EventDispatcher {
 		background(ExptWideSpecs.IS("backgroundColour"));
 		
 		setupTrials(script);
+
 		firstTrial();
 		
 	}
@@ -134,6 +135,9 @@ class Experiment extends EventDispatcher {
 			Preloader.instance.addEventListener(PreloaderEvent.COMPLETE, _onPreloadComplete);
 			Preloader.instance.preloadImages(preloadList);
 		}
+		else {
+			stimuli_loaded = true;
+		}
 
 	}
 
@@ -183,7 +187,8 @@ class Experiment extends EventDispatcher {
 	}
 	
 	private function cleanup_prevTrial() {
-			results.add(TrialResults.extract_trial_results(runningTrial), runningTrial.specialTrial);
+			var trialResults:TrialResults = TrialResults.extract_trial_results(runningTrial);
+			results.add(trialResults, runningTrial.specialTrial);
 			runningTrial.kill();					
 	}
 	
@@ -225,11 +230,15 @@ class Experiment extends EventDispatcher {
 				case NextTrialBoss_actions.BeforeLastTrial:
 					Scripting.DO(script, RunCodeEvents.BeforeLastTrial, runningTrial);
 					runningTrial.setSpecial(Special_Trial.Last_Trial);
+					results.endOfStudy();
 					
 				case NextTrialBoss_actions.BeforeFirstTrial:
 					Scripting.DO(script, RunCodeEvents.BeforeFirstTrial, runningTrial);
 					runningTrial.setSpecial(Special_Trial.First_Trial);
-				
+					results.startOfStudy();
+					
+				default:
+					runningTrial.setSpecial(Special_Trial.Not_Special);
 			}
 		}
 		

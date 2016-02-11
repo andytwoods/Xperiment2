@@ -146,7 +146,10 @@ class NextTrialBoss
 		
 		var info:NextTrialInfo = { skeleton: skeleton,  trialOrder: lookup };
 		
-		if (currentTrial == __trialOrder.length) info.action = BeforeLastTrial;
+		
+		if (currentTrial == __trialOrder.length - 1) {
+			info.action = BeforeLastTrial;
+		}
 		else if (currentTrial == 0) info.action = BeforeFirstTrial;
 				
 
