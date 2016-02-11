@@ -14,18 +14,12 @@
 	<text width="100%" height="70%" 
 		  text=
 		  "Crossmodal Research Laboratory, Department of Experimental Psychology, Tinbergen Building, 9 South Parks Road, Oxford, OX1 3UD, England. Researcher Contact Details: Gregory Simmonds (Email: gregory.simmonds@psy.ox.ac.uk)
-		  
 “TO SEE OR NOT TO SEE”: THE EFFICACY OF TRANSPARENT WINDOWS IN PACKAGING
-           
 Dear participant,
-           
-Welcome to our study! We are the Crossmodal Research Laboratory, Department of Experimental Psychology, Oxford University. 
-           
+Welcome to our study! We are the Crossmodal Research Laboratory, Department of Experimental Psychology, Oxford University.    
 We are interested in understanding how people associate information across the senses. If you decide to take part in this experiment, you will be asked to look at some different types of food and drink packaging and will be asked some questions about your opinions of them.
-There are no right or wrong responses, so please respond according to what feels right to you. We hope you enjoy it. Your participation is very important to us.
-           
-You are being invited to participate because you are a member of the Prolific Academic online participant panel. The questionnaire will take around 10 minutes to complete.
-           
+There are no right or wrong responses, so please respond according to what feels right to you. We hope you enjoy it. Your participation is very important to us.    
+You are being invited to participate because you are a member of the Prolific Academic online participant panel. The questionnaire will take around 10 minutes to complete.   
 You would still be free to withdraw from the study at any time during the questionnaire, without needing to give a reason, and without penalty. The data will be fully anonymized, and stored on a secure computer at the Crossmodal Research Laboratory, University of Oxford. The data will only be accessible by members of the Crossmodal Research Laboratory, and will be destroyed on 30th September 2016. Prolific Academic staff will not be able to access your responses. This research has been reviewed by and received favourable opinion through the University of Oxford Central University Research Ethics Committee."
 	fontSize="15" />
 	
@@ -41,15 +35,10 @@ You would still be free to withdraw from the study at any time during the questi
 	 
 <text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top">
 <.text>Before we begin, please read below. By clicking I CONSENT you indicate you have consented to take part.
-  
 If you decide to take part in this experiment, you will be asked to look at some different types of food and drink packaging and will be asked some questions about your opinions of them.
-  
 At the end of the study we will tell you more about the purpose of the study and why we are doing this research. You can also contact Gregory Simmonds (gregory.simmonds@psy.ox.ac.uk) for further information at a later date if you wish.
-  
-If you have a concern about any aspect of this project, please contact the chair of the Medical Sciences Inter-divisional Research Ethics Committee at the University of Oxford (Chair, MS IDREC; Email: ethics@medsci.ox.ac.uk; Address: Research Services, University of Oxford, Wellington Square, Oxford OX1 2JD). The chair will seek to resolve the matter in a reasonably expeditious manner.
-  
-Please read the below consent statement and indicate whether you consent.
-  
+If you have a concern about any aspect of this project, please contact the chair of the Medical Sciences Inter-divisional Research Ethics Committee at the University of Oxford (Chair, MS IDREC; Email: ethics@medsci.ox.ac.uk; Address: Research Services, University of Oxford, Wellington Square, Oxford OX1 2JD). The chair will seek to resolve the matter in a reasonably expeditious manner.  
+Please read the below consent statement and indicate whether you consent. 
 Statement of informed consent
 1.	I have read and understand the information above and understand the general purpose of this experiment.
 2.	I understand that I can withdraw from the questionnaire at any time, for any reason, and without penalty, and that doing so will destroy my data. (NB – Please be aware that data collected is anonymous – if you change your mind after completing the experiment, we will be unable to trace your specific data to remove it).
@@ -72,7 +61,7 @@ Statement of informed consent
 </TRIAL>	
 	
 
-<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
 	<text text="Some questions before we start:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
 	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
@@ -83,7 +72,7 @@ Statement of informed consent
 	<text text="Which of these types of products have you bought for yourself in the past 6 months?" fontSize="20" textAlign="center" width="100%" height="30"  y="60%" />
 	
 	<checkBoxes selectMany="true" y="70%" x="50%" labels="Dried pasta,Chocolate,Granola or muesli,Salmon" random="true"/>
-	<nextTrialButton y="90%" x="50%" width="200" id="dg" height="50" horizontalAlign="center"  fontSize="18" />
+	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
 </TRIAL>	
 	
 	
@@ -157,18 +146,12 @@ Statement of informed consent
 <TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
 
 <text  colour="black" timeStart="0" width="80%" y="40%" height="70%" fontSize="16">
-	<.text>“To see or not to see”: The efficacy of transparent windows in packaging
-      
-Thank-you for completing our study!
-      
-The aim of this research was to investigate how the salience of certain visual elements of packaging influence perceptions of the product within.
-      
-Previous research has suggested that being able to see a food product through its packaging (that is, through a transparent window) increases the visual salience of the food product inside. This, in turn, leads to increased consumption of the product, compared to when the product cannot be seen through the packaging. Our research intends to investigate whether imagery of the product on the packaging produces a similar effect, and if so, whether the size of this effect is greater or lesser than for transparent windows on packaging.
-      
-The results of this study will not include your name or any other information that could be used to identify you. This research did not use deception. If you have any further questions, please contact Gregory Simmonds (Email: gregory.simmonds@psy.ox.ac.uk).
-      
-If you have a concern about any aspect of this project, please contact the chair of the Medical Sciences Inter-divisional Research Ethics Committee at the University of Oxford (Chair, MS IDREC; Email: ethics@medsci.ox.ac.uk; Address: Research Services, University of Oxford, Wellington Square, Oxford OX1 2JD). The chair will seek to resolve the matter in a reasonably expeditious manner.
-      
+	<.text>“To see or not to see”: The efficacy of transparent windows in packaging    
+Thank-you for completing our study!     
+The aim of this research was to investigate how the salience of certain visual elements of packaging influence perceptions of the product within.      
+Previous research has suggested that being able to see a food product through its packaging (that is, through a transparent window) increases the visual salience of the food product inside. This, in turn, leads to increased consumption of the product, compared to when the product cannot be seen through the packaging. Our research intends to investigate whether imagery of the product on the packaging produces a similar effect, and if so, whether the size of this effect is greater or lesser than for transparent windows on packaging.     
+The results of this study will not include your name or any other information that could be used to identify you. This research did not use deception. If you have any further questions, please contact Gregory Simmonds (Email: gregory.simmonds@psy.ox.ac.uk).      
+If you have a concern about any aspect of this project, please contact the chair of the Medical Sciences Inter-divisional Research Ethics Committee at the University of Oxford (Chair, MS IDREC; Email: ethics@medsci.ox.ac.uk; Address: Research Services, University of Oxford, Wellington Square, Oxford OX1 2JD). The chair will seek to resolve the matter in a reasonably expeditious manner.     
 PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLFIC ACADEMIC KNOWS YOU HAVE COMPLETED THE STUDY. THANKS.
 </.text>
 </text>

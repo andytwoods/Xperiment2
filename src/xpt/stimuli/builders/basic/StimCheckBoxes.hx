@@ -98,8 +98,11 @@ class StimCheckBoxes extends StimulusBuilder {
 	
 	override public function results():Map<String,String> {
 		var map:Map<String,String> = new Map<String,String>();
+		var score:String;
 		for (checkBox in _checkBoxes) {
-			map.set(checkBox.text, Std.string(checkBox.selected));
+			if (checkBox.selected == true) score = '1';
+			else score = '0';
+			map.set(checkBox.text, score);
 		}
 		return map;
 	}

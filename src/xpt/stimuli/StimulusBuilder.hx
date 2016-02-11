@@ -183,6 +183,10 @@ class StimulusBuilder {
 		if (text == null) {
 			text = "";
 		}
+		#if html5
+			text = text.split("\n").join("\n\n");
+		#end
+		
 		c.text = text;
 
 		c.visible = getBool("visible", true);
