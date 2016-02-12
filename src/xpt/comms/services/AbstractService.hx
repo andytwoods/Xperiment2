@@ -40,7 +40,8 @@ class AbstractService
 		if(delay.hasEventListener(TimerEvent.TIMER)) delay.removeEventListener(TimerEvent.TIMER, timerL);
 		success = result;
 		if (result == Success) data = null;
-		__callBack(success, message, data);
+		if (__callBack)	__callBack(success, message, data);
+		__callBack = null;
 	}
 	
 	private function timerL(e:TimerEvent) {
