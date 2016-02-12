@@ -9,8 +9,10 @@ import code.Test_CheckIsCode;
 import code.utils.Test_Text;
 import openfl.events.Event;
 import openfl.system.System;
+import xpt.experiment.Experiment;
 import xpt.experiment.Test_Translate;
 import xpt.preloader.Test_Preloader_extract_loadable;
+import xpt.results.Results;
 import xpt.results.Test_Results;
 import xpt.results.Test_TrialResults;
 import xpt.stimuli.builders.Test_Stimulus;
@@ -37,11 +39,13 @@ import xpt.trialOrder.Test_TrialOrderTools;
 class Tests
 {
 
-	public function new() 
+	public function new(callBack:Void->Void) 
 	{
 		ExptWideSpecs.testingOn(["trial_sep" => ";", "stim_sep" => "---"]);
 		Trial.testing = true;
 		Scripting.testing = true;
+		Results.testing = true;
+		Experiment.testing = true;
 
 		
 		var runner = new Runner();
@@ -50,7 +54,9 @@ class Tests
 		runner.addCase(new Test_ETCs());
 		runner.addCase(new Test_XML_Tools());
 		runner.addCase(new Test_XTools());
+		
 		runner.addCase(new Test_TrialOrder());
+		
 		runner.addCase(new Test_TrialBlock());
 		runner.addCase(new Test_DepthNode());
 		runner.addCase(new Test_DepthNodeBoss());
@@ -82,6 +88,9 @@ class Tests
 			ExptWideSpecs.testingOff();			
 			Trial.testing = false;
 			Scripting.testing = false;
+			Results.testing = false;
+			Experiment.testing = false;
+			callBack();
 		} );
 		runner.run();
 		

@@ -302,6 +302,7 @@ class Test_TrialOrder
 
 			
 			var expt:Experiment = new Experiment(null);
+			trace(Experiment.testing);
 			BaseStimuli.setPermittedStimuli(['teststim']);
 			ExptWideSpecs.init();
 			ExptWideSpecs.__testSet("blockDepthOrder", "");
@@ -316,13 +317,7 @@ class Test_TrialOrder
 			var b:BaseStimuli = new BaseStimuli();
 			b.createSkeletonParams(trialOrder_skeletons._1);
 			
-			/*
-			for (skel in trialOrder_skeletons._1) {
-				trace(skel.xml);
-			}*/
-			
-			//trace(expt.__nextTrialBoss.__trialOrder, expt.__nextTrialBoss.__trialOrder.length, 22, "------------------");
-			
+
 			
 			var t:TrialFactory = new TrialFactory();
 		
@@ -332,9 +327,7 @@ class Test_TrialOrder
 				else skeleton_trialOrder = expt.nextTrialBoss.getTrial(GotoTrial.Next, null);
 				
 				if (skeleton_trialOrder.skeleton == null) Assert.isTrue(false);
-				//trace(111, i,skeleton_trialOrder,skeleton_trialOrder._1);
-				//var skel = skeleton_trialOrder._0;
-				//trace(skel.xml);
+
 				expt.runningTrial = t.GET(skeleton_trialOrder.skeleton, skeleton_trialOrder.trialOrder, expt);
 
 				if (expt.runningTrial.stimuli.length > 0) {
@@ -350,6 +343,7 @@ class Test_TrialOrder
 				}
 				else testProps.push("pause");
 				testTrialNames.push(expt.runningTrial.trialName);
+					
 			}
 				
 	

@@ -1,5 +1,9 @@
 package xpt;
+
 import openfl.system.Capabilities;
+#if html5
+	import js.html.Navigator;
+#end
 
 /**
  * ...
@@ -17,6 +21,9 @@ class ComputerInfo
 		map.set('DPI', Std.string(Capabilities.screenDPI));
 		map.set('CPU', Capabilities.cpuArchitecture);
 		
+		#if html5
+			map.set('browser', untyped window.navigator.userAgent);
+		#end
 		return map;
 	}
 	

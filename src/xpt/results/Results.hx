@@ -18,6 +18,7 @@ class Results
 	private static var expt_id:String;
 	private static var uuid:String;
 	private static inline var specialTag:String = 'info_';
+	public static var testing:Bool = false;
 	
 	public static function setup(_expt_id:String, _uuid:String, _trickleToCloud:Bool) {
 		expt_id = _expt_id;
@@ -51,7 +52,6 @@ class Results
 	{
 		trialResults.addResult(specialTag+'expt_id', expt_id);
 		trialResults.addResult(specialTag + 'uuid', uuid);
-		trace(uuid);
 
 		if ( special != null ) {
 			switch(special) {
@@ -103,10 +103,9 @@ class Results
 					//
 			}
 		}
-		
-		trace(trialResults.results);
+
+		if(testing == false) trace(trialResults.results);
 		#if html5
-		
 			var restService:REST_Service = new REST_Service(trialResults.results, serviceResult('REST'));
 		#end
 		

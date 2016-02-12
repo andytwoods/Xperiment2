@@ -332,7 +332,7 @@ class StimulusBuilder {
     
 	//override this
 	public function results():Map<String,String> {
-		if (_stim.value == null) return null;
+		if (_stim == null || _stim.value == null) return null;
 		
 		var r:Map<String,String> = new Map<String,String>();
 		r.set('', Std.string(_stim.value));

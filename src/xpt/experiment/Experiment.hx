@@ -46,6 +46,8 @@ class Experiment extends EventDispatcher {
 	public var scriptEngine:ScriptInterp = new ScriptInterp();
 	public var stimuli_loaded:Bool = false;
 	
+	public static var testing:Bool = false;
+	
 	public function new(script:Xml, url:String = null, params:Object = null) {
 		super();
 		linkups();
@@ -198,6 +200,7 @@ class Experiment extends EventDispatcher {
 	}
 	
 	public function startTrial() {
+		if (testing == true) return;
 		#if debug
 			if (runningTrial == null && stimuli_loaded == false) {
 				XTools.callBack_onEvent(Preloader.instance,PreloaderEvent.COMPLETE, function(e:Event){
@@ -222,20 +225,20 @@ class Experiment extends EventDispatcher {
 		
         Stimulus.resetGroups();
 		runningTrial = trialFactory.GET(info.skeleton, info.trialOrder, this);
-		
-		
+
+
 		if(info.action !=null) {
 			switch(info.action) {
 				
 				case NextTrialBoss_actions.BeforeLastTrial:
 					Scripting.DO(script, RunCodeEvents.BeforeLastTrial, runningTrial);
 					runningTrial.setSpecial(Special_Trial.Last_Trial);
-					results.endOfStudy();
+					if(testing==false)	results.endOfStudy();
 					
 				case NextTrialBoss_actions.BeforeFirstTrial:
 					Scripting.DO(script, RunCodeEvents.BeforeFirstTrial, runningTrial);
 					runningTrial.setSpecial(Special_Trial.First_Trial);
-					results.startOfStudy();
+					if(testing==false)	results.startOfStudy();
 					
 				default:
 					runningTrial.setSpecial(Special_Trial.Not_Special);
@@ -250,6 +253,7 @@ class Experiment extends EventDispatcher {
         var event:ExperimentEvent = new ExperimentEvent(ExperimentEvent.TRIAL_START);
         event.trial = runningTrial;
         dispatchEvent(event);
+	
         
 	}
 }
