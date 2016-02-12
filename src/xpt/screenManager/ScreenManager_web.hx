@@ -20,17 +20,19 @@ class ScreenManager_web
 	{		
 		stage = _stage;
 		
-		#if !html5
-			stage.addEventListener(Event.RESIZE, onResize);
-			onResize(null);
-		#else
-			
-		#end
+
+		//stage.scaleMode = StageScaleMode.SHOW_ALL;
+		stage.addEventListener(Event.RESIZE, onResize);
+		onResize(null);
+
 	}
 	
 	private static function onResize(e:Event):Void {
+		
+		
+		
 
-		var stageScaleX:Float = stage.stageWidth / NOMINAL_WIDTH;
+/*		var stageScaleX:Float = stage.stageWidth / NOMINAL_WIDTH;
 		var stageScaleY:Float = stage.stageHeight / NOMINAL_HEIGHT;
 		
 		var stageScale:Float = Math.min(stageScaleX, stageScaleY);
@@ -46,7 +48,7 @@ class ScreenManager_web
 		} else {
 			Lib.current.y = (stage.stageHeight - NOMINAL_HEIGHT * stageScale) / 2;
 		}
-		trace(Lib.current.x, Lib.current.y,stage.stageWidth,stage.stageHeight);
+		trace(Lib.current.x, Lib.current.y,stage.stageWidth,stage.stageHeight);*/
     }
 	
 	

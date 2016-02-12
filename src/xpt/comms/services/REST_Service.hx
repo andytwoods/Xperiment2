@@ -5,59 +5,25 @@ import openfl.utils.Timer;
 import restclient.RestClient;
 
 
-class REST_Service
+class REST_Service extends AbstractService
 {
 
-	public static var __url:String;
-	public static var __wait_til_error:Int;
+	public static inline var CLOUD_SUCCESS_MESSAGE:String = '';
 	
-	public var success:CommsResult; 
-	
-	public var delay:Timer;
-	
-	private var __callBack:CommsResult -> String -> Void;
-	
-	
-	public static function setup(url:String, wait:Int) {
-		__url = url;
-		__wait_til_error = wait;
-	}
-	
-	
-	public function new(data:Map<String,String>, callBackF:CommsResult -> String -> Void) 
+	public function new(_data:Map<String,String>, callBackF:CommsResult -> String -> Map<String,String> -> Void) 
 	{
-		__callBack = callBackF;
-		delay = new Timer(__wait_til_error);
-		delay.addEventListener(TimerEvent.TIMER, timerL);
+		super(_data, callBackF);
 		
 		RestClient.getAsync(
-				__url,
+				AbstractService.__url,
 				fromCloud_f,
-				data,
+				_data,
 				err_f
 			);
 	}
 	
-	private function timerL(e:TimerEvent) {
-		err_f("timed out");
+	override public function check_cloudMessageSuccess(message:String) 
+	{
+		return message == CLOUD_SUCCESS_MESSAGE;
 	}
-	
-	
-	private function do_callBack(result:CommsResult, message:String) {
-		delay.removeEventListener(TimerEvent.TIMER, timerL);
-		success = result;
-		__callBack(success, message);
-	}
-
-	private function fromCloud_f(message:String) {	
-		do_callBack(Success, message);
-
-		
-		
-	}
-	
-	private function err_f(message:String) {
-		do_callBack(Fail,message);
-	}
-	
 }

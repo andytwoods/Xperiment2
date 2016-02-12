@@ -8,6 +8,7 @@ import flash.events.Event;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.events.EventDispatcher;
 import openfl.utils.Object;
+import xpt.comms.services.AbstractService;
 import xpt.comms.services.REST_Service;
 import xpt.comms.services.UrlParams_service;
 import xpt.debug.DebugManager;
@@ -82,17 +83,14 @@ class Experiment extends EventDispatcher {
 
 		DebugManager.instance.info("Experiment ready");
 		ScreenManager.init();
-		background(ExptWideSpecs.IS("backgroundColour"));
+		ScreenManager.instance.background(ExptWideSpecs.IS("backgroundColour")); 
 		
 		setupTrials(script);
 
-		firstTrial();
-		
+		firstTrial();	
 	}
 	
-	public function background(colStr:String) {
-		ScreenManager.instance.background(colStr); 
-	}
+
 
 	private function linkups() {
 		BaseStimuli.setPermittedStimuli(StimuliFactory.getPermittedStimuli());
@@ -105,12 +103,9 @@ class Experiment extends EventDispatcher {
 	}
 	
 	private function linkups_Post_ExptWideSpecs() {
-		REST_Service.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));
+		AbstractService.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));
 		Results.setup(ExptWideSpecs.exptId(),ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS("trickleToCloud"));
 		Trial._ITI = Std.int(ExptWideSpecs.IS("ITI"));
-		
-		//think redundant since merge, Jan 2016
-		//StimulusBuilder.setStimFolder(ExptWideSpecs.IS('stimuliFolder'));
 	}
 	
 	public function setupTrials(script:Xml) {

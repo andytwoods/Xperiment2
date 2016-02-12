@@ -105,19 +105,24 @@ class Results
 		}
 
 		if(testing == false) trace(trialResults.results);
-		#if html5
+		
 			var restService:REST_Service = new REST_Service(trialResults.results, serviceResult('REST'));
-		#end
+
 		
 		
 		
 	}
 	
 	private static function serviceResult(service:String) {
-			return function(success:CommsResult, message:String) {
+		return function(success:CommsResult, message:String, data:Map<String,String>) {
 			trace(success,message);
-			if (success == CommsResult.Success) DebugManager.instance.info(service +' service sent trial data successully');
-			else DebugManager.instance.error(service + ' service failed to send trial data / data was not accepted by the backend',message);
+			if (success == CommsResult.Success) {
+				DebugManager.instance.info(service +' service sent trial data successully');
+			}
+			else {
+				DebugManager.instance.error(service + ' service failed to send trial data / data was not accepted by the backend', message);
+				//resend logic here
+			}
 		}
 	}
 	

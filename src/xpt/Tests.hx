@@ -9,6 +9,7 @@ import code.Test_CheckIsCode;
 import code.utils.Test_Text;
 import openfl.events.Event;
 import openfl.system.System;
+import xpt.comms.services.Test_AbstractService;
 import xpt.experiment.Experiment;
 import xpt.experiment.Test_Translate;
 import xpt.preloader.Test_Preloader_extract_loadable;
@@ -78,6 +79,7 @@ class Tests
 		//results related
 		runner.addCase(new Test_Results());
 		runner.addCase(new Test_TrialResults());
+		runner.addCase(new Test_AbstractService());
 		
 		
 		

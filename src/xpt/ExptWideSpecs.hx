@@ -89,7 +89,7 @@ class ExptWideSpecs
 		map.set("saveClose","close when ready");
 		map.set("trickleToCloud","true");
 		map.set("cloudUrl","https://www.xpt.mobi/api/sj_data");
-		map.set("saveWaitDuration","10");
+		map.set("saveWaitDuration","5000");
 	//timing
 		map.set("ITI", "500");
 		

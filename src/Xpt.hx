@@ -32,14 +32,13 @@ class Xpt {
 		
 		
         DiagnosticsManager.add(DiagnosticsManager.EXPERIMENT_START, exptName);
-            
+         
+		
         #if (debug && !html5)
             var tests:xpt.Tests = new xpt.Tests(start);
         #end
 
         #if html5
-            ScreenManager_web.init(Lib.current.stage);
-
             var script:String = UrlParams_service.get('script');
             if (script.length > 0) {
                 webStart = new WebStart('.', script);

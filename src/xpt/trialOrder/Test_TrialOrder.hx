@@ -302,7 +302,7 @@ class Test_TrialOrder
 
 			
 			var expt:Experiment = new Experiment(null);
-			trace(Experiment.testing);
+			
 			BaseStimuli.setPermittedStimuli(['teststim']);
 			ExptWideSpecs.init();
 			ExptWideSpecs.__testSet("blockDepthOrder", "");
