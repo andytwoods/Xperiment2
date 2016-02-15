@@ -12,7 +12,7 @@
     <haxedef name="dom" />
 	<haxeflag name="-D dom" />
     -->    
-	<app main="Xpt" preloader="xpt.loadingScreen.LoadingScreen" />
+	<app main="Xpt" preloader="xpt.loadingScreen.LoadingScreen"/>
 	
 	<haxeflag name="-D hscriptPos" />
 	<haxedef name="haxeui-no-gif-support" />

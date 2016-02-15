@@ -65,10 +65,10 @@ class ScreenManager
 		
 		if (stageScale > 1) stageScale = 1;
 		
-		#if html5
-			root.width = NOMINAL_WIDTH * stageScale;
-			root.height = NOMINAL_HEIGHT * stageScale;
-		#end
+
+		root.width = NOMINAL_WIDTH * stageScale;
+		root.height = NOMINAL_HEIGHT * stageScale;
+
 		
 		root.sprite.scaleX = root.sprite.scaleY = stageScale;
 	

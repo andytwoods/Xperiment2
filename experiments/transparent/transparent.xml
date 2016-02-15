@@ -112,7 +112,7 @@ Statement of informed consent
 </salmon>
 	
 
-<template order="random" trials="1" block="10|11|12|13|14|15|16|17">
+<template order="random" trials="1" block="-10|11|12|13|14|15|16|17">
 
 	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text1=" Please drag the items into the box below, arranging the items according to the labels at the bottom of the screen." text=
 	"How much do you like the product shown overall?|How likely would you be to buy this product, assuming it was available and at a reasonable price?|How tasty would you expect this product to be?|How fresh would you expect this product to be?|What quality would you expect this product to be?|How innovative do you think this product is?|How strong and sturdy do you think the packaging is?|How attractive is this packaging design to you?"

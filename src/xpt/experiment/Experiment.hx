@@ -52,7 +52,7 @@ class Experiment extends EventDispatcher {
 	public function new(script:Xml, url:String = null, params:Object = null) {
 		super();
 		linkups();
-		
+		trace(11);
 		if (script == null) return; //used for testing
 		this.script = script;
 
@@ -82,7 +82,6 @@ class Experiment extends EventDispatcher {
 		//DebugManager.instance.enabled = true;
 
 		DebugManager.instance.info("Experiment ready");
-		ScreenManager.init();
 		ScreenManager.instance.background(ExptWideSpecs.IS("backgroundColour")); 
 		
 		setupTrials(script);
@@ -100,7 +99,10 @@ class Experiment extends EventDispatcher {
 		TrialBlock.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 		TrialOrder.setLabels(ExptWideSpecs.trial_sep);
 		ETCs.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
+		if(testing==false) ScreenManager.instance.callbacks.push(StimulusBuilder.updateTrial_XY);
 	}
+
+		
 	
 	private function linkups_Post_ExptWideSpecs() {
 		AbstractService.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));

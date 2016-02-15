@@ -22,8 +22,16 @@ class StimulusBuilder {
 	@:allow(StimImage)
 	private var _stim:Stimulus;
 	
+	public static var stageOffset_x:Float = 0;
+	public static var stageOffset_y:Float = 0;
+	
 	public function new() {
 		
+	}
+	
+	public static function updateTrial_XY(x:Float, y:Float) {
+		stageOffset_x = x;
+		stageOffset_y = y;
 	}
 	
     private var reactionTime:Float = -1;

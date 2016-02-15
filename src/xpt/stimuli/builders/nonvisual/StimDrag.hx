@@ -1,6 +1,7 @@
 package xpt.stimuli.builders.nonvisual;
 
 import code.Scripting;
+import flash.display.Sprite;
 import haxe.ui.toolkit.core.RootManager;
 import haxe.ui.toolkit.events.UIEvent;
 import motion.Actuate;
@@ -17,7 +18,6 @@ class StimDrag extends StimulusBuilder {
     private var _dragStims:Array<Stimulus>;
     private var _currentDrag:Component;
     private var _dragTarget:Stimulus;
-    private var _offset:Point;
     private var _origin:Point;
     
     public function new() {
@@ -32,9 +32,9 @@ class StimDrag extends StimulusBuilder {
     private function onTrialStarted(e:ExperimentEvent) {
         Scripting.experiment.removeEventListener(ExperimentEvent.TRIAL_START, onTrialStarted);
         
-        RootManager.instance.currentRoot.removeEventListener(UIEvent.MOUSE_MOVE, onScreenMouseMove);
+        //RootManager.instance.currentRoot.removeEventListener(UIEvent.MOUSE_MOVE, onScreenMouseMove);
         RootManager.instance.currentRoot.removeEventListener(UIEvent.MOUSE_UP, onScreenMouseUp);
-        RootManager.instance.currentRoot.addEventListener(UIEvent.MOUSE_MOVE, onScreenMouseMove);
+        //RootManager.instance.currentRoot.addEventListener(UIEvent.MOUSE_MOVE, onScreenMouseMove);
         RootManager.instance.currentRoot.addEventListener(UIEvent.MOUSE_UP, onScreenMouseUp);
         
         if (get("target") != null) {
@@ -45,7 +45,7 @@ class StimDrag extends StimulusBuilder {
         for (stim in _dragStims) {
             stim.component.removeEventListener(UIEvent.MOUSE_DOWN, onDragStimMouseDown);
             stim.component.addEventListener(UIEvent.MOUSE_DOWN, onDragStimMouseDown);
-            
+          
             stim.component.sprite.useHandCursor = true;
             stim.component.sprite.buttonMode = true;
         }
@@ -54,28 +54,28 @@ class StimDrag extends StimulusBuilder {
     
     private function onDragStimMouseDown(event:UIEvent) {
         _currentDrag = event.component;
-        _offset = new Point(event.stageX - event.component.stageX, event.stageY - event.component.stageY);
-        _origin = new Point(event.component.stageX, event.component.stageY);
+        _origin = new Point(_currentDrag.x,_currentDrag.y);
         var lastIndex:Int = event.component.parent.numChildren - 1;
         event.component.parent.setChildIndex(event.component, lastIndex);
+		_currentDrag.sprite.startDrag();
     }
     
-    private function onScreenMouseMove(event:UIEvent) {
-        if (_currentDrag != null) {
-            _currentDrag.x = event.stageX - _offset.x;
-            _currentDrag.y = event.stageY - _offset.y;
-        }
-    }
+
     
     private function onScreenMouseUp(event:UIEvent) {
         if (_currentDrag == null) {
             return;
         }
-        
+        _currentDrag.sprite.stopDrag();
+		
         if (_dragTarget != null) {
-            if (isStimInTarget(_currentDrag, _dragTarget.component) == false) {
+            if (isStimInTarget(_currentDrag.sprite, _dragTarget.component.sprite) == false) {
                 Actuate.tween(_currentDrag, .5, { x: _origin.x, y: _origin.y } ).onComplete(updateValue);
             }
+			else {
+				_currentDrag.x = _currentDrag.sprite.x;
+				_currentDrag.y = _currentDrag.sprite.y;
+			}
         }
         _currentDrag = null;
         updateValue();
@@ -85,7 +85,7 @@ class StimDrag extends StimulusBuilder {
         var stimIds:Array<String> = [];
         if (_dragTarget != null) {
             for (stim in _dragStims) {
-                if (isStimInTarget(stim.component, _dragTarget.component) == true) {
+                if (isStimInTarget(stim.component.sprite, _dragTarget.component.sprite) == true) {
                     stimIds.push(stim.id);
                 }
             }
@@ -95,17 +95,10 @@ class StimDrag extends StimulusBuilder {
         onStimValueChanged(newValue);
     }
     
-    private function isStimInTarget(stim:Component, target:Component):Bool {
-        var rcTarget:Rectangle = new Rectangle(target.stageX,
-                                               target.stageY,
-                                               target.width,
-                                               target.height);
-        var rcStim:Rectangle = new Rectangle(stim.stageX,
-                                             stim.stageY,
-                                             stim.width,
-                                             stim.height);
-															 
-		return rcTarget.containsRect(rcStim);
+    private function isStimInTarget(stim:Sprite, target:Sprite):Bool {
+		if (stim.x < target.x || stim.x + stim.width > target.x + target.width) return false;
+		if (stim.y < target.y || stim.y + stim.height > target.y + target.height) return false;		
+        return true;
     }
     
     private function getDraggableStims():Array<Stimulus> {
@@ -150,7 +143,7 @@ class StimDrag extends StimulusBuilder {
 		var data:Map<String,String> = new Map<String,String>();		
 		
 		for (stim in _dragStims) {
-			if (isStimInTarget(stim.component, _dragTarget.component)){
+			if (isStimInTarget(stim.component.sprite, _dragTarget.component.sprite)){
 				for (prop in props) {
 					data.set(stim.id+"_"+prop, get_percent_loc(stim, prop));	
 				}
