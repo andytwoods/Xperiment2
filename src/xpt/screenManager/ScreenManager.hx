@@ -37,7 +37,6 @@ class ScreenManager
 	public function new(){
 		
 		root = RootManager.instance.currentRoot;
-		root.showModalOverlay();
 		stage = Lib.current.stage;
 
 		stage.addEventListener(Event.RESIZE, onResize);
