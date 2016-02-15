@@ -25,20 +25,33 @@ class ScreenManager
 	public var root:Root;
 	public var stage:Stage;
 	
-	public static var instance:ScreenManager;
+	public static var _instance:ScreenManager;
 	static public var NOMINAL_WIDTH:Int = 1024;
 	static public var NOMINAL_HEIGHT:Int = 768;
 	
 	private var stageScaleX:Float;
 	private var stageScaleY:Float;
 	private var stageScale:Float ;
+	
+	
+	public static var instance(get, null):ScreenManager;
+	private static function get_instance():ScreenManager {
+		if (_instance == null) {
+			_instance = new ScreenManager();
+		}
+		return _instance;
+	}
+	
+	public var callbacks:Array<Float->Float->Void>;
 		
 		
 	public function new(){
+	
+		callbacks = new Array<Float->Float->Void>();
 		
 		root = RootManager.instance.currentRoot;
 		stage = Lib.current.stage;
-
+	
 		stage.addEventListener(Event.RESIZE, onResize);
 		onResize(null);
 	}
@@ -62,22 +75,11 @@ class ScreenManager
 		root.x = (stage.stageWidth - NOMINAL_WIDTH * stageScale) * .5;		
 		root.y = (stage.stageHeight - NOMINAL_HEIGHT * stageScale) * .5;
 		
-		
-		
-		
-	}
-	
-	
-	public static function init():ScreenManager {
-	
-		
-		if (instance == null) {
-			instance = new ScreenManager();
+		for (callBack in callbacks) {
+			callBack(root.x, root.y);
 		}
-		
-		return instance;
-		
 	}
+	
 	
 	public function background(colStr:String) {
 
