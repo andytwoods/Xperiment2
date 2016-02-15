@@ -31,7 +31,11 @@
 		************************************************************************************ -->
         <box builder="xpt.stimuli.builders.basic.StimBox" />
 		<button builder="xpt.stimuli.builders.basic.StimButton" />
-		<checkBoxes builder="xpt.stimuli.builders.basic.StimCheckBoxes" />
+		<checkBoxes builder="xpt.stimuli.builders.basic.StimCheckBoxes">
+			<icon>img/icons/user-nude-female.png</icon>
+			<checkBoxWidth>64</checkBoxWidth>
+			<checkBoxHeight>64</checkBoxHeight>
+		</checkBoxes>
 		<input builder="xpt.stimuli.builders.basic.StimInputText" >
             <valid>notEmpty()</valid>
         </input>

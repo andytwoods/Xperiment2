@@ -65,8 +65,9 @@ class StimCheckBoxes extends StimulusBuilder {
 			for (label in labelsArr) {
 				checkBox = new CheckBox();
 				checkBox.text = label;
+
 				
-				if (checkBoxWidth != -1) {
+/*				if (checkBoxWidth != -1) {
 					checkBox.width = checkBoxWidth;
 					checkBox.autoSize = false;
 				}
@@ -84,7 +85,8 @@ class StimCheckBoxes extends StimulusBuilder {
                 
 				if (fontSize != -1) {
 					checkBox.style.fontSize = fontSize;
-				}
+				}*/
+				
                 checkBox.addEventListener(UIEvent.CHANGE, oncheckBoxChange);
 				_checkBoxes.push(checkBox);
 				hbox.addChild(checkBox);

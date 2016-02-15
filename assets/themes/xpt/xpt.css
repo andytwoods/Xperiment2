@@ -52,6 +52,8 @@ Button:disabled {
     alpha: .3;
 }
 
+
+
 ListSelector {
 	backgroundColor: #EDEDED;
 	backgroundColorGradientEnd: #E6E6E6;
@@ -200,15 +202,14 @@ ListView {
 	color: 0x222222;
 }
 
+CheckBox CheckBoxValue, OptionBoxValue {
+	width:32;
+	height:32;
+}
 
-
-
-
-
-
-
-
-
+CheckBox CheckBoxValue, #selected {
+	icon: "themes/xpt/tick.png"
+}          
 
 VScroll {
 	width: 17;

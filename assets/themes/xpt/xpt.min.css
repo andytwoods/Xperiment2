@@ -26,6 +26,8 @@ ListView{borderColor:#ABABAB;color:0x000000;paddingLeft:2;paddingTop:2;paddingBo
 .even #text:over,.odd #text:over{color:0x222222;}
 .even #text:selected,.odd #text:selected{color:0x222222;}
 .even #subtext:selected,.odd #subtext:selected{color:0x222222;}
+CheckBox CheckBoxValue,OptionBoxValue{width:32;height:32;}
+CheckBox CheckBoxValue,#selected{icon:"themes/xpt/tick.png"}
 VScroll{width:17;height:100;paddingLeft:1;paddingTop:1;paddingBottom:1;paddingRight:1;spacingY:1;hasButtons:true;backgroundColor:#E9E9E9;cornerRadius:2;}
 VScroll Button{backgroundColor:#E9E9E9;backgroundColorGradientEnd:#E9E9E9;borderColor:#E9E9E9;cornerRadius:1;filter:none;iconPosition:"center";}
 VScroll Button:over{backgroundColor:#D7D7D7;backgroundColorGradientEnd:#D7D7D7;borderColor:#D7D7D7;}

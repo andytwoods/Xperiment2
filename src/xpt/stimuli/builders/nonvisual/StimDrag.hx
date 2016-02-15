@@ -149,7 +149,7 @@ class StimDrag extends StimulusBuilder {
 				}
 			}
 		}
-		
+		trace(data);
 		return data;
 	}
 	
