@@ -26,7 +26,7 @@
 	<style>
 		html,body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
 		#openfl-content { 
-			background: #000000; width:100%; height:100%; max-width: 1024px; max-height: 768px; 
+			background: #000000; width:100%; height:100%; 
 		}
 		
 		@font-face {
@@ -69,35 +69,15 @@
 			font-weight: normal;
 			font-style: normal;
 		}
-		
-		.outer {
-			display: table;
-			position: absolute;
-			height: 100%;
-			width: 100%;
-		}
 
-		.middle {
-			display: table-cell;
-			vertical-align: middle;
-		}
-
-		#openfl-content {
-			margin-left: auto;
-			margin-right: auto; 
-			width: /*whatever width you want*/;
-		}
 	</style>
 	
 </head>
 <body>
-<div class="outer">
-<div class="middle">
 
 	<div id="openfl-content"></div>
 
-</div>
-</div>
+
 	
 	<script type="text/javascript">
 		if(window.innerWidth >= 0 && window.innerHeight >= 0) lime.embed ("openfl-content", 0, 0, "FFFFFF");
