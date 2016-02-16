@@ -5,7 +5,7 @@ package xpt;
  * @author 
  */
 import code.Scripting;
-import code.Test_CheckIsCode;
+import code.Test_Scripting;
 import code.utils.Test_Text;
 import openfl.events.Event;
 import openfl.system.System;
@@ -67,7 +67,7 @@ class Tests
 		runner.addCase(new Test_BetweenSJs());
 		runner.addCase(new Test_templateList());
 		runner.addCase(new Test_Templates());
-		runner.addCase(new Test_CheckIsCode());
+		runner.addCase(new Test_Scripting());
 		runner.addCase(new Test_Preloader_extract_loadable());
 		runner.addCase(new Test_Translate());
 		

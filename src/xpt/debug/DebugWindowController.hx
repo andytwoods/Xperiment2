@@ -2,6 +2,7 @@ package xpt.debug;
 
 import haxe.ui.toolkit.core.XMLController;
 import haxe.ui.toolkit.events.UIEvent;
+import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.events.KeyboardEvent;
 import xpt.experiment.Experiment;
 
@@ -18,6 +19,7 @@ class DebugWindowController extends XMLController {
 	];
 	
 	public var experiment:Experiment;
+	public var scriptEngine:ScriptInterp = new ScriptInterp();
 	
 	public function new(experiment:Experiment) {
 		this.experiment = experiment;
@@ -44,7 +46,7 @@ class DebugWindowController extends XMLController {
 			s = StringTools.replace(s, "\t", " ");
 			s = StringTools.replace(s, "\r\n", ";\n");
 			var expr = parser.parseString(s);
-			experiment.scriptEngine.execute(expr);
+			scriptEngine.execute(expr);
 		} catch (e:Dynamic) {
 			error("Error running script", "" + e);
 		}

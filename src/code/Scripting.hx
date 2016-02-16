@@ -4,6 +4,7 @@ import code.utils.Text;
 import haxe.io.StringInput;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import haxe.ui.toolkit.util.StringUtil;
+import hscript.Expr;
 import hscript.Interp;
 import hscript.Parser;
 import motion.Actuate;
@@ -20,183 +21,225 @@ import xpt.stimuli.Stimulus;
 import xpt.trial.Trial;
 
 
+
+class ScriptBundle {
+	public var scriptEngine:ScriptInterp = new ScriptInterp();
+	public var parser = new hscript.Parser();
+	public var program:Expr;
+	public var code:String;
+	
+	public var recycleList:Array<String> = new Array<String>();
+	
+	public function add(nam:String, what:Dynamic) {
+		scriptEngine.variables.set(nam, what);
+		recycleList.push(nam);
+	}
+	
+	public function recycle() {
+		while(recycleList.length>0) {
+			scriptEngine.variables.remove(recycleList.shift());
+		}
+		code = null;
+	}
+	
+	public function run():Dynamic {
+	
+		code = StringTools.replace(code, "|", ";");
+		code = StringTools.replace(code, "\t", " ");
+		program = parser.parseString(code);
+		return scriptEngine.execute(program);
+	}
+	
+	public function new() {
+	}
+}
+
+
 class Scripting
 {
-
-	public static var scriptEngine:ScriptInterp = new ScriptInterp();
-	public static var testing:Bool = true; //for testing
 	
+	public static var bundles:Array<ScriptBundle> = new Array<ScriptBundle>();
+	
+	public static var testing:Bool = true; //for testing
     public static var experiment:Experiment;
+	
+	public static function getBundle():ScriptBundle {
+		if (bundles.length == 0) {
+			return generateBundle();
+		}
+		
+		return bundles.shift();
+	}
+	
+	static private function generateBundle():ScriptBundle  
+	{
+		var bundle:ScriptBundle = new ScriptBundle();
+		
+		bundle.scriptEngine.variables.set("Experiment", experiment);
+		bundle.scriptEngine.variables.set("Debug", DebugManager.instance);
+		bundle.scriptEngine.variables.set("Motion", Actuate);
+		bundle.scriptEngine.variables.set("Stage", Lib.current.stage);	
+		bundle.scriptEngine.variables.set("Stims", StimHelper);
+		bundle.scriptEngine.variables.set("System", new SystemWrapper());
+		bundle.scriptEngine.variables.set("Text", Text);
+		
+		return bundle;
+	}
     
+	static public function returnBundle(bundle:ScriptBundle) {
+		bundle.recycle();
+		bundles.push(bundle);
+	}
+	
+	
 	static public function init(experiment:Experiment) {
-		scriptEngine = new ScriptInterp();
-		scriptEngine.variables.set("Experiment", experiment);
-		scriptEngine.variables.set("Debug", DebugManager.instance);
-		scriptEngine.variables.set("Motion", Actuate);
-		scriptEngine.variables.set("Quad", Quad);
-		scriptEngine.variables.set("Stage", Lib.current.stage);		
-        
-        Scripting.experiment = experiment;
+		Scripting.experiment = experiment;
+		returnBundle(generateBundle());
 	}
 	
 	static public function DO(script:Xml, c:RunCodeEvents, trial:Trial = null):String {
 		
-		var code:String;
+
+		var bundle:ScriptBundle;
 		
 		if (RunCodeEvents.BeforeTrial == c) {
-			scriptEngine.variables.set("Trial", trial);	
-			code = trial.codeStartTrial;
+			bundle = getBundle();
+			bundle.add("Trial", trial);	
+			bundle.code = trial.codeStartTrial;
 		}
 		else if (RunCodeEvents.AfterTrial == c) {
-			code = trial.codeEndTrial;
+			bundle = getBundle();
+			bundle.code = trial.codeEndTrial;
 		}
 		else {
-			code = CheckIsCode.DO(script,c);
+			bundle = getBundle();
+			bundle.code = CheckIsCode.DO(script,c);
 		}
 			
-		if (code == null) return null;
+		if (bundle.code == null) return null;
 		
-		if(testing == false) runScript(code);
+		if (testing == false) {
+			bundle.run();
+			returnBundle(bundle);
+		}
 		
-		return code;
+		return bundle.code;
 	}
 	
-	static public function __codingCode(code:String, script:Xml, trial:Trial) 
-	{
-		
-	}
-	
-	static public function __codingXML(code:String, script:Xml) 
-	{
-		
-	}
 	
 	static public inline function removeStimuli(stimuli:Array<Stimulus>) 
 	{
-		for (stim in stimuli) {
-			if (stim.id != null) {
-					scriptEngine.variables.remove(stim.id);
+		scriptableStimuli(stimuli, false);
+		
+		
+		
+	}
+	
+	static public function scriptableStimuli(stimuli:Array<Stimulus>, add:Bool) {
+	
+		for (bundle in bundles) {
+			for (stim in stimuli) {
+				if (stim.id != null) {
+						if (add) 	bundle.scriptEngine.variables.set(stim.id, stim);
+						else 		bundle.scriptEngine.variables.remove(stim.id);
+				}
 			}
 		}
+		
+		var stimGroups:Map<String,Array<Stimulus>> = Stimulus.groups;
+		if (stimGroups != null) {
+			for (groupName in stimGroups.keys()) {
+				var group:Array<Stimulus> = stimGroups.get(groupName);
+				if (group != null && group.length > 0 && groupName != null) {
+					for (bundle in bundles) {
+						if (add) 	bundle.scriptEngine.variables.set(groupName, group);
+						else 		bundle.scriptEngine.variables.remove(groupName);
+						bundle.add(groupName, group);
+					}						
+				}
+			}
+		}
+		
 	}
 	
 	static public inline function addStimuli(stimuli:Array<Stimulus>) 
 	{
-		for(stim in stimuli){
-			if (stim.id != null) {
-				scriptEngine.variables.set(stim.id, stim);
-			}
-		}
+		scriptableStimuli(stimuli, true);
 	}
 	
-	static public function runScript(s:String) 
-	{
-		s = StringTools.replace(s, "|", ";");
-		s = StringTools.replace(s, "\t", " ");
-		var parser = new hscript.Parser();
-		var expr = parser.parseString(s);
-		scriptEngine.execute(expr);
-	}
-	
-	
-	
+
 	
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
 		
+		var bundle:ScriptBundle = getBundle();
+		
 		if (stim.get(prop) != null) {
 			try {
-				scriptEngine.variables.set("this", stim.component);
-				scriptEngine.variables.set("me", stim.component);
-				scriptEngine.variables.set("stim", stim);
-				scriptEngine.variables.set("e", event);
+				bundle.add("this", stim.component);
+				bundle.add("me", stim.component);
+				bundle.add("stim", stim);
+				bundle.add("e", event);
 
 
-				addExtraVars();
+				addExtraVars(bundle);
                 
-				var parser = new hscript.Parser();
-				var s:String = StringTools.trim(stim.get(prop));
+
+				bundle.code = StringTools.trim(stim.get(prop));
 				if (logScript == true) {
-					DebugManager.instance.event(stim.get("stimType") + ".on" + StringUtil.capitalizeFirstLetter(event.type), "" + s);
+					DebugManager.instance.event(stim.get("stimType") + ".on" + StringUtil.capitalizeFirstLetter(event.type), "" + bundle.code);
 				}
-				var expr = parser.parseString(s);
-				Scripting.scriptEngine.execute(expr);
+				bundle.run();
 				
 			} catch (e:Dynamic) {
 				trace("ERROR executing script: " + e);
 				DebugManager.instance.error("Error running script event", "" + e);
 			}
 		}
+		returnBundle(bundle);
 	}
 	
 	
-	private static function addExtraVars(stimuli:Array<Stimulus> = null) 
+	private static function addExtraVars(bundle:ScriptBundle) 
 	{
 		
-		if(experiment.runningTrial !=null) scriptEngine.variables.set("Trial", experiment.runningTrial);
-		scriptEngine.variables.set("Stims", StimHelper);
-		scriptEngine.variables.set("System", new SystemWrapper());
-		scriptEngine.variables.set("Experiment", experiment);
-		scriptEngine.variables.set("Text", Text);
-
-		var stimGroups:Map<String,Array<Stimulus>> = Stimulus.groups;
-		if (stimGroups != null) {
-			for (groupName in stimGroups.keys()) {
-				var group:Array<Stimulus> = stimGroups.get(groupName);
-				if (group != null && group.length > 0 && groupName != null) {
-					scriptEngine.variables.set(groupName, group);
-				}
-			}
-		}
-		
-		if(stimuli != null ){
-			for (stim in stimuli) {
-				scriptEngine.variables.set(stim.id, stim);
-			}
-		}
+		if(experiment.runningTrial !=null) bundle.add("Trial", experiment.runningTrial);
 	}
 	
 
 	
 	//TO DO: merge below with above F
-	 public static function expandScriptValues(script:String, vars:Map<String, Dynamic> = null, exceptions:Array<String> = null, stimuli:Array<Stimulus> = null):String {
+	 public static function expandScriptValues(script:String, vars:Map<String, Dynamic> = null, exceptions:Array<String> = null ):String {
    
 		var finalResult:String = script;
 		var n1:Int = finalResult.indexOf("${");
-        var scriptEngine:ScriptInterp = new ScriptInterp();
+       
+		var bundle:ScriptBundle = getBundle();
+		
         if (vars != null) {
 			
             for (key in vars.keys()) {
-				if(key!=null)   scriptEngine.variables.set(key, vars.get(key));
+				if(key!=null)   bundle.add(key, vars.get(key));
             }
             
         }
-		if(stimuli!=null){
-			for (stim in stimuli) {
-				scriptEngine.variables.set(stim.id, stim);	
-			}
-		}
-		scriptEngine.variables.set("Text", Text);
-		//addExtraVars(scriptEngine.variables, stimuli);
 		
-		
-
-		var parser = new hscript.Parser();
         
         while (n1 != -1) {
             var n2:Int = finalResult.indexOf("}", n1);
-            var e:String = finalResult.substring(n1 + 2, n2);
-            if (exceptions != null && exceptions.indexOf(e) != -1) {
+            bundle.code = finalResult.substring(n1 + 2, n2);
+            if (exceptions != null && exceptions.indexOf(bundle.code) != -1) {
                 n1 = finalResult.indexOf("${", n2);
                 continue;
             }
-            var expr = parser.parseString(e);
-            var r = scriptEngine.execute(expr);
+            var r = bundle.run();
+            
             var before:String = finalResult.substring(0, n1);
             var after:String = finalResult.substring(n2 + 1, finalResult.length);
             finalResult = before + r + after;
             n1 = finalResult.indexOf("${");
         }
         
+		returnBundle(bundle);
         return finalResult;
     }
 	

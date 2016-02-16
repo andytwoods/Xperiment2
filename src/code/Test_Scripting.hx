@@ -1,5 +1,6 @@
 package code;
 import code.CheckIsCode.RunCodeEvents;
+import code.Scripting.ScriptBundle;
 import utest.Assert;
 import xpt.trial.Trial;
 
@@ -7,7 +8,7 @@ import xpt.trial.Trial;
  * ...
  * @author 
  */
-class Test_CheckIsCode
+class Test_Scripting
 {
 
 	public function new() 
@@ -58,5 +59,34 @@ class Test_CheckIsCode
 		t.codeStartTrial = t.codeEndTrial = null;
 		CheckIsCode.seekScripts(t, Xml.parse("<trial><code><![CDATA[efdfd]]></code><drdfd/><drdfd/><code><![CDATA[efdfd1]]></code></trial>"));
 		Assert.isTrue(t.codeStartTrial == "efdfd" && t.codeEndTrial == "efdfd1");
+	}
+	
+	public function test_Scripting() {
+	
+		Scripting.init(null);
+		Assert.isTrue(Scripting.bundles.length == 1);
+		
+		var b:ScriptBundle = Scripting.getBundle();
+		Assert.isTrue(Scripting.bundles.length == 0);
+		b.add('b', 'bb');
+		Assert.isTrue(b.scriptEngine.variables.get('b') == 'bb');
+		Scripting.returnBundle(b);
+		Assert.isTrue(Scripting.bundles.length == 1);
+		Assert.isTrue(b.scriptEngine.variables.exists('b') == false);
+		
+		b = Scripting.getBundle();
+		var c:ScriptBundle = Scripting.getBundle();
+		
+		b.code = 'b';
+		c.code = 'cc';
+		
+		Assert.isTrue(b.code != c.code);
+		
+		Scripting.returnBundle(b);
+		Scripting.returnBundle(c);
+		
+		Assert.isTrue(Scripting.bundles.length == 2);
+		
+		
 	}
 }

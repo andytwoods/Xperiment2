@@ -5,7 +5,6 @@ import code.CheckIsCode;
 import code.CheckIsCode.RunCodeEvents;
 import code.Scripting;
 import flash.events.Event;
-import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.events.EventDispatcher;
 import openfl.utils.Object;
 import xpt.comms.services.AbstractService;
@@ -44,7 +43,6 @@ class Experiment extends EventDispatcher {
 	private var trialFactory:TrialFactory = new TrialFactory();
 	
 	public var runningTrial:Trial;
-	public var scriptEngine:ScriptInterp = new ScriptInterp();
 	public var stimuli_loaded:Bool = false;
 	
 	public static var testing:Bool = false;
@@ -52,7 +50,6 @@ class Experiment extends EventDispatcher {
 	public function new(script:Xml, url:String = null, params:Object = null) {
 		super();
 		linkups();
-		trace(11);
 		if (script == null) return; //used for testing
 		this.script = script;
 
@@ -214,7 +211,7 @@ class Experiment extends EventDispatcher {
             event.trial = runningTrial;
             dispatchEvent(event);
             
-			Scripting.removeStimuli(runningTrial.stimuli);
+			Scripting.scriptableStimuli(runningTrial.stimuli, false);
 			cleanup_prevTrial();
 		}
 		
@@ -242,7 +239,7 @@ class Experiment extends EventDispatcher {
 			}
 		}
 		
-		Scripting.addStimuli(runningTrial.stimuli);
+		Scripting.scriptableStimuli(runningTrial.stimuli,true);
 		Scripting.DO(null, RunCodeEvents.BeforeTrial, runningTrial);
 		DebugManager.instance.info("Starting trial");
 		runningTrial.start();
