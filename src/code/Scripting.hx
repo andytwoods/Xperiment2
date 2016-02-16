@@ -59,6 +59,7 @@ class Scripting
 {
 	
 	public static var bundles:Array<ScriptBundle> = new Array<ScriptBundle>();
+	private static var all_bundles:Array<ScriptBundle> = new Array<ScriptBundle>();
 	
 	public static var testing:Bool = true; //for testing
     public static var experiment:Experiment;
@@ -82,7 +83,9 @@ class Scripting
 		bundle.scriptEngine.variables.set("Stims", StimHelper);
 		bundle.scriptEngine.variables.set("System", new SystemWrapper());
 		bundle.scriptEngine.variables.set("Text", Text);
-		
+
+		all_bundles.push(bundle);
+
 		return bundle;
 	}
     
@@ -137,7 +140,7 @@ class Scripting
 	
 	static public function scriptableStimuli(stimuli:Array<Stimulus>, add:Bool) {
 	
-		for (bundle in bundles) {
+		for (bundle in all_bundles) {
 			for (stim in stimuli) {
 				if (stim.id != null) {
 						if (add) 	bundle.scriptEngine.variables.set(stim.id, stim);
@@ -151,7 +154,7 @@ class Scripting
 			for (groupName in stimGroups.keys()) {
 				var group:Array<Stimulus> = stimGroups.get(groupName);
 				if (group != null && group.length > 0 && groupName != null) {
-					for (bundle in bundles) {
+					for (bundle in all_bundles) {
 						if (add) 	bundle.scriptEngine.variables.set(groupName, group);
 						else 		bundle.scriptEngine.variables.remove(groupName);
 						bundle.add(groupName, group);
