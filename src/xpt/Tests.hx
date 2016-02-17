@@ -22,6 +22,7 @@ import xpt.script.Test_BetweenSJs;
 import xpt.script.templateHelpers.Test_templateList;
 import xpt.script.Test_Templates;
 import xpt.stimuli.Test_BaseStimuli;
+import xpt.tools.Test_Base64;
 import xpt.tools.Test_XML_Tools;
 import utest.Runner;
 import utest.ui.Report;
@@ -54,7 +55,7 @@ class Tests
 		//trial setup related
 		runner.addCase(new Test_ETCs());
 		runner.addCase(new Test_XML_Tools());
-		runner.addCase(new Test_XTools());
+
 		
 		runner.addCase(new Test_TrialOrder());
 		
@@ -80,6 +81,10 @@ class Tests
 		runner.addCase(new Test_Results());
 		runner.addCase(new Test_TrialResults());
 		runner.addCase(new Test_AbstractService());
+		
+		//other
+		runner.addCase(new Test_XTools());
+		runner.addCase(new Test_Base64());
 		
 		
 		

@@ -84,8 +84,9 @@ class ExptWideSpecs
 	//blocking
 		map.set("blockDepthOrder","");
 	//saving
-		map.set("saveFailMessage", "<font size= '20'><b>There was a problem when trying to save your results.</b></font>\n\n<font size= '20'>We hope you don't mind, but could you send the text below to EMAILADDRESS. For your convenience, this text has been copied to your clipboard.\n\n Are you a <b>Mechanical Turker</b>? Make sure to close this window when done to retrieve your code. Thanks.");
-		map.set("saveSuccessMessage","<font size= '20'><b>Successfully saved your data. You can close this message-window. Thankyou.<font size= '15'>");
+		map.set("email", "backup@xperiment.mobi");
+		map.set("saveFailMessage", "There was a problem when trying to save your results.\n\nWe hope you don't mind, but could you send the text below to EMAIL. For your convenience, this text has been copied to your clipboard. Thanks.");
+		map.set("saveSuccessMessage","Successfully saved your data. You can close this message-window. Thankyou.");
 		map.set("saveClose","close when ready");
 		map.set("trickleToCloud","true");
 		map.set("cloudUrl","https://www.xpt.mobi/api/sj_data");
@@ -110,6 +111,11 @@ class ExptWideSpecs
 					map.set(key, attribs.get(key));
 				}
 			}
+			
+			var email:String = map.get('email');
+			var failSaved:String = map.get('saveFailMessage');
+			map.set('saveFailMessage', failSaved.split('EMAIL').join(email));
+			
 		}
 	}
 	

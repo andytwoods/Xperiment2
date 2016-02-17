@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<vbox id="vbox" width="100%">
+	<style>
+		.resultsFeedbackWindow #content Image {
+			verticalAlignment: top;
+		}
+	</style>
+
+			<hbox width="100%" height="300">
+				<image id="icon" resource="img/icons/save.png"/>
+				<text id="info" wrapLines="true" text="attempting to save your results..."/>
+				<text id="countdownTxt"></text>
+			</hbox>
+			
+</vbox>

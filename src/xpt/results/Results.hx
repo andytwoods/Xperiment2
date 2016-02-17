@@ -1,11 +1,12 @@
 package xpt.results;
-import thx.Maps;
+import haxe.Serializer;
 import xpt.comms.CommsResult;
 import xpt.comms.services.AbstractService;
 import xpt.comms.services.CrossDomain_service;
 import haxe.ds.StringMap;
 import xpt.comms.services.REST_Service;
 import xpt.debug.DebugManager;
+import xpt.tools.Base64;
 import xpt.tools.XTools;
 import xpt.trial.Special_Trial;
 import xpt.trial.Trial;
@@ -28,7 +29,7 @@ class Results
 	private static var EXPT_ID_TAG:String = specialTag + 'expt_id';
 	private static var UUID_TAG:String = specialTag + 'uuid';
 	
-	private var callbacks:Array<Bool->Void>;
+	private var callbacks:Array<Bool->String->Void>;
 
 	
 	public static var testing:Bool = false;
@@ -58,9 +59,9 @@ class Results
 		__send_to_cloud(new TrialResults(), Special_Trial.First_Submit);
 	}
 	
-	public function endOfStudy(callback:Bool->Void) 
+	public function endOfStudy(callback:Bool->String->Void) 
 	{
-		if (callbacks == null) callbacks = new Array<Bool->Void>();
+		if (callbacks == null) callbacks = new Array<Bool->String->Void>();
 		callbacks.push(callback);
 		__send_to_cloud(new TrialResults(), Special_Trial.Final_Submit);
 	}
@@ -159,13 +160,26 @@ class Results
 
 			if (special == Special_Trial.Final_Submit) {		
 				if (callbacks != null) {
+					if(failedSend_backup!=null){
+						failedSend_backup.set(EXPT_ID_TAG, expt_id);
+						failedSend_backup.set(UUID_TAG, uuid);
+					}
+					var data:String = null;
+					if (failedSend_backup != null) {
+						data = crunch(failedSend_backup.toString());
+					}
 					while (callbacks.length > 0) {
-						callbacks.shift()( success == CommsResult.Success );
+						callbacks.shift()( success == CommsResult.Success, data);
 					}
 				}
 			}
 				
 		}
+	}
+	
+	inline function crunch(failed_to_send:String):String
+	{
+		return Base64.encode(failed_to_send);
 	}
 	
 
