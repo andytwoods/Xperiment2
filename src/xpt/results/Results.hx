@@ -1,9 +1,12 @@
 package xpt.results;
+import thx.Maps;
 import xpt.comms.CommsResult;
+import xpt.comms.services.AbstractService;
 import xpt.comms.services.CrossDomain_service;
 import haxe.ds.StringMap;
 import xpt.comms.services.REST_Service;
 import xpt.debug.DebugManager;
+import xpt.tools.XTools;
 import xpt.trial.Special_Trial;
 import xpt.trial.Trial;
 
@@ -11,14 +14,26 @@ import xpt.trial.Trial;
  * ...
  * @author 
  */
+
+@:allow(xpt.results.Test_Results)
 class Results
 {
 
 	private static var trickeToCloud:Bool;
 	private static var expt_id:String;
 	private static var uuid:String;
+	
 	private static inline var specialTag:String = 'info_';
+	
+	private static var EXPT_ID_TAG:String = specialTag + 'expt_id';
+	private static var UUID_TAG:String = specialTag + 'uuid';
+	
+	private var callbacks:Array<Bool->Void>;
+
+	
 	public static var testing:Bool = false;
+	
+	private var failedSend_backup:Map<String,String>;
 	
 	public static function setup(_expt_id:String, _uuid:String, _trickleToCloud:Bool) {
 		expt_id = _expt_id;
@@ -43,15 +58,17 @@ class Results
 		__send_to_cloud(new TrialResults(), Special_Trial.First_Submit);
 	}
 	
-	public function endOfStudy() 
+	public function endOfStudy(callback:Bool->Void) 
 	{
+		if (callbacks == null) callbacks = new Array<Bool->Void>();
+		callbacks.push(callback);
 		__send_to_cloud(new TrialResults(), Special_Trial.Final_Submit);
 	}
 	
 	public function __send_to_cloud(trialResults:TrialResults, special:Special_Trial) 
 	{
-		trialResults.addResult(specialTag+'expt_id', expt_id);
-		trialResults.addResult(specialTag + 'uuid', uuid);
+		trialResults.addResult(EXPT_ID_TAG, expt_id);
+		trialResults.addResult(UUID_TAG, uuid);
 
 		if ( special != null ) {
 			switch(special) {
@@ -104,28 +121,54 @@ class Results
 			}
 		}
 
-		if(testing == false) trace(trialResults.results);
-		
-			var restService:REST_Service = new REST_Service(trialResults.results, serviceResult('REST'));
+		if (failedSend_backup != null) {
+			trialResults.add_failed_to_send_Results(failedSend_backup);		
+			failedSend_backup = null;
+		}
 
+		if (testing) return;
 		
+		trace(trialResults.results);
 		
-		
+		var restService:AbstractService = new REST_Service(trialResults.results, serviceResult('REST', special));
 	}
 	
-	private static function serviceResult(service:String) {
+	private function serviceResult(service:String, special:Special_Trial) {
 		return function(success:CommsResult, message:String, data:Map<String,String>) {
-			trace(success,message);
+			
 			if (success == CommsResult.Success) {
 				DebugManager.instance.info(service +' service sent trial data successully');
 			}
 			else {
 				DebugManager.instance.error(service + ' service failed to send trial data / data was not accepted by the backend', message);
-				//resend logic here
+				
+				for (exclude in [EXPT_ID_TAG, UUID_TAG]) {
+					data.remove(exclude);
+				}
+				
+				if (failedSend_backup == null) failedSend_backup = new Map<String,String>();
+				var val:String;
+				var safeKey:String;
+				for (key in data.keys()) {
+					val = data.get(key);
+					safeKey = XTools.safeProp(key, failedSend_backup);
+					if (safeKey != key) safeKey += "_DEVEL_ERR";
+					failedSend_backup.set(safeKey, val);
+				}
 			}
+
+			if (special == Special_Trial.Final_Submit) {		
+				if (callbacks != null) {
+					while (callbacks.length > 0) {
+						callbacks.shift()( success == CommsResult.Success );
+					}
+				}
+			}
+				
 		}
 	}
 	
+
 	public static inline function __addMultipleParams(info:StringMap<String>,toAdd:StringMap<String>) {
 		for (key in toAdd) {
 			info.set(key, toAdd.get(key));

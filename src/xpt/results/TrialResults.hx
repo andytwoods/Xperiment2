@@ -21,13 +21,7 @@ class TrialResults
 		
 	}
 	
-	
-	public function generateXml():Xml {
-	
-		var xml = Xml.parse("<trialData name='"+getName()+"'><trialOrder>"+trialNum+"</trialOrder></trialData>");
-		return xml;
-	}
-	
+
 	
 	public inline function getName():String
 	{
@@ -110,6 +104,21 @@ class TrialResults
 			
 		return trialResults;
 	}
+	
+	public function add_failed_to_send_Results(failedSend_backup:Map<String, String>) 
+	{
+		if (results == null) return;
+		var safeKey:String;
+		for (key in failedSend_backup.keys()) {
+			safeKey = __safeProp(key, results);
+			if (safeKey != key) {
+				safeKey += "_DEVEL_ERR";
+			}
+			results.set(safeKey, failedSend_backup.get(key));
+		}
+		
+	}
+	
 	
 	static private inline function extract_helper(trial:Trial,trialResults:TrialResults):TrialResults {
 		

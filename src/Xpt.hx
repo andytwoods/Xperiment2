@@ -23,10 +23,10 @@ class Xpt {
 		
         ErrorMessage.setup(Lib.current.stage);
           
-		exptName = 'transparent';
+		//exptName = 'transparent';
         //exptName = 'tastePosition';
 		//exptName = "Expt1";
-        //exptName = 'test';
+        exptName = 'test';
 		//exptName = 'twinSmokers';
         diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		

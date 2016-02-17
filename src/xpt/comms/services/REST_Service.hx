@@ -13,7 +13,6 @@ class REST_Service extends AbstractService
 	public function new(_data:Map<String,String>, callBackF:CommsResult -> String -> Map<String,String> -> Void) 
 	{
 		super(_data, callBackF);
-		
 		RestClient.getAsync(
 				AbstractService.__url,
 				fromCloud_f,

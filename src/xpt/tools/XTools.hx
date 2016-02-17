@@ -311,5 +311,20 @@ class XTools
 		
 		
 	}
+	
+		
+	static public inline function safeProp(nam:String, results:Map<String, String>):String
+	{
+		var temp_nam:String = nam;
+		var count:Int=1;
+		
+		while(results.exists(temp_nam)){
+			temp_nam = nam + Std.string(count); 
+			count++;
+		}
+		return temp_nam;
+		
+	}	
+	
 
 }

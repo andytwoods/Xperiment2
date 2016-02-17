@@ -15,6 +15,7 @@ import xpt.events.ExperimentEvent;
 import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.preloader.Preloader_extract_loadable;
 import xpt.results.Results;
+import xpt.results.ResultsFeedback;
 import xpt.results.TrialResults;
 import xpt.screenManager.ScreenManager;
 import xpt.script.ProcessScript;
@@ -227,7 +228,10 @@ class Experiment extends EventDispatcher {
 				case NextTrialBoss_actions.BeforeLastTrial:
 					Scripting.DO(script, RunCodeEvents.BeforeLastTrial, runningTrial);
 					runningTrial.setSpecial(Special_Trial.Last_Trial);
-					if(testing==false)	results.endOfStudy();
+					if (testing == false) {
+						ResultsFeedback.instance.show();
+						results.endOfStudy(ResultsFeedback.instance.success);
+					}
 					
 				case NextTrialBoss_actions.BeforeFirstTrial:
 					Scripting.DO(script, RunCodeEvents.BeforeFirstTrial, runningTrial);
