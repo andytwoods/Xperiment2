@@ -19,21 +19,23 @@ import xpt.trial.Trial;
 @:allow(xpt.results.Test_Results)
 class Results
 {
-
+	public static var testing:Bool = false;
+	
 	private static var trickeToCloud:Bool;
 	private static var expt_id:String;
 	private static var uuid:String;
 	
 	private static inline var specialTag:String = 'info_';
 	
-	private static var EXPT_ID_TAG:String = specialTag + 'expt_id';
-	private static var UUID_TAG:String = specialTag + 'uuid';
+	private static inline var EXPT_ID_TAG:String = specialTag + 'expt_id';
+	private static inline var UUID_TAG:String = specialTag + 'uuid';
+	private static inline var SPECIAL_TAG:String = specialTag + 'special';
+	private static inline var DURATION_TAG:String = specialTag + 'duration';
+	private static inline var FAILED_SEND_COUNTER_TAG:String = "failedSendCounter";
+	private static inline var FAILED_SEND_END_OF_STUDY_COUNTER_TAG:String = "failedSend_endOfStudy_Counter";
 	
 	private var callbacks:Array<Bool->String->Void>;
-
-	
-	public static var testing:Bool = false;
-	
+	private var failedSend_counters:Map<String,Int> = [FAILED_SEND_COUNTER_TAG => 0, FAILED_SEND_END_OF_STUDY_COUNTER_TAG => 0];
 	private var failedSend_backup:Map<String,String>;
 	
 	public static function setup(_expt_id:String, _uuid:String, _trickleToCloud:Bool) {
@@ -110,8 +112,11 @@ class Results
 					}
 					
 				case Special_Trial.Final_Submit:
-					trialResults.addResult(specialTag + "special", "last");
-					trialResults.addResult(specialTag + "duration", Std.string(ExptWideSpecs.IS('duration')/1000));
+					trialResults.addResult(SPECIAL_TAG, "last");
+					trialResults.addResult(DURATION_TAG, Std.string(ExptWideSpecs.IS('duration') / 1000));
+					if (failedSend_counters.get(FAILED_SEND_COUNTER_TAG) > 0) {
+						trialResults.addResult(FAILED_SEND_COUNTER_TAG, Std.string(failedSend_counters.get(FAILED_SEND_COUNTER_TAG)));
+					}
 					
 				case Special_Trial.First_Trial:
 					//
@@ -143,9 +148,15 @@ class Results
 			else {
 				DebugManager.instance.error(service + ' service failed to send trial data / data was not accepted by the backend', message);
 				
-				for (exclude in [EXPT_ID_TAG, UUID_TAG]) {
-					data.remove(exclude);
+				if (special == Special_Trial.Final_Submit) plus1_failedSend_counter(FAILED_SEND_END_OF_STUDY_COUNTER_TAG);
+				else {
+					plus1_failedSend_counter(FAILED_SEND_COUNTER_TAG);
+					
 				}
+				
+				for (exclude in [EXPT_ID_TAG, UUID_TAG, FAILED_SEND_END_OF_STUDY_COUNTER_TAG, FAILED_SEND_COUNTER_TAG, SPECIAL_TAG, DURATION_TAG]) {
+						data.remove(exclude);
+					}
 				
 				if (failedSend_backup == null) failedSend_backup = new Map<String,String>();
 				var val:String;
@@ -156,13 +167,15 @@ class Results
 					if (safeKey != key) safeKey += "_DEVEL_ERR";
 					failedSend_backup.set(safeKey, val);
 				}
+				
 			}
+			
+			
 
 			if (special == Special_Trial.Final_Submit) {		
 				if (callbacks != null) {
-					if(failedSend_backup!=null){
-						failedSend_backup.set(EXPT_ID_TAG, expt_id);
-						failedSend_backup.set(UUID_TAG, uuid);
+					if (failedSend_backup != null) {
+						failedSend_backup.set(FAILED_SEND_END_OF_STUDY_COUNTER_TAG, Std.string(failedSend_counters.get(FAILED_SEND_END_OF_STUDY_COUNTER_TAG)));
 					}
 					var data:String = null;
 					if (failedSend_backup != null) {
@@ -175,6 +188,12 @@ class Results
 			}
 				
 		}
+	}
+	
+	private function plus1_failedSend_counter(what:String) {
+		var val:Int = failedSend_counters.get(what)+1;
+		failedSend_counters.set(what, val);
+		
 	}
 	
 	inline function crunch(failed_to_send:String):String
