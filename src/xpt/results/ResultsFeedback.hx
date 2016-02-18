@@ -5,6 +5,7 @@ import haxe.ui.toolkit.controls.Text;
 import haxe.ui.toolkit.core.PopupManager;
 import haxe.ui.toolkit.core.PopupManager.PopupButton;
 import haxe.ui.toolkit.core.RootManager;
+import xpt.experiment.Experiment;
 import xpt.tools.XTools;
 
 
@@ -13,56 +14,50 @@ import xpt.tools.XTools;
 class ResultsFeedback
 {
 
-	private static var _instance:ResultsFeedback;
-    public static var instance(get, null):ResultsFeedback;
-    private static function get_instance():ResultsFeedback {
-        if (_instance == null) {
-            _instance = new ResultsFeedback();
-        }
-        return _instance;
-    }
-	
 	
 	public function success(success:Bool, data:String) 
 	{
-		//saveSuccessMessage
-		//saveFailMessage
-		trace(success);
-		if (success) controller.success(ExptWideSpecs.IS("saveSuccessMessage"));
-		else {
-			controller.fail(ExptWideSpecs.IS("saveFailMessage"), data);
+		if (success == true) {
+			controller.success(ExptWideSpecs.IS("saveSuccessMessage"));
+			XTools.delay(3000, removePopup);
+			return;
 		}
 
+		controller.fail(ExptWideSpecs.IS("saveFailMessage"), data);
+		
 	}
 	
 	private var feedbackWindow:Popup;
 	private var controller:ResultsFeedbackController;
 	private var text:Text;
-	public function new() 
+	private var experiment:Experiment;
+	
+	
+	public function removePopup() {
+		PopupManager.instance.hidePopup(feedbackWindow);
+		feedbackWindow.dispose();
+		feedbackWindow = null;	
+	}
+	
+	public function new(experiment:Experiment) 
 	{
 
-		controller = new ResultsFeedbackController();
+		this.experiment = experiment;
+		
+		controller = new ResultsFeedbackController(function() {
+			removePopup();
+			experiment.saveDataEndStudy();
+		});
 		RootManager.instance.currentRoot.addEventListener(Event.ADDED, _onAddedToStage);
 
 		var config = {
 			buttons: PopupButton.CLOSE,
 			modal: true,
 		};
-		/*feedbackWindow = PopupManager.instance.showSimple("Attempting...", "Saving your results",
-			{ buttons: [PopupButton.OK, PopupButton.CANCEL] },
-			function(btn:Dynamic) {
-				if (Std.is(btn, Int)) {
-					switch(btn) {
-						case PopupButton.OK: trace("OK");
-						case PopupButton.CANCEL: trace("CANCEL");
-					}
-				}
-			} 
-		);
-		*/
+
 		
-		feedbackWindow = PopupManager.instance.showCustom(controller.view, "Saving your results", config, function(e) {
-					controller = null;
+		feedbackWindow = PopupManager.instance.showCustom(controller.view, "Saving your results", config, function(e) {	
+			controller = null;
 				});
 		
 		controller.center();
@@ -74,7 +69,8 @@ class ResultsFeedback
 		RootManager.instance.currentRoot.addChild(feedbackWindow);
 	}
 	
-	public function show() {
+	public function show(experiment:Experiment) {
+		this.experiment = experiment;
 		//nothing needed here as we have a getter for instance that generates an instance and adds it to screen if it is not there already.
 	}
 	

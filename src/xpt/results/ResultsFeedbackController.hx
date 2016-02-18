@@ -1,14 +1,22 @@
 package xpt.results;
 
+import flash.events.Event;
+import flash.text.TextField;
+import haxe.ui.toolkit.containers.HBox;
+import haxe.ui.toolkit.controls.Button;
 import haxe.ui.toolkit.controls.Text;
 import haxe.ui.toolkit.core.RootManager;
 import haxe.ui.toolkit.core.XMLController;
 import haxe.ui.toolkit.events.UIEvent;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import openfl.events.KeyboardEvent;
+import thx.Strings;
 import xpt.experiment.Experiment;
 import flash.events.TimerEvent;
 import flash.utils.Timer;
+import xpt.tools.SaveFile;
+import xpt.tools.XTools;
+
 
 @:build(haxe.ui.toolkit.core.Macros.buildController("assets/ui/resultsFeedback-window.xml"))
 class ResultsFeedbackController extends XMLController {
@@ -18,18 +26,29 @@ class ResultsFeedbackController extends XMLController {
 	];
 	
 	var countdown:Countdown;
+	var tryAgain_callBack:Void->Void;
 	
 
-	public function new() {
+	public function new(callback:Void->Void) {	
+		
+		function onAddedToStage(e:Event) {
+			info.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			info.text = "Attempting to save your results...";
+		}
+		info.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		
 		
-		if (countdownTxt != null) countdown = Countdown.DO(countdownTxt, Std.parseInt(ExptWideSpecs.IS("saveWaitDuration")));
+		tryAgain_callBack = callback;
+		if (countdownTxt != null) {
+			countdown = Countdown.DO(countdownTxt, Std.parseInt(ExptWideSpecs.IS("saveWaitDuration")));
+		}
 	
 	}
 	
 	public function success(message:String) 
 	{
 		info.text = message;
+		info.percentWidth = 100;
 		icon.resource = ICONS.get('SUCCESS');
 		stopCountdown();
 		
@@ -38,27 +57,41 @@ class ResultsFeedbackController extends XMLController {
 	public function fail(message:String, d:String) 
 	{
 
-		popup.width = RootManager.instance.currentRoot.width * .8;
-		popup.height = RootManager.instance.currentRoot.height * .8;
-		
-		
-		
-		info.text = message;
-		info.percentWidth = 100;
-		info.selectable = true;
-		info.percentHeight = 30;
-		icon.resource = ICONS.get('ERROR');
 		stopCountdown();
 		
-		var data:Text = new Text();
+		popup.width = 680;
+		//popup.height = 630;
 		
-		data.text = d;
-		data.wrapLines = true;
-		data.percentWidth = 100;
-		data.percentHeight = 70;
-
-		popup.addChild(data);
-		vbox.height = 600;
+		info.text = message;
+		info.autoSize = true;
+		info.width = 650;
+		//info.height = 200;
+		info.selectable = false;
+		icon.resource = ICONS.get('ERROR');
+		
+		var hbox:HBox = new  HBox();
+		hbox.width = popup.width;
+		
+		info.parent.parent.addChild(hbox);
+		
+		var tryAgain:Button = new Button();
+		tryAgain.text = 'try to send data again?';
+		tryAgain.horizontalAlign = 'left';
+		tryAgain.autoSize = true;
+		tryAgain.onClick = function(e) { tryAgain_callBack(); };	
+		hbox.addChild(tryAgain);
+		
+		
+		var downloadData:Button = new Button();
+		downloadData.text = 'download your results and email them to us';
+		downloadData.horizontalAlign = 'right';
+		downloadData.alpha = .7;
+		downloadData.autoSize = true;
+		downloadData.onClick = function(e) { 
+			SaveFile.prompt_user_to_save(message+"\n\n\n"+d,'experimentData_backup.txt');
+		};
+		
+		hbox.addChild(downloadData);
 		
 		center();
 	}
@@ -78,12 +111,12 @@ class ResultsFeedbackController extends XMLController {
 		popup.x = (cx - popup.width)*.5;
 		popup.y = (cy - popup.height)*.5;
 		
-		popup.style.alpha = .9;
+		popup.style.alpha = .85;
 		popup.onMouseOver = function(e) {
 			popup.style.alpha = 1;
 		}
 		popup.onMouseOut = function(e) {
-			popup.style.alpha = .9;
+			popup.style.alpha = .85;
 		}
 	}
 	

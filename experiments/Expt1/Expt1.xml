@@ -16,9 +16,11 @@
     
 	<text width="80%" height="25%" 
 		  text=
-		  "Welcome to our study! We are the Imagineering Institute, Iskandar, Malaysia, and the Crossmodal Research Laboratory, Department of Experimental Psychology, Oxford University. 
-We are interested in understanding how people associate information across the senses. If you decide to take part in this experiment, you will be asked to match a variety of packaging shapes to tastes.
-We hope you enjoy it. Your participation is very important to us."
+		  "Estimado participante,
+Bienvenido a nuestro experimento! Somos el Imagineering Institute, la Universidad de Oxford, y la Universidad de la Sabana. 
+Estamos interesados en entender cómo las personas asocian información a través de los sentidos. Si usted decide participar en este experimento, le pediremos que evalúe diferentes empaques de productos. 
+No hay respuestas correctas o incorrectas. Por favor responda de acuerdo con lo que se siente correcto para usted.
+Esperamos que lo disfrute. Su participación es muy importante para nosotros."
 	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />
 	
 	
@@ -29,17 +31,17 @@ We hope you enjoy it. Your participation is very important to us."
 
 <TRIAL TYPE="Trial" hideResults="false" block="1" order="fixed" trials="1">
 	 
-<text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top"><.text>Before we begin, please read the below: 
-By clicking 'I CONSENT' you indicate you have consented to take part.
-If you decide to take part in this experiment, you will be told specific links between tastes and packaging shapes and will be asked to respond according to such links
-At the end of the study we will tell you more about the purpose of the study and why we are doing this research.
-You can also contact the researchers - Dr Carlos Velasco (carlos@imagineeringinstitute.org) or Dr Andy Woods (andy.woods@psy.ox.ac.uk) for further information at a later date if you wish.
-Please read the below consent statement and indicate whether you consent.
-STATEMENT OF INFORMED CONSENT
-1. I have read and understand the information above, and understand general purpose of this experiment.
-2. I understand that I can withdraw from the study at any time and that doing so we will destroy your data. You can withdraw at any time, for any reason. (NB – Please be aware that data collected is anonymous - if you change your mind after completing the experiment, we will be unable to trace your specific data to remove it).
-3. I understand that my responses are anonymous.
-4. I agree to take part in this online experiment.	
+<text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top"><.text>Antes de empezar le vamos a pedir que lea el siguiente texto.
+Al presionar el botón que dice 'Estoy de acuerdo' usted indicará que acepta participar en la investigación.
+En este estudio le pediremos que busque marcas. Al final del estudio le contaremos un poco más acerca del propósito de la investigación. Usted también puede ponerse en contacto con el Dr. Carlos Velasco (carlos.velasco@psy.ox.ac.uk) o el Dr. Andy Woods (andy@xperiment.mobi) para más información.
+
+-Continúa en la siguiente página-; 
+Por favor lea el consentimiento informado presentado a continuacion e indique si está de acuerdo o no.
+{u}Statement of Informed Consent{/u}
+1. He leído y entendido la información presentada arriba, y entiendo el propósito general del experimento.
+2. Entiendo que me puedo retirar del estudio en cualquier momento y que al hacerlo nosotros destruiremos sus datos. Usted puede retirarse en cualquier momento, por cualquier motivo. (NB – Note que los datos recolectados son anónimos -  si usted cambia de parecer al terminar el experimento, nosotros no podremos rastrear sus datos específicos para borrarlos.
+3. Entiendo que mis respuestas son anónimas.
+4. Estoy de acuerdo con participar en este experimento online.	
 		</.text></text>
 	
 	
@@ -48,36 +50,36 @@ STATEMENT OF INFORMED CONSENT
 
 
 <TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
-	<text text="Some questions:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
-	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
+	<text text="Algunas preguntas:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
+	<text text="Sexo:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
 	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
-	<text text="What country do you come from?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
+	<text text="¿Cuál es su país de origen?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
 	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
-    <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
-	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
+    <text text="Edad:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
+	<age y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
 	<nextTrialButton y="50%" x="50%" width="200" height="40" horizontalAlign="center"  fontSize="18" />
 </TRIAL>	
 	
 
 
 <TRIAL template="template"  block="10" trials="2">
-	<text copyOverId="taste1" text1="sweet|sour"/>
-	<text copyOverId="taste2" text="not sweet---very sweet|not sour---very sour" />
+	<text copyOverId="taste1" text1="Dulce|Ácido"/>
+	<text copyOverId="taste2" text="Para nada dulce---Muy dulce|Para nada ácido---Muy ácido" />
 </TRIAL>	
 
 <TRIAL template="template"  block="15" >
-	<text copyOverId="taste1" text="Please drap the items into the box, arranging them according to how much you " text1="like" text2=" each item."/>
-	<text copyOverId="taste2" text="not at all liked---liked very much" />
+	<text copyOverId="taste1" text="Por favor mueva estos empaques a la caja de abajo, organizándolos de acuerdo a qúé tanto " text1="le gusta" text2=" cada empaque."/>
+	<text copyOverId="taste2" text="No me gustan para nada---Me gustan mucho" />
 </TRIAL>	
 	
 <TRIAL template="template"  block="15" >
-	<text copyOverId="taste1" text="Please drap the items into the box, arranging them according to how " text1="familar" text2=" each item is to you."/>
-	<text copyOverId="taste2" text="not familiar---very familiar" />
+	<text copyOverId="taste1" text="Por favor mueva estos empaques a la caja de abajo, organizándolos de acuerdo a qúé tan" text1="familares" text2=" le parecen los empaques."/>
+	<text copyOverId="taste2" text="Para nada familiares---Muy familiares" />
 </TRIAL>	
 
 <template order="random" trials="1">
 
-	<text id="taste" textAlign="center" copyOverId="taste1" text2="." fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" text="Please drap the items into the box, arranging them according to how much you relate each to be associated with being "/>
+	<text id="taste" textAlign="center" copyOverId="taste1" text2="." fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" text="Por favor mueva estos empaques a la caja de abajo, organizándolos de acuerdo a qúé tanto los asocia con productos con sabor "/>
 	
 	<image howMany="4" verticalAlign="bottom" y="32%" group="g1" id="1---1---2---2" id1="F---N" resource="1---1---2---2" resource1="F---N" multiId="over_image" resource2="A" resource3=".png" x="20%---40%---60%---80%"   />
 	
@@ -87,18 +89,17 @@ STATEMENT OF INFORMED CONSENT
 	
 	<text copyOverId="taste2" horizontalAlign="left---right" y="90%" textAlign="left---right" x="0%---100%" howMany="2" fontSize="30" height="50" width="400" />
     
-    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="center" marginTop="50" y="53%" width="99%" height="50%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" fillColour="#FFFFFF" />
+    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="center" marginTop="50" y="53%" width="99%" height="50%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2"  />
 
-    <nextTrialButton y="99%" verticalAlign="bottom" width="200" height="40" horizontalAlign="center" fontSize="18" />
+    <nextTrialButton y="99%" key=" " verticalAlign="bottom" text="next (SPACE)" width="200" height="40" horizontalAlign="center" fontSize="18" />
 	
 	<results dv="taste.text1" />
 </template>
 	
-<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="10">
+<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
 
 <text  colour="black" timeStart="0" width="80%"  height="50%" fontSize="30">
-	<.text>Thank you for your participation to this study. We're exploring the way people associate colours with tastes.
-If you have any questions or would like to here more about our research, please contact us at andy.woods@psy.ox.ac.uk</.text>
+	<.text>Muchas gracias por haber participado en este estudio. Estamos explorando la forma en la que las personas asocian formas de empaques y sabores. En estudios previos se ha mostrado que asociamos los empaques angulares con acidez y los empaques redondos con dulce. Esto es lo que usted nos ha ayudado a evaluar con este estudio online. Si tiene alguna pregunta o quisiera saber más de nuestra investigación, por favor póngase en contacto con nosotros en carlos@imagineeringinstitute.org</.text>
 </text>
 
 <link text="Prolific Academic Link" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB" />

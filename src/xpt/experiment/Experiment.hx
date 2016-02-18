@@ -42,6 +42,7 @@ class Experiment extends EventDispatcher {
 	private var results:Results = new Results();
 	private var currentTrialInfo:NextTrialInfo = null;
 	private var trialFactory:TrialFactory = new TrialFactory();
+	var resultsFeedback:ResultsFeedback;
 	
 	public var runningTrial:Trial;
 	public var stimuli_loaded:Bool = false;
@@ -229,8 +230,7 @@ class Experiment extends EventDispatcher {
 					Scripting.DO(script, RunCodeEvents.BeforeLastTrial, runningTrial);
 					runningTrial.setSpecial(Special_Trial.Last_Trial);
 					if (testing == false) {
-						ResultsFeedback.instance.show();
-						results.endOfStudy(ResultsFeedback.instance.success);
+						saveDataEndStudy();
 					}
 					
 				case NextTrialBoss_actions.BeforeFirstTrial:
@@ -253,5 +253,12 @@ class Experiment extends EventDispatcher {
         dispatchEvent(event);
 	
         
+	}
+	
+	public function saveDataEndStudy() 
+	{
+		resultsFeedback = new ResultsFeedback(this);
+		resultsFeedback.show(this);
+		results.endOfStudy(resultsFeedback.success);
 	}
 }

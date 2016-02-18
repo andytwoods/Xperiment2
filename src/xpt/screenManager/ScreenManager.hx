@@ -83,13 +83,9 @@ class ScreenManager
 	
 	public function background(colStr:String) {
 
-		var col:Int = XTools.getColour(colStr);
-		
-		RootManager.instance.currentRoot.style.backgroundColor = col;
-		
-		#if html5
-			Browser.document.body.style.background = colStr;
-		#end
+		var col:Int = XTools.getColour(colStr);	
+		RootManager.instance.currentRoot.style.backgroundAlpha = 0;
+		Lib.current.stage.color = col;
 	}
 	
 }

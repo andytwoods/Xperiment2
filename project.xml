@@ -11,15 +11,16 @@
     <!--
     <haxedef name="dom" />
 	<haxeflag name="-D dom" />
-    -->    
+     -->
+	
 	<app main="Xpt" preloader="xpt.loadingScreen.LoadingScreen"/>
 	
 	<haxeflag name="-D hscriptPos" />
 	<haxedef name="haxeui-no-gif-support" />
 	<haxeflag name="-D haxeui-no-gif-support" />
 
-	<window background="#FFFFFF" fps="60" />
-	<window width="1024" height="768" resizable="true" unless="mobile" />
+	<window fps="60" />
+	<window width="1200" height="768" resizable="true" unless="mobile" />
 	<window orientation="landscape" fps="60" hardware="true" vsync="false" antialiasing="0" if="cpp" />
 	
 	<!-- classpath, haxe libs -->
@@ -45,6 +46,7 @@
   
 	
 	<template path="assets/html5/index.html" if="html5" rename="index.html" />
+	<template path="assets/html5/js/FileSave.min.js" if="html5" rename="FileSave.min.js" />
 	<!--
 	<assets path="experiments" rename="experiments" exclude="*.jpg" />
     -->    
