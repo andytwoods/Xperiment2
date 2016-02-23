@@ -62,7 +62,7 @@ class Test_Scripting
 	}
 	
 	public function test_Scripting() {
-	
+
 		Scripting.init(null);
 		Assert.isTrue(Scripting.bundles.length == 1);
 		
@@ -86,7 +86,7 @@ class Test_Scripting
 		Scripting.returnBundle(c);
 		
 		Assert.isTrue(Scripting.bundles.length == 2);
-		
+
 		
 	}
 }

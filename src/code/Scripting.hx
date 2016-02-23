@@ -2,6 +2,7 @@ package code;
 import code.CheckIsCode.RunCodeEvents;
 import code.utils.Text;
 import haxe.io.StringInput;
+import haxe.ui.toolkit.controls.HProgress;
 import haxe.ui.toolkit.hscript.ScriptInterp;
 import haxe.ui.toolkit.util.StringUtil;
 import hscript.Expr;
@@ -65,6 +66,7 @@ class Scripting
     public static var experiment:Experiment;
 	
 	public static function getBundle():ScriptBundle {
+		
 		if (bundles.length == 0) {
 			return generateBundle();
 		}
@@ -72,6 +74,7 @@ class Scripting
 		return bundles.shift();
 	}
 	
+
 	static private function generateBundle():ScriptBundle  
 	{
 		var bundle:ScriptBundle = new ScriptBundle();
@@ -96,6 +99,13 @@ class Scripting
 	
 	
 	static public function init(experiment:Experiment) {
+		while (bundles.length > 0) {
+			bundles.pop();
+		}
+		while (all_bundles.length > 0) {
+			all_bundles.pop();
+		}
+		
 		Scripting.experiment = experiment;
 		returnBundle(generateBundle());
 	}
@@ -177,7 +187,7 @@ class Scripting
 		var bundle:ScriptBundle = getBundle();
 		
 		if (stim.get(prop) != null) {
-			try {
+			//try {
 				bundle.add("this", stim.component);
 				bundle.add("me", stim.component);
 				bundle.add("stim", stim);
@@ -185,18 +195,20 @@ class Scripting
 
 
 				addExtraVars(bundle);
-                
+				
 
 				bundle.code = StringTools.trim(stim.get(prop));
+				
+				
 				if (logScript == true) {
 					DebugManager.instance.event(stim.get("stimType") + ".on" + StringUtil.capitalizeFirstLetter(event.type), "" + bundle.code);
 				}
 				bundle.run();
 				
-			} catch (e:Dynamic) {
-				trace("ERROR executing script: " + e);
+			/*} catch (e:Dynamic) {
+				trace("ERROR executing script: " + e + " code: " + bundle.code);
 				DebugManager.instance.error("Error running script event", "" + e);
-			}
+			}*/
 		}
 		returnBundle(bundle);
 	}

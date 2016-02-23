@@ -1,4 +1,4 @@
-<multi forceToRun="exptR">
+<multi __ignore__forceToRun="exptR">
 <exptA exptType="WEB">
 
 <SETUP>  
@@ -62,7 +62,7 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
 	
 
 
-<TRIAL template="template"  block="10" trials="2">
+<TRIAL template="template"  block="-10" trials="2">
 	<text copyOverId="taste1" text1="Dulce|Ácido"/>
 	<text copyOverId="taste2" text="Para nada dulce---Muy dulce|Para nada ácido---Muy ácido" />
 </TRIAL>	

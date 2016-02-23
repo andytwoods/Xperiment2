@@ -22,7 +22,7 @@ class ErrorMessage
 		stage = s;
 	}
 	
-	public static function error(type:String, message:String):Void {
+	public static function error(type:String, message:String, kill:Bool = false):Void {
 		if (errors == null) {
 			errors = [header,""];
 		}
@@ -38,6 +38,7 @@ class ErrorMessage
 			text.width = bg.width;
 			text.height = bg.height;
 			text.multiline = true;
+			text.selectable = true;
 			text.wordWrap = true;
 			var tf:TextFormat = new TextFormat(null, 20);
 			text.defaultTextFormat = tf;
@@ -45,7 +46,7 @@ class ErrorMessage
 		}
 		text.text = errors.join("\n");
 		
-		
+		if (kill) throw text.text;
 	}
 	
 

@@ -25,8 +25,8 @@ class Xpt {
           
 		//exptName = 'transparent';
         //exptName = 'tastePosition';
-		//exptName = "Expt1";
-        exptName = 'test';
+		exptName = "Expt1";
+        //exptName = 'test';
 		//exptName = 'twinSmokers';
         diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		
@@ -41,7 +41,7 @@ class Xpt {
         #if html5
             var script:String = UrlParams_service.get('script');
             if (script.length > 0) {
-                webStart = new WebStart('.', script);
+                webStart = new WebStart('.', script, true);
             }
             else {
                 start();
@@ -56,6 +56,6 @@ class Xpt {
 	
 	private static function start() {
 		trace("---starting study---");
-		webStart = new WebStart('./' + localExptDirectory, exptName);
+		webStart = new WebStart('./' + localExptDirectory, exptName, false);
 	}
 }

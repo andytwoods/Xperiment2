@@ -1,4 +1,5 @@
 package xpt.script;
+import xpt.error.ErrorMessage;
 import xpt.script.BetweenSJs.Action;
 import xpt.script.BetweenSJs.BetweenSJcond;
 import xpt.script.ToRun.HowSelectCond;
@@ -19,7 +20,7 @@ class BetweenSJs
 	
 	
 	public function compose(script:Xml, forceToRun:String=''):Xml
-	{
+	{				
 		if (	continueCheck(script) == false) return script;
 		
 		var parent:Xml = script.firstChild();
@@ -53,7 +54,9 @@ class BetweenSJs
 			var selected = betweenSJMap.get(forceToRun);
 			script = __applyToParent(parent.firstElement(), selected.xml);
 		}
-		else script = parent.firstChild();
+		else {
+			ErrorMessage.error(ErrorMessage.Report_to_experimenter, 'unknown between SJ condition asked to be run: ' + forceToRun + " (only these presently exist: " + XTools.iteratorToArray(betweenSJMap.keys()).join(",") + ").", true);
+		}
 		
 		var Xmls = XML_tools.findNode(script, 'SETUP');
 		if (Xmls.hasNext()) {

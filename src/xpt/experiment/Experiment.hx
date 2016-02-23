@@ -76,7 +76,6 @@ class Experiment extends EventDispatcher {
 
 		linkups_Post_ExptWideSpecs();
 
-		Scripting.init(this);
 		DebugManager.instance.experiment = this;
 		//DebugManager.instance.enabled = true;
 
@@ -91,6 +90,7 @@ class Experiment extends EventDispatcher {
 
 
 	private function linkups() {
+		Scripting.init(this);
 		BaseStimuli.setPermittedStimuli(StimuliFactory.getPermittedStimuli());
 		BaseStimuli.readabilitySpaces_props = ExptWideSpecs.readabilitySpaces_props;
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);

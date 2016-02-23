@@ -20,14 +20,21 @@ class WebStart
 		
 	}
 
-	public function new(dir:String, exptName:String) 
+	public function new(dir:String, exptName:String, overrideDir:Bool) 
 	{
-        PathTools.experimentPath = dir;
-        PathTools.experimentName = exptName;
-        
-		var loader = new FileLoader();
-
-		loader.loadText(dir + exptName + "/" + exptName+".xml", listen);
+        var loader = new FileLoader();
+		
+		if (overrideDir) {	
+			PathTools.explictExptPath(exptName);		
+			loader.loadText(exptName, listen);
+		}
+		
+        else {
+			PathTools.experimentPath = dir;
+			PathTools.experimentName = exptName;
+			loader.loadText(dir + exptName + "/" + exptName+".xml", listen);
+		}
+		
 
 	}
 	
