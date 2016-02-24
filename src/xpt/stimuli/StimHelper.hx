@@ -17,9 +17,11 @@ class StimHelper {
                 
             }
         }
-        
+       
+		
         XRandom.shuffle(list);
-        
+	
+		
         if (fixedValues != null) {
             for (key in fixedValues.keys()) {
                 var valueList:Array<String> = fixedValues.get(key);

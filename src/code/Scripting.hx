@@ -187,7 +187,7 @@ class Scripting
 		var bundle:ScriptBundle = getBundle();
 		
 		if (stim.get(prop) != null) {
-			//try {
+			try {
 				bundle.add("this", stim.component);
 				bundle.add("me", stim.component);
 				bundle.add("stim", stim);
@@ -205,10 +205,10 @@ class Scripting
 				}
 				bundle.run();
 				
-			/*} catch (e:Dynamic) {
+			} catch (e:Dynamic) {
 				trace("ERROR executing script: " + e + " code: " + bundle.code);
 				DebugManager.instance.error("Error running script event", "" + e);
-			}*/
+			}
 		}
 		returnBundle(bundle);
 	}
