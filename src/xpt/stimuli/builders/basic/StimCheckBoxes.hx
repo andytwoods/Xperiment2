@@ -57,7 +57,7 @@ class StimCheckBoxes extends StimulusBuilder {
 			}
 		}
 		
-		var group:String = "" + Math.random();
+		var group:String = "" + Random.string(10);
 		if (get("labels") != null) {
 			var labels:String = get("labels");
 			var labelsArr:Array<String> = labels.split(",");

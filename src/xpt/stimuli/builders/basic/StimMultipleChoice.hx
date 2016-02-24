@@ -53,7 +53,7 @@ class StimMultipleChoice extends StimulusBuilder {
 		}
 		
 		var iconPosition:String = get("iconPosition");
-		var group:String = "" + Math.random();
+		var group:String = "" + Random.string(10);
 		if (get("labels") != null) {
 			var labels:String = get("labels");
 			var labelsArr:Array<String> = labels.split(",");
