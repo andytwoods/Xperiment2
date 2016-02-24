@@ -1,5 +1,5 @@
 package xpt.stimuli;
-import xpt.tools.Random;
+import xpt.tools.XRandom;
 import xpt.tools.XTools;
 
 class StimHelper {
@@ -18,7 +18,7 @@ class StimHelper {
             }
         }
         
-        Random.shuffle(list);
+        XRandom.shuffle(list);
         
         if (fixedValues != null) {
             for (key in fixedValues.keys()) {

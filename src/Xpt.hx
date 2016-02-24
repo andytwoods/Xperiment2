@@ -6,6 +6,7 @@ import xpt.comms.services.UrlParams_service;
 import xpt.error.ErrorMessage;
 import xpt.screenManager.ScreenManager_web;
 import xpt.start.WebStart;
+import xpt.tools.XRandom;
 import xpt.tools.XTools;
 
 
@@ -19,7 +20,7 @@ class Xpt {
 	private static var webStart:WebStart;
 	
 	public static function main() {
-	
+		XRandom.init(RandomAlgorithm.Mersenne);
 		System.init();
 		
         ErrorMessage.setup(Lib.current.stage);
@@ -42,6 +43,7 @@ class Xpt {
         #if html5
             var script:String = UrlParams_service.get('script');
             if (script.length > 0) {
+				XRandom.setSeed(UrlParams_service.get('seed'));
                 webStart = new WebStart('.', script, true);
             }
             else {
@@ -57,6 +59,7 @@ class Xpt {
 	
 	private static function start() {
 		trace("---starting study---");
+		XRandom.setSeed('random');
 		webStart = new WebStart('./' + localExptDirectory, exptName, false);
 	}
 }

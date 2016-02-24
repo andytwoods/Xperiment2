@@ -7,7 +7,7 @@ import haxe.ui.toolkit.events.UIEvent;
 import thx.Arrays;
 import thx.Strings;
 import xpt.stimuli.StimulusBuilder;
-import xpt.tools.Random;
+import xpt.tools.XRandom;
 import xpt.ui.custom.NumberStepper;
 
 class StimCheckBoxes extends StimulusBuilder {
@@ -58,11 +58,11 @@ class StimCheckBoxes extends StimulusBuilder {
 			}
 		}
 		
-		var group:String = "" + Random.string(10);
+		var group:String = "" + XRandom.string(10);
 		if (get("labels") != null) {
 			var labels:String = get("labels");
 			var labelsArr:Array<String> = labels.split(",");
-			if (getBool('random', false)) Random.shuffle(labelsArr);
+			if (getBool('random', false)) XRandom.shuffle(labelsArr);
 			for (label in labelsArr) {
 				checkBox = new CheckBox();
 				checkBox.text = label;

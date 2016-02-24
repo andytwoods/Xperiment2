@@ -5,7 +5,7 @@ import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.events.UIEvent;
 import thx.Floats;
 import xpt.stimuli.StimulusBuilder;
-import xpt.tools.Random;
+import xpt.tools.XRandom;
 import xpt.ui.custom.LineScale;
 
 class StimLineScale extends StimulusBuilder {
@@ -38,7 +38,7 @@ class StimLineScale extends StimulusBuilder {
 		
 		switch(startPosition.toLowerCase()) {
 			case 'random':
-				lineScale.position_percent(Random.float(0, 1));
+				lineScale.position_percent(XRandom.random());
 			case 'hidden':
 				if(lineScale.hasEventListener(MouseEvent.MOUSE_OVER)==false) lineScale.addEventListener(MouseEvent.MOUSE_OVER, mouseOverL);
 				lineScale.selectionVisible(false);

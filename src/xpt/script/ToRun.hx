@@ -1,11 +1,8 @@
 package xpt.script;
-import xpt.tools.Random;
+import xpt.tools.XRandom;
 import xpt.tools.XTools;
 
 
-enum HowSelectCond {
-	Random;	
-}
 
 
 class ToRun
@@ -13,7 +10,12 @@ class ToRun
 
 	static public function select(how:HowSelectCond, options:Array<String>):String
 	{
-		return Random.randomlySelect(options);
+		return XRandom.randomlySelect(options);
 	}
 	
+}
+
+
+enum HowSelectCond {
+	Random;	
 }

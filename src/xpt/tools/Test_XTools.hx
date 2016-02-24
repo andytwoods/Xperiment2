@@ -21,15 +21,15 @@ class Test_XTools
 		
 		
 		for(i in 0...100){
-			Random.shuffle(arr);
+			XRandom.shuffle(arr);
 			result[		arr[0]-1	] ++;
 		}
 		
 		Assert.isTrue(result[0] > 5 && result[1] > 5 && result[2] > 5);
 		
 		
-		var r1:Array<Int> = Random.shuffle([1, 2, 3,4,5,6,7,8,9,10], "a");
-		var r2:Array<Int> = Random.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "a");
+		var r1:Array<Int> = XRandom.shuffle([1, 2, 3,4,5,6,7,8,9,10], "a");
+		var r2:Array<Int> = XRandom.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "a");
 				
 		for (i in 0...9) {
 			Assert.isTrue(r1[i] == r2[i]);

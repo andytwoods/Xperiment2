@@ -7,6 +7,7 @@ import haxe.ds.StringMap;
 import xpt.comms.services.REST_Service;
 import xpt.debug.DebugManager;
 import xpt.tools.Base64;
+import xpt.tools.XRandom;
 import xpt.tools.XTools;
 import xpt.trial.Special_Trial;
 import xpt.trial.Trial;
@@ -83,6 +84,7 @@ class Results
 					trialResults.addResult(specialTag+"ip",'ip');
 					trialResults.addResult(specialTag + 'overSJs', ExptWideSpecs.IS("overSJs"));
 					trialResults.addResult(specialTag + "special", "first");
+					trialResults.addResult('random_seed', XRandom.getSeed());
 					#if html5
 						var tzOffset = untyped Date.now().getTimezoneOffset();
 						trialResults.addResult(specialTag + "timeZone", tzOffset);

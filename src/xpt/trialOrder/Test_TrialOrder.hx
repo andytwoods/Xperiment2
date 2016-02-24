@@ -76,6 +76,7 @@ class Test_TrialOrder
 			Assert.isTrue(myTest(result, [1, 0]));
 			
 			result = trialOrder.COMPOSE(Xml.parse("<CBCondition1><TRIAL  block='0' order='fixed' trials='1'/><TRIAL  block='0' order='fixed' trials='1'/> <TRIAL  block='0' order='fixed' trials='1'/><TRIAL block='10'/></CBCondition1>"))._0;		
+
 			Assert.isTrue(myTest(result, [0, 1, 2, 3]));
 
 			result = trialOrder.COMPOSE(

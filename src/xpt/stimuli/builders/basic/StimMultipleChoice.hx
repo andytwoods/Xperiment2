@@ -5,7 +5,7 @@ import haxe.ui.toolkit.controls.Button;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.events.UIEvent;
 import xpt.stimuli.StimulusBuilder;
-import xpt.tools.Random;
+import xpt.tools.XRandom;
 import xpt.tools.XTools;
 import xpt.ui.custom.NumberStepper;
 
@@ -55,11 +55,11 @@ class StimMultipleChoice extends StimulusBuilder {
 		}
 		
 		var iconPosition:String = get("iconPosition");
-		var group:String = "" + Random.string(10);
+		var group:String = "" + XRandom.string(10);
 		if (get("labels") != null) {
 			var labels:String = get("labels");
 			var labelsArr:Array<String> = labels.split(",");
-			if (getBool('random', false)) Random.shuffle(labelsArr);
+			if (getBool('random', false)) XRandom.shuffle(labelsArr);
 			for (label in labelsArr) {
 				var button:Button = new Button();
 				button.text = label;
