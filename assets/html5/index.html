@@ -70,6 +70,26 @@
 			font-weight: normal;
 			font-style: normal;
 		}
+		@font-face {
+			font-family: 'SquareFont';
+			src: url('assets/img/square.eot');
+			src: url('assets/img/square.eot?#iefix') format('embedded-opentype'),
+			url('assets/img/square.svg#my-font-family') format('svg'),
+			url('assets/img/square.woff') format('woff'),
+			url('assets/img/square.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'SquareFont';
+			src: url('img/square.eot');
+			src: url('img/square.eot?#iefix') format('embedded-opentype'),
+			url('img/square.svg#my-font-family') format('svg'),
+			url('img/square.woff') format('woff'),
+			url('img/square.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
 
 	</style>
 	
@@ -81,15 +101,7 @@
 
 	
 	<script type="text/javascript">
-		if(window.innerWidth >= 0 && window.innerHeight >= 0) lime.embed ("openfl-content", 0, 0, "FFFFFF");
-		else{
-			var element = document.getElementById("openfl-content");
-			element.parentNode.removeChild(element);
-			document.write("<h2>Sorry, we are afraid that this experiment requires your browser window to be larger than 1024 x 768 pixels. Yours is currently " + window.innerWidth + " x " + window.innerHeight + ". You could try maximising your browser window, or rotating your device so that you are holding it horizotally, and then reload this webpage.</h2>");
-		}
-		
-		
-		
+		lime.embed ("openfl-content", 0, 0, "FFFFFF");
 	</script>
 </body>
 </html>
