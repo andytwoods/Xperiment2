@@ -7,6 +7,7 @@ import haxe.ui.toolkit.events.UIEvent;
 import thx.Arrays;
 import thx.Strings;
 import xpt.stimuli.StimulusBuilder;
+import xpt.tools.Random;
 import xpt.ui.custom.NumberStepper;
 
 class StimCheckBoxes extends StimulusBuilder {

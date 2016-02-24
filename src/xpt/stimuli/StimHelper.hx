@@ -1,4 +1,6 @@
 package xpt.stimuli;
+import xpt.tools.Random;
+import xpt.tools.XTools;
 
 class StimHelper {
     public static function shuffle(list:Array<Stimulus>, fixedProps:Array<String> = null) {

@@ -1,4 +1,5 @@
 package xpt.script;
+import xpt.tools.Random;
 import xpt.tools.XTools;
 
 
@@ -12,7 +13,7 @@ class ToRun
 
 	static public function select(how:HowSelectCond, options:Array<String>):String
 	{
-		return XTools.arrayShuffle(options)[0];
+		return Random.randomlySelect(options);
 	}
 	
 }

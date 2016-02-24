@@ -2,6 +2,7 @@ package xpt.trialOrder;
 
 import haxe.Json;
 import thx.Arrays;
+import xpt.tools.Random;
 import xpt.tools.XML_tools;
 import xpt.tools.XTools;
 import xpt.trialOrder.TrialBlock.ForceBlockPosition;
@@ -259,7 +260,7 @@ class TrialBlock
 	
 	public function doOrdering():Void{
 		//trace(1212112, order,trials);
-		if(order=='' || order=='RANDOM')trials = XTools.arrayShuffle(trials);
+		if(order=='' || order=='RANDOM')trials = Random.shuffle(trials);
 		else if(order=="FIXED"){
 			//do nothing}
 		}

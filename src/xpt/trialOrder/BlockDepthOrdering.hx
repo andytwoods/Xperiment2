@@ -1,5 +1,6 @@
 package xpt.trialOrder;
 import haxe.Json;
+import xpt.tools.Random;
 import xpt.tools.XTools;
 
 /**
@@ -137,7 +138,7 @@ class BlockDepthOrdering
 			case OrderType.FIXED: 
 				
 			case OrderType.RANDOM:
-				XTools.arrayShuffle(atDepth_trialBlocks);
+				Random.shuffle(atDepth_trialBlocks);
 
 			case OrderType.REVERSED:
 				atDepth_trialBlocks.reverse();

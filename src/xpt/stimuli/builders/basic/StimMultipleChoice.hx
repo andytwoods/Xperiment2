@@ -5,6 +5,8 @@ import haxe.ui.toolkit.controls.Button;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.events.UIEvent;
 import xpt.stimuli.StimulusBuilder;
+import xpt.tools.Random;
+import xpt.tools.XTools;
 import xpt.ui.custom.NumberStepper;
 
 class StimMultipleChoice extends StimulusBuilder {

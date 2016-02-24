@@ -5,6 +5,7 @@ import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.events.UIEvent;
 import thx.Floats;
 import xpt.stimuli.StimulusBuilder;
+import xpt.tools.Random;
 import xpt.ui.custom.LineScale;
 
 class StimLineScale extends StimulusBuilder {

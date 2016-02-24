@@ -12,6 +12,7 @@ import xpt.tools.XTools;
 class Xpt {
 
 	
+	
 	public static inline var localExptDirectory:String = "experiments/";
 	public static var exptName:String;
 	
@@ -32,7 +33,7 @@ class Xpt {
 		
 		
         DiagnosticsManager.add(DiagnosticsManager.EXPERIMENT_START, exptName);
-         
+        
 		
         #if (debug && !html5)
             var tests:xpt.Tests = new xpt.Tests(start);
