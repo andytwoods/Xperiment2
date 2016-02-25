@@ -20,7 +20,7 @@
 	<haxeflag name="-D haxeui-no-gif-support" />
 
 	<window fps="60" />
-	<window width="1200" height="768" resizable="true" unless="mobile" />
+	<window width="1024" height="768" resizable="true" unless="mobile" />
 	<window orientation="landscape" fps="60" hardware="true" vsync="false" antialiasing="0" if="cpp" />
 	
 	<!-- classpath, haxe libs -->

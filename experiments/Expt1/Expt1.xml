@@ -24,8 +24,8 @@ Esperamos que lo disfrute. Su participación es muy importante para nosotros."
 	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />
 	
 	
-	<preloadProgress x="20" y="540"  horizontalAlign="left" width="60%" height="40" />
-	<preloadReadyButton x="85%" y="540" width="30%" height="40" text="spanish next (SPACE)" key=" " fontSize="18" />
+	<preloadProgress x="20" y="70%"  horizontalAlign="left" width="60%" height="10%" />
+	<preloadReadyButton x="85%" y="70%" width="30%" height="10%" text="spanish next (SPACE)" key=" " fontSize="18" />
 	
 </TRIAL>
 

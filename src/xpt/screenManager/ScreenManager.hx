@@ -26,8 +26,11 @@ class ScreenManager
 	public var stage:Stage;
 	
 	public static var _instance:ScreenManager;
-	static public var NOMINAL_WIDTH:Int = 1024;// 2048;
-	static public var NOMINAL_HEIGHT:Int = 768;// 1536;
+	static public var NOMINAL_WIDTH:Int = 1024; // moreso defining an aspect ratio
+	static public var NOMINAL_HEIGHT:Int = 768;
+	
+	static private var width_multiplier:Float = 1;
+	static private var height_multiplier:Float = 1;
 	
 	private var stageScaleX:Float;
 	private var stageScaleY:Float;
@@ -49,28 +52,34 @@ class ScreenManager
 	
 		callbacks = new Array<Float->Float->Void>();
 		
+		#if html
+			width_multiplier = height_multiplier = Browser.window.devicePixelRatio
+		#end
+		
 		root = RootManager.instance.currentRoot;
 		stage = Lib.current.stage;
 	
+
 		stage.addEventListener(Event.RESIZE, onResize);
 		onResize(null);
+		
 	}
 	
 
 	private function onResize(e:Event):Void {
 		
-		stageScaleX = stage.stageWidth / NOMINAL_WIDTH;
-		stageScaleY = stage.stageHeight / NOMINAL_HEIGHT;
+		stageScaleX = stage.stageWidth / NOMINAL_WIDTH ;// * width_multiplier;
+		stageScaleY = stage.stageHeight / NOMINAL_HEIGHT;// * height_multiplier;
 		stageScale = Math.min(stageScaleX, stageScaleY);
 		
-		if (stageScale > 1) stageScale = 1;
+		//if (stageScale > 1) stageScale = 1;
 		
 
 		root.width = NOMINAL_WIDTH * stageScale;
 		root.height = NOMINAL_HEIGHT * stageScale;
 
 		
-		root.sprite.scaleX = root.sprite.scaleY = stageScale;
+		if(stageScale < 1) root.sprite.scaleX = root.sprite.scaleY = stageScale;
 	
 		root.x = (stage.stageWidth - NOMINAL_WIDTH * stageScale) * .5;		
 		root.y = (stage.stageHeight - NOMINAL_HEIGHT * stageScale) * .5;

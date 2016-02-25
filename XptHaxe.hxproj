@@ -6,7 +6,7 @@
     <movie input="" />
     <movie path="project.xml" />
     <movie fps="60" />
-    <movie width="1200" />
+    <movie width="1024" />
     <movie height="768" />
     <movie version="0" />
     <movie minorVersion="0" />
@@ -40,7 +40,7 @@
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="--remap flash:openfl&#xA;--macro allowPackage(&quot;flash&quot;)" />
+    <option additional="--remap flash:openfl&#xA;--macro allowPackage(&quot;flash&quot;)&#xA;-debug " />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
