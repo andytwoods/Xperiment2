@@ -7,9 +7,10 @@ import openfl.text.Font;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 import openfl.text.TextFieldAutoSize;
+import xpt.tools.XTools;
 
 #if html5
-	@:font("assets/fonts/Oxygen.ttf") class DefaultFont extends Font {}
+	@:font("assets/fonts/Oxygen-Bold.ttf") class DefaultFont extends Font {}
 //@:bitmap("assets/img/logo.png") class Splash extends BitmapData {}
 #end
 
@@ -43,21 +44,25 @@ class LoadingScreen extends NMEPreloader
 	
 	function text() 
 	{
+		textInfo = new TextField();
+		var tf:TextFormat = null;
+		
 		#if html5
 			Font.registerFont (DefaultFont);
-			
-			var tf = new TextFormat ("OxygenFont", 20, 0x888888);
-
-			textInfo = new TextField();
-			textInfo.defaultTextFormat = tf;
+			var tf = new TextFormat ("OxygenFont", 40, 0x888888);
 			textInfo.embedFonts = true;
-			textInfo.selectable = false;
-			textInfo.text = "Loading your experiment";
-			textInfo.autoSize = TextFieldAutoSize.LEFT;
-			textInfo.x = 400;
-
-			addChild(textInfo);
+		#else
+			var tf = new TextFormat (null, 40, 0x888888);		
 		#end
+
+		textInfo.defaultTextFormat = tf;
+		textInfo.selectable = false;
+		textInfo.text = "Loading your experiment";
+		textInfo.autoSize = TextFieldAutoSize.CENTER;
+		textInfo.x = (this.width - textInfo.width) *.5;
+
+		addChild(textInfo);
+
 	}
     
 	/*public override function onUpdate(bytesLoaded:Int, bytesTotal:Int):Void {
@@ -66,10 +71,17 @@ class LoadingScreen extends NMEPreloader
 	
 	
 	override public function onLoaded () {
-		#if html5
-			removeChild(textInfo);
-		#end
+
+		
+
 		//removeChild(splash);
-		super.onLoaded();		
+		XTools.delay(500, function(){
+			hack();
+		});
+	}
+	
+	function hack() {
+		removeChild(textInfo);
+		super.onLoaded();
 	}
 }

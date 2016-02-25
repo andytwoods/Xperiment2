@@ -26,8 +26,8 @@ class ScreenManager
 	public var stage:Stage;
 	
 	public static var _instance:ScreenManager;
-	static public var NOMINAL_WIDTH:Int = 1024;
-	static public var NOMINAL_HEIGHT:Int = 768;
+	static public var NOMINAL_WIDTH:Int = 1024;// 2048;
+	static public var NOMINAL_HEIGHT:Int = 768;// 1536;
 	
 	private var stageScaleX:Float;
 	private var stageScaleY:Float;

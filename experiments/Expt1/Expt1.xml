@@ -1,8 +1,8 @@
-<multi __ignore__forceToRun="exptR">
+<multi forceToRun="exptR">
 <exptA exptType="WEB">
 
 <SETUP>  
-	  <screen backgroundColour="gray" orientation="vertical" ></screen>                          
+	  <screen backgroundColour="white" orientation="vertical" ></screen>                          
 	  <computer  encrypt='false' />
 	  <style BUTTON_DOWN="0xff5656"  />
 	  <variables practice='0' />
@@ -35,9 +35,7 @@ Esperamos que lo disfrute. Su participación es muy importante para nosotros."
 Al presionar el botón que dice 'Estoy de acuerdo' usted indicará que acepta participar en la investigación.
 En este estudio le pediremos que busque marcas. Al final del estudio le contaremos un poco más acerca del propósito de la investigación. Usted también puede ponerse en contacto con el Dr. Carlos Velasco (carlos.velasco@psy.ox.ac.uk) o el Dr. Andy Woods (andy@xperiment.mobi) para más información.
 
--Continúa en la siguiente página-; 
 Por favor lea el consentimiento informado presentado a continuacion e indique si está de acuerdo o no.
-{u}Statement of Informed Consent{/u}
 1. He leído y entendido la información presentada arriba, y entiendo el propósito general del experimento.
 2. Entiendo que me puedo retirar del estudio en cualquier momento y que al hacerlo nosotros destruiremos sus datos. Usted puede retirarse en cualquier momento, por cualquier motivo. (NB – Note que los datos recolectados son anónimos -  si usted cambia de parecer al terminar el experimento, nosotros no podremos rastrear sus datos específicos para borrarlos.
 3. Entiendo que mis respuestas son anónimas.
@@ -45,7 +43,7 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
 		</.text></text>
 	
 	
-	<nextTrialButton y="540" width="200" height="40" text="I CONSENT" horizontalAlign="right" x="99%" fontSize="18" />
+	<nextTrialButton y="540" width="200" height="40" text="Estoy de acuerdo" horizontalAlign="right" x="99%" fontSize="18" />
 </TRIAL>
 
 
@@ -56,30 +54,30 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
 	<text text="¿Cuál es su país de origen?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
 	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
     <text text="Edad:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
-	<age y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
+	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
 	<nextTrialButton y="50%" x="50%" width="200" height="40" horizontalAlign="center"  fontSize="18" />
 </TRIAL>	
 	
 
 
-<TRIAL template="template"  block="-10" trials="2">
+<TRIAL template="template"  block="10" trials="2">
 	<text copyOverId="taste1" text1="Dulce|Ácido"/>
 	<text copyOverId="taste2" text="Para nada dulce---Muy dulce|Para nada ácido---Muy ácido" />
 </TRIAL>	
 
 <TRIAL template="template"  block="15" >
-	<text copyOverId="taste1" text="Por favor mueva estos empaques a la caja de abajo, organizándolos de acuerdo a qúé tanto " text1="le gusta" text2=" cada empaque."/>
+	<text copyOverId="taste1" text="Por favor mueva estos empaques a la recuadro de abajo, organizándolos de acuerdo a qué tanto " text1="le gusta" text2=" cada empaque."/>
 	<text copyOverId="taste2" text="No me gustan para nada---Me gustan mucho" />
 </TRIAL>	
 	
 <TRIAL template="template"  block="15" >
-	<text copyOverId="taste1" text="Por favor mueva estos empaques a la caja de abajo, organizándolos de acuerdo a qúé tan" text1="familares" text2=" le parecen los empaques."/>
+	<text copyOverId="taste1" text="Por favor mueva estos empaques al recuadro de abajo, organizándolos de acuerdo a qué tan " text1="familares" text2=" le parecen los empaques."/>
 	<text copyOverId="taste2" text="Para nada familiares---Muy familiares" />
 </TRIAL>	
 
 <template order="random" trials="1">
 
-	<text id="taste" textAlign="center" copyOverId="taste1" text2="." fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" text="Por favor mueva estos empaques a la caja de abajo, organizándolos de acuerdo a qúé tanto los asocia con productos con sabor "/>
+	<text id="taste" textAlign="center" copyOverId="taste1" text2="." fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" text="Por favor mueva estos empaques en el recuadro de abajo, organizándolos de acuerdo a qué tanto los asocia con productos con sabor "/>
 	
 	<image howMany="4" verticalAlign="bottom" y="32%" group="g1" id="1---1---2---2" id1="F---N" resource="1---1---2---2" resource1="F---N" multiId="over_image" resource2="A" resource3=".png" x="20%---40%---60%---80%"   />
 	
@@ -89,20 +87,19 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
 	
 	<text copyOverId="taste2" horizontalAlign="left---right" y="90%" textAlign="left---right" x="0%---100%" howMany="2" fontSize="30" height="50" width="400" />
     
-    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="center" marginTop="50" y="53%" width="99%" height="50%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2"  />
+    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="center" marginTop="50" y="53%" width="99%" height="50%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" fillColour="#FFFFFF" />
 
-    <nextTrialButton y="99%" key=" " verticalAlign="bottom" text="next (SPACE)" width="200" height="40" horizontalAlign="center" fontSize="18" />
+    <nextTrialButton y="99%" verticalAlign="bottom" width="200" key=" " text="next (SPACE)" height="40" horizontalAlign="center" fontSize="18" />
 	
 	<results dv="taste.text1" />
 </template>
 	
-<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="10">
 
 <text  colour="black" timeStart="0" width="80%"  height="50%" fontSize="30">
 	<.text>Muchas gracias por haber participado en este estudio. Estamos explorando la forma en la que las personas asocian formas de empaques y sabores. En estudios previos se ha mostrado que asociamos los empaques angulares con acidez y los empaques redondos con dulce. Esto es lo que usted nos ha ayudado a evaluar con este estudio online. Si tiene alguna pregunta o quisiera saber más de nuestra investigación, por favor póngase en contacto con nosotros en carlos@imagineeringinstitute.org</.text>
 </text>
 
-<link text="Prolific Academic Link" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB" />
 
 </TRIAL>	
 	

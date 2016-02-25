@@ -1,4 +1,5 @@
 package screenManager;
+import haxe.ui.toolkit.core.RootManager;
 import openfl.display.Stage;
 import openfl.events.Event;
 import openfl.Lib;
@@ -10,14 +11,16 @@ import openfl.Lib;
 class ScreenManager_web
 {
 
-	static public var NOMINAL_WIDTH:Int = 1024;
-	static public var NOMINAL_HEIGHT:Int = 768;
+	static public var NOMINAL_WIDTH:Int = 2048;
+	static public var NOMINAL_HEIGHT:Int = 1536;
 	
 	private static var stage:Stage;
 	
 	static public function init(_stage:Stage) 
 	{
 		stage = _stage;
+		trace(13434333);
+		RootManager.instance.currentRoot.autoSize = true;
 		stage.addEventListener(Event.RESIZE, onResize);
         onResize(null);
 	}
@@ -27,20 +30,21 @@ class ScreenManager_web
 		var stageScaleX:Float = stage.stageWidth / NOMINAL_WIDTH;
 		var stageScaleY:Float = stage.stageHeight / NOMINAL_HEIGHT;
 		
+		trace(111,stageScaleX. stageScaleY);
 		var stageScale:Float = Math.min(stageScaleX, stageScaleY);
 		
-		Lib.current.x = 0;
-		Lib.current.y = 0;
-		Lib.current.scaleX = stageScale;
-		Lib.current.scaleY = stageScale;
+		Lib.current.width = stageScale * NOMINAL_WIDTH;
+		Lib.current.height = stageScale * NOMINAL_HEIGHT;
 		
-		if (stageScaleX > stageScaleY) {
 
+		if (stageScaleX > stageScaleY) {
 			Lib.current.x = (stage.stageWidth - NOMINAL_WIDTH * stageScale) / 2;
+			Lib.current.y = 0;
 		} else {
+			Lib.current.x = 0;
 			Lib.current.y = (stage.stageHeight - NOMINAL_HEIGHT * stageScale) / 2;
 		}
-		//trace(Lib.current.x, Lib.current.y,stage.stageWidth,stage.stageHeight);
+
     }
 	
 	
