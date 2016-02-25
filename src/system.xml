@@ -110,7 +110,7 @@
 			<id>sex</id>
 			<labels>Male,Female</labels>
 			<buttonWidth>50%</buttonWidth>
-            <valid>Male,Female</valid>
+            <valid>notEmpty()</valid>
             <icons>img/icons/user-nude.png,img/icons/user-nude-female.png</icons>   
 		</sex>
 		<origin builder="xpt.stimuli.builders.basic.StimComboBox">

@@ -1,5 +1,5 @@
-<multi forceToRun="exptR">
-<exptA exptType="WEB">
+<multi forceToRun="exptRA">
+<exptAR exptType="WEB">
 
 <SETUP>  
 	  <screen backgroundColour="white" orientation="vertical" ></screen>                          
@@ -24,8 +24,8 @@ Esperamos que lo disfrute. Su participación es muy importante para nosotros."
 	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />
 	
 	
-	<preloadProgress x="20" y="540"  horizontalAlign="left" width="70%" height="40" />
-	<preloadReadyButton x="85%" y="540" width="20%" height="40" fontSize="18" />
+	<preloadProgress x="20" y="540"  horizontalAlign="left" width="60%" height="40" />
+	<preloadReadyButton x="85%" y="540" width="30%" height="40" text="spanish next (SPACE)" key=" " fontSize="18" />
 	
 </TRIAL>
 
@@ -34,7 +34,7 @@ Esperamos que lo disfrute. Su participación es muy importante para nosotros."
 <text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top"><.text>Antes de empezar le vamos a pedir que lea el siguiente texto.
 Al presionar el botón que dice 'Estoy de acuerdo' usted indicará que acepta participar en la investigación.
 En este estudio le pediremos que busque marcas. Al final del estudio le contaremos un poco más acerca del propósito de la investigación. Usted también puede ponerse en contacto con el Dr. Carlos Velasco (carlos.velasco@psy.ox.ac.uk) o el Dr. Andy Woods (andy@xperiment.mobi) para más información.
-
+xpt
 Por favor lea el consentimiento informado presentado a continuacion e indique si está de acuerdo o no.
 1. He leído y entendido la información presentada arriba, y entiendo el propósito general del experimento.
 2. Entiendo que me puedo retirar del estudio en cualquier momento y que al hacerlo nosotros destruiremos sus datos. Usted puede retirarse en cualquier momento, por cualquier motivo. (NB – Note que los datos recolectados son anónimos -  si usted cambia de parecer al terminar el experimento, nosotros no podremos rastrear sus datos específicos para borrarlos.
@@ -43,43 +43,74 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
 		</.text></text>
 	
 	
-	<nextTrialButton y="540" width="200" height="40" text="Estoy de acuerdo" horizontalAlign="right" x="99%" fontSize="18" />
+	<nextTrialButton y="540" width="300" height="40" text="Estoy de acuerdo (SPACE)" key=" " horizontalAlign="right" x="99%" fontSize="18" />
 </TRIAL>
 
 
 <TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
 	<text text="Algunas preguntas:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
 	<text text="Sexo:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
-	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
+	<sex labels="malo,femalo" y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
 	<text text="¿Cuál es su país de origen?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
 	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
     <text text="Edad:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
 	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
-	<nextTrialButton y="50%" x="50%" width="200" height="40" horizontalAlign="center"  fontSize="18" />
+	<nextTrialButton y="50%" x="50%" width="300" height="40" text="spanish next (SPACE)" horizontalAlign="center" key=" " fontSize="18" />
 </TRIAL>	
 	
 
 
-<TRIAL template="template"  block="10" trials="2">
+<TRIAL template="b1,template"  block="10" trials="2">
 	<text copyOverId="taste1" text1="Dulce|Ácido"/>
 	<text copyOverId="taste2" text="Para nada dulce---Muy dulce|Para nada ácido---Muy ácido" />
 </TRIAL>	
 
-<TRIAL template="template"  block="15" >
+<TRIAL template="b1,template"  block="15" >
 	<text copyOverId="taste1" text="Por favor mueva estos empaques a la recuadro de abajo, organizándolos de acuerdo a qué tanto " text1="le gusta" text2=" cada empaque."/>
 	<text copyOverId="taste2" text="No me gustan para nada---Me gustan mucho" />
 </TRIAL>	
 	
-<TRIAL template="template"  block="15" >
+<TRIAL template="b1,template"  block="15" >
 	<text copyOverId="taste1" text="Por favor mueva estos empaques al recuadro de abajo, organizándolos de acuerdo a qué tan " text1="familares" text2=" le parecen los empaques."/>
 	<text copyOverId="taste2" text="Para nada familiares---Muy familiares" />
 </TRIAL>	
+	
+	
+
+<TRIAL TYPE="Trial" hideResults="true" block="30" order="fixed" trials="1">
+	<text text="You are half way." width="50%" height="10%" fontSize="30" textAlign="center" />
+	<nextTrialButton y="540" width="400" height="40" text="Estoy de acuerdo (SPACE)" key=" " fontSize="18" />
+</TRIAL>
+	
+	
+<TRIAL template="b2,template"  block="50" trials="2">
+	<text copyOverId="taste1" text1="Dulce|Ácido"/>
+	<text copyOverId="taste2" text="Para nada dulce---Muy dulce|Para nada ácido---Muy ácido" />
+</TRIAL>	
+
+<TRIAL template="b2,template"  block="55" >
+	<text copyOverId="taste1" text="Por favor mueva estos empaques a la recuadro de abajo, organizándolos de acuerdo a qué tanto " text1="le gusta" text2=" cada empaque."/>
+	<text copyOverId="taste2" text="No me gustan para nada---Me gustan mucho" />
+</TRIAL>	
+	
+<TRIAL template="b2,template"  block="55" >
+	<text copyOverId="taste1" text="Por favor mueva estos empaques al recuadro de abajo, organizándolos de acuerdo a qué tan " text1="familares" text2=" le parecen los empaques."/>
+	<text copyOverId="taste2" text="Para nada familiares---Muy familiares" />
+</TRIAL>	
+	
+<b1>
+	<image copyOverId="over_image" multiId="over_imageB1" resource2="A" />
+</b1>
+	
+<b2>
+	<image copyOverId="over_image" multiId="over_imageB2" resource2="R" />
+</b2>
 
 <template order="random" trials="1">
 
 	<text id="taste" textAlign="center" copyOverId="taste1" text2="." fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" text="Por favor mueva estos empaques en el recuadro de abajo, organizándolos de acuerdo a qué tanto los asocia con productos con sabor "/>
 	
-	<image howMany="4" verticalAlign="bottom" y="32%" group="g1" id="1---1---2---2" id1="F---N" resource="1---1---2---2" resource1="F---N" multiId="over_image" resource2="A" resource3=".png" x="20%---40%---60%---80%"   />
+	<image scale="1.2" howMany="4" copyOverId="over_image" verticalAlign="bottom" y="32%" group="g1" id="1---1---2---2" id1="F---N" resource="1---1---2---2" resource1="F---N"  resource3=".png" x="20%---40%---60%---80%"   />
 	
 	<shuffle groups="g1" />
     
@@ -91,7 +122,7 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
 
     <nextTrialButton y="99%" verticalAlign="bottom" width="200" key=" " text="next (SPACE)" height="40" horizontalAlign="center" fontSize="18" />
 	
-	<results dv="taste.text1" />
+	<results multiId="over_results" block_group="AR" dv="taste.text1" />
 </template>
 	
 <TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="10">
@@ -104,13 +135,13 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
 </TRIAL>	
 	
 
-</exptA>
+</exptAR>
 	
-<exptR>
+<exptRA>
+	<over_image resourceB1="R" />
+	<over_image resourceB2="A" />
 	
-	<over_image resource2="R" />
-	
-	
-</exptR>	
+	<over_results block_group="RA"/>
+</exptRA>	
 	
 </multi>

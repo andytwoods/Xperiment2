@@ -97,6 +97,15 @@ class StimulusBuilder {
         return arr;
     }
     
+	public function getFloat(what:String, defaultValue:Float = -1):Float {
+		var i = defaultValue;
+		var v = get(what);
+		if (v != null) {
+			i = Std.parseFloat(v);
+		}
+		return i;
+	}
+	
 	public function getInt(what:String, defaultValue:Int = -1):Int {
 		var i = defaultValue;
 		var v = get(what);

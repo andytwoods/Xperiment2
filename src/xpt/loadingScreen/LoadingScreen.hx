@@ -71,17 +71,10 @@ class LoadingScreen extends NMEPreloader
 	
 	
 	override public function onLoaded () {
-
-		
-
 		//removeChild(splash);
-		XTools.delay(500, function(){
-			hack();
-		});
-	}
-	
-	function hack() {
 		removeChild(textInfo);
 		super.onLoaded();
 	}
+	
+
 }
