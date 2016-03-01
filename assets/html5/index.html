@@ -15,7 +15,8 @@
 	<script type="text/javascript" src="./lib/webgl-debug.js"></script>
 	<script type="text/javascript" src="./lib/soundjs.min.js"></script>
 	<script type="text/javascript" src="./lib/soundjs.min.js"></script>
-	<script type="text/javascript" src="./XptHaxe.js"></script>
+	<!--<script type="text/javascript" src="./XptHaxe.js"></script>-->
+	<script>document.write('<script src="./XptHaxe.js?dev=' + Math.floor(Math.random() * 10000) + '"\><\/script>');</script>
 		
 	<script type="text/javascript" src="./FileSaver.min.js"></script>
 	
@@ -23,8 +24,11 @@
 		window.addEventListener ("touchmove", function (event) { event.preventDefault (); }, false);
 		if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
 			var meta = document.getElementById ("viewport");
-			//meta.setAttribute ('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no');
+			meta.setAttribute ('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no');
 		}
+		
+		
+		
 	</script>
 	
 	<style>
@@ -71,42 +75,37 @@
 			font-weight: normal;
 			font-style: normal;
 		}
+		
+
+
 
 	</style>
 	
 </head>
 <body>
+
+
 	<div id="openfl-content"></div>
 
-
-	
 	<script type="text/javascript">
+
+      	if(window.devicePixelRatio==1) 	lime.embed("openfl-content", 0, 0, "FFFFFF");
+        else	runOnDevice();
+        
 		
-      	var scale =  window.devicePixelRatio;
-      
-      	if(scale==1){
-      		lime.embed("openfl-content", 0, 0, "FFFFFF");
-       		
+		function runOnDevice(){
+		  var w = window.innerWidth;
+		  var h = window.innerHeight;
+		  
+		  lime.embed("openfl-content", w*2,h*2, "FFFFFF");
+		  //lime.embed("openfl-content", w,h, "FFFFFF");
+		  var canvas = document.getElementById ("openfl-content").firstChild;
 
-              //var canvas = document.getElementById ("openfl-content").firstChild;
-      		  //console.log(canvas, typeof(canvas));
-    
-
-      	}
-        else{
-         
-          w = window.innerWidth;
-          h = window.innerHeight;
-     
-          lime.embed("openfl-content", w*2, h*2, "FFFFFF");
-
-          var canvas = document.getElementById ("openfl-content").firstChild;
-
-          canvas.style.width = String(w)+"px";
-          canvas.style.height =  String(h)+"px";
-          context = canvas.context2d;
-          context.translate(.5,.5);
-        }
+		  canvas.style.width = String(w)+"px";
+		  canvas.style.height =  String(h)+"px";
+		  var context = canvas.getContext('2d');
+		  context.translate(.5,.5);
+		  }
       	
       	
 	</script>

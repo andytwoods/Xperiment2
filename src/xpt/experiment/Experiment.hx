@@ -17,6 +17,7 @@ import xpt.preloader.Preloader_extract_loadable;
 import xpt.results.Results;
 import xpt.results.ResultsFeedback;
 import xpt.results.TrialResults;
+import xpt.screenManager.RotateYourScreen;
 import xpt.screenManager.ScreenManager;
 import xpt.script.ProcessScript;
 import xpt.stimuli.BaseStimuli;
@@ -84,7 +85,11 @@ class Experiment extends EventDispatcher {
 		
 		setupTrials(script);
 
-		firstTrial();	
+		ScreenManager.instance.orientation(ExptWideSpecs.IS('orientation'));
+		RotateYourScreen.instance.monitor(function(){
+			ScreenManager.instance.refresh();
+			firstTrial();
+		});	
 	}
 	
 
