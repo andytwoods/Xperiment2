@@ -99,7 +99,7 @@ class ScreenManager
 		stage = Lib.current.stage;
 	
 		#if html5
-			width_multiplier = height_multiplier = Browser.window.devicePixelRatio;
+			width_multiplier = height_multiplier = 1;// Browser.window.devicePixelRatio;
 			Browser.window.addEventListener("orientationchange", function(e:String){ 
 				
 				onResize(null);
@@ -138,9 +138,14 @@ class ScreenManager
 		
 		#if html5
 		
-			var w:Int = Browser.window.innerHeight; 	
-			var h:Int = Browser.window.innerWidth ;
+			var w:Int = Browser.window.innerWidth; 	
+			var h:Int = Browser.window.innerHeight;
 
+			if ((screenOrientation() == Horizontal && w < h) || (screenOrientation() == Vertical && w > h)) {
+				var swapInt:Int = w;
+				w = h;
+				h = swapInt;
+			}
 
 		#else
 			var w:Int = stage.stageWidth;
@@ -153,11 +158,13 @@ class ScreenManager
 		
 		stageScale = Math.min(stageScaleX, stageScaleY);
 
-		root.width = NOMINAL_WIDTH * stageScale *width_multiplier;
+		root.width = NOMINAL_WIDTH * stageScale *width_multiplier ;
 		root.height = NOMINAL_HEIGHT * stageScale * height_multiplier;
+		
+		trace(w,h,root.width, root.height, stageScale, width_multiplier);
 
-		//root.x = (w - NOMINAL_WIDTH * stageScale *width_multiplier) * .5;		
-		//root.y = (h - NOMINAL_HEIGHT * stageScale * height_multiplier) * .5;
+		//root.x = (w - root.width) * .5;		
+		//root.y = (h - root.height ) * .5;
 	
 
 		

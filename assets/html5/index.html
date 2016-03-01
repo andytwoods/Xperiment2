@@ -88,8 +88,8 @@
 	<div id="openfl-content"></div>
 
 	<script type="text/javascript">
-
-      	if(window.devicePixelRatio==1) 	lime.embed("openfl-content", 0, 0, "FFFFFF");
+		var dpr = window.devicePixelRatio;
+      	if(dpr==1) 	lime.embed("openfl-content", 0, 0, "FFFFFF");
         else	runOnDevice();
         
 		
@@ -97,14 +97,15 @@
 		  var w = window.innerWidth;
 		  var h = window.innerHeight;
 		  
-		  lime.embed("openfl-content", w*2,h*2, "FFFFFF");
+		  dpr = 1;
+		  lime.embed("openfl-content", w*dpr,h*dpr, "FFFFFF");
 		  //lime.embed("openfl-content", w,h, "FFFFFF");
 		  var canvas = document.getElementById ("openfl-content").firstChild;
 
 		  canvas.style.width = String(w)+"px";
 		  canvas.style.height =  String(h)+"px";
 		  var context = canvas.getContext('2d');
-		  context.translate(.5,.5);
+		  context.translate(1/dpr,1/dpr);
 		  }
       	
       	
