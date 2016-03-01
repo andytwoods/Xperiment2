@@ -87,8 +87,7 @@ class StimuliFactory {
 				}
 				scriptBasedProp = new ScriptBasedProp();
 				scriptBasedProp.f = function(stimuli:Array<Stimulus>) {	
-					
-					val = Scripting.expandScriptValues(val, ["index" => copyNum, 'Trial'=> trial], exceptions);
+					val = Scripting.expandScriptValues(val, ["index" => copyNum, 'Trial'=> trial], exceptions, stimuli);
 					stimProps.set(key, val);
 				}
 				

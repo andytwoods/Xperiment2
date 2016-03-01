@@ -81,6 +81,7 @@ class ExptWideSpecs
 		map.set("deviceUUID","");
 		map.set('uuid', Uuid.create().split("-").join(""));
 		map.set('backgroundColour', 'white');
+		map.set('orientation', 'horizontal');
 	//blocking
 		map.set("blockDepthOrder","");
 	//saving

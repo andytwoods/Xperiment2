@@ -24,8 +24,8 @@ Esperamos que lo disfrute. Su participación es muy importante para nosotros."
 	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />
 	
 	
-	<preloadProgress x="20" y="70%"  horizontalAlign="left" width="60%" height="10%" />
-	<preloadReadyButton x="85%" y="70%" width="30%" height="10%" text="spanish next (SPACE)" key=" " fontSize="18" />
+	<preloadProgress x="20" y="540"  horizontalAlign="left" width="60%" height="40" />
+	<preloadReadyButton x="85%" y="540" width="30%" height="40" text="Siguiente (Espacio)" key=" " fontSize="18" />
 	
 </TRIAL>
 
@@ -43,19 +43,19 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
 		</.text></text>
 	
 	
-	<nextTrialButton y="540" width="300" height="40" text="Estoy de acuerdo (SPACE)" key=" " horizontalAlign="right" x="99%" fontSize="18" />
+	<nextTrialButton y="540" width="300" height="40" text="Estoy de acuerdo (Espacio)" key=" " horizontalAlign="right" x="99%" fontSize="18" />
 </TRIAL>
 
 
 <TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
 	<text text="Algunas preguntas:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
 	<text text="Sexo:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
-	<sex labels="malo,femalo" y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
+	<sex labels="Hombre,Mujer" y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
 	<text text="¿Cuál es su país de origen?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
 	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
     <text text="Edad:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
 	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
-	<nextTrialButton y="50%" x="50%" width="300" height="40" text="spanish next (SPACE)" horizontalAlign="center" key=" " fontSize="18" />
+	<nextTrialButton y="50%" x="50%" width="300" height="40" text="Siguiente (Espacio)" horizontalAlign="center" key=" " fontSize="18" />
 </TRIAL>	
 	
 
@@ -79,7 +79,7 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
 
 <TRIAL TYPE="Trial" hideResults="true" block="30" order="fixed" trials="1">
 	<text text="You are half way." width="50%" height="10%" fontSize="30" textAlign="center" />
-	<nextTrialButton y="540" width="400" height="40" text="Estoy de acuerdo (SPACE)" key=" " fontSize="18" />
+	<nextTrialButton y="540" width="400" height="40" text="Estoy de acuerdo (Espacio)" key=" " fontSize="18" />
 </TRIAL>
 	
 	
@@ -120,7 +120,7 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
     
     <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="center" marginTop="50" y="53%" width="99%" height="50%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" fillColour="#FFFFFF" />
 
-    <nextTrialButton y="99%" verticalAlign="bottom" width="200" key=" " text="next (SPACE)" height="40" horizontalAlign="center" fontSize="18" />
+    <nextTrialButton y="99%" verticalAlign="bottom" width="200" key=" " text="Siguiente (Espacio)" height="40" horizontalAlign="center" fontSize="18" />
 	
 	<results multiId="over_results" block_group="AR" dv="taste.text1" />
 </template>

@@ -34,6 +34,8 @@ class StimButton extends StimulusBuilder {
 			b.iconPosition = get("iconPosition");
 		}
 		
+		b.disabled = getBool("disabled", false);
+		
 		
 	}
 	
@@ -41,7 +43,15 @@ class StimButton extends StimulusBuilder {
 		super.onAddedToTrial();
 		if (get("key") != null) {
 			KeyPress.instance.listen(this, get("key"), function(char:Int) { 
-				b.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+				
+				
+				if ( get('keyEnabled', '').toLowerCase() == 'true') {
+					var disabled:Bool = b.disabled;
+					b.disabled = false;
+					b.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+					b.disabled = disabled;
+				}
+				else b.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 			} );
 		}
     }

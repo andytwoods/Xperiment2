@@ -44,6 +44,7 @@ class Trial {
 	public var experiment:Experiment;
 	
     private var _valid:Null<Bool> = null; // lets start the trial off as neither valid or invalid for good measure
+	private var trial_results:Map<String,String>;
     
     public var stimValuesValid(get, null):Bool;
     private function get_stimValuesValid():Bool {
@@ -153,7 +154,7 @@ class Trial {
 		trial_results.set(what, Std.string(val));
 	}
 	
-	private var trial_results:Map<String,String>;
+	
 	public function results():Map<String,String> 
 	{
 		return trial_results;

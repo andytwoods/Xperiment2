@@ -149,7 +149,7 @@ class Scripting
 	}
 	
 	static public function scriptableStimuli(stimuli:Array<Stimulus>, add:Bool) {
-	
+
 		for (bundle in all_bundles) {
 			for (stim in stimuli) {
 				if (stim.id != null) {
@@ -174,6 +174,7 @@ class Scripting
 		}
 		
 	}
+	
 	
 	static public inline function addStimuli(stimuli:Array<Stimulus>) 
 	{
@@ -217,13 +218,13 @@ class Scripting
 	private static function addExtraVars(bundle:ScriptBundle) 
 	{
 		
-		if(experiment.runningTrial !=null) bundle.add("Trial", experiment.runningTrial);
+		if (experiment.runningTrial != null) {
+			bundle.add("Trial", experiment.runningTrial);
+		}
 	}
 	
-
 	
-	//TO DO: merge below with above F
-	 public static function expandScriptValues(script:String, vars:Map<String, Dynamic> = null, exceptions:Array<String> = null ):String {
+	 public static function expandScriptValues(script:String, vars:Map<String, Dynamic> = null, exceptions:Array<String> = null, stimuli:Array<Stimulus> = null ):String {
    
 		var finalResult:String = script;
 		var n1:Int = finalResult.indexOf("${");
@@ -231,12 +232,20 @@ class Scripting
 		var bundle:ScriptBundle = getBundle();
 		
         if (vars != null) {
-			
             for (key in vars.keys()) {
 				if(key!=null)   bundle.add(key, vars.get(key));
             }
-            
         }
+		
+		if (stimuli != null) {
+            for (stimulus in stimuli) {
+				if (stimulus != null) {
+					bundle.add(stimulus.id, stimulus);
+				}
+            }   
+        }
+		
+		
 		
         
         while (n1 != -1) {

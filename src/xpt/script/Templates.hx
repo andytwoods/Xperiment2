@@ -64,7 +64,7 @@ class Templates
 		for (templateNam in require.templates) {
 			//trace(111, templateNam,222,require.templates,require.templates.length,require.templates[0].length,require.name);
 			template = templateMap.get(templateNam);
-			if (template == null) throw "devel err";
+			if (template == null) throw "Error: You probably have a typo in one of your template names ("+templateNam+").";
 			if (template.hasBeenTemplated == false) {
 				if (template.requested > 100) {
 					throw "Problem with your templates: infinitely looped.";
