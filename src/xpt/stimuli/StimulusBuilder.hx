@@ -17,6 +17,10 @@ import xpt.experiment.Experiment;
 import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.trial.Trial;
 
+#if html5
+	import js.Browser;
+#end
+
 class StimulusBuilder {
 	
 	@:allow(StimImage)
@@ -25,8 +29,13 @@ class StimulusBuilder {
 	public static var stageOffset_x:Float = 0;
 	public static var stageOffset_y:Float = 0;
 	
+	public static var fontSize_multiplier:Float;
+	
 	public function new() {
-		
+		#if html5
+			fontSize_multiplier = Browser.window.devicePixelRatio
+			if (fontSize_multiplier > 1) fontSize_multiplier * .75;
+		#end
 	}
 	
 	public static function updateTrial_XY(x:Float, y:Float) {
@@ -231,7 +240,9 @@ class StimulusBuilder {
 		}
         
 		if (getInt("fontSize") != -1) {
-            var n = getInt("fontSize");
+            trace(getInt("fontSize") , fontSize_multiplier);
+			var n = getInt("fontSize") * fontSize_multiplier;
+			
             if (n % 2 != 0) {
                 n++;
             }
