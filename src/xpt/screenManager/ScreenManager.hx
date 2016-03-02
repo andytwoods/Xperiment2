@@ -99,11 +99,15 @@ class ScreenManager
 		stage = Lib.current.stage;
 	
 		#if html5
-			width_multiplier = height_multiplier = 1;// Browser.window.devicePixelRatio;
-			Browser.window.addEventListener("orientationchange", function(e:String){ 
-				
-				onResize(null);
-			} );
+			width_multiplier = height_multiplier = Browser.window.devicePixelRatio;
+			if(width_multiplier>1){
+				Browser.window.addEventListener("orientationchange", function(e:String){ 
+					onResize(null);
+				} );
+			}
+			else {
+				stage.addEventListener(Event.RESIZE, onResize);
+			}
 
 		#else 
 			stage.addEventListener(Event.RESIZE, onResize);
@@ -131,15 +135,53 @@ class ScreenManager
 	
 	public function refresh() 
 	{
+		if (height_multiplier > 1) mobileDeviceRefresh();
+		else webRefresh();
+		
+		for (callBack in callbacks) {
+			callBack(root.x, root.y);
+		}
+	}
+	
+	inline function webRefresh() 
+	{
+		stageScaleX = stage.stageWidth / NOMINAL_WIDTH;
+		stageScaleY = stage.stageHeight / NOMINAL_HEIGHT;
+		stageScale = Math.min(stageScaleX, stageScaleY);
+		
+		if (stageScale > 1) stageScale = 1;
+		
+
+		root.width = NOMINAL_WIDTH * stageScale;
+		root.height = NOMINAL_HEIGHT * stageScale;
+	
+		root.sprite.scaleX = root.sprite.scaleY = stageScale;
+	
+		root.x = (stage.stageWidth - NOMINAL_WIDTH * stageScale) * .5;		
+		root.y = (stage.stageHeight - NOMINAL_HEIGHT * stageScale) * .5;
+		
+
+	}
+	
+	public var browserInnerWidth:Int = 0;
+	public var browserInnerHeight:Int = 0;
+	
+	inline function mobileDeviceRefresh() 
+	{
 		//dont do anything if an undesired screen orientation has occured. Screen hidden anyway upon this event.
-		//if (checkOrientation() == false) return;
+		if (checkOrientation() == false) return;
 		
 		var swap:Bool = false;
 		
 		#if html5
 		
-			var w:Int = Browser.window.innerWidth; 	
-			var h:Int = Browser.window.innerHeight;
+			if (browserInnerWidth == 0) {
+				browserInnerWidth = Browser.window.innerWidth; 	
+				browserInnerHeight = Browser.window.innerHeight;
+			}
+		
+			var w:Int = browserInnerWidth; 	
+			var h:Int = browserInnerHeight;
 
 			if ((screenOrientation() == Horizontal && w < h) || (screenOrientation() == Vertical && w > h)) {
 				var swapInt:Int = w;
@@ -152,25 +194,19 @@ class ScreenManager
 			var h:Int = stage.stageHeight;
 		#end
 
-		
 		stageScaleX = w / NOMINAL_WIDTH;// * width_multiplier;
-		stageScaleY = h / NOMINAL_HEIGHT;// * height_multiplier;		
-		
-		stageScale = Math.min(stageScaleX, stageScaleY);
-
-		root.width = NOMINAL_WIDTH * stageScale *width_multiplier ;
-		root.height = NOMINAL_HEIGHT * stageScale * height_multiplier;
-		
-		trace(w,h,root.width, root.height, stageScale, width_multiplier);
-
-		//root.x = (w - root.width) * .5;		
-		//root.y = (h - root.height ) * .5;
+		stageScaleY = h / NOMINAL_HEIGHT;// * height_multiplier;	
 	
-
+		stageScale = Math.min(stageScaleX, stageScaleY);
 		
-		for (callBack in callbacks) {
-			callBack(root.x, root.y);
-		}
+		var desiredRootWidth:Float = NOMINAL_WIDTH * stageScale * width_multiplier ;
+		var desiredRootHeight:Float = NOMINAL_HEIGHT * stageScale * height_multiplier;
+
+		root.width = desiredRootWidth; //some rounding occurs
+		root.height = desiredRootHeight; 
+		
+		root.x = (w * width_multiplier - root.width ) * .5;		
+		root.y = (h * height_multiplier - root.height ) * .5;
 	}
 	
 }
