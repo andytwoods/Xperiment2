@@ -53,7 +53,7 @@ class ScreenManager
 	
 
 	public function checkOrientation():Bool {
-		trace(screenOrientation(), desired_orientation);
+		//trace(screenOrientation(), desired_orientation);
 		return screenOrientation() == desired_orientation;
 	}
 	

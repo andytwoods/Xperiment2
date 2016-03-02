@@ -1,0 +1,108 @@
+<exptA exptType="WEB">
+
+<SETUP>  
+	  <screen BGcolour="808080" orientation="vertical" ></screen>                          
+	  <computer  encrypt='false' />
+	  <style BUTTON_DOWN="0xff5656"  />
+	  <variables practice='0' />
+</SETUP>
+
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+
+	<text width="100%" height="70%" 
+		  text=
+		  "Dear participant,
+Welcome to our study! We are a company called Flying Fish Research, which performs online research (such as this study) for both companies and scientists.
+We are deciding what logo we should use for our company and thought to ask Prolific Academic participants for their opinion. We will ask you questions about several logo designs we are deciding between.
+Your participation is very important to us."
+	fontSize="15" />
+	
+	
+	<preloadProgress x="20" y="90%"  horizontalAlign="left" width="70%" height="40" />
+	<preloadReadyButton x="85%" y="90%" width="20%" height="40" fontSize="18" />
+	
+</TRIAL>
+
+
+
+
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="What is your Prolific Academic ID?" fontSize="20" width="400" height="30" textAlign="center"  y="40%" />
+	
+	<input y="50%" width="300" height="50" fontSize="20"  />
+   
+	<nextTrialButton y="80%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+	
+
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="Some questions before we start:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
+	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
+	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
+	<text text="What country do you come from?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
+	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
+    <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
+	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
+
+	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+	
+	
+<TRIAL block="5">
+	
+	<text width="80%" height="25%"
+     text="On each trial you will see 8 logos we are deciding between for our company. You are asked to arrange those logos in a box according to a given question. There are 32 trials in total."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
+	<nextTrialButton y="90%" x="50%" width="200" depth="0" height="50" verticalAlign="bottom" text="Begin" fontSize="18" />
+	
+	<text copyOverId="taste2" text="" />
+</TRIAL>
+	
+
+
+<TRIAL order="random" trials="8" block="10">
+
+	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text1=" Please drag the logos into the box below, arranging the logos according to the labels at the bottom of the screen." text=
+	"How much do you like the logo shown overall?|How likely would you be to buy this product, assuming it was available and at a reasonable price?|How tasty would you expect this product to be?|How fresh would you expect this product to be?|What quality would you expect this product to be?|How innovative do you think this product is?|How strong and sturdy do you think the packaging is?|How attractive is this packaging design to you?"
+		/>
+	
+	<text textAlign="center" fontSize="40" width="100%" height="100" verticalAlign="top"  y="68%" duration = "1000"
+		  text=	"Overall Liking|Willingness to Purchase|Tastiness|Freshness|Quality|Innovativness|Strength of Packaging|Attractiveness"/>
+	
+	<image copyOverId="image"   x="5%---20%---35%---50%---65%---80%---95%" width="10%" y="22%" group="g1" howMany="7" resource="1---2---3---4---5---6---7" resource1=".png"  />
+	
+	<shuffle groups="g1" />
+    
+    <drag target="dragTarget" groups="g1" capture="x" dragTransparency=".5" />
+	
+	<text copyOverId="taste2" id="dv2---dv1" horizontalAlign="left---right" y="100%" verticalAlign="bottom" textAlign="left---right" x="0%---100%" howMany="2" fontSize="18" height="50" width="400"
+		text="Don't like the logo at all---Like the logo very much|Definitely would not buy---Definitely would buy|Not at all tasty---Very tasty|Not at all fresh---Very fresh|Very low quality---Very high quality|Not innovative at all---Very innovative|Very weak packaging---Very strong packaging|Not at all attractive to me---Very attractive to me"  
+		  />
+    
+    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="bottom"  y="93%" width="99%" height="55%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" />
+
+    <nextTrialButton y="100%"  key=" " verticalAlign="bottom" text="next (SPACE)" width="170" height="40"  fontSize="18" />
+	
+	<results dv="${Text.word(dv1.get('text'),-1)}" />
+	
+	<trialCounter height="60" depth="0" y="40%" total="32" textAlign="center" />
+	
+</TRIAL>
+	
+
+	
+<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
+
+<text  colour="black" timeStart="0" width="80%" y="40%" height="70%" fontSize="16">
+	<.text>Thank-you for completing our study!     
+We very much appreciate your input into helping us decide which logo we will use. 
+PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLFIC ACADEMIC KNOWS YOU HAVE COMPLETED THE STUDY. THANKS.
+</.text>
+</text>
+
+<link text="Prolific Academic Link" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB" />
+
+</TRIAL>	
+	
+
+</exptA>
+	

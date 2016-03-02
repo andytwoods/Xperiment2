@@ -11,12 +11,14 @@ import xpt.comms.services.AbstractService;
 import xpt.comms.services.REST_Service;
 import xpt.comms.services.UrlParams_service;
 import xpt.debug.DebugManager;
+import xpt.error.ErrorMessage;
 import xpt.events.ExperimentEvent;
 import xpt.experiment.Preloader.PreloaderEvent;
 import xpt.preloader.Preloader_extract_loadable;
 import xpt.results.Results;
 import xpt.results.ResultsFeedback;
 import xpt.results.TrialResults;
+import xpt.screenManager.DeviceManager;
 import xpt.screenManager.RotateYourScreen;
 import xpt.screenManager.ScreenManager;
 import xpt.script.ProcessScript;
@@ -63,6 +65,12 @@ class Experiment extends EventDispatcher {
 		ExptWideSpecs.init();
 		//trace("------------------------------");
 		ExptWideSpecs.set(script);
+		#if html5
+			if (DeviceManager.check(ExptWideSpecs.IS('devices')) == false) {
+				ErrorMessage.error('Device not allowed', DeviceManager.error, true);
+				return;
+			}
+		#end
 		ExptWideSpecs.updateExternalVars(UrlParams_service.params);
 		
 		#if html5

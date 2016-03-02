@@ -21,15 +21,14 @@ class Xpt {
 	public static function main() {
 		XRandom.init(RandomAlgorithm.Mersenne);
 		System.init();
-		
-        ErrorMessage.setup(Lib.current.stage);
           
 		//exptName = 'transparent';
         //exptName = 'tastePosition';
 		//exptName = "Expt1";
         //exptName = 'test';
 		//exptName = 'twinSmokers';
-		exptName = 'ShapeApproachAvoidance';
+		//exptName = 'ShapeApproachAvoidance';
+		exptName = 'testLogos';
         diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		
 		

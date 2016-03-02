@@ -94,7 +94,17 @@ class RotateYourScreen
 	}
 	
 	public function monitor(callback:Void->Void) {
+		#if !html5
+			callback();
+			return;
+		#end
 		
+		#if html5
+			if (Browser.window.orientation == null) {
+				callback();
+				return;
+			}
+		#end
 
 		if (ScreenManager.instance.checkOrientation() == true) callback();
 		else message();

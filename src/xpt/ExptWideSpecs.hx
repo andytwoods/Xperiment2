@@ -97,6 +97,9 @@ class ExptWideSpecs
 		
 	//validation
 		map.set('invalidTrialBehaviour', 'disable');
+	//devices
+		map.set('devices', 'desktop,tablet'); //https://github.com/matthewhudson/device.js?#conditional-javascript
+		//above uses slightly odd logic. If the device is a forbidden device (!prefixed), study wont run. But, if it is one of the permitted devices, it will run.
 
 	}
 	

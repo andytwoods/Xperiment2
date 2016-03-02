@@ -16,6 +16,7 @@ import xpt.preloader.Test_Preloader_extract_loadable;
 import xpt.results.Results;
 import xpt.results.Test_Results;
 import xpt.results.Test_TrialResults;
+import xpt.screenManager.Test_DeviceManager;
 import xpt.stimuli.builders.Test_Stimulus;
 import xpt.stimuli.Test_ETCs;
 import xpt.script.Test_BetweenSJs;
@@ -55,10 +56,7 @@ class Tests
 		//trial setup related
 		runner.addCase(new Test_ETCs());
 		runner.addCase(new Test_XML_Tools());
-
-		
 		runner.addCase(new Test_TrialOrder());
-		
 		runner.addCase(new Test_TrialBlock());
 		runner.addCase(new Test_DepthNode());
 		runner.addCase(new Test_DepthNodeBoss());
@@ -85,6 +83,7 @@ class Tests
 		//other
 		runner.addCase(new Test_XTools());
 		runner.addCase(new Test_Base64());
+		runner.addCase(new Test_DeviceManager());
 		
 		
 		
