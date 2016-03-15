@@ -12,6 +12,12 @@ class Test_XML_Tools
 
 public function new() { }
 	
+	public function test_xml_spaces() {
+		
+		var xml:Xml = Xml.parse("\n<xml/>\n");
+		Assert.isTrue(XML_tools.simpleXML(xml) != null);
+		
+	}
 
 	public function test_findDesVals() {
 		var xml:Xml = Xml.parse("<xml><a>a</a><b><bb>bb</bb></b><bbb><![CDATA[abc]]></bbb><c>c</c></xml>");

@@ -214,7 +214,9 @@ class XML_tools
 	
 	public static inline function simpleXML(xml:Xml ) {
 		if(xml.nodeType != Xml.Element){
-			if(xml.nodeType == Xml.Document) xml = simpleXML(xml.firstChild());
+			if (xml.nodeType == Xml.Document) {
+				return xml.firstElement();
+			}
 			else xml = null;
 			
 		}
