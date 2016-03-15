@@ -138,8 +138,8 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
 </exptAR>
 	
 <exptRA>
-	<over_image resourceB1="R" />
-	<over_image resourceB2="A" />
+	<over_imageB1 resource2="R" />
+	<over_imageB2 resource2="A" />
 	
 	<over_results block_group="RA"/>
 </exptRA>	

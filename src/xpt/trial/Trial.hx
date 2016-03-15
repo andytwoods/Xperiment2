@@ -99,9 +99,17 @@ class Trial {
 	public function addStimulus(stim:Stimulus) {
 
 		if(stimuli.indexOf(stim)==-1){
-			stimuli[stimuli.length] = stim;
+			stimuli.push(stim);
 			if (testing == false) {
 				TimingManager.instance.add(stim);
+			}
+		}
+	}
+	
+	public function removeStimulus(stim:Stimulus) {
+		if(stimuli.remove(stim) == true){
+			if (testing == false) {
+				TimingManager.instance.remove(stim);
 			}
 		}
 	}

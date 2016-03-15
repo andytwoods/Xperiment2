@@ -5,6 +5,7 @@
 	  <computer  encrypt='false' />
 	  <style BUTTON_DOWN="0xff5656"  />
 	  <variables practice='0' />
+	  <order blockDepthOrder="10.*=fixed"/>
 </SETUP>
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
@@ -88,6 +89,8 @@ Statement of informed consent
 <TRIAL template="approachAsym,template"></TRIAL>
 <TRIAL template="avoidAsym,template"></TRIAL>
 
+<TRIAL template="approachSym,template"></TRIAL>
+<TRIAL template="avoidSym,template"></TRIAL>
 	
 
 <avoidAsym>
@@ -99,6 +102,13 @@ Statement of informed consent
 </approachAsym>
 	
 	
+<avoidSym>
+	<image copyOverId="image" resource="Bat BW_asym|Bat BW_sym|Drosophilia BW_asym|Drosophilia BW_sym|Noose BW_asym|Noose BW_sym|Shaving blade BW_asym|Shaving blade BW_sym|Skull BW_asym|Skull BW_sym|Snake BW_asyml|Snake BW_sym|Spider BW_asym|Spider BW_sym|Sword BW_asyml|Sword BW_sym" />
+</avoidSym>
+	
+<approachSym>
+	<image copyOverId="image" resource="Apple BW_asym|Apple BW_sym|Beach ball BW_asym|Beach ball BW_sym|Burger BW_asym|Burger BW_sym|Donut BW_asym|Donut BW_sym|Flower BW_asym|Flower BW_sym|Ice cream BW_asym|Ice cream BW_sym|Pineapple BW_asym|Pineapple BW_sym|Teddy bear BW_asym|Teddy bear BW_sym" />
+</approachSym>	
 
 
 <template order="random" trials="40" block="10">

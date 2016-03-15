@@ -43,18 +43,18 @@ class StimuliFactory {
 
 			for(stim_copy in 0...baseStimulus.howMany){
 
-				
+
 				stim = getStim(baseStimulus.type);
+
 				var do_continue:Bool = setProps(stim, stim_copy, baseStimulus.props, trial,scriptedBasedProps);
-				
+
 				if (do_continue) {
-					if (stim.id == null) {
+
+					if (stim.id == Stimulus.UNSPECIFIED) {
 						stim.id = "id" + Std.string(unknownIdCount++);
 					}
-
 					
 					if (parent != null) parent.addUnderling(stim);
-					
 
 					if(baseStimulus.children.length>0)	__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount,scriptedBasedProps);
 
@@ -75,7 +75,6 @@ class StimuliFactory {
 		for (key in props.keys()) {
 			var val:String = props.get(key);
 
-			
 			val = XTools.multiCorrection(	val, overTrialSep, trialIteration);
 			val = XTools.multiCorrection(	val, withinTrialSep, copyNum);
 			
@@ -104,7 +103,9 @@ class StimuliFactory {
 		if (stimProps.exists('present') && stimProps.get('present') == 'false') return false;
 		
 		stim.set("trial", trial);
+
 		trial.addStimulus(stim);
+
 		return true;
 		
 	}

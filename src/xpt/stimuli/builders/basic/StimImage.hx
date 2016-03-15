@@ -26,17 +26,26 @@ class StimImage extends StimulusBuilder {
 			image.resource = get("asset");
 			return;
 		}
-
+		
 		var resource:String = get("resource");
 		if (resource != null) {
            resource = PathTools.fixPath(resource);
-           setBitmap(Preloader.instance.preloadedImages.get(resource), image);	
+		   var bmp = Preloader.instance.preloadedImages.get(resource);
+           if(bmp!=null) setBitmap(bmp, image);	
+		   else{
+				Preloader.instance.callbackWhenLoaded(resource, function() {
+					var bmp = Preloader.instance.preloadedImages.get(resource);
+					setBitmap(bmp, image);	
+					update();
+				});
+			}
 		}
 	}
 	
-	private function setBitmap(b:Bitmap, image:Image):Bool {
-		var bmp:Bitmap = b;
-		if (bmp == null) return false;
+	
+	
+	
+	private function setBitmap(bmp:Bitmap, image:Image) {
 		var bm_data:BitmapData = bmp.bitmapData.clone();
 		var scale:Float;
 		if ((scale = getFloat('scale')) != -1) {
@@ -45,7 +54,6 @@ class StimImage extends StimulusBuilder {
 
 		
 		image.resource = new Bitmap(bm_data);		
-		return true;
 	}
 	
 	private function scale_bm_data(scale:Float, orig_bm_data:BitmapData):BitmapData {

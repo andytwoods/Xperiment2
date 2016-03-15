@@ -13,11 +13,14 @@ import xpt.tools.XTools;
 @:allow(xpt.trialOrder.Test_TrialOrder)
 @:allow(xpt.stimuli.StimulusBuilder)
 class Stimulus {
+	
+	static public inline var UNSPECIFIED:String = 'unspecified';
+	
 	public var start:Float = -1;
 	public var stop:Float = -1;
 	public var duration:Float = -1;
 	public var hideResults:Bool = false;
-	public var id:String;
+	public var id:String = UNSPECIFIED;
 	public var depth:Int = 50;
 	public var ran:Bool = false;
 	public var type:String;

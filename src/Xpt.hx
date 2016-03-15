@@ -26,9 +26,9 @@ class Xpt {
         //exptName = 'tastePosition';
 		//exptName = "Expt1";
         //exptName = 'test';
-		//exptName = 'twinSmokers';
+		exptName = 'twinSmokers';
 		//exptName = 'ShapeApproachAvoidance';
-		exptName = 'testLogos';
+		//exptName = 'testLogos';
         diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		
 		

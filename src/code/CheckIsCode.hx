@@ -21,7 +21,6 @@ class CheckIsCode
 		
 		if (xml == null) return null;
 		var code:Xml = xml;
-		
 
 		switch check {
 			

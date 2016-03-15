@@ -8,6 +8,7 @@ import haxe.ui.toolkit.core.RootManager;
 import haxe.ui.toolkit.events.UIEvent;
 import xpt.debug.DebugManager;
 import xpt.stimuli.Stimulus;
+import xpt.tools.XTools;
 
 enum TimingEvent {
 	SHOW;
@@ -72,18 +73,26 @@ class TimingManager {
 	
 	public function add(stim:Stimulus) {
 		_stims.push(stim);
+
 		ArraySort.sort(_stims, function(a:Stimulus, b:Stimulus):Int {
 			if (a.depth == b.depth) return 0;
 			if (a.depth < b.depth) return 1;
 			return -1;
 			
 		});
+
 		if (stim.start <= 0) {
 			addToTrial(stim);
 		}
 	}
 	
+	public function remove(stim:Stimulus) {
+		_stims.remove(stim);
+	}
+	
 	private function addToTrial(stim:Stimulus) {
+
+
 		if (RootManager.instance.currentRoot.contains(stim.component) == false) {
 			DebugManager.instance.stimulus("Adding stimulus, type: " + stim.get("stimType"));
             DiagnosticsManager.add(DiagnosticsManager.STIMULUS_SHOW, stim.id, stim.get("stimType"));

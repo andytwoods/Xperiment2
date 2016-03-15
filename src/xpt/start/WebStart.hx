@@ -51,7 +51,6 @@ class WebStart
 	
 	function processScript(str:String):Void {
 		var script:Xml;
-		
 		if (str.length > 0) {
 			try {
 				XTools.protectCodeBlocks(str, 'code');
@@ -85,7 +84,7 @@ class WebStart
 	
 	public function startExpt(script:Xml):Void
 		{
-			
+
 			modifyScript(script);
 
 			var expt:Runner = exptPlatform();

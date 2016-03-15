@@ -210,14 +210,17 @@ class Experiment extends EventDispatcher {
 	
 	public function startTrial() {
 		if (testing == true) return;
-		#if debug
+
+/*		#if debug
 			if (runningTrial == null && stimuli_loaded == false) {
-				XTools.callBack_onEvent(Preloader.instance,PreloaderEvent.COMPLETE, function(e:Event){
+				XTools.callBack_onEvent(Preloader.instance, PreloaderEvent.COMPLETE, function(e:Event) {
+				trace(11111111);	
 					startTrial();
+					trace(3333);
 				});
 				return;
 			}
-		#end
+		#end*/
 
 		if (runningTrial != null) {
 			Scripting.DO(null, RunCodeEvents.AfterTrial, runningTrial);
@@ -231,8 +234,9 @@ class Experiment extends EventDispatcher {
 		}
 		
 		var info:NextTrialInfo = currentTrialInfo;
-		
+
         Stimulus.resetGroups();
+
 		runningTrial = trialFactory.GET(info.skeleton, info.trialOrder, this);
 
 
