@@ -15,6 +15,7 @@ import xpt.debug.DebugManager;
 import xpt.events.ExperimentEvent;
 import xpt.experiment.Experiment;
 import xpt.experiment.Preloader.PreloaderEvent;
+import xpt.tools.XTools;
 import xpt.trial.Trial;
 
 #if html5
@@ -91,7 +92,7 @@ class StimulusBuilder {
 		return v;
 	}
 	
-    private function getStringArray(what:String, defaultValue:Array<String> = null, delim:String = ","):Array<String> {
+    public function getStringArray(what:String, defaultValue:Array<String> = null, delim:String = ","):Array<String> {
         var arr:Array<String> = defaultValue;
         var v:String = get(what);
         if (v != null) {
@@ -154,21 +155,12 @@ class StimulusBuilder {
 		return v;
 	}
 	
-    private function getColour(propName:String):Int {
+    private function getColor(propName:String, defaultValue:Int = -1):Int {
         var stringValue:String = get(propName, null);
         if (stringValue == null) {
-            return 0;
+            return defaultValue;
         }
-        
-        if (StringTools.startsWith(stringValue, "#") == true) {
-            stringValue = stringValue.substr(1, stringValue.length - 1);
-        }
-        
-        if (StringTools.startsWith(stringValue, "0x") == false) {
-            stringValue = "0x" + stringValue;
-        }
-        
-        return Std.parseInt(stringValue);
+        return XTools.getColour(stringValue);
     }
 	
     private function createComponentInstance():Component {
@@ -249,6 +241,11 @@ class StimulusBuilder {
 			c.style.fontSize = n;
 		}	
 		
+		var color:Int = getColor('color');
+		trace(11, color);
+		if (color != -1) c.style.color = color;
+		
+		
 		if (getBool("drawBox") == true) {
 			c.style.borderSize = 1;
 			c.style.borderColor = 0x000000;
@@ -258,10 +255,10 @@ class StimulusBuilder {
             c.style.borderSize = getInt("borderSize", 1);
         }
         if (get("borderColour") != null) {
-            c.style.borderColor = getColour("borderColour");
+            c.style.borderColor = getColor("borderColour");
         }
         if (get("fillColour") != null) {
-            c.style.backgroundColor = getColour("fillColour");
+            c.style.backgroundColor = getColor("fillColour");
         }
         if (get("cornerRadius") != null) {
             c.style.cornerRadius = getInt("borderSize", 1);

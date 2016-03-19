@@ -57,7 +57,10 @@
 		<progressBar builder="xpt.stimuli.builders.basic.StimProgressBar" />
 		<image builder="xpt.stimuli.builders.basic.StimImage"/>
 		<text builder="xpt.stimuli.builders.basic.StimText" />
-        <link builder="xpt.stimuli.builders.basic.StimLink" />
+        <link builder="xpt.stimuli.builders.basic.StimLink">
+			<color>0x1a0dab</color>
+			<selectable>true</selectable>
+		</link>
 		
 		<!-- ***********************************************************************************
 			NON-VISUAL STIMULI
@@ -70,6 +73,7 @@
 		<results builder="xpt.stimuli.builders.nonvisual.StimResults" >
 			<id>results</id>
 		</results>
+		<evolve builder="xpt.stimuli.builders.nonvisual.StimEvolve"/>
         
 		<!-- ***********************************************************************************
 			LAYOUT STIMULI

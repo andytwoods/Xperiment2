@@ -218,14 +218,16 @@ class XTools
 		}
 		t.addEventListener(TimerEvent.TIMER, timerEnd);
 		t.start();
-
-		
-		
 	}
 	
+	static public inline function filetype(str:String, uppercase:Bool = false):String {
+		var arr:Array<String> = str.split(".");
+		str = arr[arr.length - 1];
+		if (uppercase) str = str.toUpperCase();
+		return str;
+	}
 	
-	public static function getColour(colour:String):Int{
-					
+	public static function getColour(colour:String):Int{	
 		switch((colour).toLowerCase()){
 			case "red":
 				return 0xFF0000;

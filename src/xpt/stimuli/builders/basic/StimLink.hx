@@ -19,5 +19,6 @@ class StimLink extends StimulusBuilder {
         if (get("url") != null) {
             link.url = get("url");
         }
+		
     }
 }
