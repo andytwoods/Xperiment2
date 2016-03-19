@@ -2,6 +2,7 @@ package xpt.experiment;
 
 import assets.manager.FileLoader;
 import assets.manager.misc.FileInfo;
+import assets.manager.misc.FileType;
 import assets.manager.misc.LoaderStatus;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
@@ -42,7 +43,8 @@ class Preloader extends EventDispatcher {
 	private var callBacks:Map <String, Array<Void->Void>> = new Map<String,Array<Void->Void>>();
 	
 	public var preloadedImages:Map<String, Bitmap> = new Map<String, Bitmap>();
-	public var imagesToLoad:Array<String>;
+	public var preloadedText:Map<String, String> = new Map<String, String>();
+	public var stimuli_to_load:Array<String>;
 	
 	public function new() {
 		super();
@@ -59,9 +61,19 @@ class Preloader extends EventDispatcher {
 		event.total = _total;
 		dispatchEvent(event);
         if (file.status == LoaderStatus.LOADED) {
-		    preloadedImages.set(file.id, new Bitmap(file.data));
+			switch(file.type) {		
+				case FileType.IMAGE:
+					preloadedImages.set(file.id, new Bitmap(file.data));
+				case FileType.TEXT:
+					preloadedText.set(file.id, file.data);
+				case FileType.SOUND:
+					throw 'to do';
+				case FileType.BINARY:
+					throw 'to do';
+			}	
+		    
         } else {
-            DebugManager.instance.error("Could not preload image", file.id);
+            DebugManager.instance.error("Could not preload stimulus", file.id);
         }
 		if (callBacks.exists(file.id)) {
 			while (callBacks.get(file.id).length > 0) {
@@ -69,7 +81,6 @@ class Preloader extends EventDispatcher {
 				if (f != null) f();
 			}
 		}
-		
 		
 		
 		if (_current >= _total) {
@@ -95,13 +106,27 @@ class Preloader extends EventDispatcher {
 		dispatchEvent(event);
 	}
 	
-	public function preloadImages(images:Array<String>) {
-		imagesToLoad = images;
-		for (image in images) {
-			_loader.queueImage(image);
+	
+	private function fileType(str:String):String {
+		var arr:Array<String> = str.split(".");
+		return arr[arr.length - 1].toUpperCase();
+	}
+	
+	public function preloadStimuli(stimuli:Array<String>) {
+		
+		stimuli_to_load = stimuli;
+		for (stimulus in stimuli) {
+			switch(fileType(stimulus)) {
+				case "JPG" | "PNG":
+					_loader.queueImage(stimulus);
+				case "SVG" | "TXT":
+					_loader.queueText(stimulus);
+				default:
+					throw 'unknown file type: ' + stimulus;
+			}			
 		}
 		_current = 0;
-		_total = images.length;
+		_total = stimuli.length;
 		_loader.loadQueuedFiles();
 
 		var event:PreloaderEvent = new PreloaderEvent(PreloaderEvent.PROGRESS);

@@ -125,6 +125,6 @@ class FakeCaret extends Sprite {
 	public function kill() {
 		t.stop();
 		t.removeEventListener(TimerEvent.TIMER, blinkL);
-		parent = null;
+		p = null;
 	}
 }

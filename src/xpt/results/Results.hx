@@ -38,6 +38,7 @@ class Results
 	private var callbacks:Array<Bool->String->Void>;
 	private var failedSend_counters:Map<String,Int> = [FAILED_SEND_COUNTER_TAG => 0, FAILED_SEND_END_OF_STUDY_COUNTER_TAG => 0];
 	private var failedSend_backup:Map<String,String>;
+	private var combinedResults:TrialResults;
 	
 	public static function setup(_expt_id:String, _uuid:String, _trickleToCloud:Bool) {
 		expt_id = _expt_id;
@@ -47,6 +48,7 @@ class Results
 	
 	public function new() 
 	{	
+		combinedResults = new TrialResults();
 	}
 	
 	public function add(trialResults:TrialResults, special:Special_Trial) 
@@ -66,24 +68,23 @@ class Results
 	{
 		if (callbacks == null) callbacks = new Array<Bool->String->Void>();
 		callbacks.push(callback);
-		__send_to_cloud(new TrialResults(), Special_Trial.Final_Submit);
+		
+		if (combinedResults == null) combinedResults = new TrialResults();
+		
+		__send_to_cloud(combinedResults, Special_Trial.Final_Submit);
 	}
 	
 	public function __send_to_cloud(trialResults:TrialResults, special:Special_Trial) 
 	{
-		trialResults.addResult(EXPT_ID_TAG, expt_id);
-		trialResults.addResult(UUID_TAG, uuid);
 
 		if ( special != null ) {
 			switch(special) {
 				case Special_Trial.First_Submit:
 					
-					
 					//required
 					trialResults.addMultipleResults(ComputerInfo.GET(), specialTag);					
 					trialResults.addResult(specialTag+"ip",'ip');
 					trialResults.addResult(specialTag + 'overSJs', ExptWideSpecs.IS("overSJs"));
-					trialResults.addResult(specialTag + "special", "first");
 					trialResults.addResult('random_seed', XRandom.getSeed());
 					#if html5
 						var tzOffset = untyped Date.now().getTimezoneOffset();
@@ -114,7 +115,6 @@ class Results
 					}
 					
 				case Special_Trial.Final_Submit:
-					trialResults.addResult(SPECIAL_TAG, "last");
 					trialResults.addResult(DURATION_TAG, Std.string(ExptWideSpecs.IS('duration') / 1000));
 					if (failedSend_counters.get(FAILED_SEND_COUNTER_TAG) > 0) {
 						trialResults.addResult(FAILED_SEND_COUNTER_TAG, Std.string(failedSend_counters.get(FAILED_SEND_COUNTER_TAG)));
@@ -129,15 +129,39 @@ class Results
 			}
 		}
 
-		if (failedSend_backup != null) {
+		if (testing) return;
+		
+		//compiling all results, which are sent on very last trial (as a backup).
+		if (combinedResults != null && combinedResults != trialResults) {
+			combinedResults.addMultipleResults(trialResults.results);
+		}
+
+		//if data does not save on one trial, data is attempted to be saved on the next (etc)
+		if (failedSend_backup != null && special != Special_Trial.Final_Submit) {
 			trialResults.add_failed_to_send_Results(failedSend_backup);		
 			failedSend_backup = null;
 		}
-
-		if (testing) return;
+		
+		//seperated from above so we can cleanly add new data to combinedResults.
+		if ( special != null ) {
+			switch(special) {
+				case Special_Trial.First_Submit:
+					trialResults.addResult(specialTag + "special", "first");
+				case Special_Trial.Final_Submit:
+					trialResults.addResult(SPECIAL_TAG, "last");
+				case Special_Trial.First_Trial:
+					//
+				case Special_Trial.Last_Trial:
+					//
+				case Special_Trial.Not_Special:
+					//
+			}
+		}
+		
+		trialResults.addResult(EXPT_ID_TAG, expt_id);
+		trialResults.addResult(UUID_TAG, uuid);
 		
 		trace(trialResults.results);
-		
 		var restService:AbstractService = new REST_Service(trialResults.results, serviceResult('REST', special));
 	}
 	

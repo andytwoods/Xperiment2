@@ -12,6 +12,7 @@ import xpt.events.ExperimentEvent;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;
 import haxe.ui.toolkit.core.Component;
+import xpt.stimuli.tools.NonVisual_Tools;
 import xpt.tools.XTools;
 
 class StimDrag extends StimulusBuilder {
@@ -41,7 +42,8 @@ class StimDrag extends StimulusBuilder {
             _dragTarget = trial.findStimulus(get("target"));
         }
 
-        _dragStims = getDraggableStims();
+        _dragStims = NonVisual_Tools.getStims(trial, this);
+		
         for (stim in _dragStims) {
             stim.component.removeEventListener(UIEvent.MOUSE_DOWN, onDragStimMouseDown);
             stim.component.addEventListener(UIEvent.MOUSE_DOWN, onDragStimMouseDown);
@@ -101,36 +103,7 @@ class StimDrag extends StimulusBuilder {
         return true;
     }
     
-    private function getDraggableStims():Array<Stimulus> {
-        var stims:Array<Stimulus> = [];
-        
-        if (get("stims") != null) {
-            var stimIds:Array<String> = getStringArray("stims");
-            if (stimIds != null) {
-                for (stimId in stimIds) {
-                    var stim:Stimulus = trial.findStimulus(stimId);
-                    if (stim != null && stims.indexOf(stim) == -1) {
-                        stims.push(stim);
-                    }
-                }
-            }
-        }
-        
-        if (get("groups") != null) {
-            var groupIds:Array<String> = getStringArray("groups");
-            if (groupIds != null) {
-                for (groupId in groupIds) {
-                    var groupStims:Array<Stimulus> = Stimulus.getGroup(groupId);
-                    if (groupStims != null) {
-                        stims = stims.concat(groupStims);
-                    }
-                }
-            }
-        }
-        
-        return stims;
-    }
-	
+ 
 	
 	override public function results():Map<String,String> {
 		

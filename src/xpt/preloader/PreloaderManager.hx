@@ -23,7 +23,7 @@ class PreloaderManager
 		this.parent = parent;
 		
 		var preloadList:Array<String> = skeletons.extractLoadableStimuli();
-					
+
 		if (preloadList.length > 0) {
 			
 			preloadList.decorateFileLoc();

@@ -7,6 +7,7 @@ import xpt.debug.DebugManager;
 import xpt.events.ExperimentEvent;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;
+import xpt.stimuli.tools.NonVisual_Tools;
 
 class StimShuffle extends StimulusBuilder {
     private var _trialStarted:Bool = false;
@@ -40,54 +41,27 @@ class StimShuffle extends StimulusBuilder {
             return;
         }
         
-        var groupsArray:Array<String> = [];
-        
-        var groups:String = get("groups");
-        if (groups != null) {
-            groupsArray = groupsArray.concat(groups.split(","));
-        }
-        
-        var group:String = get("group");
-        if (group != null) {
-            groupsArray.push(group);
-        }
-        
-        var uniqueGroups:Array<String> = []; // lets add unique groups and trim them for good measure
-        for (g in groupsArray) {
-            g = StringTools.trim(g);
-            if (uniqueGroups.indexOf(g) == -1) {
-                uniqueGroups.push(g);
-            }
-        }
-        
-        if (uniqueGroups.length > 0) {
-            var stims:Array<Stimulus> = [];
-            for (g in uniqueGroups) {
-                var groupStims:Array<Stimulus> = Stimulus.getGroup(g);
-                if (groupStims != null) {
-                    stims = stims.concat(groupStims);
-                }
-            }
+        var stims = NonVisual_Tools.getStims(trial, this);
             
-            if (stims.length > 0) { // lets do the shuffle
-                var fixed:String = get("fixed");
-                var fixedArray:Array<String> = null;
-                if (fixed != null) {
-                    fixedArray = new Array<String>();
-                    var temp:Array<String> = fixed.split(",");
-                    for (t in temp) {
-                        t = StringTools.trim(t);
-                        if (fixedArray.indexOf(t) == -1) {
-                            fixedArray.push(t);
-                        }
-                    }
-                }
-                
-                DebugManager.instance.info("Shuffling " + stims.length + " stim(s)");
-                StimHelper.shuffleArrangement(stims, fixedArray);
-            }
+		if (stims.length > 0) { // lets do the shuffle
+			var fixed:String = get("fixed");
+			var fixedArray:Array<String> = null;
+			if (fixed != null) {
+				fixedArray = new Array<String>();
+				var temp:Array<String> = fixed.split(",");
+				for (t in temp) {
+					t = StringTools.trim(t);
+					if (fixedArray.indexOf(t) == -1) {
+						fixedArray.push(t);
+					}
+				}
+			}
+			
+			DebugManager.instance.info("Shuffling " + stims.length + " stim(s)");
+			StimHelper.shuffleArrangement(stims, fixedArray);
+		}
             
-        }
+        
         
         _shuffled = true;
     }

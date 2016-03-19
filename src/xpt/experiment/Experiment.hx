@@ -144,7 +144,7 @@ class Experiment extends EventDispatcher {
 			DebugManager.instance.progress("Preloading " + preloadList.length + " image(s)");
 			Preloader.instance.addEventListener(PreloaderEvent.PROGRESS, _onPreloadProgress);
 			Preloader.instance.addEventListener(PreloaderEvent.COMPLETE, _onPreloadComplete);
-			Preloader.instance.preloadImages(preloadList);
+			Preloader.instance.preloadStimuli(preloadList);
 		}
 		else {
 			stimuli_loaded = true;
@@ -224,10 +224,7 @@ class Experiment extends EventDispatcher {
 
 		if (runningTrial != null) {
 			Scripting.DO(null, RunCodeEvents.AfterTrial, runningTrial);
-            
-            var event:ExperimentEvent = new ExperimentEvent(ExperimentEvent.TRIAL_END);
-            event.trial = runningTrial;
-            dispatchEvent(event);
+            dispatch_ExperimentEvent(ExperimentEvent.TRIAL_END, runningTrial);
             
 			Scripting.scriptableStimuli(runningTrial.stimuli, false);
 			cleanup_prevTrial();
@@ -259,17 +256,24 @@ class Experiment extends EventDispatcher {
 					runningTrial.setSpecial(Special_Trial.Not_Special);
 			}
 		}
+		else {
+			runningTrial.setSpecial(Special_Trial.Not_Special);
+		}
 		
 		Scripting.scriptableStimuli(runningTrial.stimuli,true);
 		Scripting.DO(null, RunCodeEvents.BeforeTrial, runningTrial);
 		DebugManager.instance.info("Starting trial");
 		runningTrial.start();
         runningTrial.validateStims();
-        var event:ExperimentEvent = new ExperimentEvent(ExperimentEvent.TRIAL_START);
-        event.trial = runningTrial;
-        dispatchEvent(event);
-	
         
+		dispatch_ExperimentEvent(ExperimentEvent.TRIAL_START, runningTrial);
+        
+	}
+	
+	private function dispatch_ExperimentEvent(event:String, trial:Trial) {
+		var event:ExperimentEvent = new ExperimentEvent(event);
+        event.trial = trial;
+        dispatchEvent(event);
 	}
 	
 	public function saveDataEndStudy() 

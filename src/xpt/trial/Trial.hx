@@ -5,6 +5,7 @@ import haxe.ui.toolkit.core.Component;
 import openfl.events.TimerEvent;
 import openfl.Lib;
 import openfl.utils.Timer;
+import thx.Bools;
 import xpt.debug.DebugManager;
 import xpt.events.ExperimentEvent;
 import xpt.experiment.Experiment;
@@ -153,6 +154,8 @@ class Trial {
 	
 	public function overrideDefaults(potentialOverrides:Map<String, String>) 
 	{
+		if(potentialOverrides.exists('hideResults') == true) hideResults = Bools.parse(potentialOverrides.get('hideResults'));
+		
 		//ternary operator (https://learnxinyminutes.com/docs/haxe/).
 		ITI = (potentialOverrides.exists('ITI') == false) ? _ITI : Std.parseInt(potentialOverrides.get('ITI'));
 	}

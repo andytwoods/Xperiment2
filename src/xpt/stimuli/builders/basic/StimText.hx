@@ -16,6 +16,7 @@ class StimText extends StimulusBuilder {
 	private override function applyProperties(c:Component) {
 		super.applyProperties(c);
 		var text:Text = cast c;
+	
 		
 		text.wrapLines = true;
 		text.multiline = true;
