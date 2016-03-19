@@ -242,9 +242,7 @@ class StimulusBuilder {
 		}	
 		
 		var color:Int = getColor('color');
-		trace(11, color);
 		if (color != -1) c.style.color = color;
-		
 		
 		if (getBool("drawBox") == true) {
 			c.style.borderSize = 1;

@@ -1,29 +1,30 @@
 <attractive exptType="WEB">
 
 <SETUP>  
-	  <screen BGcolour="808080" orientation="vertical" ></screen>                          
-	  <computer  encrypt='false' />
-	  <style BUTTON_DOWN="0xff5656"  />
-	  <variables practice='0' />
-	  <validation validationEnabled="true" invalidTrailBehaviour="hide" />
+	  <screen BGcolour="808080" ></screen>                          
 </SETUP>
 
-<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="2">
-
- 
-	<image  resource="mrc-ieu-logo.png" />
-
-	<text width="80%" height="25%" 
-		  text=
-		  "Welcome to our study. We are the Data Capture team at the MRC’s Integrative Epidemiology Unit at the University of Bristol.
-We are interested in how people make judgements about the apperance of faces. If you agree to take part in the study, you will be asked to make judgements about a numbers of photographs of faces."
-	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />
-	
-	
-
-</TRIAL>
 
 
-	
+
+<TRIAL block='10'> <Age/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <Box/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <Button/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <Checkboxes/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <comboBox/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <image/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <imageSequence/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <input/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <language/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <lineScale/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <Link/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <multipleChoice/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <nextTrialButton/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <numberStepper/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <progressBar/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <Sex/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <Text/><NextTrialButton y='90%'/></TRIAL>
+<TRIAL block='10'> <TrialCounter/><NextTrialButton y='90%'/></TRIAL>
+
 
 </attractive>

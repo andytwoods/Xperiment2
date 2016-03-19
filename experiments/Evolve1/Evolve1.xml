@@ -1,13 +1,10 @@
-<multi forceToRun="expt1">
-
-<expt1>
+<exptA exptType="WEB">
 
 <SETUP>  
-	  <screen BGcolour="808080" orientation="horizontal" ></screen>                          
+	  <screen BGcolour="808080" orientation="vertical" ></screen>                          
 	  <computer  encrypt='false' />
 	  <style BUTTON_DOWN="0xff5656"  />
 	  <variables practice='0' />
-	  <order blockDepthOrder="10.*=fixed"/>
 </SETUP>
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
@@ -72,55 +69,31 @@ Statement of informed consent
 	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
     <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
 	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
-	
 	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
 </TRIAL>	
 	
 	
-<TRIAL block="5">
 	
+<TRIAL block="5">
 	<text width="80%" height="25%"
      text="On each trial you will see 3 images of packaging. You are asked to arrange those items in a box according to a given question. There are 32 trials in total."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
 	<nextTrialButton y="90%" x="50%" width="200" depth="0" height="50" verticalAlign="bottom" text="Begin" fontSize="18" />
-	
 	<text copyOverId="taste2" text="" />
 </TRIAL>
 	
 
+<TRIAL multiId="cond1" template="template"></TRIAL>
 
-<TRIAL multiId="cond1" template="avoid_RoundAngular,template"></TRIAL>
-<TRIAL multiId="cond2" template="approach_RoundAngular,template"></TRIAL>
-
-
-	
-
-<avoid_RoundAngular>
-	<image copyOverId="image" resource="AxeAngular|AxeRound|BulletsAngular|BulletsRound|CoffinAngular|CoffinRound|FlyAngular|FlyRound|KnifeAngular|KnifeRound|Mask2Angular|Mask2Round|MaskAngular|MaskRound|SharkAngular|SharkRound" />
-</avoid_RoundAngular>
-	
-<approach_RoundAngular>
-	<image copyOverId="image" resource="BearAngular|BearRound|BoatAngular|BoatRound|CakeAngular|CakeRound|ChocolateAngular|ChocolateRound|DonutAngular|DonutRound|IceCreamAngular|IceCreamRound|KiteAngular|KiteRound|PresentAngular|PresentRound" />
-</approach_RoundAngular>
-	
-	
-	
-<avoid_symAsym>
-	<image copyOverId="image" resource="Bat_BW_asym|Bat_BW_sym|Drosophilia_BW_asym|Drosophilia_BW_sym|Noose_BW_asym|Noose_BW_sym|Shaving_blade_BW_asym|Shaving_blade_BW_sym|Skull_BW_asym|Skull_BW_sym|Snake_BW_asyml|Snake_BW_sym|Spider_BW_asym|Spider_BW_sym|Sword_BW_asyml|Sword_BW_sym" />
-</avoid_symAsym>
-	
-<approach_symAsym>
-	<image copyOverId="image" resource="Apple_BW_asym|Apple_BW_sym|Beach_ball_BW_asym|Beach_ball_BW_sym|Burger_BW_asym|Burger_BW_sym|Donut_BW_asym|Donut_BW_sym|Flower_BW_asym|Flower_BW_sym|Ice_cream_BW_asym|Ice_cream_BW_sym|Pineapple_BW_asym|Pineapple_BW_sym|Teddy_bear_BW_asym|Teddy_bear_BW_sym" />
-</approach_symAsym>	
-
-
-<template order="random" trials="80" block="10">
+<template order="random" trials="80" block="-10">
 
 	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text=" Please rate the item on the below scale by pressing the appropriate button."/>
 	
 	<text howMany="2" id="dv_a---dv_b" textAlign="right---left" horizontalAlign="right---left" fontSize="40" width="100%" x="35%---65%" height="100"   y="83%" 
 		  text=	"approach---avoid|advance---retreat|seek---escape|pursue---evade|proceed---withdraw"/>
 	
-	<image copyOverId="image" resource1=".png"  />
+	<evolve target="image1" />
+	
+	<image id="image1" resource="shape.svg" svg_FILL="567333" svg_STROKE="222222" svg_SW="5"  />
 	
 	<button width="50" disabled="true" keyEnabled="true" hideResults="true" height="50" y="80%" x="40%---45%---50%---55%---60%" key="1---2---3---4---5" text="1---2---3---4---5"  howMany="5">
 		<action>
@@ -135,8 +108,6 @@ Statement of informed consent
 	<trialCounter height="60" depth="0" y="15%" total="160"  textAlign="center" />
 	
 </template>
-	
-
 	
 <TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
 
@@ -156,12 +127,5 @@ PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLFIC ACADEMIC KNOWS YOU HAVE COMPL
 </TRIAL>	
 	
 
-</expt1>
+</exptA>
 	
-	
-<expt2>
-	<cond1 template="avoid_symAsym,template"/>
-	<cond2 template="approach_symAsym,template"/>
-</expt2>
-	
-</multi>
