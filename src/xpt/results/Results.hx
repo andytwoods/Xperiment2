@@ -4,7 +4,7 @@ import xpt.comms.CommsResult;
 import xpt.comms.services.AbstractService;
 import xpt.comms.services.CrossDomain_service;
 import haxe.ds.StringMap;
-import xpt.comms.services.Packaged_REST_Service;
+import xpt.comms.services.PackageRESTservices_Tool;
 import xpt.comms.services.REST_Service;
 import xpt.debug.DebugManager;
 import xpt.tools.Base64;
@@ -165,7 +165,7 @@ class Results
 		trace(trialResults.results);
 		
 
-		new Packaged_REST_Service(trialResults.results, serviceResult('REST', special), [EXPT_ID_TAG => expt_id, UUID_TAG => uuid]);
+		new PackageRESTservices_Tool(trialResults.results, serviceResult('REST', special), [EXPT_ID_TAG => expt_id, UUID_TAG => uuid]);
 		
 
 		

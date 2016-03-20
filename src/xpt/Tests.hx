@@ -10,6 +10,7 @@ import code.utils.Test_Text;
 import openfl.events.Event;
 import openfl.system.System;
 import xpt.comms.services.Test_AbstractService;
+import xpt.comms.services.Test_PackageRESTservices_Tool;
 import xpt.experiment.Experiment;
 import xpt.experiment.Test_Translate;
 import xpt.preloader.Test_Preloader_extract_loadable;
@@ -79,6 +80,7 @@ class Tests
 		runner.addCase(new Test_Results());
 		runner.addCase(new Test_TrialResults());
 		runner.addCase(new Test_AbstractService());
+		runner.addCase(new Test_PackageRESTservices_Tool());
 		
 		//other
 		runner.addCase(new Test_XTools());

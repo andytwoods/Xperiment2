@@ -6,7 +6,7 @@ import xpt.results.TrialResults;
  * ...
  * @author Andy Woods
  */
-class Packaged_REST_Service
+class PackageRESTservices_Tool
 {
 	public static inline var packageChars:Int = 1000;
 	public static inline var extraChars:Int = 2; // &=
@@ -20,19 +20,10 @@ class Packaged_REST_Service
 
 	public function new(results:Map<String,String>, callBackF:CommsResult -> String -> Map<String,String> -> Void, identifiers:Map<String, String>) 
 	{
-		grandCallBack = callBackF;
-		
-		
-		var list:Array<Map<String,String>> = new Array<Map<String,String>>();
-		var empty:Bool;
-		var freshResults:Map<String,String>;
-		
-		do { 
-			freshResults = genResults(identifiers);
-			empty = fill(results, freshResults, packageChars, extraChars);
-			list.push(freshResults);
-		}while (empty == false);
-		
+		this.grandCallBack = callBackF;
+		if (results == null) return; //for testing
+	
+		var list:Array<Map<String,String>> = partition_results(results, identifiers, packageChars, extraChars);
 
 		for (freshResults in list) {
 			restServices.push(	new REST_Service(freshResults, eventL)  );
@@ -43,7 +34,30 @@ class Packaged_REST_Service
 
 	}
 	
-	function fill(map:Map<String,String>, fresh:Map<String,String>, maxLen:Int, extraLen:Int):Bool
+	
+	static inline function partition_results(results:Map<String,String>,identifiers:Map<String, String>, maxLen:Int, extraLen:Int):Array<Map<String,String>> 
+	{
+		
+		var list:Array<Map<String,String>> = new Array<Map<String,String>>();
+		
+		var empty:Bool;
+		var freshResults:Map<String,String>;
+		
+		var loopMax:Int = 50;
+		
+		do { 
+			loopMax--;
+			if (loopMax <= 0) throw 'Devel err: potentially trying to partition something >1000 characters in length.';
+			freshResults = genResults(identifiers);
+			empty = fill(results, freshResults, maxLen, extraLen);
+			list.push(freshResults);
+		}while (empty == false);
+		
+		return list;
+	}
+		
+	
+	static function fill(map:Map<String,String>, fresh:Map<String,String>, maxLen:Int, extraLen:Int):Bool
 	{
 		var charCount:Int = 0;
 		
@@ -51,7 +65,7 @@ class Packaged_REST_Service
 
 		for (key in map.keys()) {
 			val = map.get(key);
-			charCount = val.length + key.length + extraLen;
+			charCount += val.length + key.length + extraLen;
 			if (charCount > maxLen) {
 				return false;
 			}
@@ -92,12 +106,8 @@ class Packaged_REST_Service
 		}
 	}
 	
-	
-	
-	
-	
-	
-	function genResults(identifiers:Map<String,String>) {
+
+	private static function genResults(identifiers:Map<String,String>) {
 		var m:Map<String,String> = new Map<String,String>();
 		if(identifiers != null){
 			for (key in identifiers.keys()) {
@@ -106,5 +116,6 @@ class Packaged_REST_Service
 		}
 		return m;
 	}
+	
 	
 }
