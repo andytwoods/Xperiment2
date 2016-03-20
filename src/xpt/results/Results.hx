@@ -11,6 +11,7 @@ import xpt.tools.XRandom;
 import xpt.tools.XTools;
 import xpt.trial.Special_Trial;
 import xpt.trial.Trial;
+import xpt.ui.Xpt2Info;
 
 /**
  * ...
@@ -83,6 +84,7 @@ class Results
 					
 					//required
 					trialResults.addMultipleResults(ComputerInfo.GET(), specialTag);					
+					trialResults.addMultipleResults(Xpt2Info.GET(), specialTag);
 					trialResults.addResult(specialTag+"ip",'ip');
 					trialResults.addResult(specialTag + 'overSJs', ExptWideSpecs.IS("overSJs"));
 					trialResults.addResult('random_seed', XRandom.getSeed());
