@@ -59,7 +59,6 @@
 		<text builder="xpt.stimuli.builders.basic.StimText" />
         <link builder="xpt.stimuli.builders.basic.StimLink">
 			<color>0x1a0dab</color>
-			<selectable>true</selectable>
 		</link>
 		
 		<!-- ***********************************************************************************
