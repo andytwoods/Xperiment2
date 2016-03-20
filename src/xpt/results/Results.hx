@@ -4,6 +4,7 @@ import xpt.comms.CommsResult;
 import xpt.comms.services.AbstractService;
 import xpt.comms.services.CrossDomain_service;
 import haxe.ds.StringMap;
+import xpt.comms.services.Packaged_REST_Service;
 import xpt.comms.services.REST_Service;
 import xpt.debug.DebugManager;
 import xpt.tools.Base64;
@@ -160,11 +161,14 @@ class Results
 			}
 		}
 		
-		trialResults.addResult(EXPT_ID_TAG, expt_id);
-		trialResults.addResult(UUID_TAG, uuid);
-		
+
 		trace(trialResults.results);
-		var restService:AbstractService = new REST_Service(trialResults.results, serviceResult('REST', special));
+		
+
+		new Packaged_REST_Service(trialResults.results, serviceResult('REST', special), [EXPT_ID_TAG => expt_id, UUID_TAG => uuid]);
+		
+
+		
 	}
 	
 	private function serviceResult(service:String, special:Special_Trial) {
