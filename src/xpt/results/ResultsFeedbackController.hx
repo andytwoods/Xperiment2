@@ -33,6 +33,7 @@ class ResultsFeedbackController extends XMLController {
 		
 		function onAddedToStage(e:Event) {
 			info.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			info.width = 650;
 			info.text = "Attempting to save your results...";
 		}
 		info.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);

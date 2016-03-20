@@ -24,7 +24,6 @@
     <class path="C:\HaxeToolkit\haxe\lib\assetsmanager\1,2,0" />
     <class path="C:\HaxeToolkit\haxe\lib\msignal\1,2,4" />
     <class path="C:\HaxeToolkit\haxe\lib\mlib\2,0,2" />
-    <class path="C:\HaxeToolkit\haxe\lib\utest\1,3,10\src" />
     <class path="C:\HaxeToolkit\haxe\lib\thx,core\0,39,0\src" />
     <class path="C:\HaxeToolkit\haxe\lib\haxe-rest-client\git" />
     <class path="C:\HaxeToolkit\haxe\lib\polygonal-core\1,0,4" />
@@ -33,16 +32,16 @@
     <class path="C:\HaxeToolkit\haxe\lib\svg\1,0,9" />
     <class path="src" />
     <class path="C:\HaxeToolkit\haxe\lib\openfl\3,6,0\extern" />
-    <class path="bin\flash\haxe" />
+    <class path="bin\html5\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="haxeui=1.8.17&#xA;lime=2.9.0&#xA;openfl=3.6.0&#xA;actuate=1.8.6&#xA;hscript=2.0.5&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.4&#xA;mlib=2.0.2&#xA;utest=1.3.10&#xA;thx_core&#xA;thx.core=0.39.0&#xA;rest-client=0.2.0&#xA;haxe-rest-client=0.2.0&#xA;polygonal-core=1.0.4&#xA;polygonal-ds=1.4.1&#xA;polygonal-printf=1.0.2-beta&#xA;svg=1.0.9&#xA;openfl-next&#xA;tools=2.9.0&#xA;haxeui-no-gif-support&#xA;no-compilation&#xA;openfl-flash&#xA;web&#xA;hscriptPos&#xA;haxeui-no-gif-support&#xA;display" />
+    <option directives="haxeui=1.8.17&#xA;lime=2.9.0&#xA;openfl=3.6.0&#xA;actuate=1.8.6&#xA;hscript=2.0.5&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.4&#xA;mlib=2.0.2&#xA;thx_core&#xA;thx.core=0.39.0&#xA;rest-client=0.2.0&#xA;haxe-rest-client=0.2.0&#xA;polygonal-core=1.0.4&#xA;polygonal-ds=1.4.1&#xA;polygonal-printf=1.0.2-beta&#xA;svg=1.0.9&#xA;openfl-next&#xA;tools=2.9.0&#xA;haxeui-no-gif-support&#xA;no-compilation&#xA;openfl-html5&#xA;canvas&#xA;lime-html5&#xA;html5&#xA;web&#xA;hscriptPos&#xA;haxeui-no-gif-support&#xA;html5&#xA;display" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="-swf-version 11.2&#xA;-debug " />
+    <option additional="--remap flash:openfl&#xA;--macro allowPackage(&quot;flash&quot;)&#xA;-debug " />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

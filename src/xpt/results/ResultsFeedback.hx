@@ -2,6 +2,7 @@ package xpt.results;
 import flash.events.Event;
 import haxe.ui.toolkit.controls.popups.Popup;
 import haxe.ui.toolkit.controls.Text;
+import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.PopupManager;
 import haxe.ui.toolkit.core.PopupManager.PopupButton;
 import haxe.ui.toolkit.core.RootManager;
@@ -32,11 +33,13 @@ class ResultsFeedback
 	private var text:Text;
 	private var experiment:Experiment;
 	
-	
+	@:access(haxe.ui.toolkit.core.Root)
 	public function removePopup() {
+		var overlay:Component = feedbackWindow.root._modalOverlay;
 		PopupManager.instance.hidePopup(feedbackWindow);
 		feedbackWindow.dispose();
 		feedbackWindow = null;	
+		overlay.root.removeChild(overlay, true);
 	}
 	
 	public function new(experiment:Experiment) 
