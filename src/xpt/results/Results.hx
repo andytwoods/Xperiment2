@@ -118,11 +118,8 @@ class Results
 					}
 					
 				case Special_Trial.Final_Submit:
-					trialResults.addResult(DURATION_TAG, Std.string(ExptWideSpecs.IS('duration') / 1000));
-					if (failedSend_counters.get(FAILED_SEND_COUNTER_TAG) > 0) {
-						trialResults.addResult(FAILED_SEND_COUNTER_TAG, Std.string(failedSend_counters.get(FAILED_SEND_COUNTER_TAG)));
-					}
-					
+					finalSubmit_params(trialResults, true);
+								
 				case Special_Trial.First_Trial:
 					//
 				case Special_Trial.Last_Trial:
@@ -171,6 +168,20 @@ class Results
 		
 	}
 	
+	private function finalSubmit_params(trialResults:TrialResults, add:Bool) {
+		if (add == true) {
+			trialResults.addResult(DURATION_TAG, Std.string(ExptWideSpecs.IS('duration') / 1000));
+			if (failedSend_counters.get(FAILED_SEND_COUNTER_TAG) > 0) {
+				trialResults.addResult(FAILED_SEND_COUNTER_TAG, Std.string(failedSend_counters.get(FAILED_SEND_COUNTER_TAG)));
+			}	
+		}
+		else {
+			trialResults.results.remove(DURATION_TAG);
+			trialResults.results.remove(FAILED_SEND_COUNTER_TAG);
+			trialResults.results.remove(SPECIAL_TAG);
+		}
+	}
+	
 	private function serviceResult(service:String, special:Special_Trial) {
 		return function(success:CommsResult, message:String, data:Map<String,String>) {
 			
@@ -180,26 +191,28 @@ class Results
 			else {
 				DebugManager.instance.error(service + ' service failed to send trial data / data was not accepted by the backend', message);
 				
-				if (special == Special_Trial.Final_Submit) plus1_failedSend_counter(FAILED_SEND_END_OF_STUDY_COUNTER_TAG);
+				if (special == Special_Trial.Final_Submit) {
+					combinedResults.results = data;
+					finalSubmit_params(combinedResults, false);
+					plus1_failedSend_counter(FAILED_SEND_END_OF_STUDY_COUNTER_TAG);
+				}
 				else {
 					plus1_failedSend_counter(FAILED_SEND_COUNTER_TAG);
-					
-				}
-				
-				for (exclude in [EXPT_ID_TAG, UUID_TAG, FAILED_SEND_END_OF_STUDY_COUNTER_TAG, FAILED_SEND_COUNTER_TAG, SPECIAL_TAG, DURATION_TAG]) {
-						data.remove(exclude);
+							
+					for (exclude in [EXPT_ID_TAG, UUID_TAG, FAILED_SEND_END_OF_STUDY_COUNTER_TAG, FAILED_SEND_COUNTER_TAG, SPECIAL_TAG, DURATION_TAG]) {
+							data.remove(exclude);
+						}
+						
+					if (failedSend_backup == null) failedSend_backup = new Map<String,String>();
+						var val:String;
+						var safeKey:String;
+						for (key in data.keys()) {
+							val = data.get(key);
+							safeKey = XTools.safeProp(key, failedSend_backup);
+							if (safeKey != key) safeKey += "_DEVEL_ERR";
+							failedSend_backup.set(safeKey, val);
+						}
 					}
-				
-				if (failedSend_backup == null) failedSend_backup = new Map<String,String>();
-				var val:String;
-				var safeKey:String;
-				for (key in data.keys()) {
-					val = data.get(key);
-					safeKey = XTools.safeProp(key, failedSend_backup);
-					if (safeKey != key) safeKey += "_DEVEL_ERR";
-					failedSend_backup.set(safeKey, val);
-				}
-				
 			}
 			
 			

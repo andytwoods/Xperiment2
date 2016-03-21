@@ -24,7 +24,7 @@ class PackageRESTservices_Tool
 		if (results == null) return; //for testing
 	
 		var list:Array<Map<String,String>> = partition_results(results, identifiers, packageChars, extraChars);
-
+trace(list.length, 3434343);
 		for (freshResults in list) {
 			restServices.push(	new REST_Service(freshResults, eventL)  );
 		}
