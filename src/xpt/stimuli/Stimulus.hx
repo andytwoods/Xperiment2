@@ -86,7 +86,7 @@ class Stimulus {
 		}
 	}
 	
-	public function get(what:String):Dynamic {
+	public function get(what:String, defaultValue:String = null):Dynamic {
 		switch(what) {
 			case 'start': return start;
 			case 'stop': return stop;		
@@ -95,7 +95,7 @@ class Stimulus {
 		}
 
         if (__properties == null) {
-            return null;
+            return defaultValue;
         }
         
 		return __properties.get(what);

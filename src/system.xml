@@ -64,9 +64,13 @@
 		<!-- ***********************************************************************************
 			NON-VISUAL STIMULI
 		************************************************************************************ -->
-		<timer builder="xpt.stimuli.builders.nonvisual.StimTimer" />
+		<timer builder="xpt.stimuli.builders.nonvisual.StimTimer"/>
+		<rt builder="xpt.stimuli.builders.nonvisual.StimRT">
+			<id>rt</id>
+		</rt>
 		<shuffle builder="xpt.stimuli.builders.nonvisual.StimShuffle" />
 		<drag builder="xpt.stimuli.builders.nonvisual.StimDrag">
+			<saveId>id</saveId>
             <valid>equals(groups(prop("groups")))</valid>
         </drag> 
 		<results builder="xpt.stimuli.builders.nonvisual.StimResults" >

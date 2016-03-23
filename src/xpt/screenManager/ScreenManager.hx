@@ -66,7 +66,6 @@ class ScreenManager
 		switch(orientationStr.toLowerCase()) {
 			case 'horizontal':
 				orientationEnum = Horizontal;
-				trace(111);
 			case 'vertical':
 				orientationEnum = Vertical;
 		}

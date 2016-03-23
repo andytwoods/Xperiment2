@@ -29,18 +29,19 @@ class StimHelper {
                 for (s in list) {
                     s.set(key, valueList[n]);
                     n++;
-                    
                     s.updateComponent();
                 }
             }
         }
+		
+
     }
     
     public static function shuffleArrangement(list:Array<Stimulus>, fixedProps:Array<String> = null) {
         if (fixedProps == null) {
             fixedProps = [];
         }
-        fixedProps = fixedProps.concat(['x', 'y', 'horizontalAlign', 'verticalAlign', 'marginLeft', 'marginTop', 'marginRight', 'marginBottom']);
+        //fixedProps = fixedProps.concat(['x', 'y', 'horizontalAlign', 'verticalAlign', 'marginLeft', 'marginTop', 'marginRight', 'marginBottom']);
         shuffle(list, fixedProps);
     }
 }

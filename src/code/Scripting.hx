@@ -64,6 +64,7 @@ class Scripting
 	
 	public static var testing:Bool = true; //for testing
     public static var experiment:Experiment;
+	static public var stimuli:Array<Stimulus>;
 	
 	public static function getBundle():ScriptBundle {
 		
@@ -139,18 +140,12 @@ class Scripting
 		return bundle.code;
 	}
 	
-	
-	static public inline function removeStimuli(stimuli:Array<Stimulus>) 
-	{
-		scriptableStimuli(stimuli, false);
-		
-		
-		
-	}
+
 	
 	static public function scriptableStimuli(stimuli:Array<Stimulus>, add:Bool) {
 
 		for (bundle in all_bundles) {
+			
 			for (stim in stimuli) {
 				if (stim.id != null) {
 						if (add) 	bundle.scriptEngine.variables.set(stim.id, stim);
@@ -174,19 +169,13 @@ class Scripting
 		}
 		
 	}
-	
-	
-	static public inline function addStimuli(stimuli:Array<Stimulus>) 
-	{
-		scriptableStimuli(stimuli, true);
-	}
-	
+
 
 	
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
 		
 		var bundle:ScriptBundle = getBundle();
-		
+
 		if (stim.get(prop) != null) {
 			try {
 				bundle.add("this", stim.component);
@@ -194,12 +183,9 @@ class Scripting
 				bundle.add("stim", stim);
 				bundle.add("e", event);
 
-
 				addExtraVars(bundle);
 				
-
 				bundle.code = StringTools.trim(stim.get(prop));
-				
 				
 				if (logScript == true) {
 					DebugManager.instance.event(stim.get("stimType") + ".on" + StringUtil.capitalizeFirstLetter(event.type), "" + bundle.code);
@@ -207,7 +193,7 @@ class Scripting
 				bundle.run();
 				
 			} catch (e:Dynamic) {
-				trace("ERROR executing script: " + e + " code: " + bundle.code);
+				trace("ERROR executing script: " + e + " code: " + bundle.code+ '(prop: '+prop+').');
 				DebugManager.instance.error("Error running script event", "" + e);
 			}
 		}
@@ -217,9 +203,11 @@ class Scripting
 	
 	private static function addExtraVars(bundle:ScriptBundle) 
 	{
-		
 		if (experiment.runningTrial != null) {
 			bundle.add("Trial", experiment.runningTrial);
+		}
+		for (stim in stimuli) {
+			if(stim.id != Stimulus.UNSPECIFIED) bundle.add(stim.id, stim);
 		}
 	}
 	
@@ -244,9 +232,6 @@ class Scripting
 				}
             }   
         }
-		
-		
-		
         
         while (n1 != -1) {
             var n2:Int = finalResult.indexOf("}", n1);

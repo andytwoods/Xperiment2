@@ -82,6 +82,7 @@ class ExptWideSpecs
 		map.set('uuid', Uuid.create().split("-").join(""));
 		map.set('backgroundColour', 'white');
 		map.set('orientation', 'horizontal');
+		map.set('csrftoken', 'debug');
 	//blocking
 		map.set("blockDepthOrder","");
 	//saving
@@ -171,8 +172,7 @@ class ExptWideSpecs
 		
 		for (key in params.keys()) {
 			map.set(key, params.get(key));
-		}
-		
+		}		
 		
 	}
 

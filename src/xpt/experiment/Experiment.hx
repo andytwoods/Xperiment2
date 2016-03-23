@@ -61,7 +61,7 @@ class Experiment extends EventDispatcher {
 		//consider remove direct class below and replace purely with Templates.compose(script);
 		var processScript:ProcessScript = new ProcessScript(script);
 		processScript = null;
-
+		//trace(script);
 		ExptWideSpecs.init();
 		//trace("------------------------------");
 		ExptWideSpecs.set(script);
@@ -118,7 +118,7 @@ class Experiment extends EventDispatcher {
 	
 	private function linkups_Post_ExptWideSpecs() {
 		AbstractService.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));
-		Results.setup(ExptWideSpecs.exptId(),ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS("trickleToCloud"));
+		Results.setup(ExptWideSpecs.exptId(),ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS("trickleToCloud"), ExptWideSpecs.IS('csrftoken'));
 		Trial._ITI = Std.int(ExptWideSpecs.IS("ITI"));
 	}
 	
@@ -214,7 +214,8 @@ class Experiment extends EventDispatcher {
 
 		if (runningTrial != null) {
 			Scripting.DO(null, RunCodeEvents.AfterTrial, runningTrial);
-            dispatch_ExperimentEvent(ExperimentEvent.TRIAL_END, runningTrial);
+			Scripting.stimuli = null;
+            runningTrial.trialEnded();
             
 			Scripting.scriptableStimuli(runningTrial.stimuli, false);
 			cleanup_prevTrial();
@@ -250,14 +251,14 @@ class Experiment extends EventDispatcher {
 			runningTrial.setSpecial(Special_Trial.Not_Special);
 		}
 		
-		Scripting.scriptableStimuli(runningTrial.stimuli,true);
+		Scripting.stimuli = runningTrial.stimuli;
+		
+		//not working
+		//Scripting.scriptableStimuli(runningTrial.stimuli,true);
 		Scripting.DO(null, RunCodeEvents.BeforeTrial, runningTrial);
 		DebugManager.instance.info("Starting trial");
 		runningTrial.start();
-        runningTrial.validateStims();
-        
-		dispatch_ExperimentEvent(ExperimentEvent.TRIAL_START, runningTrial);
-        
+        runningTrial.validateStims();     
 	}
 	
 	private function dispatch_ExperimentEvent(event:String, trial:Trial) {

@@ -16,6 +16,8 @@ enum TimingEvent {
 }
 
 class TimingManager {
+	private var started:Bool = false;
+	private var addWhenStarts:Array<Void->Void> = new Array<Void->Void>();
 	private static var _instance:TimingManager;
 	public static var instance(get, never):TimingManager;
 	private static function get_instance():TimingManager {
@@ -39,6 +41,15 @@ class TimingManager {
 	}
 
 	public function start() {
+		started = true;
+		var f:Void->Void;
+		
+		while (addWhenStarts.length > 0) {
+			f = addWhenStarts.shift();
+			f();
+			f = null;
+		}
+	
 		for (stim in _stims) {
 			var start:Float = stim.start;
 			var stop:Float = stim.stop;
@@ -62,9 +73,12 @@ class TimingManager {
                 }
             });
 		}
+		
+
 	}
 	
 	public function reset() {
+		started = false;
 		for (stim in _stims) {
 			removeFromTrial(stim);
 		}
@@ -98,20 +112,33 @@ class TimingManager {
             DiagnosticsManager.add(DiagnosticsManager.STIMULUS_SHOW, stim.id, stim.get("stimType"));
             stim.component.addEventListener(UIEvent.ADDED_TO_STAGE, onStimAddedToStage);
 		    
+			
+			
+			if (started == false) {
+				addWhenStarts.push(function(){
+					RootManager.instance.currentRoot.addChild(stim.component);
+					updateDepths(stim);
+					stim.onAddedToTrial();
+				});
+				return;
+			}
+			
 			RootManager.instance.currentRoot.addChild(stim.component);
 			
-
-			for (s in _stims) {
+			updateDepths(stim);
+			
+            stim.onAddedToTrial();
+		}
+	}
+	
+	private	function updateDepths(stim:Stimulus) {
+		for (s in _stims) {
 				if(s.depth < stim.depth){
 					if (RootManager.instance.currentRoot.contains(s.component)) {
 						s.component.parent.setChildIndex(s.component, s.component.parent.numChildren - 1);
 					}
 				}
 			}
-			
-			
-            stim.onAddedToTrial();
-		}
 	}
     
     private function onStimAddedToStage(event:UIEvent) {

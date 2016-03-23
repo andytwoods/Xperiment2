@@ -10,15 +10,28 @@ class REST_Service extends AbstractService
 
 	public static inline var CLOUD_SUCCESS_MESSAGE:String = '';
 	
-	public function new(_data:Map<String,String>, callBackF:CommsResult -> String -> Map<String,String> -> Void) 
+	public function new(_data:Map<String,String>, callBackF:CommsResult -> String -> Map<String,String> -> Void, type:String='GET') 
 	{
 		super(_data, callBackF);
-		RestClient.getAsync(
-				AbstractService.__url,
-				fromCloud_f,
-				_data,
-				err_f
-			);
+		switch(type.toUpperCase()) {
+			case 'GET':
+				RestClient.getAsync(
+						AbstractService.__url,
+						fromCloud_f,
+						_data,
+						err_f
+					);
+			case 'POST':
+				var url:String = AbstractService.__url;
+				if (url.charAt(url.length - 1) != '/') url += '/';
+				RestClient.postAsync(
+						url,
+						fromCloud_f,
+						_data,
+						err_f
+					);
+			default: throw 'unknown request';
+		}
 	}
 	
 	override public function check_cloudMessageSuccess(message:String) 

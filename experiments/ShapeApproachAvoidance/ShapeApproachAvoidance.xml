@@ -7,7 +7,6 @@
 	  <computer  encrypt='false' />
 	  <style BUTTON_DOWN="0xff5656"  />
 	  <variables practice='0' />
-	  <order blockDepthOrder="10.*=fixed"/>
 </SETUP>
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
@@ -16,14 +15,14 @@
 
 	<text width="100%" height="70%" 
 		  text=
-		  "Crossmodal Research Laboratory, Department of Experimental Psychology, Tinbergen Building, 9 South Parks Road, Oxford, OX1 3UD, England. Researcher Contact Details: Gregory Simmonds (Email: gregory.simmonds@psy.ox.ac.uk)
-“TO SEE OR NOT TO SEE”: THE EFFICACY OF TRANSPARENT WINDOWS IN PACKAGING
+		  "Crossmodal Research Laboratory, Department of Experimental Psychology, Tinbergen Building, 9 South Parks Road, Oxford, OX1 3UD, England. Researcher Contact Details: Carlos Velasco (Email: carlos.velasco@psy.ox.ac.uk)
+
 Dear participant,
 Welcome to our study! We are the Crossmodal Research Laboratory, Department of Experimental Psychology, Oxford University.    
-We are interested in understanding how people associate information across the senses. If you decide to take part in this experiment, you will be asked to look at some different types of food and drink packaging and will be asked some questions about your opinions of them.
+We are interested in understanding how people respond to different objects. If you decide to take part in this experiment, you will be asked to categorize different objects with specific word descriptors.
 There are no right or wrong responses, so please respond according to what feels right to you. We hope you enjoy it. Your participation is very important to us.    
 You are being invited to participate because you are a member of the Prolific Academic online participant panel. The questionnaire will take around 10 minutes to complete.   
-You would still be free to withdraw from the study at any time during the questionnaire, without needing to give a reason, and without penalty. The data will be fully anonymized, and stored on a secure computer at the Crossmodal Research Laboratory, University of Oxford. The data will only be accessible by members of the Crossmodal Research Laboratory, and will be destroyed on 30th September 2016. Prolific Academic staff will not be able to access your responses. This research has been reviewed by and received favourable opinion through the University of Oxford Central University Research Ethics Committee."
+You would still be free to withdraw from the study at any time during the questionnaire, without needing to give a reason, and without penalty. The data will be fully anonymized, and stored on a secure computer at the Crossmodal Research Laboratory, University of Oxford. The data will only be accessible by members of the Crossmodal Research Laboratory. Prolific Academic staff will not be able to access your responses. This research has been reviewed by and received favourable opinion through the University of Oxford Central University Research Ethics Committee."
 	fontSize="15" />
 	
 	
@@ -38,8 +37,8 @@ You would still be free to withdraw from the study at any time during the questi
 	 
 <text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top">
 <.text>Before we begin, please read below. By clicking I CONSENT you indicate you have consented to take part.
-If you decide to take part in this experiment, you will be asked to look at some different types of food and drink packaging and will be asked some questions about your opinions of them.
-At the end of the study we will tell you more about the purpose of the study and why we are doing this research. You can also contact Gregory Simmonds (gregory.simmonds@psy.ox.ac.uk) for further information at a later date if you wish.
+If you decide to take part in this experiment, you will be asked to look at some different objects and will be asked to categorize them with specific word descriptors.
+At the end of the study we will tell you more about the purpose of the study and why we are doing this research. You can also contact Carlos Velasco (Email: carlos.velasco@psy.ox.ac.uk) for further information at a later date if you wish.
 If you have a concern about any aspect of this project, please contact the chair of the Medical Sciences Inter-divisional Research Ethics Committee at the University of Oxford (Chair, MS IDREC; Email: ethics@medsci.ox.ac.uk; Address: Research Services, University of Oxford, Wellington Square, Oxford OX1 2JD). The chair will seek to resolve the matter in a reasonably expeditious manner.  
 Please read the below consent statement and indicate whether you consent. 
 Statement of informed consent
@@ -80,12 +79,18 @@ Statement of informed consent
 <TRIAL block="5">
 	
 	<text width="80%" height="25%"
-     text="On each trial you will see 3 images of packaging. You are asked to arrange those items in a box according to a given question. There are 32 trials in total."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
+     text="On each trial you will see a picture. You are asked to rate it in different attributes."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
 	<nextTrialButton y="90%" x="50%" width="200" depth="0" height="50" verticalAlign="bottom" text="Begin" fontSize="18" />
 	
 	<text copyOverId="taste2" text="" />
 </TRIAL>
+
 	
+<TRIAL forcePositionInBlock="middle" block="10">
+	
+	<text textAlign="center" fontSize="22" width="100%" height="100"  text="You are half way. Have a break if you want, then press SPACE to continue."/>
+	<nextTrialButton y="90%" x="50%" width="200" height="50" key=" " visible="false" horizontalAlign="center"  fontSize="18" />
+</TRIAL>
 
 
 <TRIAL multiId="cond1" template="avoid_RoundAngular,template"></TRIAL>
@@ -117,20 +122,24 @@ Statement of informed consent
 
 	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text=" Please rate the item on the below scale by pressing the appropriate button."/>
 	
-	<text howMany="2" id="dv_a---dv_b" textAlign="right---left" horizontalAlign="right---left" fontSize="40" width="100%" x="35%---65%" height="100"   y="83%" 
-		  text=	"approach---avoid|advance---retreat|seek---escape|pursue---evade|proceed---withdraw"/>
+	<shuffle stims="dv_a,dv_b" fixed="text" />
+	
+	<text howMany="2" id="dv_a---dv_b" group="stims" textAlign="right---left" horizontalAlign="right---left" fontSize="40" width="100%" x="35%---65%" height="100"   y="83%" 
+		  text=	"approach---avoid|advance---retreat|seek---escape|pursue---evade|proceed---withdraw" />
 	
 	<image copyOverId="image" resource1=".png"  />
 	
 	<button width="50" disabled="true" keyEnabled="true" hideResults="true" height="50" y="80%" x="40%---45%---50%---55%---60%" key="1---2---3---4---5" text="1---2---3---4---5"  howMany="5">
 		<action>
 			Trial.save('score', stim.get('text'));
+			Trial.save('left',dv_a.get('text'));
 			Experiment.nextTrial();
 		</action>
 	</button>
 	
+	<rt/>
  	
-	<results  dv="${dv_a.get('text')}"/>
+	<results  dv="${dv_a.get('text')}" />
 	
 	<trialCounter height="60" depth="0" y="15%" total="160"  textAlign="center" />
 	
@@ -141,11 +150,10 @@ Statement of informed consent
 <TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
 
 <text  colour="black" timeStart="0" width="80%" y="40%" height="70%" fontSize="16">
-	<.text>“To see or not to see”: The efficacy of transparent windows in packaging    
+	<.text>“Approach and avoidance to shape features    
 Thank-you for completing our study!     
-The aim of this research was to investigate how the salience of certain visual elements of packaging influence perceptions of the product within.      
-Previous research has suggested that being able to see a food product through its packaging (that is, through a transparent window) increases the visual salience of the food product inside. This, in turn, leads to increased consumption of the product, compared to when the product cannot be seen through the packaging. Our research intends to investigate whether imagery of the product on the packaging produces a similar effect, and if so, whether the size of this effect is greater or lesser than for transparent windows on packaging.     
-The results of this study will not include your name or any other information that could be used to identify you. This research did not use deception. If you have any further questions, please contact Gregory Simmonds (Email: gregory.simmonds@psy.ox.ac.uk).      
+The aim of this research was to investigate whether object valence (positive or negative) and contour (angular vs. round) and/or symmetry (symmetrical vs. asymmetrical) influence peoples associations of the objects with approach and avoidance words. Previous research seems to suggest that round and symmetrical objects ten to be associated with approach words whereas angular and assymetrical objects tend to be associated with avoidance words instead. Here, we also manipulated the valence of the object, that is, whether the object is associated with positive (a cake) or negative emotions (a knife).     
+The results of this study will not include your name or any other information that could be used to identify you. This research did not use deception. If you have any further questions, please contact Carlos Velasco (Email: carlos.velasco@psy.ox.ac.uk).      
 If you have a concern about any aspect of this project, please contact the chair of the Medical Sciences Inter-divisional Research Ethics Committee at the University of Oxford (Chair, MS IDREC; Email: ethics@medsci.ox.ac.uk; Address: Research Services, University of Oxford, Wellington Square, Oxford OX1 2JD). The chair will seek to resolve the matter in a reasonably expeditious manner.     
 PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLFIC ACADEMIC KNOWS YOU HAVE COMPLETED THE STUDY. THANKS.
 </.text>

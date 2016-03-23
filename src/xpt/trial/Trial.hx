@@ -70,14 +70,8 @@ class Trial {
             DebugManager.instance.info("Trial valid state changed to: " + _valid);
             
             // dispatch the event
-            var event:ExperimentEvent = null;
-            if (_valid == true) {
-                event = new ExperimentEvent(ExperimentEvent.TRIAL_VALID);
-            } else {
-                event = new ExperimentEvent(ExperimentEvent.TRIAL_INVALID);
-            }
-            event.trial = this;
-            experiment.dispatchEvent(event);
+            if (_valid == true) dispatchTrialEvent(ExperimentEvent.TRIAL_VALID);
+            else dispatchTrialEvent(ExperimentEvent.TRIAL_INVALID);
         }
     }
     
@@ -141,16 +135,26 @@ class Trial {
 	public function start() {
 		
         DiagnosticsManager.add(DiagnosticsManager.TRIAL_START, trialName);
+		
 		XTools.delay(ITI, function() { 
 			TimingManager.instance.start();
+			dispatchTrialEvent(ExperimentEvent.TRIAL_START);
 			
 		});
+		
+	
 
 		// TODO: duplication of stimuli here, doesnt happen once they are in TimingBoss - but should be investigated
 		// trace("" + stimuli);
 	}
 	
 
+	public function dispatchTrialEvent(what:String) {
+		var event:ExperimentEvent  = new ExperimentEvent(what);
+        event.trial = this;
+        experiment.dispatchEvent(event);
+	}	
+	
 	
 	public function overrideDefaults(potentialOverrides:Map<String, String>) 
 	{
@@ -169,5 +173,11 @@ class Trial {
 	public function results():Map<String,String> 
 	{
 		return trial_results;
+	}
+	
+	public function trialEnded() 
+	{
+		//TimingManager.instance.
+		dispatchTrialEvent(ExperimentEvent.TRIAL_END);
 	}
 }

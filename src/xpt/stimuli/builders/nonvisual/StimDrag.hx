@@ -115,14 +115,22 @@ class StimDrag extends StimulusBuilder {
 		
 		var data:Map<String,String> = new Map<String,String>();		
 		
+		var saveId:String = get('saveId');
+		
+		function getSaveIdVal(stim:Stimulus):String {
+			if (saveId == 'id') return stim.id;
+			if (stim.get(saveId) == null) throw 'In Drag, unkown saveId val in your dragging stimuli ('+saveId+')';
+			return stim.get(saveId);
+		}
+		
 		for (stim in _dragStims) {
 			if (isStimInTarget(stim.component.sprite, _dragTarget.component.sprite)){
 				for (prop in props) {
-					data.set(stim.id+"_"+prop, get_percent_loc(stim, prop));	
+					data.set(getSaveIdVal(stim)+"_"+prop, get_percent_loc(stim, prop));	
 				}
 			}
 		}
-		trace(data);
+		//trace(data);
 		return data;
 	}
 	

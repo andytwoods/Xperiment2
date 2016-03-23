@@ -42,6 +42,7 @@ class StimShuffle extends StimulusBuilder {
         }
         
         var stims = NonVisual_Tools.getStims(trial, this);
+		
             
 		if (stims.length > 0) { // lets do the shuffle
 			var fixed:String = get("fixed");
@@ -56,6 +57,7 @@ class StimShuffle extends StimulusBuilder {
 					}
 				}
 			}
+			
 			
 			DebugManager.instance.info("Shuffling " + stims.length + " stim(s)");
 			StimHelper.shuffleArrangement(stims, fixedArray);

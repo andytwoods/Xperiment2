@@ -27,25 +27,28 @@ class Results
 	private static var trickeToCloud:Bool;
 	private static var expt_id:String;
 	private static var uuid:String;
+	private static var csrftoken:String;
 	
 	private static inline var specialTag:String = 'info_';
-	
 	private static inline var EXPT_ID_TAG:String = specialTag + 'expt_id';
 	private static inline var UUID_TAG:String = specialTag + 'uuid';
 	private static inline var SPECIAL_TAG:String = specialTag + 'special';
 	private static inline var DURATION_TAG:String = specialTag + 'duration';
 	private static inline var FAILED_SEND_COUNTER_TAG:String = "failedSendCounter";
 	private static inline var FAILED_SEND_END_OF_STUDY_COUNTER_TAG:String = "failedSend_endOfStudy_Counter";
+	private static inline var CSRF:String = 'csrfmiddlewaretoken';
 	
 	private var callbacks:Array<Bool->String->Void>;
 	private var failedSend_counters:Map<String,Int> = [FAILED_SEND_COUNTER_TAG => 0, FAILED_SEND_END_OF_STUDY_COUNTER_TAG => 0];
 	private var failedSend_backup:Map<String,String>;
 	private var combinedResults:TrialResults;
 	
-	public static function setup(_expt_id:String, _uuid:String, _trickleToCloud:Bool) {
+	public static function setup(_expt_id:String, _uuid:String, _trickleToCloud:Bool, _csrftoken:String) {
 		expt_id = _expt_id;
 		uuid = _uuid;
 		trickeToCloud = _trickleToCloud;
+		csrftoken = _csrftoken;
+		
 	}
 	
 	public function new() 
@@ -78,6 +81,7 @@ class Results
 	
 	public function __send_to_cloud(trialResults:TrialResults, special:Special_Trial) 
 	{
+		trace(trialResults.results);
 
 		if ( special != null ) {
 			switch(special) {
@@ -157,16 +161,22 @@ class Results
 					//
 			}
 		}
-		
-
-		trace(trialResults.results);
-		
-
-		new PackageRESTservices_Tool(trialResults.results, serviceResult('REST', special), [EXPT_ID_TAG => expt_id, UUID_TAG => uuid]);
-		
 
 		
+		trialResults.addResult(EXPT_ID_TAG, expt_id);
+		trialResults.addResult(UUID_TAG, uuid);
+		trialResults.addResult(CSRF, csrftoken);
+		
+		if (trialResults.results.exists(specialTag+"ip") == true) {
+			trialResults.addResult(specialTag + "special", "first");
+		}
+		
+		//trace(trialResults.results);
+		
+		//new PackageRESTservices_Tool(trialResults.results, serviceResult('REST', special), [EXPT_ID_TAG => expt_id, UUID_TAG => uuid]);
+		new REST_Service(trialResults.results, serviceResult('REST', special), 'POST');
 	}
+
 	
 	private function finalSubmit_params(trialResults:TrialResults, add:Bool) {
 		if (add == true) {
@@ -184,11 +194,12 @@ class Results
 	
 	private function serviceResult(service:String, special:Special_Trial) {
 		return function(success:CommsResult, message:String, data:Map<String,String>) {
-			
+			//trace(success, message, 22);
 			if (success == CommsResult.Success) {
 				DebugManager.instance.info(service +' service sent trial data successully');
 			}
 			else {
+				
 				DebugManager.instance.error(service + ' service failed to send trial data / data was not accepted by the backend', message);
 				
 				if (special == Special_Trial.Final_Submit) {
@@ -199,7 +210,7 @@ class Results
 				else {
 					plus1_failedSend_counter(FAILED_SEND_COUNTER_TAG);
 							
-					for (exclude in [EXPT_ID_TAG, UUID_TAG, FAILED_SEND_END_OF_STUDY_COUNTER_TAG, FAILED_SEND_COUNTER_TAG, SPECIAL_TAG, DURATION_TAG]) {
+					for (exclude in [EXPT_ID_TAG, UUID_TAG, FAILED_SEND_END_OF_STUDY_COUNTER_TAG, FAILED_SEND_COUNTER_TAG, SPECIAL_TAG, DURATION_TAG,CSRF]) {
 							data.remove(exclude);
 						}
 						

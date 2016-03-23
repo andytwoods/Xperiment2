@@ -57,7 +57,7 @@ class StimButton extends StimulusBuilder {
     }
     
     override public function onRemovedFromTrial() {
-		super.onAddedToTrial();
+		super.onRemovedFromTrial();
 		if (get("key") != null) {
 			KeyPress.instance.forget(this);
 		}
