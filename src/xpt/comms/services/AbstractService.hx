@@ -8,8 +8,7 @@ import restclient.RestClient;
 class AbstractService
 {
 
-	public static var __url:String;
-	public static var __wait_til_error:Int;
+	public static var wait_til_error:Int;
 	public static var TIMED_OUT:String = "timed out";
 	
 	public var success:CommsResult; 
@@ -19,17 +18,12 @@ class AbstractService
 	public var __callBack:CommsResult -> String -> Map<String,String> -> Void;
 	private var data:Map<String,String>;
 	
-	public static function setup(url:String, wait:Int) {
-		__url = url;
-		__wait_til_error = wait;
-	}
-	
 	
 	public function new(_data:Map<String,String>, callBackF:CommsResult -> String -> Map<String,String> -> Void) 
 	{
 		__callBack = callBackF;
 		data = _data;
-		delay = new Timer(__wait_til_error);
+		delay = new Timer(wait_til_error);
 		delay.addEventListener(TimerEvent.TIMER, timerL);		
 		delay.start();
 	}

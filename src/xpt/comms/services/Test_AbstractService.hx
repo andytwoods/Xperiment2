@@ -17,7 +17,7 @@ class Test_AbstractService
 		var done = Assert.createAsync(20);
 		var a:AbstractService = null;
 		
-		AbstractService.__wait_til_error = 1;
+		AbstractService.wait_til_error = 1;
 		
 		var data:Map<String,String> = new Map<String,String>();
 		data.set('a', 'aa');
@@ -41,7 +41,7 @@ class Test_AbstractService
 		var done1 = Assert.createAsync(20);
 		var done2 = Assert.createAsync(20);
 		
-		AbstractService.__wait_til_error = 500;
+		AbstractService.wait_til_error = 500;
 		
 		var data:Map<String,String> = new Map<String,String>();
 		data.set('a', 'aa');

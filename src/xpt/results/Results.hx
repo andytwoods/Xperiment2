@@ -23,6 +23,7 @@ import xpt.ui.Xpt2Info;
 class Results
 {
 	public static var testing:Bool = false;
+	static public var url:String;
 	
 	private static var trickeToCloud:Bool;
 	private static var expt_id:String;
@@ -36,7 +37,7 @@ class Results
 	private static inline var DURATION_TAG:String = specialTag + 'duration';
 	private static inline var FAILED_SEND_COUNTER_TAG:String = "failedSendCounter";
 	private static inline var FAILED_SEND_END_OF_STUDY_COUNTER_TAG:String = "failedSend_endOfStudy_Counter";
-	private static inline var CSRF:String = 'csrfmiddlewaretoken';
+	private static inline var CSRF_TAG:String = 'csrfmiddlewaretoken';
 	
 	private var callbacks:Array<Bool->String->Void>;
 	private var failedSend_counters:Map<String,Int> = [FAILED_SEND_COUNTER_TAG => 0, FAILED_SEND_END_OF_STUDY_COUNTER_TAG => 0];
@@ -161,11 +162,10 @@ class Results
 					//
 			}
 		}
-
 		
 		trialResults.addResult(EXPT_ID_TAG, expt_id);
 		trialResults.addResult(UUID_TAG, uuid);
-		trialResults.addResult(CSRF, csrftoken);
+		trialResults.addResult(CSRF_TAG, csrftoken);
 		
 		if (trialResults.results.exists(specialTag+"ip") == true) {
 			trialResults.addResult(specialTag + "special", "first");
@@ -174,7 +174,7 @@ class Results
 		//trace(trialResults.results);
 		
 		//new PackageRESTservices_Tool(trialResults.results, serviceResult('REST', special), [EXPT_ID_TAG => expt_id, UUID_TAG => uuid]);
-		new REST_Service(trialResults.results, serviceResult('REST', special), 'POST');
+		new REST_Service(trialResults.results, serviceResult('REST', special), 'POST', url);
 	}
 
 	
@@ -210,7 +210,7 @@ class Results
 				else {
 					plus1_failedSend_counter(FAILED_SEND_COUNTER_TAG);
 							
-					for (exclude in [EXPT_ID_TAG, UUID_TAG, FAILED_SEND_END_OF_STUDY_COUNTER_TAG, FAILED_SEND_COUNTER_TAG, SPECIAL_TAG, DURATION_TAG,CSRF]) {
+					for (exclude in [EXPT_ID_TAG, UUID_TAG, FAILED_SEND_END_OF_STUDY_COUNTER_TAG, FAILED_SEND_COUNTER_TAG, SPECIAL_TAG, DURATION_TAG,CSRF_TAG]) {
 							data.remove(exclude);
 						}
 						

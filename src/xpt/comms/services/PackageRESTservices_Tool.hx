@@ -18,7 +18,7 @@ class PackageRESTservices_Tool
 	var total:Int;
 	
 
-	public function new(results:Map<String,String>, callBackF:CommsResult -> String -> Map<String,String> -> Void, identifiers:Map<String, String>) 
+	public function new(results:Map<String,String>, callBackF:CommsResult -> String -> Map<String,String> -> Void, identifiers:Map<String, String>, url:String) 
 	{
 		this.grandCallBack = callBackF;
 		if (results == null) return; //for testing
@@ -26,7 +26,7 @@ class PackageRESTservices_Tool
 		var list:Array<Map<String,String>> = partition_results(results, identifiers, packageChars, extraChars);
 trace(list.length, 3434343);
 		for (freshResults in list) {
-			restServices.push(	new REST_Service(freshResults, eventL)  );
+			restServices.push(	new REST_Service(freshResults, eventL, "POST", url)  );
 		}
 		
 		total = restServices.length;

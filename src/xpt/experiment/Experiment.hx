@@ -23,6 +23,8 @@ import xpt.screenManager.RotateYourScreen;
 import xpt.screenManager.ScreenManager;
 import xpt.script.ProcessScript;
 import xpt.stimuli.BaseStimuli;
+import xpt.stimuli.builders.nonvisual.StimEvolve.EvolvePackage;
+import xpt.stimuli.builders.nonvisual.StimEvolve.StimEvolveParams;
 import xpt.stimuli.ETCs;
 import xpt.stimuli.StimuliFactory;
 import xpt.stimuli.Stimulus;
@@ -117,8 +119,10 @@ class Experiment extends EventDispatcher {
 		
 	
 	private function linkups_Post_ExptWideSpecs() {
-		AbstractService.setup(ExptWideSpecs.IS("cloudUrl"), ExptWideSpecs.IS("saveWaitDuration"));
-		Results.setup(ExptWideSpecs.exptId(),ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS("trickleToCloud"), ExptWideSpecs.IS('csrftoken'));
+		AbstractService.wait_til_error = Std.parseInt(ExptWideSpecs.IS("saveWaitDuration"));
+		Results.setup(ExptWideSpecs.exptId(), ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS("trickleToCloud"), ExptWideSpecs.IS('csrftoken'));
+		EvolvePackage.setup(ExptWideSpecs.exptId(), ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS('csrftoken'), ExptWideSpecs.IS('evolveUrl'));
+		Results.url = ExptWideSpecs.IS('cloudUrl');
 		Trial._ITI = Std.int(ExptWideSpecs.IS("ITI"));
 	}
 	

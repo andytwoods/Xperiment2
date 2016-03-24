@@ -28,8 +28,8 @@ class Xpt {
         //exptName = 'test';
 		//exptName = 'twinSmokers';
 		//exptName = 'ShapeApproachAvoidance';
-		exptName = 'testLogos';
-		//exptName = 'evolve1';
+		//exptName = 'testLogos';
+		exptName = 'evolve1';
         diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		
 		

@@ -9,6 +9,8 @@ import xpt.stimuli.StimulusBuilder;
 import xpt.trial.Trial;
 
 class StimResults extends StimulusBuilder {
+	
+	public static var ignoreParamsList:Array<String> = ['multiId','copyOverId'];
     
     public function new() {
         super();
@@ -23,10 +25,12 @@ class StimResults extends StimulusBuilder {
 		
 		var stimuli:Array<Stimulus> = trial.stimuli;
 		
-	
+
 		for (prop in _stim.props.keys()) {
-			//res.set(prop, retrieveInfo(_stim.props.get(prop), stimuli));
-			res.set(prop, _stim.props.get(prop));
+			if(ignoreParamsList.indexOf(prop)==-1){
+				//res.set(prop, retrieveInfo(_stim.props.get(prop), stimuli));
+				res.set(prop, _stim.props.get(prop));
+			}
 		}
 		return res;
 	}

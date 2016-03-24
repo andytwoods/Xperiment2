@@ -19,7 +19,7 @@
 
 Dear participant,
 Welcome to our study! We are the Crossmodal Research Laboratory, Department of Experimental Psychology, Oxford University.    
-We are interested in understanding how people respond to different objects. If you decide to take part in this experiment, you will be asked to categorize different objects with specific word descriptors.
+We are interested in understanding how people evaluate different objects. If you decide to take part in this experiment, you will be asked to rate different objects with specific word descriptors.
 There are no right or wrong responses, so please respond according to what feels right to you. We hope you enjoy it. Your participation is very important to us.    
 You are being invited to participate because you are a member of the Prolific Academic online participant panel. The questionnaire will take around 10 minutes to complete.   
 You would still be free to withdraw from the study at any time during the questionnaire, without needing to give a reason, and without penalty. The data will be fully anonymized, and stored on a secure computer at the Crossmodal Research Laboratory, University of Oxford. The data will only be accessible by members of the Crossmodal Research Laboratory. Prolific Academic staff will not be able to access your responses. This research has been reviewed by and received favourable opinion through the University of Oxford Central University Research Ethics Committee."
@@ -37,7 +37,7 @@ You would still be free to withdraw from the study at any time during the questi
 	 
 <text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top">
 <.text>Before we begin, please read below. By clicking I CONSENT you indicate you have consented to take part.
-If you decide to take part in this experiment, you will be asked to look at some different objects and will be asked to categorize them with specific word descriptors.
+If you decide to take part in this experiment, you will be asked to look at some different objects and will be asked to rate them with specific word descriptors.
 At the end of the study we will tell you more about the purpose of the study and why we are doing this research. You can also contact Carlos Velasco (Email: carlos.velasco@psy.ox.ac.uk) for further information at a later date if you wish.
 If you have a concern about any aspect of this project, please contact the chair of the Medical Sciences Inter-divisional Research Ethics Committee at the University of Oxford (Chair, MS IDREC; Email: ethics@medsci.ox.ac.uk; Address: Research Services, University of Oxford, Wellington Square, Oxford OX1 2JD). The chair will seek to resolve the matter in a reasonably expeditious manner.  
 Please read the below consent statement and indicate whether you consent. 
@@ -78,8 +78,12 @@ Statement of informed consent
 	
 <TRIAL block="5">
 	
-	<text width="80%" height="25%"
-     text="On each trial you will see a picture. You are asked to rate it in different attributes."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
+	<text width="100%" height="50%"
+     text= "On each trial you will see a picture. Below each picture you will see a 5-point scale anchored with two words, one on the right and one on the left.
+
+Please rate the picture on the scale, by pressing a number from 1 (more associated to the word on the left) to 5 (more associated to the word on the right) on the computer keyboard.
+
+Please respond as fast but as accurately as possible."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
 	<nextTrialButton y="90%" x="50%" width="200" depth="0" height="50" verticalAlign="bottom" text="Begin" fontSize="18" />
 	
 	<text copyOverId="taste2" text="" />
@@ -129,7 +133,7 @@ Statement of informed consent
 	
 	<image copyOverId="image" resource1=".png"  />
 	
-	<button width="50" disabled="true" keyEnabled="true" hideResults="true" height="50" y="80%" x="40%---45%---50%---55%---60%" key="1---2---3---4---5" text="1---2---3---4---5"  howMany="5">
+	<button width="50" fontSize="25" disabled="true" keyEnabled="true" hideResults="true" height="50" y="80%" x="40%---45%---50%---55%---60%" key="1---2---3---4---5" text="1---2---3---4---5"  howMany="5">
 		<action>
 			Trial.save('score', stim.get('text'));
 			Trial.save('left',dv_a.get('text'));

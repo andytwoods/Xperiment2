@@ -84,7 +84,7 @@ class Test_PackageRESTservices_Tool
 			call();
 		}
 		
-		var p:PackageRESTservices_Tool = new PackageRESTservices_Tool(null, callback, null);
+		var p:PackageRESTservices_Tool = new PackageRESTservices_Tool(null, callback, null,null);
 		
 		p.total = 2;
 		
@@ -112,7 +112,7 @@ class Test_PackageRESTservices_Tool
 			call();
 		}
 		
-		var p:PackageRESTservices_Tool = new PackageRESTservices_Tool(null, callback, null);
+		var p:PackageRESTservices_Tool = new PackageRESTservices_Tool(null, callback, null, null);
 		
 		p.total = 2;
 		
@@ -143,7 +143,7 @@ class Test_PackageRESTservices_Tool
 			call();
 		}
 		
-		var p:PackageRESTservices_Tool = new PackageRESTservices_Tool(null, callback, null);
+		var p:PackageRESTservices_Tool = new PackageRESTservices_Tool(null, callback, null, null);
 		
 		p.total = 2;
 		

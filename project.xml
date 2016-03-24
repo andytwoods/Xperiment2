@@ -33,7 +33,7 @@
 	<haxelib name="utest" unless="html5" />
 	<haxelib name="thx.core" />
 	<haxelib name="haxe-rest-client" />
-	<haxelib name="polygonal-core" />
+	<haxelib name="polygonal-core"/>
 	<haxelib name="svg" />
 	
 	<!-- assets -->

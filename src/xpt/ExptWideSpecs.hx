@@ -91,7 +91,8 @@ class ExptWideSpecs
 		map.set("saveSuccessMessage","Successfully saved your data! Thankyou.");
 		map.set("saveClose","close when ready");
 		map.set("trickleToCloud","true");
-		map.set("cloudUrl","https://www.xpt.mobi/api/sj_data");
+		map.set("cloudUrl", "https://www.xpt.mobi/api/sj_data");
+		map.set("evolveUrl", "https://www.xpt.mobi/evolve/");
 		map.set("saveWaitDuration","5000");
 	//timing
 		map.set("ITI", "500");
@@ -161,7 +162,8 @@ class ExptWideSpecs
 
 	
 	static public function override_for_develServer() 
-	{
+	{	
+		map.set('evolveUrl', 'http://127.0.0.1:8000/evolve/');
 		map.set('cloudUrl', 'http://127.0.0.1:8000/api/sj_data');
 		//map.set('exptId', '17c23b394aab4c4da6f4acbcf458e065');
 	}

@@ -91,7 +91,7 @@ Statement of informed consent
 	<text howMany="2" id="dv_a---dv_b" textAlign="right---left" horizontalAlign="right---left" fontSize="40" width="100%" x="35%---65%" height="100"   y="83%" 
 		  text=	"approach---avoid|advance---retreat|seek---escape|pursue---evade|proceed---withdraw"/>
 	
-	<evolve target="image1" />
+	<evolve individuals="8" target="image1" />
 	
 	<image id="image1" resource="shape.svg" svg_FILL="567333" svg_STROKE="222222" svg_SW="5"  />
 	
