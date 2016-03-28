@@ -64,11 +64,11 @@ class Trial {
     }
     
     public function validateStims() {
+
         var stimsValid:Bool = stimValuesValid;
         if (_valid != stimsValid) {
             _valid = stimsValid;
             DebugManager.instance.info("Trial valid state changed to: " + _valid);
-            
             // dispatch the event
             if (_valid == true) dispatchTrialEvent(ExperimentEvent.TRIAL_VALID);
             else dispatchTrialEvent(ExperimentEvent.TRIAL_INVALID);
@@ -139,10 +139,10 @@ class Trial {
 		XTools.delay(ITI, function() { 
 			TimingManager.instance.start();
 			dispatchTrialEvent(ExperimentEvent.TRIAL_START);
-			
+			validateStims(); 
 		});
 		
-	
+		
 
 		// TODO: duplication of stimuli here, doesnt happen once they are in TimingBoss - but should be investigated
 		// trace("" + stimuli);

@@ -87,7 +87,7 @@ class ExptWideSpecs
 		map.set("blockDepthOrder","");
 	//saving
 		map.set("email", "backup@xperiment.mobi");
-		map.set("saveFailMessage", "There was a problem when trying to save your results.\nCould you try to send us your results again? If this is unsuccessful after several attempts, could you download your results and send them to EMAIL? We are really sorry about this and appreciate your help. Your results are very valuable to us. Thankyou.");
+		map.set("saveFailMessage", "There was a problem when trying to save your results.\n\nCould you try to send us your results again? If this is unsuccessful after several attempts, could you download your results and send them to EMAIL? WE are really sorry about this and appreciate your help. Your results are very valuable to us. Thankyou.");
 		map.set("saveSuccessMessage","Successfully saved your data! Thankyou.");
 		map.set("saveClose","close when ready");
 		map.set("trickleToCloud","true");

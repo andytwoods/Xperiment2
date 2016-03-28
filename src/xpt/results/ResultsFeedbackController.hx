@@ -61,17 +61,24 @@ class ResultsFeedbackController extends XMLController {
 		stopCountdown();
 		
 		popup.width = 680;
-		//popup.height = 630;
+		popup.autoSize = true;
 		
 		info.text = message;
-		info.autoSize = true;
+		info.autoSize = false;
+		info.multiline = true;
+		info.wrapLines = true;
 		info.width = 650;
+		info.height = 200;
+		info.style.width = 100;
+		
+		info.style.fontSize = 18;
 		//info.height = 200;
-		info.selectable = false;
+		info.selectable = true;
 		icon.resource = ICONS.get('ERROR');
 		
 		var hbox:HBox = new  HBox();
 		hbox.width = popup.width;
+		hbox.height = 300;
 		
 		info.parent.parent.addChild(hbox);
 		

@@ -19,6 +19,7 @@ import xpt.debug.DebugManager;
 import xpt.experiment.Experiment;
 import xpt.stimuli.StimHelper;
 import xpt.stimuli.Stimulus;
+import xpt.tools.XTools;
 import xpt.trial.Trial;
 
 
@@ -175,6 +176,8 @@ class Scripting
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
 		
 		var bundle:ScriptBundle = getBundle();
+		
+		
 
 		if (stim.get(prop) != null) {
 			try {
@@ -186,6 +189,7 @@ class Scripting
 				addExtraVars(bundle);
 				
 				bundle.code = StringTools.trim(stim.get(prop));
+
 				
 				if (logScript == true) {
 					DebugManager.instance.event(stim.get("stimType") + ".on" + StringUtil.capitalizeFirstLetter(event.type), "" + bundle.code);
@@ -198,6 +202,7 @@ class Scripting
 			}
 		}
 		returnBundle(bundle);
+		
 	}
 	
 	

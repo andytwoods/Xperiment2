@@ -36,6 +36,7 @@ class ResultsFeedback
 	@:access(haxe.ui.toolkit.core.Root)
 	public function removePopup() {
 		var overlay:Component = feedbackWindow.root._modalOverlay;
+		
 		PopupManager.instance.hidePopup(feedbackWindow);
 		feedbackWindow.dispose();
 		feedbackWindow = null;	

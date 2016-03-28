@@ -261,8 +261,7 @@ class Experiment extends EventDispatcher {
 		//Scripting.scriptableStimuli(runningTrial.stimuli,true);
 		Scripting.DO(null, RunCodeEvents.BeforeTrial, runningTrial);
 		DebugManager.instance.info("Starting trial");
-		runningTrial.start();
-        runningTrial.validateStims();     
+		runningTrial.start();    
 	}
 	
 	private function dispatch_ExperimentEvent(event:String, trial:Trial) {
