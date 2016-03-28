@@ -240,7 +240,6 @@ class EvolvePackage {
 				DebugManager.instance.info('Evolve comms service '+type.getName()+' evolve data successully');
 			}
 			else {
-				trace('err');
 				DebugManager.instance.info('Evolve comms service FAILED to '+type.getName()+' data successully');
 				if (tryAgain > 0) {
 					communicate(data, type);
