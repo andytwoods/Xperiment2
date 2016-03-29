@@ -41,9 +41,7 @@ class StimEvolve extends StimulusBuilder {
 		
 		if (target == null) throw 'Cannot find target to evolve (' + get('target') + ').';
 		target.component.visible = false;
-		
 		wireupTarget(target);
-
     }
 	
 	function wireupTarget(target:Stimulus) 
@@ -92,38 +90,36 @@ class StimEvolveManager {
 	
 	public function trialStarted(trial:Trial, stimEvolve:StimEvolve) 
 	{
-		
 		this.stimEvolve = stimEvolve;
 		
 		if (newlyInstantiated == true) {
+			EvolvePackage.addEvolveId(stimEvolve.get('evolveId'));
 			params = StimEvolveParams.get(stimEvolve);
 			newlyInstantiated = false;
-
-			if(this.trial != trial){
-				request(params.requestIndividualsAtStart);
-			}
-			
-			this.trial = trial;
+		}	
+		
+		if (this.trial != trial) {
+			request(params.requestIndividualsAtStart);
 		}
-		
-		
-		
+			
+		this.trial = trial;
 	}
 	
 	function request(howMany:Int) 
 	{
-		for(i in 0...howMany) evolvePackages.push(	new EvolvePackage(params)	);
+
+		for (i in 0...howMany) {
+			if (params.individuals > 0)	evolvePackages.push(	new EvolvePackage(params)	);
+			params.individuals--;
+		}
 	}
 	
 
-	
-
-	
 }
 
 class StimEvolveParams {
 		
-	public var individuals:Int = 8;
+	public var individuals:Int = 80;
 	public var requestIndividualsAtStart:Int = 2;
 	public var tryAgain:Int = 0;
 	
@@ -144,9 +140,7 @@ class StimEvolveParams {
 			s.tryAgain = val;
 		}
 		
-		
-		
-		
+	
 		/*var allFields = Type.getInstanceFields(StimEvolveParams);
 		for (field in allFields) {
 		
@@ -192,10 +186,12 @@ class EvolvePackage {
 	
 	static public var url:String;
 	
-	private  static inline var specialTag:String = 'info_';
-	private static inline var UUID_TAG:String = specialTag + 'uuid';
-	private static inline var EXPT_ID_TAG:String = specialTag + 'expt_id';
+	private static inline var UUID_TAG:String = 'uuid';
+	private static inline var EVOLVE_ID_TAG:String = 'evolve_id';
 	private static inline var CSRF_TAG:String = 'csrfmiddlewaretoken';
+	
+	private static inline var CHECKOUT:String = 'checkout/';
+	private static inline var RETURN:String = 'return/';
 	
 	var tryAgain:Int;
 	var params:StimEvolveParams;
@@ -228,14 +224,20 @@ class EvolvePackage {
 	}
 	
 	function communicate(data:Map < String, String > , type:CommsType) {
-		new REST_Service(data, requestResult(type), 'POST', url);
+		var _url:String = url;
+		switch(type) {
+			case RequestIndividual:
+				_url += CHECKOUT;
+			case ReturnIndividual:
+				_url += RETURN;
+		}
+		new REST_Service(data, requestResult(type), 'POST', _url);
 	}
 	
 
 	function requestResult(type:CommsType):CommsResult -> String -> Map<String,String> -> Void {
 		
 		return 	function requestResult(success:CommsResult, message:String, data:Map<String,String>) {
-			
 			if (success == CommsResult.Success) {
 				DebugManager.instance.info('Evolve comms service '+type.getName()+' evolve data successully');
 			}
@@ -244,15 +246,19 @@ class EvolvePackage {
 				if (tryAgain > 0) {
 					communicate(data, type);
 					tryAgain--;
-					trace('err');
 				}
+				trace('err', message, data);
 			}
 		}
 	}
 	
-	static public function setup(exptId:String, uuid:String, csrf:String, _url:String) 
+	static public function addEvolveId(id:String) {
+		EvolvePackage.genericData.set(EVOLVE_ID_TAG, id);
+	}
+	
+	static public function setup(uuid:String, csrf:String, _url:String) 
 	{		
-		EvolvePackage.genericData = [EvolvePackage.EXPT_ID_TAG => exptId, EvolvePackage.UUID_TAG => uuid, EvolvePackage.CSRF_TAG => csrf];
+		EvolvePackage.genericData = [EvolvePackage.UUID_TAG => uuid, EvolvePackage.CSRF_TAG => csrf];
 		url = _url;
 	}
 }

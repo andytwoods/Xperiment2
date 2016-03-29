@@ -2,9 +2,7 @@
 
 <SETUP>  
 	  <screen BGcolour="808080" orientation="vertical" ></screen>                          
-	  <computer  encrypt='false' />
-	  <style BUTTON_DOWN="0xff5656"  />
-	  <variables practice='0' />
+	<results trickleToCloud="false"/>
 </SETUP>
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
@@ -91,7 +89,7 @@ Statement of informed consent
 	<text howMany="2" id="dv_a---dv_b" textAlign="right---left" horizontalAlign="right---left" fontSize="40" width="100%" x="35%---65%" height="100"   y="83%" 
 		  text=	"approach---avoid|advance---retreat|seek---escape|pursue---evade|proceed---withdraw"/>
 	
-	<evolve individuals="8" target="image1" />
+	<evolve evolveId="test1" individuals="80" target="image1" />
 	
 	<image id="image1" resource="shape.svg" svg_FILL="567333" svg_STROKE="222222" svg_SW="5"  />
 	

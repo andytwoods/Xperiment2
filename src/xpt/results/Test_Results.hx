@@ -29,7 +29,7 @@ class Test_Results
 	
 	public function test_failToSend() {
 	
-		Results.setup('abc', 'def', true, 'PUSH');
+		Results.setup('abc', 'def', 'true', 'PUSH');
 		var r:Results = new Results();
 		var f:CommsResult->String->Map<String,String>->Void = r.serviceResult('some service', null);
 		

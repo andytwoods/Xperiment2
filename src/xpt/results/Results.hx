@@ -1,5 +1,6 @@
 package xpt.results;
 import haxe.Serializer;
+import thx.Bools;
 import xpt.comms.CommsResult;
 import xpt.comms.services.AbstractService;
 import xpt.comms.services.CrossDomain_service;
@@ -25,7 +26,7 @@ class Results
 	public static var testing:Bool = false;
 	static public var url:String;
 	
-	private static var trickeToCloud:Bool;
+	private static var trickleToCloud:Bool;
 	private static var expt_id:String;
 	private static var uuid:String;
 	private static var csrftoken:String;
@@ -44,10 +45,11 @@ class Results
 	private var failedSend_backup:Map<String,String>;
 	private var combinedResults:TrialResults;
 	
-	public static function setup(_expt_id:String, _uuid:String, _trickleToCloud:Bool, _csrftoken:String) {
+	public static function setup(_expt_id:String, _uuid:String, _trickleToCloud:String, _csrftoken:String) {
 		expt_id = _expt_id;
 		uuid = _uuid;
-		trickeToCloud = _trickleToCloud;
+
+		trickleToCloud = Bools.parse(_trickleToCloud);
 		csrftoken = _csrftoken;
 		
 	}
@@ -60,8 +62,8 @@ class Results
 	public function add(trialResults:TrialResults, special:Special_Trial) 
 	{
 		if (trialResults == null) return;
-	
-		if(trickeToCloud)	__send_to_cloud(trialResults, special);
+
+		if(trickleToCloud)	__send_to_cloud(trialResults, special);
 		
 	}
 	

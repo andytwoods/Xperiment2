@@ -12,10 +12,9 @@ class AbstractService
 	public static var TIMED_OUT:String = "timed out";
 	
 	public var success:CommsResult; 
-	
 	public var delay:Timer;
-	
 	public var __callBack:CommsResult -> String -> Map<String,String> -> Void;
+	
 	private var data:Map<String,String>;
 	
 	
@@ -43,6 +42,7 @@ class AbstractService
 	}
 
 	public function fromCloud_f(message:String) {	
+		trace(1111, message);
 		if (check_cloudMessageSuccess(message)) do_callBack(Success, message);
 		else do_callBack(Fail, message);
 	}
