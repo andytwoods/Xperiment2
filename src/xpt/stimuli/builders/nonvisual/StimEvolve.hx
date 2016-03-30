@@ -108,10 +108,30 @@ class StimEvolveManager {
 	function request(howMany:Int) 
 	{
 
+		var children:Array<EvolvePackage> = new Array<EvolvePackage>(); 
+		var parent:EvolvePackage = null;
+		
 		for (i in 0...howMany) {
-			if (params.individuals > 0)	evolvePackages.push(	new EvolvePackage(params)	);
+			if (params.individuals > 0) {	
+				if (i == 0) parent = new EvolvePackage(params);
+				else children.push(new EvolvePackage(params));
+			}
 			params.individuals--;
 		}
+			
+		
+		if (parent != null) {
+			evolvePackages.push( parent	);	
+			if (children.length > 0) {
+				parent.children = children;
+				for (child in children) {
+					evolvePackages.push( child	);	
+				}
+			}
+			parent.start();
+		}
+		
+		
 	}
 	
 
@@ -185,6 +205,7 @@ enum CommsType {
 class EvolvePackage {
 	
 	static public var url:String;
+	public var children:Array<EvolvePackage>;
 	
 	private static inline var UUID_TAG:String = 'uuid';
 	private static inline var EVOLVE_ID_TAG:String = 'evolve_id';
@@ -202,8 +223,14 @@ class EvolvePackage {
 	
 		this.params = params;
 		this.tryAgain = params.tryAgain;
+	}
+	
+	public function start() {
 		var data = composeData(RequestIndividual);
-		communicate(data, RequestIndividual);
+		var howMany:Int = 1;
+		if (children != null) howMany += children.length;
+		data.set('request_how_many', Std.string(howMany));
+		communicate(data, RequestIndividual);	
 	}
 	
 	public function giveback(individual:Dynamic) {
@@ -231,7 +258,7 @@ class EvolvePackage {
 			case ReturnIndividual:
 				_url += RETURN;
 		}
-		new REST_Service(data, requestResult(type), 'POST', _url);
+		new REST_Service(data, requestResult(type), 'POST', _url, '*');
 	}
 	
 

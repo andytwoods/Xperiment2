@@ -42,7 +42,6 @@ class AbstractService
 	}
 
 	public function fromCloud_f(message:String) {	
-		trace(1111, message);
 		if (check_cloudMessageSuccess(message)) do_callBack(Success, message);
 		else do_callBack(Fail, message);
 	}

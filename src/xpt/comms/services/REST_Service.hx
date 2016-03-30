@@ -8,10 +8,12 @@ import restclient.RestClient;
 class REST_Service extends AbstractService
 {
 
-	public static inline var CLOUD_SUCCESS_MESSAGE:String = '';
+	private var successTest:String;
 	
-	public function new(_data:Map<String,String>, callBackF:CommsResult -> String -> Map<String,String> -> Void, type:String, url:String) 
+	public function new(_data:Map<String,String>, callBackF:CommsResult -> String -> Map<String,String> -> Void, type:String, url:String, successTest:String = '') 
 	{
+		this.successTest = successTest;
+		
 		super(_data, callBackF);
 		switch(type.toUpperCase()) {
 			case 'GET':
@@ -35,6 +37,7 @@ class REST_Service extends AbstractService
 	
 	override public function check_cloudMessageSuccess(message:String) 
 	{
-		return message == CLOUD_SUCCESS_MESSAGE;
+		if (successTest == '*') return true;
+		return message == successTest;
 	}
 }
