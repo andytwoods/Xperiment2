@@ -55,7 +55,7 @@ class CheckIsCode
 		var firstIsSetup:Bool = false;
 		for (node in XML_tools.getChildren(xml)) {
 			
-			if(node.nodeType != Xml.PCData){
+			if(node.nodeType == Xml.Element){
 				if (i == 1) {
 					if (checkIsCode(node) == true && firstIsSetup) return node;
 				}

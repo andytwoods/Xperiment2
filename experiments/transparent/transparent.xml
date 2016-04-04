@@ -7,6 +7,24 @@
 	  <variables practice='0' />
 </SETUP>
 
+<!--
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+Still TBD:
+
+- Update image in TRIAL block 5 (to Pasta stimuli box with window?)
+
+- Is there a better way to ask a Yes/No question for the colour vision deficiency q.?
+
+- Update Prolific Academic link
+
+
+
+N.B. All introduction and exit pages are complete, as well as the question. Just need to check the questions are being asked for all 3 sets; that the images are in a sensible place at the top; and that the question and stimuli orders are randomised.
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+-->
+  
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
 
 	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
@@ -19,8 +37,8 @@ Dear participant,
 Welcome to our study! We are the Crossmodal Research Laboratory, Department of Experimental Psychology, Oxford University.    
 We are interested in understanding how people associate information across the senses. If you decide to take part in this experiment, you will be asked to look at some different types of food and drink packaging and will be asked some questions about your opinions of them.
 There are no right or wrong responses, so please respond according to what feels right to you. We hope you enjoy it. Your participation is very important to us.    
-You are being invited to participate because you are a member of the Prolific Academic online participant panel. The questionnaire will take around 10 minutes to complete.   
-You would still be free to withdraw from the study at any time during the questionnaire, without needing to give a reason, and without penalty. The data will be fully anonymized, and stored on a secure computer at the Crossmodal Research Laboratory, University of Oxford. The data will only be accessible by members of the Crossmodal Research Laboratory, and will be destroyed on 30th September 2016. Prolific Academic staff will not be able to access your responses. This research has been reviewed by and received favourable opinion through the University of Oxford Central University Research Ethics Committee."
+You are being invited to participate because you are a member of the Prolific Academic online participant panel. The questionnaire will take 1 to 2 minutes to complete.   
+You would still be free to withdraw from the study at any time during the questionnaire, without needing to give a reason, and without penalty. The data will be fully anonymized, and stored on a secure computer at the Crossmodal Research Laboratory, University of Oxford. The data will only be accessible by members of the Crossmodal Research Laboratory, and will be kept for a maximum of 5 years. Prolific Academic staff will not be able to access your responses. This research has been reviewed by and received favourable opinion through the University of Oxford Central University Research Ethics Committee."
 	fontSize="15" />
 	
 	
@@ -61,74 +79,79 @@ Statement of informed consent
 </TRIAL>	
 	
 
-<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
 	<text text="Some questions before we start:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
 	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
 	<text text="What country do you come from?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
 	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
     <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
+	<text text="Do you have any form of color vision deficiency, such as partial or total colour blindness?" fontSize="20" textAlign="center" width="100%" height="30"  y="60%" />
+	<checkBoxes selectMany="false" y="70%" x="50%" labels="Yes,No" random="true"/>
+  
 	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
-	<text text="Which of these types of products have you bought for yourself in the past 6 months?" fontSize="20" textAlign="center" width="100%" height="30"  y="60%" />
-	
-	<checkBoxes selectMany="true" y="70%" x="50%" labels="Dried pasta,Chocolate,Granola or muesli,Salmon" random="true"/>
 	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
 </TRIAL>	
 	
 	
 <TRIAL block="5">
-	
-	<text width="80%" height="25%"
-     text="On each trial you will see 3 images of packaging. You are asked to arrange those items in a box according to a given question. There are 32 trials in total."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
+
+<image  y="450" width="800" height="83" asset="img/logos/oxford02.png" /> <!-- TO UPDATE TO PASTA STIMULI BOX FROM EXP 1 -->
+  
+<text width="100%" height="95%" fontSize="17" y="50" verticalAlign="top">
+<.text>PLEASE READ THE FOLLOWING INFORMATION CAREFULLY BEFORE CONTINUING:
+On each trial you will see several images of product packaging.
+In this study, we will ask you to compare the colour contrast between the main colour of some packaging to the contents of a transparent window. Contrast is determined by the difference in the color and brightness of two elements of an image. Very similar colours/brightnesses would have low contrast. Very different colours/brightnesses would have high contrast.
+An example of a stimulus in this study is shown below. This may be considered to have high contrast, as the main colour of the packaging (the blue box) is very different to the main colour of the contents of the transparent window (the yellow pasta).
+You will be asked to arrange different coloured packaging on a scale from highest to lowest contrast. There will be 3 trials in total.
+</.text></text>
+  
 	<nextTrialButton y="90%" x="50%" width="200" depth="0" height="50" verticalAlign="bottom" text="Begin" fontSize="18" />
 	
 	<text copyOverId="taste2" text="" />
 </TRIAL>
 	
-
-
 <TRIAL template="cereal,template"></TRIAL>
 <TRIAL template="chocolates_box,template"></TRIAL>
-<TRIAL template="green_fusilli_box,template"></TRIAL>
 <TRIAL template="salmon,template"></TRIAL>
 
 	
 
 <cereal>
-	<image copyOverId="image" resource="cereal" />
+	<image copyOverId="image" resource2="0---1---2---3---4---5" 
+           resource="cereal" x="14%---29%---43%---57%---71%---86%" howMany="6" />
 </cereal>
 	
 	
 <chocolates_box>
-	<image copyOverId="image" resource="chocolates_box" />
+	<image copyOverId="image" resource2="0---1---2---3---4---5"
+           resource="chocolates_box" x="14%---29%---43%---57%---71%---86%" howMany="6"/>
 </chocolates_box>
 	
-<green_fusilli_box>
-	<image copyOverId="image" resource="green_fusilli_box" />
-</green_fusilli_box>
 	
 <salmon>
-	<image copyOverId="image" resource="salmon" />
+	<image copyOverId="image" resource2="0---1---2---3---4---5"
+           resource="salmon" x="14%---29%---43%---57%---71%---86%" howMany="6" />
 </salmon>
 	
 
-<template order="random" trials="1" block="10|11|12|13|14|15|16|17">
+<template order="random" trials="1" block="-10">
 
-	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text1=" Please drag the items into the box below, arranging the items according to the labels at the bottom of the screen." text=
-	"How much do you like the product shown overall?|How likely would you be to buy this product, assuming it was available and at a reasonable price?|How tasty would you expect this product to be?|How fresh would you expect this product to be?|What quality would you expect this product to be?|How innovative do you think this product is?|How strong and sturdy do you think the packaging is?|How attractive is this packaging design to you?"
+	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text1="Drag the image onto the scale to give your response, where the left side shows the lowest contrast, and the right side shows the highest contrast."
+          text=	"Please rate the contrast between the contents of the window and the main colour of the packaging. Note that only the colour of the packaging changes in each image."
 		/>
 	
 	<text textAlign="center" fontSize="40" width="100%" height="100" verticalAlign="top"  y="68%" duration = "1000"
-		  text=	"Overall Liking|Willingness to Purchase|Tastiness|Freshness|Quality|Innovativness|Strength of Packaging|Attractiveness"/>
+		  text=	"Constrast rating"/>
 	
-	<image copyOverId="image"   x="25%---50%---75%" y="22%" group="g1" howMany="3" resource1="_" resource2="graphic---neither---window" resource3=".png"  />
+	<image copyOverId="image"   x="14%---29%---43%---57%---71%---86%" y="22%" group="g1" howMany="6" resource1="_" resource2="0---1---2---3---4---5" resource3=".png"  />
 	
 	<shuffle groups="g1" />
     
     <drag target="dragTarget" groups="g1" capture="x" dragTransparency=".5" />
 	
 	<text copyOverId="taste2" id="dv2---dv1" horizontalAlign="left---right" y="100%" verticalAlign="bottom" textAlign="left---right" x="0%---100%" howMany="2" fontSize="18" height="50" width="400"
-		text="Don't like the product at all---Like the product very much|Definitely would not buy---Definitely would buy|Not at all tasty---Very tasty|Not at all fresh---Very fresh|Very low quality---Very high quality|Not innovative at all---Very innovative|Very weak packaging---Very strong packaging|Not at all attractive to me---Very attractive to me"  
+		text="Lowest contrast---Highest contrast"  
 		  />
     
     <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="bottom"  y="93%" width="99%" height="55%" borderColour="#CCCCCC" cornerRadius="10" borderSize="2" />
@@ -148,15 +171,15 @@ Statement of informed consent
 <text  colour="black" timeStart="0" width="80%" y="40%" height="70%" fontSize="16">
 	<.text>“To see or not to see”: The efficacy of transparent windows in packaging    
 Thank-you for completing our study!     
-The aim of this research was to investigate how the salience of certain visual elements of packaging influence perceptions of the product within.      
+The aim of this research was to investigate how the salience of certain visual elements of packaging influence perceptions of the product within. Specifically, you took part in a pre-test to identify which packaging colours give the highest contrast to the contents of a product, as seen through a transparent window.   
 Previous research has suggested that being able to see a food product through its packaging (that is, through a transparent window) increases the visual salience of the food product inside. This, in turn, leads to increased consumption of the product, compared to when the product cannot be seen through the packaging. Our research intends to investigate whether imagery of the product on the packaging produces a similar effect, and if so, whether the size of this effect is greater or lesser than for transparent windows on packaging.     
 The results of this study will not include your name or any other information that could be used to identify you. This research did not use deception. If you have any further questions, please contact Gregory Simmonds (Email: gregory.simmonds@psy.ox.ac.uk).      
 If you have a concern about any aspect of this project, please contact the chair of the Medical Sciences Inter-divisional Research Ethics Committee at the University of Oxford (Chair, MS IDREC; Email: ethics@medsci.ox.ac.uk; Address: Research Services, University of Oxford, Wellington Square, Oxford OX1 2JD). The chair will seek to resolve the matter in a reasonably expeditious manner.     
-PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLFIC ACADEMIC KNOWS YOU HAVE COMPLETED THE STUDY. THANKS.
+PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLIFIC ACADEMIC KNOWS YOU HAVE COMPLETED THE STUDY. THANKS.
 </.text>
 </text>
 
-<link text="Prolific Academic Link" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB" />
+<link text="Prolific Academic Link - TO UPDATE" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/56bda83ed4e218000ba908de/complete?cc=54JKP4JX" />
 
 </TRIAL>	
 	

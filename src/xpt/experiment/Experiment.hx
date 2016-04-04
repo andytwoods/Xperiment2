@@ -57,6 +57,7 @@ class Experiment extends EventDispatcher {
 	public function new(script:Xml, url:String = null, params:Object = null) {
 		super();
 		linkups();
+		trace(11);
 		if (script == null) return; //used for testing
 		this.script = script;
 

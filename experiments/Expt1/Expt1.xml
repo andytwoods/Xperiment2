@@ -14,7 +14,7 @@
 	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
 
     
-	<text width="80%" height="25%" 
+	<text width="80%" y="30%" height="25%" 
 		  text=
 		  "Estimado participante,
 Bienvenido a nuestro experimento! Somos el Imagineering Institute, la Universidad de Oxford, y la Universidad de la Sabana. 
@@ -24,8 +24,8 @@ Esperamos que lo disfrute. Su participación es muy importante para nosotros."
 	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />
 	 
 	
-	<preloadProgress x="20" y="540"  horizontalAlign="left" width="60%" height="40" />
-	<preloadReadyButton x="85%" y="540" width="30%" height="40" text="Siguiente (Espacio)" key=" " fontSize="18" />
+	<preloadProgress x="20" y="90%"  horizontalAlign="left" width="60%" height="40" />
+	<preloadReadyButton x="85%" y="90%" width="30%" height="40" text="Siguiente (Espacio)" key=" " fontSize="18" />
 	
 </TRIAL> 
 
@@ -92,7 +92,7 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
 	<text copyOverId="taste2" text="No me gustan para nada---Me gustan mucho" />
 </TRIAL>	
 	
-<TRIAL template="b2,template"  block="-55" >
+<TRIAL template="b2,template"  block="55" >
 	<text copyOverId="taste1" text="Por favor mueva estos empaques al recuadro de abajo, organizándolos de acuerdo a qué tan " text1="familares" text2=" le parecen los empaques."/>
 	<text copyOverId="taste2" text="Para nada familiares---Muy familiares" />
 </TRIAL>	
