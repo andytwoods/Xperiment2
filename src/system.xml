@@ -68,7 +68,10 @@
 		<rt builder="xpt.stimuli.builders.nonvisual.StimRT">
 			<id>rt</id>
 		</rt>
-		<shuffle builder="xpt.stimuli.builders.nonvisual.StimShuffle" />
+		<swap builder="xpt.stimuli.builders.nonvisual.StimShuffle"/>
+		<shuffle builder="xpt.stimuli.builders.nonvisual.StimShuffle">
+			<fixed>x,y</fixed>
+		</shuffle>
 		<drag builder="xpt.stimuli.builders.nonvisual.StimDrag">
 			<saveId>id</saveId>
             <valid>equals(groups(prop("groups")))</valid>

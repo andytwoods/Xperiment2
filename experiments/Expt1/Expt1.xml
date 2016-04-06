@@ -59,7 +59,7 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
 	
 
 
-<TRIAL template="b1,template"  block="10" trials="2">
+<TRIAL template="b1,template"  block="-10" trials="2">
 	<text copyOverId="taste1" text1="Dulce|Ácido"/>
 	<text copyOverId="taste2" text="Para nada dulce---Muy dulce|Para nada ácido---Muy ácido" />
 </TRIAL>	
@@ -111,7 +111,7 @@ Por favor lea el consentimiento informado presentado a continuacion e indique si
 	
 	<image howMany="4" copyOverId="over_image" verticalAlign="bottom" y="43%" group="g1" id="1---1---2---2" id1="F---N" resource="1---1---2---2" resource1="F---N"  resource3=".png" x="20%---40%---60%---80%"   />
 	
-	<shuffle groups="g1" />
+	<shuffle groups="g1"fixed="x,y" />
     
     <drag target="dragTarget" groups="g1" capture="x" dragTransparency=".5" />
 	

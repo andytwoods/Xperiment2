@@ -129,6 +129,21 @@ class Stimulus {
 		return b;
 	}
 	
+	public function setDynamic(what:String, val:Dynamic) {
+		var prev = __properties.get(what);
+		if(Std.is(prev, Int)) {
+			__properties.set(what, Std.parseInt(val));
+		}
+		else if (Std.is(prev, Float)) {
+			__properties.set(what, Std.parseFloat(val));
+		}
+		else if(Std.is(prev, String)) {
+			__properties.set(what, Std.string(val));
+		}
+		else throw 'unknown type: '+Std.string(prev);
+	}
+
+	
 	public function set(what:String, val:Dynamic) {
 		switch(what.toLowerCase()) {
 			case 'start':

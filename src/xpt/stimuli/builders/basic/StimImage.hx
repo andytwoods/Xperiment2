@@ -83,11 +83,8 @@ class StimImage extends StimulusBuilder {
 	private function setSvg(svg_txt:String, image:Image) {
 		svg_txt = insertSvgParams(svg_txt);
 		#if svg
-			if (_svgSprite == null) {
-				var svg:SVG = new SVG(svg_txt);
-				image.updateSvg(svg);
-			}
-			
+			var svg:SVG = new SVG(svg_txt);
+			image.updateSvg(svg);
 		#end
 	}
 	
@@ -97,7 +94,7 @@ class StimImage extends StimulusBuilder {
 		for (key in _stim.props.keys()) {
 			if (StringTools.startsWith(key, SVG_Tag)) {
 				prop = key.substr(SVG_Tag.length);
-				svg_txt = StringTools.replace(svg_txt, prop, _stim.props.get(key));
+				svg_txt = StringTools.replace(svg_txt, prop, _stim.get(key));
 			}
 		}
 		return svg_txt;

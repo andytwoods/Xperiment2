@@ -66,7 +66,7 @@ class StimulusBuilder {
     private function get_experiment():Experiment {
         return _stim.experiment;
     }
-
+	
 	private function getDynamic(what:String, defaultValue:Dynamic = null):Dynamic {
 		var v:Dynamic = defaultValue;
 		if (_stim == null) {

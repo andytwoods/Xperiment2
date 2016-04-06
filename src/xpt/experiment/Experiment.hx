@@ -23,7 +23,7 @@ import xpt.screenManager.RotateYourScreen;
 import xpt.screenManager.ScreenManager;
 import xpt.script.ProcessScript;
 import xpt.stimuli.BaseStimuli;
-import xpt.stimuli.builders.nonvisual.StimEvolve.EvolvePackage;
+import xpt.stimuli.builders.nonvisual.StimEvolve.EvolveCommsManager;
 import xpt.stimuli.builders.nonvisual.StimEvolve.StimEvolveParams;
 import xpt.stimuli.ETCs;
 import xpt.stimuli.StimuliFactory;
@@ -57,7 +57,6 @@ class Experiment extends EventDispatcher {
 	public function new(script:Xml, url:String = null, params:Object = null) {
 		super();
 		linkups();
-		trace(11);
 		if (script == null) return; //used for testing
 		this.script = script;
 
@@ -122,7 +121,7 @@ class Experiment extends EventDispatcher {
 	private function linkups_Post_ExptWideSpecs() {
 		AbstractService.wait_til_error = Std.parseInt(ExptWideSpecs.IS("saveWaitDuration"));
 		Results.setup(ExptWideSpecs.exptId(), ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS("trickleToCloud"), ExptWideSpecs.IS('csrftoken'));
-		EvolvePackage.setup(ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS('csrftoken'), ExptWideSpecs.IS('evolveUrl'));
+		EvolveCommsManager.setup(ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS('csrftoken'), ExptWideSpecs.IS('evolveUrl'));
 		Results.url = ExptWideSpecs.IS('cloudUrl');
 		Trial._ITI = Std.int(ExptWideSpecs.IS("ITI"));
 	}
@@ -202,10 +201,9 @@ class Experiment extends EventDispatcher {
 		}
 	}
 	
-	private function cleanup_prevTrial() {
+	private function collectData_prevTrial() {
 			var trialResults:TrialResults = TrialResults.extract_trial_results(runningTrial);
-			results.add(trialResults, runningTrial.specialTrial);
-			runningTrial.kill();					
+			results.add(trialResults, runningTrial.specialTrial);				
 	}
 	
 	public function changeLanguage(lang:String, all_langs:Array<String>, _default:String) {
@@ -219,11 +217,11 @@ class Experiment extends EventDispatcher {
 
 		if (runningTrial != null) {
 			Scripting.DO(null, RunCodeEvents.AfterTrial, runningTrial);
-			Scripting.stimuli = null;
             runningTrial.trialEnded();
-            
 			Scripting.scriptableStimuli(runningTrial.stimuli, false);
-			cleanup_prevTrial();
+			collectData_prevTrial();
+			Scripting.stimuli = null;
+			runningTrial.kill();	
 		}
 		
 		var info:NextTrialInfo = currentTrialInfo;

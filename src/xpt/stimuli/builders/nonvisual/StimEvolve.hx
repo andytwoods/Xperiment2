@@ -6,6 +6,7 @@ import haxe.ui.toolkit.layout.VerticalContinuousLayout;
 import xpt.comms.services.REST_Service;
 import xpt.debug.DebugManager;
 import xpt.events.ExperimentEvent;
+import xpt.evolve.Individual;
 import xpt.stimuli.builders.nonvisual.StimEvolve;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;
@@ -15,15 +16,20 @@ import xpt.comms.CommsResult;
 
 class StimEvolve extends StimulusBuilder {
     private var _trialStarted:Bool = false;
-    private var _suffleAdded:Bool = false;
-    private var _shuffled:Bool = false;
 	var stims:Array<Stimulus>;
 	var target:Stimulus;
+	var evolveManager:StimEvolveManager;
+	var target_changed_once = false;
+	var saveParams:Array<String>;
+	var individual:IndividualInstruction;
+
     
     public function new() {
         super();
         Scripting.experiment.addEventListener(ExperimentEvent.TRIAL_START, onTrialStarted);
 		Scripting.experiment.addEventListener(ExperimentEvent.TRIAL_END, onTrialEnded);
+		
+		
     }
     
 	private override function applyProperties(c:Component) {
@@ -34,114 +40,378 @@ class StimEvolve extends StimulusBuilder {
         Scripting.experiment.removeEventListener(ExperimentEvent.TRIAL_START, onTrialStarted);
         _trialStarted = true;
 		
-		StimEvolveManager.instance.trialStarted(trial, this);
+		var evolveId:String = get('evolveId', null);
+		if (evolveId == null) throw 'no evolveId specified';
 		
 		this.stims = NonVisual_Tools.getStims(trial, this);
 		this.target = trial.findStimulus(get('target'));
 		
 		if (target == null) throw 'Cannot find target to evolve (' + get('target') + ').';
 		target.component.visible = false;
-		wireupTarget(target);
+		
+		saveParams = getStringArray('data');
+		if (saveParams == null) throw "For an Evolve stimulus, you MUST set what 'data' you want to return from the trial results. Not done so.";
+		
+		evolveManager = StimEvolveManager.my_instance(evolveId);
+		evolveManager.trialStarted(this);
+		changeTargetGenes();
     }
 	
-	function wireupTarget(target:Stimulus) 
-	{
-		
-	}
 
 	private function onTrialEnded(e:ExperimentEvent) {
-        Scripting.experiment.removeEventListener(ExperimentEvent.TRIAL_START, onTrialEnded);
+        Scripting.experiment.removeEventListener(ExperimentEvent.TRIAL_END, onTrialEnded);
 
-
+		var results:Map<String,String> = e.trial.results();
+		var evolveData:Map<String,String> = new Map<String,String>();
+		
+		var val:String;
+		for (key in saveParams) {
+			val = results.get(key);
+			if (val == null) throw "For an evolve stimulus, in it's 'data' field, cannot find one of the params set in the results: "+key+".";
+			evolveData.set(key, val);
+		}
+		
+		individual.data = evolveData;
+		var data = individual.composeOutput();
+		evolveManager.send_data(data);
+		
     }
     
-   
+	private function changeTargetGenes() {
+	
+		if(target_changed_once == false){
+			
+			individual = evolveManager.take_individual();
+			if (individual == null) {
+				return;
+			}
+			trace('setting individual');
+			
+			target_changed_once = true;
+			var genes:Array<String> = getStringArray('genes');
+			//trace(genes); //race condiction here..........................................................................................................................................
+			if (genes.length > individual.genes.length) throw 'the evolver in the cloud has not provided enough genes (you have too many genes to change).';
+			var gene:String;
+			var transform:String = get('transform');
+			trace(individual.genes);
+			for (g in 0...genes.length) {
+				gene =  genes[g];
+				target.setDynamic(gene, process(transform, individual.genes[g]-1));
+			}	
+			target.builder.update();
+			target.component.visible = true;
+			
+		}
+	}
+	
+	function process(transform:String, i:Float):String
+	{
+		if (transform == null) return Std.string(i);
+		
+		var colours:Array<String> = get('colours', '').split(",");
+		var colour:String = colours[Std.int(i)];
+		return colour;
+	}
+	
+	public function individualsAvailable() {	
+		changeTargetGenes();
+	}
     
-	//*********************************************************************************
-	// CALLBACKS
-	//*********************************************************************************
-    public override function onAddedToTrial() { // could happen instantly, could happen after a give time
-        _suffleAdded = true;
-    }
+}
+
+class IndividualInstruction {
+	
+	public var rating_num:Int;
+	public var genes:Array<Float>;
+	public var id:Int;	
+	public var data:Map<String,String>;
+	
+	public function new(arr:Array<String>) {	
+		for (item in arr) {
+			parse(item.split(":"));
+		}
+	}
+	
+	function parse(split:Array<String>) {
+		if (split.length != 2) return;
+		switch(split[0]) {
+		
+			case 'rating_num':
+				this.rating_num = Std.parseInt(split[1]);
+			case 'id':
+				this.id = Std.parseInt(split[1]);
+			case 'genes':
+				var val:String = split[1];
+				this.genes = new Array<Float>();
+				var arr2 = val.split("|");
+				for (i in 0...arr2.length) {
+					this.genes.push(Std.parseFloat(arr2[i]));
+				}
+		}
+	}
+	
+	public function composeOutput():Map<String,String> {
+		var ratings = new Array<String>();
+		for (rating in data) {
+			ratings.push(rating);
+		}
+		var strId:String = Std.string(id) + "-";
+		var rating:String = null;
+		if (ratings != null) rating = ratings.join("|");
+		else rating = '';
+		return [strId + 'rating' => rating, strId + 'rating_num' => Std.string(rating_num)];
+	}
+	
+	
+	public static function add(str:String, parent:Array<IndividualInstruction>):Int {
+		//didnt want to add json parsers so done by hand
+		var count:Int = 0;
+		str = str.substr(2, str.length-4); // remove surrounding brackets
+        str = str.split("{").join("");
+        
+        var arr = str.split("}");
+        for (s in arr) {
+			parent.push( new IndividualInstruction(s.split(",")));
+			count ++;
+		}
+		return count;
+	}
+}
+
+class Results_buffer {
+	var data:Map<String,String> = new Map<String,String>();
+
+	public function new() {	
+	}
+	
+	public function add(d:Map<String,String>) {
+		for (key in d.keys()) {
+			data.set(key, d.get(key));
+		}
+	}
+	
+	public function compose():Map<String,String> {
+		var copy:Map<String,String> = new Map<String,String>();
+		for (key in data.keys()) {
+			copy.set(key, data.get(key));
+			data.remove(key);
+		}
+		return copy;
+	}
 }
 
 class StimEvolveManager {
 	
-	private static var _instance:StimEvolveManager;
-	public static var instance(get, never):StimEvolveManager;
+	private static var instances:Map<String,StimEvolveManager> = new Map<String,StimEvolveManager>();
 	
 	public var params:StimEvolveParams;
 	private var newlyInstantiated:Bool = true;
 	private var trial:Trial;
-	private var stimEvolve:StimEvolve;
-	private var evolvePackages:Array<EvolvePackage> = new Array<EvolvePackage>();
+	private var stimEvolve:StimEvolve;	
+	private var individualInstructions = new Array<IndividualInstruction>();
+	private var individualsCount:Int = 0;
+	private var results_buffer = new Results_buffer();
+	private var requestsCount:Int = 0;
+	private var return_unused = false;
 	
-	
-	private static function get_instance():StimEvolveManager {
-		if (_instance == null) {
-			_instance = new StimEvolveManager();
+	public static function my_instance(id:String):StimEvolveManager {
+		if (instances.exists(id) == false) {
+			instances.set(id,new StimEvolveManager());
 		}
-		return _instance;
+		return instances.get(id);
 	}
 
 	
 	public function new() {	
 	}
 	
-	public function trialStarted(trial:Trial, stimEvolve:StimEvolve) 
+	public function take_individual():IndividualInstruction {
+		if (individualInstructions.length > 0) {
+			return individualInstructions.shift();
+		}
+		return null;
+	}
+	
+	public function send_data(data:Map<String,String>) {
+		results_buffer.add(data);
+		if (return_unused) {
+			
+		}
+		
+		var commsManager = new EvolveCommsManager(params, callback);
+		commsManager.returnData(results_buffer.compose());
+	}
+	
+	
+	public function trialStarted(stimEvolve:StimEvolve) 
 	{
 		this.stimEvolve = stimEvolve;
 		
 		if (newlyInstantiated == true) {
-			EvolvePackage.addEvolveId(stimEvolve.get('evolveId'));
-			params = StimEvolveParams.get(stimEvolve);
 			newlyInstantiated = false;
-		}	
-		
-		if (this.trial != trial) {
-			request(params.requestIndividualsAtStart);
+			EvolveCommsManager.addEvolveId(stimEvolve.get('evolveId'));
+			params = StimEvolveParams.get(stimEvolve);
 		}
-			
-		this.trial = trial;
+		
+		var required:Int = params.individuals - requestsCount;
+		if (required > 0) {
+			if (newlyInstantiated == true)  request(params.request_at_start);
+			else request(params.request_each_time);
+		}
+		else {
+			return_unused = true;
+		}
 	}
 	
 	function request(howMany:Int) 
 	{
+		var commsManager = new EvolveCommsManager(params, callback);
+		commsManager.request(howMany);
+		requestsCount++;
+	}
+	
+	function callback(commsManager:EvolveCommsManager, commsResult:CommsResult, commsType:CommsType, data:Map<String,String>, message:String) {
+		switch(commsType){
+			case CommsType.RequestIndividual:
+				callback_request(commsManager, commsResult, data, message);
+			case CommsType.ReturnIndividual:
+				callback_return(commsManager, commsResult, data);
+		}
+	}
+	
+	inline function callback_request(commsManager:EvolveCommsManager, commsResult:CommsResult, data:Map<String,String>, message:String) 
+	{
+		switch(commsResult) {
+			case CommsResult.Success:
+				requestsCount += IndividualInstruction.add(message, individualInstructions);
+				if (this.stimEvolve != null) this.stimEvolve.individualsAvailable();
+			case CommsResult.Fail:
+				'no action';
+		}
+	}
+	
+	inline function callback_return(commsManager:EvolveCommsManager, commsResult:CommsResult, data:Map<String, String>) 
+	{
+		switch(commsResult) {
+			case CommsResult.Success:
+				'no action';
+			case CommsResult.Fail:
+				results_buffer.add(data);
+		}	
+	}
+}
 
-		var children:Array<EvolvePackage> = new Array<EvolvePackage>(); 
-		var parent:EvolvePackage = null;
-		
-		for (i in 0...howMany) {
-			if (params.individuals > 0) {	
-				if (i == 0) parent = new EvolvePackage(params);
-				else children.push(new EvolvePackage(params));
-			}
-			params.individuals--;
+
+
+
+
+class EvolveCommsManager {
+	
+	static public var url:String;
+	
+	private static inline var UUID_TAG:String = 'uuid';
+	private static inline var EVOLVE_ID_TAG:String = 'evolve_id';
+	private static inline var CSRF_TAG:String = 'csrfmiddlewaretoken';
+	
+	private static inline var CHECKOUT:String = 'checkout/';
+	private static inline var RETURN:String = 'return/';
+	
+	public static inline var REQUEST_HOW_MANY:String = 'request_how_many';
+	
+	var tryAgain:Int;
+	var params:StimEvolveParams;
+	var callback:EvolveCommsManager->CommsResult->CommsType -> Map<String,String>->String->Void;
+	public var type:CommsType;
+	
+	private static var genericData:Map<String,String>;
+	
+
+	public function new(params:StimEvolveParams, callback:EvolveCommsManager->CommsResult->CommsType -> Map<String,String>->String->Void) {
+		this.callback = callback;
+		this.params = params;
+		this.tryAgain = params.tryAgain;
+	}
+	
+	public function request(howMany:Int) {
+		this.type = CommsType.RequestIndividual;
+		var data:Map<String,String> = new Map<String,String>();
+		data.set(REQUEST_HOW_MANY, Std.string(howMany));
+		communicate(decorateData(data));	
+	}
+	
+	public function returnData(data:Map<String,String>) {
+		this.type = CommsType.ReturnIndividual;
+		communicate(decorateData(data));
+	}
+	
+	//add permissions etc
+	function decorateData(data:Map<String,String>):Map<String,String>
+	{		
+		for (key in genericData.keys()) {
+			data.set(key, genericData.get(key));
 		}
-			
-		
-		if (parent != null) {
-			evolvePackages.push( parent	);	
-			if (children.length > 0) {
-				parent.children = children;
-				for (child in children) {
-					evolvePackages.push( child	);	
-				}
-			}
-			parent.start();
+		return data;
+	}
+	
+	function communicate(data:Map < String, String >) {
+		var _url:String = url;
+		switch(type) {
+			case RequestIndividual:
+				_url += CHECKOUT;
+			case ReturnIndividual:
+				_url += RETURN;
 		}
-		
-		
+		new REST_Service(data, requestResult(type), 'POST', _url, '*');
 	}
 	
 
+	function requestResult(type:CommsType) {
+		
+		return 	function requestResult(success:CommsResult, message:String, data:Map<String,String>) {
+			var done:Bool = false;
+			if (success == CommsResult.Success) {
+				DebugManager.instance.info('Evolve comms service ' + type.getName() + ' evolve data successully');
+				done = true;
+			}
+			else {
+				DebugManager.instance.info('Evolve comms service FAILED to '+type.getName()+' data successully');
+				if (tryAgain > 0) {
+					communicate(data);
+					tryAgain--;
+				}
+				else {
+					done = true;
+				}
+			}
+			if (done == true) {
+				if (callback != null) {
+					callback(this, success, type, data, message);
+				}
+			}
+		}
+	}
+	
+	static public function addEvolveId(id:String) {
+		EvolveCommsManager.genericData.set(EVOLVE_ID_TAG, id);
+	}
+	
+	static public function setup(uuid:String, csrf:String, _url:String) 
+	{		
+		EvolveCommsManager.genericData = [EvolveCommsManager.UUID_TAG => uuid, EvolveCommsManager.CSRF_TAG => csrf];
+		url = _url;
+	}
 }
+
+
+
+
 
 class StimEvolveParams {
 		
 	public var individuals:Int = 80;
-	public var requestIndividualsAtStart:Int = 2;
+	public var request_each_time:Int = 1;// 2;
 	public var tryAgain:Int = 0;
+	public var request_at_start:Int = 1;// 5;
 	
 	static public function get(stimEvolve:StimEvolve):StimEvolveParams
 	{
@@ -152,41 +422,19 @@ class StimEvolveParams {
 			s.individuals = val;
 		}
 		
-		if ((val = stimEvolve.getInt('requestIndividualsAtStart')) != -1) {
-			s.requestIndividualsAtStart = val;
+		if ((val = stimEvolve.getInt('request_each_time')) != -1) {
+			s.request_each_time = val;
+		}
+		
+		if ((val = stimEvolve.getInt('request_at_start')) != -1) {
+			s.request_at_start = val;
 		}
 		
 		if ((val = stimEvolve.getInt('tryAgain')) != -1) {
 			s.tryAgain = val;
 		}
 		
-	
-		/*var allFields = Type.getInstanceFields(StimEvolveParams);
-		for (field in allFields) {
-		
-			var vtype = Type.typeof(Reflect.field(s, field));
 
-			var val:String = stimEvolve.get(field);
-			if (val != null) Reflect.setField(s, field, val);
-			
-			switch(vtype) {
-				case TInt:
-					var val = stimEvolve.getInt(field);
-					if (val != -1) Reflect.setField(s, field, val);
-				case TClass(c):
-					switch(c) {
-						case String:
-							var val:String = stimEvolve.get(field);
-							if (val != null) {
-								Reflect.setField(s, field, val);
-							}
-					}
-					
-				default:
-					throw 'not defined yet';				
-			}
-		}*/
-		
 		return s;
 	}
 	
@@ -200,95 +448,3 @@ enum CommsType {
 	RequestIndividual;
 	ReturnIndividual;
 }
-
-
-class EvolvePackage {
-	
-	static public var url:String;
-	public var children:Array<EvolvePackage>;
-	
-	private static inline var UUID_TAG:String = 'uuid';
-	private static inline var EVOLVE_ID_TAG:String = 'evolve_id';
-	private static inline var CSRF_TAG:String = 'csrfmiddlewaretoken';
-	
-	private static inline var CHECKOUT:String = 'checkout/';
-	private static inline var RETURN:String = 'return/';
-	
-	var tryAgain:Int;
-	var params:StimEvolveParams;
-	
-	private static var genericData:Map<String,String>;
-
-	public function new(params:StimEvolveParams) {
-	
-		this.params = params;
-		this.tryAgain = params.tryAgain;
-	}
-	
-	public function start() {
-		var data = composeData(RequestIndividual);
-		var howMany:Int = 1;
-		if (children != null) howMany += children.length;
-		data.set('request_how_many', Std.string(howMany));
-		communicate(data, RequestIndividual);	
-	}
-	
-	public function giveback(individual:Dynamic) {
-		tryAgain = params.tryAgain;
-		communicate(composeData(ReturnIndividual), ReturnIndividual);
-	}
-	
-	function composeData(type:CommsType):Map<String,String>
-	{		
-		var m:Map<String,String> = new Map<String,String>();
-		for (key in genericData.keys()) {
-			m.set(key, genericData.get(key));
-		}
-		
-		m.set('type', type.getName());
-		
-		return m;
-	}
-	
-	function communicate(data:Map < String, String > , type:CommsType) {
-		var _url:String = url;
-		switch(type) {
-			case RequestIndividual:
-				_url += CHECKOUT;
-			case ReturnIndividual:
-				_url += RETURN;
-		}
-		new REST_Service(data, requestResult(type), 'POST', _url, '*');
-	}
-	
-
-	function requestResult(type:CommsType):CommsResult -> String -> Map<String,String> -> Void {
-		
-		return 	function requestResult(success:CommsResult, message:String, data:Map<String,String>) {
-			if (success == CommsResult.Success) {
-				DebugManager.instance.info('Evolve comms service '+type.getName()+' evolve data successully');
-			}
-			else {
-				DebugManager.instance.info('Evolve comms service FAILED to '+type.getName()+' data successully');
-				if (tryAgain > 0) {
-					communicate(data, type);
-					tryAgain--;
-				}
-				trace('err', message, data);
-			}
-		}
-	}
-	
-	static public function addEvolveId(id:String) {
-		EvolvePackage.genericData.set(EVOLVE_ID_TAG, id);
-	}
-	
-	static public function setup(uuid:String, csrf:String, _url:String) 
-	{		
-		EvolvePackage.genericData = [EvolvePackage.UUID_TAG => uuid, EvolvePackage.CSRF_TAG => csrf];
-		url = _url;
-	}
-}
-
-
-

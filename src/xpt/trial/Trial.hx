@@ -177,7 +177,6 @@ class Trial {
 	
 	public function trialEnded() 
 	{
-		//TimingManager.instance.
 		dispatchTrialEvent(ExperimentEvent.TRIAL_END);
 	}
 }
