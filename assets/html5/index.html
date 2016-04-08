@@ -60,23 +60,12 @@
 	<script type="text/javascript">
 		var dpr = window.devicePixelRatio;
       	if(dpr==1) 	lime.embed("openfl-content", 0, 0, "FFFFFF");
-        else	runOnDevice();
+        else{
+			window.alert("Sorry, the experimenter wants this study to be run on a desktop computer. Could you tell Prolific Academic you cannot do the study? We are very sorry about this. Thankyou :)");
+		}
         
 		
-		function runOnDevice(){
-		  var w = window.innerWidth;
-		  var h = window.innerHeight;
-	
-		  lime.embed("openfl-content", w*dpr,h*dpr, "FFFFFF");
-		  //lime.embed("openfl-content", w,h, "FFFFFF");
-		  var canvas = document.getElementById ("openfl-content").firstChild;
-
-		  canvas.style.width = String(w)+"px";
-		  canvas.style.height =  String(h)+"px";
-		  var context = canvas.getContext('2d');
-		  context.translate(1/dpr,1/dpr);
-		  }
-      	
+		
       	
 	</script>
 </body>

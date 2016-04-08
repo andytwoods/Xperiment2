@@ -7,8 +7,12 @@ package xpt.screenManager;
 @:allow(xpt.screenManager.Test_DeviceManager)
 class DeviceManager
 {
-
+	//https://github.com/matthewhudson/device.js?
+	
 	public static var error:String;
+	
+	
+	//ios , iphone , ipod , ipad , android , androidPhone , androidTablet , blackberry , blackberryPhone , blackberryTablet , windows , windowsPhone , windowsTablet , fxos , fxosPhone , fxosTablet , meego , cordova , nodeWebkit , mobile , tablet , desktop , television , portrait , landscape , noConflict
 	
 	public static function check(devicesStr :String):Bool {
 		var checks:Array<Check> = generateChecks(devicesStr);
@@ -17,11 +21,11 @@ class DeviceManager
 		var success:Bool = false;
 		for (check in checks) {
 			#if html5
-			
+			trace(untyped device[check.device](), check.sign , check.sign);
 			if (untyped device.hasOwnProperty(check.device) == false) {
 				 trace('complain', check.device);
 			}
-			else if(untyped device[check.device]() != check.sign && check.sign == false) {
+			else if(untyped device[check.device]() == check.sign && check.sign == false) {
 					error = generateError(check, checks);
 					return false; 
 			}
@@ -46,9 +50,11 @@ class DeviceManager
 			}
 		}
 		
-		var str:String = 'this experiment is designed to only run on these devices - '+good.join(", ") +".";
+		var str:String = "";
+		if(good.length>0 )str += 'this experiment is designed to only run on these devices: ' + good.join(", ") +".";
+		if(good.length>0 )str += 'this experiment is designed to only run on these devices: ' + good.join(", ") +".";
 		if (bad.length > 0) {
-			str += ' The experimenter did not want it to run on - '+bad.join(", ") +".";
+			str += ' The experimenter did not want it to run on these devices:'+bad.join(", ") +".";
 		}
 		str += ' Your device seems to be a/an ' + prob_check.device + '.'; 
 		
