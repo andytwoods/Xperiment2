@@ -22,14 +22,14 @@ class Xpt {
 		XRandom.init(RandomAlgorithm.Mersenne);
 		System.init();
           
-		exptName = 'transparent';
+		//exptName = 'transparent';
         //exptName = 'tastePosition';
 		//exptName = "Expt1";
         //exptName = 'test';
 		//exptName = 'twinSmokers';
 		//exptName = 'ShapeApproachAvoidance';
 		//exptName = 'testLogos';
-		//exptName = 'evolve1';
+		exptName = 'evolve1';
         diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		
 		

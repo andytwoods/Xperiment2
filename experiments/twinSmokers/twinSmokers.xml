@@ -1,30 +1,121 @@
+<multi forceToRun="smokes">
 <attractive exptType="WEB">
 
 <SETUP>  
-	  <screen BGcolour="808080" ></screen>                          
+	  <screen BGcolour="808080" orientation="vertical" ></screen>                          
+	  <computer  encrypt='false' />
+	  <style BUTTON_DOWN="0xff5656"  />
+	  <variables practice='0' />
+	  <validation validationEnabled="true" invalidTrailBehaviour="hide" />
 </SETUP>
 
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+
+	<image  y="0" verticalAlign="top" resource="mrc-ieu-logo.png" />
+
+    
+	<text width="80%" height="25%" 
+		  text=
+		  "Welcome to our study. We are the Data Capture team at the MRC’s Integrative Epidemiology Unit at the University of Bristol.
+We are interested in how people make judgements about the apperance of faces. If you agree to take part in the study, you will be asked to make judgements about a numbers of photographs of faces."
+	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />
+	
+	
+	<preloadProgress x="20" y="540"  horizontalAlign="left" width="70%" height="40" />
+	<preloadReadyButton x="85%" y="540" width="20%" height="40" fontSize="18" />
+	
+</TRIAL>
+
+<TRIAL TYPE="Trial" hideResults="false" block="1" order="fixed" trials="1">
+	 
+<text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top"><.text>Before we begin, please read the following:
+This is an experiment exploring people’s judgements of the appearance of faces. If you decide to take part, you will be asked for your age, sex, country of residence and smokign status.
+At the end of the study we will tell you more about the purpose of the study and why we are doing this research. 
+You can also contact the experimenter – Dr Andy Skinner (andy.skinner@bristol.ac.uk) – at a later time for more info if you wish.
+Please read the consent statement below and indicate whether you consent.
+
+STATEMENT OF INFORMED CONSENT
+-	I have read and understood the information above, and understand the general purpose of the experiment.
+-	I understand my responses are anonymous.
+-	I understand that I can withdraw during the study without giving a reason and that by doing so we will destroy your data. (NB please be aware that because the data we gather is anonymous- if you decide you do not want your data in the study after giving your final consent, we will be unable to trace your specific data to remove it.)
+-	I agree to take part in this online experiment.
+-	I agree to the University of Bristol keeping and processing the data I have provided during the course of this experiment.
+By clicking ‘I consent’, you are agreeing to the above statements. If you do not wish to agree to any of the above statements, click close this browser window to leave the study.
+</.text></text>
+	
+	
+	<nextTrialButton y="100%" verticalAlign="bottom" width="200" height="40" text="I CONSENT" horizontalAlign="right"  fontSize="18" />
+</TRIAL>
+
+	
+
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="What is your Prolific Academic ID?" fontSize="20" width="400" height="30" textAlign="center"  y="40%" />
+	
+	<input y="50%" width="300" height="50" fontSize="20"  />
+   
+	<nextTrialButton y="80%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+	
+
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="Some questions:" fontSize="20" width="400" height="30" horizontalAlign="left" x="20" y="20" />
+	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
+	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
+	<text text="What country do you come from?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
+	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
+    <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
+	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
+	<nextTrialButton y="50%" x="50%" width="200" height="40" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+	
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="Some more questions:" fontSize="20" width="400" height="30" horizontalAlign="left" x="20" y="20" />
+	<text text="Do you smoke:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
+	<multipleChoice y="80" height="40" id="sex" width="250" fontSize="20" horizontalAlign="left" x="30%" labels="yes,no" />
+	<nextTrialButton y="50%" x="50%" width="200" height="40" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
 
 
+<TRIAL template="template"  block="10" trials="25">
+</TRIAL>	
 
-<TRIAL block='10'> <Age/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <Box/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <Button/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <Checkboxes/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <comboBox/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <image/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <imageSequence/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <input/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <language/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <lineScale/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <Link/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <multipleChoice/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <nextTrialButton/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <numberStepper/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <progressBar/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <Sex/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <Text/><NextTrialButton y='90%'/></TRIAL>
-<TRIAL block='10'> <TrialCounter/><NextTrialButton y='90%'/></TRIAL>
 
+<template order="random" trials="1">
+
+	<text textAlign="center" fontSize="24" width="100%" height="100" verticalAlign="top"  y="0" multiId="dv" text="Please click on the face that you think is most attractive."/>
+	
+	<image howMany="2" y="55%" group="g1" id="image1---image2"  resource="001|002|003|004|005|006|007|008|009|010|011|012|013|014|015|016|017|018|019|020|021|022|023|024|025" resource1="s---ns" resource2=".png"  x="25%---75%" 
+		   onClick="Trial.save('liked',stim.get('resource1'));Experiment.nextTrial();"
+		   />
+	
+	<shuffle groups="g1" />
+	
+	<results  face="${image1.get('resource0')}" />
+	
+</template>
+	
+<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="10">
+
+<text  colour="black" timeStart="0" width="100%" y="0" verticalAlign="top" height="90%" fontSize="16">
+	<.text>Despite a general decline in smoking in the developed world, the prevalence of smoking in young people remains a concern.  It is widely acknowledged that smoking can accelerate the appearance of facial aging, and young people are sensitive to the potential negative effects of this accelerated aging on their attractiveness. Given this, one possibility for a smoking prevention/cessation intervention targeting young people is an application illustrating the changes in facial appearance likely if they age as a smoker, compared with the changes likely if they age as a non-smoker.
+Researchers at Roswell Park Cancer Institute have previously developed an application of this kind. From large groups of smokers and non-smokers they developed transformations that could be applied to the face of a young person to demonstrate how they would age as a smoker and a non-smoker. In a recent randomised control trial of young female adult smokers, the use of the application in addition to the usual smoking cessation support gave reductions in quit smoking attitudes, nicotine dependence and self- reports of smoking compared to use of the usual cessation support alone.
+One potential issue with this approach is that genetic factors also play a large role in the rate of facial aging. This means that if the two groups on which the transformations are based (smokers and non-smokers) are drawn from a population without controlling for other individual differences, it is possible that these individual differences, and not just differences in smoking behaviour, could have caused any differences in facial appearance between the two groups. To address this, one approach would be to have two groups that are matched genetically, but vary in terms of smoking behaviour. 
+A recent initiative by Case Western Reserve University provides an opportunity for exactly this. Researchers captured the photographs of faces of sets of identical twins in which one twin smoked and the other did not smoke, or had smoked for at least 5 years less. Theoretically, these stimuli will enable us to produce an intervention similar to that developed at Roswell Park Cancer Institute, but crucially, one that has control for genetic variations in aging of facial appearance. 
+An initial exploration of the differences in facial appearance between the smoking and non-smoking twins, revealed greater signs of certain age-related facial features (e.g. bags under eyes and wrinkles around lips) in the smoking twins. However, a smoking cessation intervention of the kind discussed here will only work if these differences alter the attractiveness of faces, so that faces aged as non-smokers appear more attractive than faces aged as smokers. 
+The study you have just completed will provide us with data that will help us establish if the smoking and no-smoking twins are suitable for use in this kind of intervention.
+For more information about this study, please contact the experimenter, Dr Andy Skinner, at the University of Bristol (andy.skinner@bristol.ac.uk).
+</.text>
+</text>
+
+<link text="Please click this link so Prolific Academic know you have finished this study" fontSize="25" y="90%" url="https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB" />
+
+</TRIAL>	
+	
 
 </attractive>
+<smokes>
+	<dv text="Please click on the person who you think smokes." />
+</smokes>
+</multi>
+	
