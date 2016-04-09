@@ -1,8 +1,10 @@
 package xpt.stimuli.builders.nonvisual;
 
 import code.Scripting;
+import de.polygonal.ds.Map;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.layout.VerticalContinuousLayout;
+import thx.Floats;
 import xpt.comms.services.REST_Service;
 import xpt.debug.DebugManager;
 import xpt.events.ExperimentEvent;
@@ -11,11 +13,12 @@ import xpt.stimuli.builders.nonvisual.StimEvolve;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;
 import xpt.stimuli.tools.NonVisual_Tools;
+import xpt.tools.XRandom;
 import xpt.trial.Trial;
 import xpt.comms.CommsResult;
 
 class StimEvolve extends StimulusBuilder {
-    private var _trialStarted:Bool = false;
+    var _trialStarted:Bool = false;
 	var stims:Array<Stimulus>;
 	var target:Stimulus;
 	var evolveManager:StimEvolveManager;
@@ -28,8 +31,6 @@ class StimEvolve extends StimulusBuilder {
         super();
         Scripting.experiment.addEventListener(ExperimentEvent.TRIAL_START, onTrialStarted);
 		Scripting.experiment.addEventListener(ExperimentEvent.TRIAL_END, onTrialEnded);
-		
-		
     }
     
 	private override function applyProperties(c:Component) {
@@ -75,6 +76,14 @@ class StimEvolve extends StimulusBuilder {
 		var data = individual.composeOutput();
 		evolveManager.send_data(data);
 		
+		if (evolveManager.collectData == true) {
+			var edata = evolveManager.collectData();
+			for (key in edata) {
+				e.trial.save(key, edata.get(key));
+			}
+		}
+		
+		
     }
     
 	private function changeTargetGenes() {
@@ -84,6 +93,10 @@ class StimEvolve extends StimulusBuilder {
 			individual = evolveManager.take_individual();
 			if (individual == null) {
 				return;
+			}
+			if (individual.generate == true) {
+				trace('must generate an individual');
+				individual.generate(genes.length, get("maxGeneValue"), get("minGeneValue"), get("geneType"));
 			}
 			trace('setting individual');
 			
@@ -125,11 +138,35 @@ class IndividualInstruction {
 	public var genes:Array<Float>;
 	public var id:Int;	
 	public var data:Map<String,String>;
+	public var generate:Bool = false;
 	
 	public function new(arr:Array<String>) {	
+		if (arr is null) {
+			generate = true;
+			return;
+		}
 		for (item in arr) {
 			parse(item.split(":"));
 		}
+	}
+	
+	function generate(numGenes:Int, maxGeneValue:String, minGeneValue:String, geneType:String) {
+		this.id = -1;
+		genes = new Array<Float>();
+		for (i in 0...numGenes) {
+			genes[i] = makeGene(Std.parseFloat(maxGeneValue), Std.parseFloat(minGeneValue), geneType);
+		}
+	}
+	
+	function makeGene(max:fLoat, min:Float, type:String) {
+		var f:Float = XRandom.random();
+		var range:Float = max - min;
+		f *= range;
+		f += min;
+		if (type.toLowerCase() == 'int') {
+			f = Floats.roundTo(f, 0);
+		}
+		return f;
 	}
 	
 	function parse(split:Array<String>) {
@@ -171,10 +208,25 @@ class IndividualInstruction {
         
         var arr = str.split("}");
         for (s in arr) {
-			parent.push( new IndividualInstruction(s.split(",")));
+			parent.push( new IndividualInstruction(null ));
 			count ++;
 		}
+		var generated:Array<IndividualInstruction> = new Array<IndividualInstruction>();
+		for (child in parent) {
+			if (child.generate == true) generated.push(child);
+		}
+		while (generated.length > 0 && count>=0) {
+			var child = generated.pop();
+			parent.remove(child);
+			count--;
+		}
+		
 		return count;
+	}
+	
+	public static function emergencyGenerate(str, parent:Array<IndividualInstruction>):Int {
+		parent.push( new IndividualInstruction(s.split(",")));
+		return 1;
 	}
 }
 
@@ -209,10 +261,15 @@ class StimEvolveManager {
 	private var trial:Trial;
 	private var stimEvolve:StimEvolve;	
 	private var individualInstructions = new Array<IndividualInstruction>();
-	private var individualsCount:Int = 0;
+	//private var individualsCount:Int = 0;
 	private var results_buffer = new Results_buffer();
 	private var requestsCount:Int = 0;
 	private var return_unused = false;
+	private var emergencyGenerateCount:Int = 0;
+	private var failedSendCount:Int = 0;
+	private var totalRatingsMade:Int = 0;
+	
+	public var collectData:Bool = false;
 	
 	public static function my_instance(id:String):StimEvolveManager {
 		if (instances.exists(id) == false) {
@@ -221,21 +278,40 @@ class StimEvolveManager {
 		return instances.get(id);
 	}
 
+	public function feedback():Map<String,String> {
+		var feedbackData:Map<String,String> = new Map<String,String>();
+		if (emergencyGenerateCount > 0) {
+			feedbackData.set('emergencyGeneratedCount', Std.string(emergencyGenerateCount));
+		}
+		if (failedSendCount > 0) {
+			feedbackData.set('failedSendCount', Std.string(failedSendCount));
+		}
+		return feedbackData;
+	}
 	
 	public function new() {	
 	}
 	
 	public function take_individual():IndividualInstruction {
 		if (individualInstructions.length > 0) {
+			for (individual in individualInstructions) {
+				if (individual.generate is false) {
+					individualInstructions.remove(individual);
+					return individual;
+				}
+			}
+			//if cant find an individual that must be generated...
 			return individualInstructions.shift();
 		}
 		return null;
 	}
 	
 	public function send_data(data:Map<String,String>) {
+		totalRatingsMade ++;
+		if (totalRatingsMade >= params.individuals) collectData = true;
 		results_buffer.add(data);
 		if (return_unused) {
-			
+			////////////////////////////////////////////////////////////////////////////////SORT OUT LATER
 		}
 		
 		var commsManager = new EvolveCommsManager(params, callback);
@@ -267,7 +343,7 @@ class StimEvolveManager {
 	{
 		var commsManager = new EvolveCommsManager(params, callback);
 		commsManager.request(howMany);
-		requestsCount++;
+		requestsCount+= howMany;
 	}
 	
 	function callback(commsManager:EvolveCommsManager, commsResult:CommsResult, commsType:CommsType, data:Map<String,String>, message:String) {
@@ -284,10 +360,11 @@ class StimEvolveManager {
 		switch(commsResult) {
 			case CommsResult.Success:
 				requestsCount += IndividualInstruction.add(message, individualInstructions);
-				if (this.stimEvolve != null) this.stimEvolve.individualsAvailable();
 			case CommsResult.Fail:
-				'no action';
+				requestsCount += IndividualInstruction.emergencyGenerate(message, individualInstructions);
+				emergencyGenerateCount++;
 		}
+		if (this.stimEvolve != null) this.stimEvolve.individualsAvailable();
 	}
 	
 	inline function callback_return(commsManager:EvolveCommsManager, commsResult:CommsResult, data:Map<String, String>) 
@@ -296,6 +373,7 @@ class StimEvolveManager {
 			case CommsResult.Success:
 				'no action';
 			case CommsResult.Fail:
+				failedSendCount++;
 				results_buffer.add(data);
 		}	
 	}
