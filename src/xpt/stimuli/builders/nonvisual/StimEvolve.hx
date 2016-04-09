@@ -196,7 +196,10 @@ class IndividualInstruction {
 		var rating:String = null;
 		if (ratings != null) rating = ratings.join("|");
 		else rating = '';
-		return [strId + 'rating' => rating, strId + 'rating_num' => Std.string(rating_num)];
+		
+		var results:Map<String,String> = [strId + 'rating' => rating, strId + 'rating_num' => Std.string(rating_num)];
+		if (generate == true) results.set('genes', genes.join(","));
+		return results;
 	}
 	
 	
