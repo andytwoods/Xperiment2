@@ -33,7 +33,10 @@ class AbstractService
 		if(delay.hasEventListener(TimerEvent.TIMER)) delay.removeEventListener(TimerEvent.TIMER, timerL);
 		success = result;
 		if (result == Success) data = null;
-		if (__callBack !=null)	__callBack(success, message, data);
+		if (__callBack != null) {
+			trace(success, 22);
+			__callBack(success, message, data);
+		}
 		__callBack = null;
 	}
 	
@@ -41,7 +44,7 @@ class AbstractService
 		do_callBack(Fail,TIMED_OUT);
 	}
 
-	public function fromCloud_f(message:String) {	
+	public function fromCloud_f(message:String) {
 		if (check_cloudMessageSuccess(message)) do_callBack(Success, message);
 		else do_callBack(Fail, message);
 	}

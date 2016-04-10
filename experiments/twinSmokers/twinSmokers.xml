@@ -72,7 +72,7 @@ By clicking ‘I consent’, you are agreeing to the above statements. If you do
 <TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
 	<text text="Some more questions:" fontSize="20" width="400" height="30" horizontalAlign="left" x="20" y="20" />
 	<text text="Do you smoke:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
-	<multipleChoice y="80" height="40" id="sex" width="250" fontSize="20" horizontalAlign="left" x="30%" labels="yes,no" />
+	<multipleChoice y="80" height="40" id="sex" width="250" fontSize="20" horizontalAlign="left" x="30%" labels="Yes,Given up,Never" />
 	<nextTrialButton y="50%" x="50%" width="200" height="40" horizontalAlign="center"  fontSize="18" />
 </TRIAL>	
 

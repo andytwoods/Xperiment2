@@ -88,12 +88,12 @@ class StimEvolve extends StimulusBuilder {
 	private function changeTargetGenes() {
 	
 		if(target_changed_once == false){
-			
 			individual = evolveManager.take_individual();
+
 			if (individual == null) {
 				return;
 			}
-			if (individual.generated == true) {
+			if (individual.must_generate == true) {
 				trace('must generate an individual');
 				individual.generate(getStringArray("genes").length, get("maxGeneValue"), get("minGeneValue"), get("geneType"));
 			}
@@ -105,7 +105,7 @@ class StimEvolve extends StimulusBuilder {
 			if (genes.length > individual.genes.length) throw 'the evolver in the cloud has not provided enough genes (you have too many genes to change).';
 			var gene:String;
 			var transform:String = get('transform');
-			trace(individual.genes);
+			//trace(individual.genes);
 			for (g in 0...genes.length) {
 				gene =  genes[g];
 				target.setDynamic(gene, process(transform, individual.genes[g]-1));
@@ -137,11 +137,11 @@ class IndividualInstruction {
 	public var genes:Array<Float>;
 	public var id:Int;	
 	public var data:Map<String,String>;
-	public var generated:Bool = false;
+	public var must_generate:Bool = false;
 	
 	public function new(arr:Array<String>) {	
 		if (arr == null) {
-			generated = true;
+			must_generate = true;
 			return;
 		}
 		for (item in arr) {
@@ -197,7 +197,7 @@ class IndividualInstruction {
 		else rating = '';
 		
 		var results:Map<String,String> = [strId + 'rating' => rating, strId + 'rating_num' => Std.string(rating_num)];
-		if (generated == true) results.set('genes', genes.join(","));
+		if (must_generate == true) results.set('genes', genes.join(","));
 		return results;
 	}
 	
@@ -215,7 +215,7 @@ class IndividualInstruction {
 		}
 		var generated:Array<IndividualInstruction> = new Array<IndividualInstruction>();
 		for (child in parent) {
-			if (child.generated == true) generated.push(child);
+			if (child.must_generate == true) generated.push(child);
 		}
 		while (generated.length > 0 && count>=0) {
 			var child = generated.pop();
@@ -226,8 +226,9 @@ class IndividualInstruction {
 		return count;
 	}
 	
-	public static function emergencyGenerate(str, parent:Array<IndividualInstruction>):Int {
-		parent.push( new IndividualInstruction(str.split(",")));
+	public static function emergencyGenerate(parent:Array<IndividualInstruction>):Int {
+		var ind = new IndividualInstruction(null);
+		parent.push( ind );
 		return 1;
 	}
 }
@@ -297,7 +298,7 @@ class StimEvolveManager {
 	public function take_individual():IndividualInstruction {
 		if (individualInstructions.length > 0) {
 			for (individual in individualInstructions) {
-				if (individual.generated == false) {
+				if (individual.must_generate == false) {
 					individualInstructions.remove(individual);
 					return individual;
 				}
@@ -363,7 +364,7 @@ class StimEvolveManager {
 			case CommsResult.Success:
 				requestsCount += IndividualInstruction.add(message, individualInstructions);
 			case CommsResult.Fail:
-				requestsCount += IndividualInstruction.emergencyGenerate(message, individualInstructions);
+				requestsCount += IndividualInstruction.emergencyGenerate(individualInstructions);
 				emergencyGenerateCount++;
 		}
 		if (this.stimEvolve != null) this.stimEvolve.individualsAvailable();
@@ -447,14 +448,16 @@ class EvolveCommsManager {
 
 	function requestResult(type:CommsType) {
 		
-		return 	function requestResult(success:CommsResult, message:String, data:Map<String,String>) {
+		return 	function requestResult(result:CommsResult, message:String, data:Map<String,String>) {
+			//trace(1111, result, message, data);
 			var done:Bool = false;
-			if (success == CommsResult.Success) {
+			if (result == CommsResult.Success) {
 				DebugManager.instance.info('Evolve comms service ' + type.getName() + ' evolve data successully');
 				done = true;
 			}
 			else {
-				DebugManager.instance.info('Evolve comms service FAILED to '+type.getName()+' data successully');
+				DebugManager.instance.info('Evolve comms service FAILED to ' + type.getName() + ' data successully');
+				//trace(tryAgain, 1222);
 				if (tryAgain > 0) {
 					communicate(data);
 					tryAgain--;
@@ -465,7 +468,7 @@ class EvolveCommsManager {
 			}
 			if (done == true) {
 				if (callback != null) {
-					callback(this, success, type, data, message);
+					callback(this, result, type, data, message);
 				}
 			}
 		}

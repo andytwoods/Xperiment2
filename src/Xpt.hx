@@ -26,10 +26,10 @@ class Xpt {
         //exptName = 'tastePosition';
 		//exptName = "Expt1";
         //exptName = 'test';
-		exptName = 'twinSmokers';
+		///exptName = 'twinSmokers';
 		//exptName = 'ShapeApproachAvoidance';
 		//exptName = 'testLogos';
-		//exptName = 'evolve1';
+		exptName = 'evolve1';
         diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		
 		

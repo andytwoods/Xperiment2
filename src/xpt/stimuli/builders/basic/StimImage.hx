@@ -46,6 +46,7 @@ class StimImage extends StimulusBuilder {
 		super.applyProperties(c);
 		var image:Image = cast c;
 
+
 		if (get("asset") != null) {
 			image.resource = get("asset");
 			return;
@@ -59,6 +60,7 @@ class StimImage extends StimulusBuilder {
 			  return;
 		   }
 		   var bmp = Preloader.instance.preloadedImages.get(resource);
+		   	
            if(bmp!=null) setBitmap(bmp, image);	
 		   else{
 				Preloader.instance.callbackWhenLoaded(resource, function() {
