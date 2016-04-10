@@ -110,7 +110,7 @@ Statement of informed consent
 	
 </template>
 	
-<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="false" block="-100" order="fixed" trials="1">
 
 <text  colour="black" timeStart="0" width="80%" y="40%" height="70%" fontSize="16">
 	<.text>“To see or not to see”: The efficacy of transparent windows in packaging    

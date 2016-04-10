@@ -14,10 +14,10 @@
 	
 	::if linkedLibraries::::foreach (linkedLibraries)::
 	<script type="text/javascript" src="::__current__::"></script>::end::::end::
-	
 	<script>document.write('<script src="./XptHaxe.js?dev=' + Math.floor(Math.random() * 10000) + '"\><\/script>');</script>
 	<script type="text/javascript" src="./FileSaver.min.js"></script>
 	<script type="text/javascript" src="./device.min.js"></script>	
+
 	
 	<script>
 		window.addEventListener ("touchmove", function (event) { event.preventDefault (); }, false);
@@ -54,6 +54,9 @@
 </head>
 <body>
 
+	 <div id="modal" style="display:none">
+      dererere
+    </div>
 
 	<div id="openfl-content"></div>
 

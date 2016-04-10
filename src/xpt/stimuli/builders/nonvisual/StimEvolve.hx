@@ -1,7 +1,6 @@
 package xpt.stimuli.builders.nonvisual;
 
 import code.Scripting;
-import de.polygonal.ds.Map;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.layout.VerticalContinuousLayout;
 import thx.Floats;
@@ -77,7 +76,7 @@ class StimEvolve extends StimulusBuilder {
 		evolveManager.send_data(data);
 		
 		if (evolveManager.collectData == true) {
-			var edata = evolveManager.collectData();
+			var edata = evolveManager.results_buffer.compose();
 			for (key in edata) {
 				e.trial.save(key, edata.get(key));
 			}
@@ -94,9 +93,9 @@ class StimEvolve extends StimulusBuilder {
 			if (individual == null) {
 				return;
 			}
-			if (individual.generate == true) {
+			if (individual.generated == true) {
 				trace('must generate an individual');
-				individual.generate(genes.length, get("maxGeneValue"), get("minGeneValue"), get("geneType"));
+				individual.generate(getStringArray("genes").length, get("maxGeneValue"), get("minGeneValue"), get("geneType"));
 			}
 			trace('setting individual');
 			
@@ -138,11 +137,11 @@ class IndividualInstruction {
 	public var genes:Array<Float>;
 	public var id:Int;	
 	public var data:Map<String,String>;
-	public var generate:Bool = false;
+	public var generated:Bool = false;
 	
 	public function new(arr:Array<String>) {	
-		if (arr is null) {
-			generate = true;
+		if (arr == null) {
+			generated = true;
 			return;
 		}
 		for (item in arr) {
@@ -150,7 +149,7 @@ class IndividualInstruction {
 		}
 	}
 	
-	function generate(numGenes:Int, maxGeneValue:String, minGeneValue:String, geneType:String) {
+	public function generate(numGenes:Int, maxGeneValue:String, minGeneValue:String, geneType:String) {
 		this.id = -1;
 		genes = new Array<Float>();
 		for (i in 0...numGenes) {
@@ -158,7 +157,7 @@ class IndividualInstruction {
 		}
 	}
 	
-	function makeGene(max:fLoat, min:Float, type:String) {
+	function makeGene(max:Float, min:Float, type:String) {
 		var f:Float = XRandom.random();
 		var range:Float = max - min;
 		f *= range;
@@ -198,7 +197,7 @@ class IndividualInstruction {
 		else rating = '';
 		
 		var results:Map<String,String> = [strId + 'rating' => rating, strId + 'rating_num' => Std.string(rating_num)];
-		if (generate == true) results.set('genes', genes.join(","));
+		if (generated == true) results.set('genes', genes.join(","));
 		return results;
 	}
 	
@@ -216,7 +215,7 @@ class IndividualInstruction {
 		}
 		var generated:Array<IndividualInstruction> = new Array<IndividualInstruction>();
 		for (child in parent) {
-			if (child.generate == true) generated.push(child);
+			if (child.generated == true) generated.push(child);
 		}
 		while (generated.length > 0 && count>=0) {
 			var child = generated.pop();
@@ -228,7 +227,7 @@ class IndividualInstruction {
 	}
 	
 	public static function emergencyGenerate(str, parent:Array<IndividualInstruction>):Int {
-		parent.push( new IndividualInstruction(s.split(",")));
+		parent.push( new IndividualInstruction(str.split(",")));
 		return 1;
 	}
 }
@@ -265,7 +264,7 @@ class StimEvolveManager {
 	private var stimEvolve:StimEvolve;	
 	private var individualInstructions = new Array<IndividualInstruction>();
 	//private var individualsCount:Int = 0;
-	private var results_buffer = new Results_buffer();
+	public var results_buffer = new Results_buffer();
 	private var requestsCount:Int = 0;
 	private var return_unused = false;
 	private var emergencyGenerateCount:Int = 0;
@@ -298,7 +297,7 @@ class StimEvolveManager {
 	public function take_individual():IndividualInstruction {
 		if (individualInstructions.length > 0) {
 			for (individual in individualInstructions) {
-				if (individual.generate is false) {
+				if (individual.generated == false) {
 					individualInstructions.remove(individual);
 					return individual;
 				}

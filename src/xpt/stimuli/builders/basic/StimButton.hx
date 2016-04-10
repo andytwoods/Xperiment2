@@ -23,10 +23,7 @@ class StimButton extends StimulusBuilder {
 	private override function applyProperties(c:Component) {
 		super.applyProperties(c);
 		b = cast c;
-		if (get("action") != null || getBool("reactionTime") == true) {
-            b.removeEventListener(MouseEvent.CLICK, onClick);
-			b.addEventListener(MouseEvent.CLICK, onClick);
-		}
+		if (get("action") != null || getBool("reactionTime") == true) listenClick();
 		if (get("icon") != null) {
 			b.icon = get("icon");
 		}
@@ -36,7 +33,11 @@ class StimButton extends StimulusBuilder {
 		
 		b.disabled = getBool("disabled", false);
 		
-		
+	}
+	
+	private function listenClick() {
+        b.removeEventListener(MouseEvent.CLICK, onClick);
+		b.addEventListener(MouseEvent.CLICK, onClick);
 	}
 	
 	override public function onAddedToTrial() {

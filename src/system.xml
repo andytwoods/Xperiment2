@@ -58,6 +58,8 @@
 		<image builder="xpt.stimuli.builders.basic.StimImage"/>
 		<text builder="xpt.stimuli.builders.basic.StimText" />
         <link builder="xpt.stimuli.builders.basic.StimLink">
+			<hideResults>true</hideResults>
+			<depth>0</depth>
 			<color>0x1a0dab</color>
 		</link>
 		
@@ -193,7 +195,7 @@
 			</action>
 		</previousTrialButton>
 		<text builder="xpt.stimuli.builders.basic.StimText">
-			<verticalAlign>center</verticalAlign>
+f			<verticalAlign>center</verticalAlign>
 			<horizontalAlign>center</horizontalAlign>
 			<x>50%</x>
 			<y>50%</y>
