@@ -34,7 +34,7 @@ class AbstractService
 		success = result;
 		if (result == Success) data = null;
 		if (__callBack != null) {
-			trace(success, 22);
+			//trace(success, 22);
 			__callBack(success, message, data);
 		}
 		__callBack = null;

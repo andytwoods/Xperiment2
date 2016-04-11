@@ -209,8 +209,9 @@ class IndividualInstruction {
         str = str.split("{").join("");
         
         var arr = str.split("}");
+		
         for (s in arr) {
-			parent.push( new IndividualInstruction(null ));
+			parent.push( new IndividualInstruction(s.split(",")));
 			count ++;
 		}
 		var generated:Array<IndividualInstruction> = new Array<IndividualInstruction>();
@@ -360,6 +361,7 @@ class StimEvolveManager {
 	
 	inline function callback_request(commsManager:EvolveCommsManager, commsResult:CommsResult, data:Map<String,String>, message:String) 
 	{
+
 		switch(commsResult) {
 			case CommsResult.Success:
 				requestsCount += IndividualInstruction.add(message, individualInstructions);
@@ -372,6 +374,7 @@ class StimEvolveManager {
 	
 	inline function callback_return(commsManager:EvolveCommsManager, commsResult:CommsResult, data:Map<String, String>) 
 	{
+		
 		switch(commsResult) {
 			case CommsResult.Success:
 				'no action';
@@ -449,7 +452,7 @@ class EvolveCommsManager {
 	function requestResult(type:CommsType) {
 		
 		return 	function requestResult(result:CommsResult, message:String, data:Map<String,String>) {
-			//trace(1111, result, message, data);
+			
 			var done:Bool = false;
 			if (result == CommsResult.Success) {
 				DebugManager.instance.info('Evolve comms service ' + type.getName() + ' evolve data successully');
