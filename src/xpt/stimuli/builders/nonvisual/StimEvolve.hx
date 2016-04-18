@@ -138,6 +138,7 @@ class IndividualInstruction {
 	public var id:Int;	
 	public var data:Map<String,String>;
 	public var must_generate:Bool = false;
+	public var evolve_instance_id:String;
 	
 	public function new(arr:Array<String>) {	
 		if (arr == null) {
@@ -150,7 +151,6 @@ class IndividualInstruction {
 	}
 	
 	public function generate(numGenes:Int, maxGeneValue:String, minGeneValue:String, geneType:String) {
-		this.id = -1;
 		genes = new Array<Float>();
 		for (i in 0...numGenes) {
 			genes[i] = makeGene(Std.parseFloat(maxGeneValue), Std.parseFloat(minGeneValue), geneType);
@@ -183,6 +183,9 @@ class IndividualInstruction {
 				for (i in 0...arr2.length) {
 					this.genes.push(Std.parseFloat(arr2[i]));
 				}
+			case 'instance_id':
+				this.evolve_instance_id = split[1];
+				
 		}
 	}
 	
@@ -196,13 +199,16 @@ class IndividualInstruction {
 		if (ratings != null) rating = ratings.join("|");
 		else rating = '';
 		
-		var results:Map<String,String> = [strId + 'rating' => rating, strId + 'rating_num' => Std.string(rating_num)];
-		if (must_generate == true) results.set('genes', genes.join(","));
+		var results:Map<String,String> = [strId + 'rating' => rating, strId + 'rating_num' => Std.string(rating_num), strId + 'genes' => genes.join(","), strId + 'instance_id' => evolve_instance_id];
+		if (must_generate == true) {
+			results.set('generated', 'true');
+		}
 		return results;
 	}
 	
 	
 	public static function add(str:String, parent:Array<IndividualInstruction>):Int {
+		trace(str, 222);
 		//didnt want to add json parsers so done by hand
 		var count:Int = 0;
 		str = str.substr(2, str.length-4); // remove surrounding brackets
@@ -227,8 +233,10 @@ class IndividualInstruction {
 		return count;
 	}
 	
-	public static function emergencyGenerate(parent:Array<IndividualInstruction>):Int {
+	public static function emergencyGenerate(parent:Array<IndividualInstruction>, emergency_id:Int):Int {
 		var ind = new IndividualInstruction(null);
+		ind.id = emergency_id;
+		ind.rating_num = emergency_id;
 		parent.push( ind );
 		return 1;
 	}
@@ -361,12 +369,11 @@ class StimEvolveManager {
 	
 	inline function callback_request(commsManager:EvolveCommsManager, commsResult:CommsResult, data:Map<String,String>, message:String) 
 	{
-
 		switch(commsResult) {
 			case CommsResult.Success:
 				requestsCount += IndividualInstruction.add(message, individualInstructions);
 			case CommsResult.Fail:
-				requestsCount += IndividualInstruction.emergencyGenerate(individualInstructions);
+				requestsCount += IndividualInstruction.emergencyGenerate(individualInstructions, emergencyGenerateCount);
 				emergencyGenerateCount++;
 		}
 		if (this.stimEvolve != null) this.stimEvolve.individualsAvailable();
@@ -374,7 +381,6 @@ class StimEvolveManager {
 	
 	inline function callback_return(commsManager:EvolveCommsManager, commsResult:CommsResult, data:Map<String, String>) 
 	{
-		
 		switch(commsResult) {
 			case CommsResult.Success:
 				'no action';
@@ -401,7 +407,7 @@ class EvolveCommsManager {
 	private static inline var RETURN:String = 'return/';
 	
 	public static inline var REQUEST_HOW_MANY:String = 'request_how_many';
-	
+
 	var tryAgain:Int;
 	var params:StimEvolveParams;
 	var callback:EvolveCommsManager->CommsResult->CommsType -> Map<String,String>->String->Void;

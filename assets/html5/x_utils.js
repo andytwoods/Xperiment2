@@ -1,0 +1,139 @@
+/**
+ * @author Andy Woods
+ */
+
+var x_utils = (function() {
+	var api = {}
+	
+	function loadTxt(path, success, error)
+		{
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function()
+			{
+				if (xhr.readyState === XMLHttpRequest.DONE) {
+					if (xhr.status === 200) {
+						if (success)
+							success(xhr.responseText);
+					} else {
+						if (error)
+							error(xhr);
+					}
+				}
+			};
+			xhr.open("GET", path, true);
+			xhr.send();
+		}
+		
+		api.urlParams = {};
+		(window.onpopstate = function () {
+			var match,
+				pl     = /\+/g,  // Regex for replacing addition symbol with a space
+				search = /([^&=]+)=?([^&]*)/g,
+				decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+				query  = window.location.search.substring(1);
+
+			while (match = search.exec(query))
+			   api.urlParams[decode(match[1])] = decode(match[2]);
+		})();
+			
+		
+		function get_devices(str){
+			var pos = str.split('devices=');
+
+			if(pos.length==1) return undefined
+			
+			str = str.split('devices=')[1];
+			var seq = '';
+			var add = 0;
+			var sym;
+
+			while(add<100){
+				sym = str.charAt(add);
+				if(sym !=" ") seq += sym;
+				else break;
+				add++;
+			}
+			seq = seq.substr(1, seq.length-2);
+
+			return seq.split(",");
+
+		}
+		
+		function check_devices(devices){
+
+			//ios , iphone , ipod , ipad , android , androidPhone , androidTablet , blackberry , blackberryPhone , blackberryTablet , windows , windowsPhone , windowsTablet , fxos , fxosPhone , fxosTablet , meego , cordova , nodeWebkit , mobile , tablet , desktop , television , portrait , landscape , noConflict
+			
+			var device;
+			var negative;
+			for(var i=0;i<devices.length;i++){
+				device = devices[i];
+				if(device.charAt(0) == "!"){
+					negative = true;
+					device = device.substr(1);
+				} else{
+					negative = false;
+				}
+				if(device['device'] == undefined){
+					alert('experimenter error. have asked to screen for an unknown device: '+device);
+				}
+				else{
+					var result = device[device]();
+					if(negative ==true && result == true){
+						return {'is_good': false, 'message':"your experimenter unforunately does not want their study to run on your device ("+device+")."};
+					}
+					else if(negative == false && result == false){
+						return {'is_good': false, 'message':"your experimenter only wants their study to run on this device (which is not yours): "+device+"."};
+					}
+				}
+				
+			}
+			return {'is_good': true};
+			
+			
+		}
+		
+		
+		
+		api.check_device_ok = function(success, failure){
+
+			if('script' in api.urlParams){
+				script_name = api.urlParams['script'];
+
+				var success = function(script){
+					if(api['expt_script'] == undefined){
+						api.expt_script = script;
+						
+						devices = get_devices(script);
+						
+						if(devices === undefined){
+							if(success != undefined) success();
+							return;
+						}
+						
+						var response = check_devices(devices);
+						
+						if(response.is_good == true) {
+							if(success != undefined) success();
+							return;
+						}
+						else{
+							if(failure != undefined) failure(response.message);
+							return;
+						}
+					}
+					
+				}
+				loadTxt(script_name, success);
+			}
+			
+			else{
+				
+				if(success != undefined) success();
+				return;
+			}
+		
+			
+		}
+	
+	return api;
+}());

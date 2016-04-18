@@ -49,6 +49,7 @@
 	<template path="assets/html5/favicon.ico" if="html5" rename="favicon.ico" />
 	<template path="assets/html5/FileSaver.min.js" if="html5" rename="FileSaver.min.js" />
 	<template path="assets/html5/device.min.js" if="html5" rename="device.min.js" />
+	<template path="assets/html5/x_utils.js" if="html5" rename="x_utils.js" />
 
 	
 	<!--

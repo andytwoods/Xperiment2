@@ -17,7 +17,7 @@
 	<script>document.write('<script src="./XptHaxe.js?dev=' + Math.floor(Math.random() * 10000) + '"\><\/script>');</script>
 	<script type="text/javascript" src="./FileSaver.min.js"></script>
 	<script type="text/javascript" src="./device.min.js"></script>	
-
+	<script type="text/javascript" src="./x_utils.js"></script>	
 	
 	<script>
 		window.addEventListener ("touchmove", function (event) { event.preventDefault (); }, false);
@@ -54,18 +54,24 @@
 </head>
 <body>
 
-	 <div id="modal" style="display:none">
-      dererere
+	<div id="modal" style="display:none">
     </div>
 
 	<div id="openfl-content"></div>
 
+
 	<script type="text/javascript">
-		var dpr = window.devicePixelRatio;
-      	if(dpr==1) 	lime.embed("openfl-content", 0, 0, "FFFFFF");
-        else{
-			window.alert("Sorry, the experimenter wants this study to be run on a desktop computer. Could you tell Prolific Academic you cannot do the study? We are very sorry about this. Thankyou :)");
+	
+		
+		var success = function(){
+			lime.embed("openfl-content", 0, 0, "FFFFFF");
 		}
+		var failure = function(message){
+			console.alert(message);
+		}
+		
+		x_utils.check_device_ok(success, failure);
+		
         
 		
 		
