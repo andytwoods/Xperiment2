@@ -22,20 +22,37 @@ class WebStart
 
 	public function new(dir:String, exptName:String, overrideDir:Bool) 
 	{
-        var loader = new FileLoader();
+        var combined_expt_name:String;
 		
 		if (overrideDir) {	
 			PathTools.explictExptPath(exptName);		
-			loader.loadText(exptName, listen);
+			combined_expt_name = exptName;
 		}
 		
         else {
 			PathTools.experimentPath = dir;
 			PathTools.experimentName = exptName;
-			loader.loadText(dir + exptName + "/" + exptName+".xml", listen);
+			combined_expt_name = dir + exptName + "/" + exptName+".xml";
 		}
 		
 
+		#if html5
+			var check_script_exists:Bool = untyped x_utils != undefined && x_utils['expt_script'] != undefined;
+		
+			if (check_script_exists == true) {
+				processScript(untyped x_utils['expt_script']);
+				trace(123);
+				return;
+			}
+		#end
+		
+		load_script(combined_expt_name);
+
+	}
+	
+	private function load_script(nam:String) {
+		var loader = new FileLoader();
+		loader.loadText(nam, listen);
 	}
 	
 	private function listen(f:FileInfo):Void {

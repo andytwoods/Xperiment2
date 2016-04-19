@@ -97,7 +97,7 @@ var x_utils = (function() {
 
 				var success = function(script){
 					if(api['expt_script'] == undefined){
-						api.expt_script = script;
+						api['expt_script'] = script;
 						
 						devices = get_devices(script);
 						
