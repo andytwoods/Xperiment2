@@ -15,7 +15,7 @@ import xpt.experiment.Preloader;
 import xpt.tools.XTools;
 
 #if svg
-import format.SVG;
+	import format.SVG;
 #end
 
 class StimImage extends StimulusBuilder {
@@ -53,6 +53,7 @@ class StimImage extends StimulusBuilder {
 		}
 		
 		var resource:String = get("resource");
+
 		if (resource != null) {
            resource = PathTools.fixPath(resource);
 		   if (XTools.filetype(resource, true) == "SVG") {
@@ -60,9 +61,10 @@ class StimImage extends StimulusBuilder {
 			  return;
 		   }
 		   var bmp = Preloader.instance.preloadedImages.get(resource);
-		   	
+		   
            if(bmp!=null) setBitmap(bmp, image);	
-		   else{
+		   else {
+			   trace('prob');
 				Preloader.instance.callbackWhenLoaded(resource, function() {
 					update();
 				});
@@ -102,16 +104,13 @@ class StimImage extends StimulusBuilder {
 		return svg_txt;
 	}
 	
-	
 	private function setBitmap(bmp:Bitmap, image:Image) {
+		var scale:Float = getFloat('scale', 1);
 		var bm_data:BitmapData = bmp.bitmapData.clone();
-		var scale:Float;
-		if ((scale = getFloat('scale')) != -1) {
-			bm_data = scale_bm_data(scale , bm_data);		
-		}
+		bm_data = scale_bm_data(scale , bm_data);	 	
+	
+		image.resource = new Bitmap(bm_data);	
 
-		
-		image.resource = new Bitmap(bm_data);		
 	}
 	
 	private function scale_bm_data(scale:Float, orig_bm_data:BitmapData):BitmapData {

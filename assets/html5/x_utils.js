@@ -60,41 +60,37 @@ var x_utils = (function() {
 		}
 		
 		function check_devices(devices){
-
-			//ios , iphone , ipod , ipad , android , androidPhone , androidTablet , blackberry , blackberryPhone , blackberryTablet , windows , windowsPhone , windowsTablet , fxos , fxosPhone , fxosTablet , meego , cordova , nodeWebkit , mobile , tablet , desktop , television , portrait , landscape , noConflict
-			
-			var device;
+		//https://github.com/matthewhudson/device.js
+		//ios , iphone , ipod , ipad , android , androidPhone , androidTablet , blackberry , blackberryPhone , blackberryTablet , windows , windowsPhone , windowsTablet , fxos , fxosPhone , fxosTablet , meego , cordova , nodeWebkit , mobile , tablet , desktop , television , portrait , landscape , noConflict
+			var deviceNam;
 			var negative;
 			for(var i=0;i<devices.length;i++){
-				device = devices[i];
-				if(device.charAt(0) == "!"){
+				deviceNam = devices[i];
+				if(deviceNam.charAt(0) == "!"){
 					negative = true;
-					device = device.substr(1);
+					deviceNam = deviceNam.substr(1);
 				} else{
 					negative = false;
 				}
-				if(device['device'] == undefined){
-					alert('experimenter error. have asked to screen for an unknown device: '+device);
+				if(device.hasOwnProperty(deviceNam) == false){
+					return {'is_good': false, 'message': 'Experimenter error. Asked to screen for an unknown device: '+deviceNam};
 				}
 				else{
-					var result = device[device]();
+					var result = device[deviceNam]();
 					if(negative ==true && result == true){
-						return {'is_good': false, 'message':"your experimenter unforunately does not want their study to run on your device ("+device+")."};
+						return {'is_good': false, 'message':"your experimenter unfortunately does not want their study to run on your device ("+deviceNam+")."};
 					}
 					else if(negative == false && result == false){
-						return {'is_good': false, 'message':"your experimenter only wants their study to run on this device (which is not yours): "+device+"."};
+						return {'is_good': false, 'message':"your experimenter unfortunately only wants their study to run on this device (which is not yours): "+deviceNam+"."};
 					}
-				}
-				
+				}	
 			}
 			return {'is_good': true};
-			
-			
 		}
 		
 		
 		
-		api.check_device_ok = function(success, failure){
+		api.check_device_ok = function(success_cb, failure_cb){
 
 			if('script' in api.urlParams){
 				script_name = api.urlParams['script'];
@@ -106,29 +102,27 @@ var x_utils = (function() {
 						devices = get_devices(script);
 						
 						if(devices === undefined){
-							if(success != undefined) success();
+							if(success_cb != undefined) success_cb();
 							return;
 						}
 						
 						var response = check_devices(devices);
-						
+
 						if(response.is_good == true) {
-							if(success != undefined) success();
+							if(success_cb != undefined) success_cb();
 							return;
 						}
 						else{
-							if(failure != undefined) failure(response.message);
+							if(failure_cb != undefined) failure_cb(response.message);
 							return;
 						}
 					}
-					
 				}
 				loadTxt(script_name, success);
 			}
 			
 			else{
-				
-				if(success != undefined) success();
+				if(success_cb != undefined) success_cb();
 				return;
 			}
 		

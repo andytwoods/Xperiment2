@@ -7,7 +7,7 @@
 	  <variables practice='0' />
 </SETUP>
 
-<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="true" block="-100" order="fixed" trials="1">
 
 	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
 
@@ -61,7 +61,7 @@ Statement of informed consent
 </TRIAL>	
 	
 
-<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
 	<text text="Some questions before we start:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
 	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
@@ -112,7 +112,7 @@ Statement of informed consent
 </salmon>
 	
 
-<template order="random" trials="1" block="10|11|12|13|14|15|16|17">
+<template order="random" trials="1" block="-10|11|12|13|14|15|16|17">
 
 	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text1=" Please drag the items into the box below, arranging the items according to the labels at the bottom of the screen." text=
 	"How much do you like the product shown overall?|How likely would you be to buy this product, assuming it was available and at a reasonable price?|How tasty would you expect this product to be?|How fresh would you expect this product to be?|What quality would you expect this product to be?|How innovative do you think this product is?|How strong and sturdy do you think the packaging is?|How attractive is this packaging design to you?"

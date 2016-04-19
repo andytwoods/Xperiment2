@@ -67,12 +67,7 @@ class Experiment extends EventDispatcher {
 		ExptWideSpecs.init();
 		//trace("------------------------------");
 		ExptWideSpecs.set(script);
-		#if html5
-			if (DeviceManager.check(ExptWideSpecs.IS('devices')) == false) {
-				ErrorMessage.error('Device not allowed', DeviceManager.error, true);
-				return;
-			}
-		#end
+
 		ExptWideSpecs.updateExternalVars(UrlParams_service.params);
 		
 		#if html5
