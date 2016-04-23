@@ -22,7 +22,7 @@ class Xpt {
 		XRandom.init(RandomAlgorithm.Mersenne);
 		System.init();
           
-		exptName = 'transparent';
+		//exptName = 'transparent';
         //exptName = 'tastePosition';
 		//exptName = "Expt1";
         //exptName = 'test';
@@ -30,7 +30,8 @@ class Xpt {
 		//exptName = 'ShapeApproachAvoidance';
 		//exptName = 'testLogos';
 		//exptName = 'evolve1';
-        diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
+        exptName = "colourService";
+		diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		
 		
         DiagnosticsManager.add(DiagnosticsManager.EXPERIMENT_START, exptName);

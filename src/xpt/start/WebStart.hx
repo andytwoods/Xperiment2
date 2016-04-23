@@ -41,7 +41,6 @@ class WebStart
 		
 			if (check_script_exists == true) {
 				processScript(untyped x_utils['expt_script']);
-				trace(123);
 				return;
 			}
 		#end

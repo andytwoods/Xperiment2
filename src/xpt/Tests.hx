@@ -25,6 +25,7 @@ import xpt.script.templateHelpers.Test_templateList;
 import xpt.script.Test_Templates;
 import xpt.stimuli.Test_BaseStimuli;
 import xpt.tools.Test_Base64;
+import xpt.tools.Test_Shortcuts;
 import xpt.tools.Test_XML_Tools;
 import utest.Runner;
 import utest.ui.Report;
@@ -86,6 +87,7 @@ class Tests
 		runner.addCase(new Test_XTools());
 		runner.addCase(new Test_Base64());
 		runner.addCase(new Test_DeviceManager());
+		runner.addCase(new Test_Shortcuts());
 		
 		
 		

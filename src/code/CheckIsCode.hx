@@ -26,7 +26,9 @@ class CheckIsCode
 			
 			case BeforeEverything | BeforeExperiment:
 
-				if (checkIsCode(code) == false) return null;
+				if (checkIsCode(code) == false) {
+					return null;
+				}
 				
 			case BeforeFirstTrial:
 				code = afterExperimentSetup(xml);

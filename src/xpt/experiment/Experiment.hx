@@ -21,7 +21,7 @@ import xpt.results.TrialResults;
 import xpt.screenManager.DeviceManager;
 import xpt.screenManager.RotateYourScreen;
 import xpt.screenManager.ScreenManager;
-import xpt.script.ProcessScript;
+import xpt.script.Templates;
 import xpt.stimuli.BaseStimuli;
 import xpt.stimuli.builders.nonvisual.StimEvolve.EvolveCommsManager;
 import xpt.stimuli.builders.nonvisual.StimEvolve.StimEvolveParams;
@@ -29,6 +29,7 @@ import xpt.stimuli.ETCs;
 import xpt.stimuli.StimuliFactory;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;
+import xpt.tools.Shortcuts;
 import xpt.tools.XTools;
 import xpt.trial.GotoTrial;
 import xpt.trial.NextTrialBoss;
@@ -60,9 +61,8 @@ class Experiment extends EventDispatcher {
 		if (script == null) return; //used for testing
 		this.script = script;
 
-		//consider remove direct class below and replace purely with Templates.compose(script);
-		var processScript:ProcessScript = new ProcessScript(script);
-		processScript = null;
+		new Templates(script);
+		Shortcuts.instance.experiment_wide(script);
 		//trace(script);
 		ExptWideSpecs.init();
 		//trace("------------------------------");
@@ -106,6 +106,7 @@ class Experiment extends EventDispatcher {
 		StimuliFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 		TrialFactory.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 		TrialBlock.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
+		Shortcuts_Command.permitted = [ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep];
 		TrialOrder.setLabels(ExptWideSpecs.trial_sep);
 		ETCs.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
 		if(testing==false) ScreenManager.instance.callbacks.push(StimulusBuilder.updateTrial_XY);
