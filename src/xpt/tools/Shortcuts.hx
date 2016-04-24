@@ -152,8 +152,23 @@ class Shortcuts_Command {
 				propVal.val = xml.get(propVal.prop);
 			}
 			else {
-				//need to traverse up xml tree and find prop that is being referred to.
-				throw 'not implemented yet';
+				var arr:Array<String> = propVal.prop.split(".");
+				propVal.prop = arr[1];
+				var id:String = arr[0];
+				var siblings = xml.elements();
+				var found:Bool = false;
+				for (sibling in siblings) {
+					if (sibling.exists('id') && sibling.get('id').toString() == id) {
+						propVal.xmlParent = sibling;
+						propVal.val = sibling.get(propVal.prop);
+						found = true;
+						break;
+					}
+				}
+				if (found == false) {
+					throw 'Could not find an id: '+arr.join(".");
+				}
+				
 			}
 		}
 		if (splitBy_arr.length == 0) {
@@ -249,7 +264,6 @@ class PropVal {
 		if (primary_len == 0) return;
 		var counter:Int = 0;
 		while (val_split.length < primary) {
-			trace(counter);
 			val_split.push(val_split[counter++]);
 		}
 		if (secondary != 0) expandSecondary(secondary, val_split, splitBy_arr[1]);		
