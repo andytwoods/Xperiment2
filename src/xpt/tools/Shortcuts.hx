@@ -25,7 +25,12 @@ class Shortcuts
 	
 	
 	public function experiment_wide(xml:Xml) {
+		
 		var uppercase_keys:Array<String> = XTools.iteratorToArray(shortcuts.keys());
+		for (i in 0...uppercase_keys.length) {
+			uppercase_keys[i] = uppercase_keys[i].toUpperCase();
+		}
+		
 		crunch(xml, uppercase_keys);
 	}
 	
@@ -42,12 +47,32 @@ class Shortcuts
 		for (xml in Xmls) {
 			command = new Shortcuts_Command(xml.get(key));
 			command.gather_values(xml);
-			shortcuts.get(key)(xml, command);
+			command.make_vals_same_len();
+			shortcuts.get(key.toLowerCase())(xml, command);
 		}	
 	}
 	
 	public function shortcut_shuffle(xml:Xml, command:Shortcuts_Command) {
-	
+		var primaryShuffle:Array<Int> = new Array<Int>();
+		var secondaryShuffle:Array<Int> = null;
+		
+		for (i in 0...command.max_primary_len) {
+			primaryShuffle.push(i);
+		}
+		
+		XRandom.shuffle(primaryShuffle);
+		
+		if (command.max_secondary_len > 0) {
+			secondaryShuffle = new Array<Int>();
+			for (i in 0...command.max_secondary_len) {
+				secondaryShuffle.push(i);
+			}
+			XRandom.shuffle(secondaryShuffle);
+		}
+		
+		command.reorder(primaryShuffle, secondaryShuffle);
+		
+		command.save();
 	
 	}
 	
@@ -58,6 +83,8 @@ class Shortcuts_Command {
 	public var propVals:Array<PropVal> = new Array<PropVal>();
 	public static var permitted:Array<String>;
 	public var splitBy_arr:Array<String> = new Array<String>();
+	public var max_primary_len = 0;
+	public var max_secondary_len = 0;
 	
 	public function new(str:String){
 		
@@ -81,6 +108,30 @@ class Shortcuts_Command {
 		for (prop in properties) {
 			propVal = new PropVal(prop);
 			propVals.push(propVal);
+		}
+	}
+	
+	public function save() {
+		var by:String = splitBy_arr[0];
+		for (pv in propVals) {
+			pv.save(by);
+			pv = null;
+		}
+		propVals = null;
+	}
+	
+	public function reorder(primaryShuffle:Array<Int>, secondaryShuffle:Array<Int>) {
+		var arr:Array<String> = new Array<String>();
+		var i:Int;
+		for (pv in propVals) {
+			pv.primary_order(primaryShuffle);
+		}
+
+		if (secondaryShuffle != null) {
+			var secondSplit:String = splitBy_arr[1];
+			for (pv in propVals) {
+				pv.secondary_order(secondaryShuffle, secondSplit);
+			}
 		}
 	}
 	
@@ -111,7 +162,11 @@ class Shortcuts_Command {
 				vals.push(propVal.val);
 			}	
 			var detected:String = detect_split(vals, xml);
+			splitBy_arr.push(detected);
 		}	
+		for (propVal in propVals) { 
+			propVal.doSplit(splitBy_arr);
+		}
 	}
 	
 
@@ -130,11 +185,25 @@ class Shortcuts_Command {
 		}		
 	}
 	
-	
+
+	public function make_vals_same_len() {
+		
+		for (propVal in propVals) {
+			if (max_primary_len < propVal.primary_len) max_primary_len = propVal.primary_len;
+			if (max_secondary_len < propVal.secondary_len) max_secondary_len = propVal.secondary_len;
+		}
+		
+		for (propVal in propVals) {
+			propVal.expandVal(max_primary_len, max_secondary_len, splitBy_arr);
+		}
+	}	
 }
 
 class PropVal {
 	public var prop:String;
+	public var val_split:Array<String>;
+	public var primary_len:Int;
+	public var secondary_len:Int = 0;
 	public var val:String;
 	public var xmlParent:Xml;
 	
@@ -142,4 +211,78 @@ class PropVal {
 		prop = nam;
 	}
 	
+	public function save(by:String) {
+		xmlParent.set(prop, val_split.join(by));
+	}
+	
+	
+	public function primary_order(order:Array<Int>) {
+		var pos:Int;
+		var arr:Array<String> = new Array<String>();
+		for (i in 0...order.length) {
+			pos = order[i];
+			arr.push(val_split[pos]);
+		}
+		val_split = arr;
+	}
+	
+	public function secondary_order(order:Array<Int>, by:String) {
+		for (i in 0...val_split.length) {
+			val_split[i] = _secondary_order(val_split[i], order, by);
+		}
+	}
+	
+	public inline function _secondary_order(text:String, order:Array<Int>, by:String) {
+		var split:Array<String> = text.split(by);
+		var ordered:Array<String> = new Array<String>();
+		var pos:Int;
+		for (i in 0...split.length) {
+			pos = order[i];
+			ordered.push(split[pos]);
+		}
+		return ordered.join(by);
+	}
+	
+
+	
+	public function expandVal(primary:Int, secondary:Int, splitBy_arr:Array<String>) {
+		if (primary_len == 0) return;
+		var counter:Int = 0;
+		while (val_split.length < primary) {
+			trace(counter);
+			val_split.push(val_split[counter++]);
+		}
+		if (secondary != 0) expandSecondary(secondary, val_split, splitBy_arr[1]);		
+	}
+	
+	public function expandSecondary(secondary:Int, val_split:Array<String>, splitBy:String) 
+	{
+		var val:String;
+		var arr:Array<String>;
+		var counter:Int;
+		for (i in 0...val_split.length) {
+			val = val_split[i];
+			arr = val.split(splitBy);
+			counter = 0;
+			while (arr.length < secondary) {
+				arr.push(arr[counter++]);
+			}
+			val_split[i] = arr.join(splitBy);
+		}
+	}
+	
+	public function doSplit(splitByArr:Array<String>) {
+		val_split = val.split(splitByArr[0]);
+		
+		primary_len = val_split.length;
+		
+		if (splitByArr.length > 1) {
+			var current:Int = 0;
+			for(splitVal in val_split) {
+				current = splitVal.split(splitByArr[1]).length;
+				if (secondary_len < current) secondary_len = current;
+			}
+		}
+		
+	}
 }

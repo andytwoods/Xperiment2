@@ -16,9 +16,14 @@ class Test_Shortcuts
 	
 	public function test_1() {
 	
-		var xml:Xml = Xml.parse("<a><b h1='a|b' h2='d' shuffle='def'><c shuffle='abc'/></b></a>");
+		var xml:Xml = Xml.parse("<a><b d='1|2|3' e='1' f='5|6' SHUFFLE='d e f'><c/></b></a>");
 
+		XRandom.setSeed("1");
 		
+		Shortcuts.instance.experiment_wide(xml);
+		Assert.equals(xml.firstElement().firstElement().get('d'), "2|3|1");
+		Assert.equals(xml.firstElement().firstElement().get('e'), "1|1|1");
+		Assert.equals(xml.firstElement().firstElement().get('f'),"6|5|5");
 		
 	}
 
@@ -54,7 +59,27 @@ class Test_Shortcuts
 		catch (e:String) {
 			Assert.isTrue(true);
 		}
+	
+		
+		pv.val = "a|b---d|e---f";
+		pv.doSplit(["---", "|"]);
+		Assert.equals(pv.primary_len, 3);
+		Assert.equals(pv.secondary_len, 2);
+		
+		pv.expandVal(4, 3, ["---", "|"]);
+		Assert.equals(Std.string(pv.val_split),'[a|b|a,d|e|d,f|f|f,a|b|a]');
+		
+		
+		Assert.equals(pv._secondary_order('a---b---c', [2, 1, 0], '---'), 'c---b---a');
+		
+		pv.val_split = ["a","b","c"];
+		pv.primary_order([2, 1, 0]);
+		Assert.isTrue(Arrays.equals(pv.val_split, ["c", "b", "a"]));
+
 		
 	}
+	
+
+	
 }
 
