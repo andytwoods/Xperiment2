@@ -102,14 +102,14 @@ Statement of informed consent
 	
 
 
-<template order="random" trials="8" block="10">
+<template order="random" trials="7" block="10">
 
 	<text textAlign="center"  fontSize="30" width="100%" height="100" verticalAlign="top"  y="9%" text="Do you trust this colour for " text1="BANKING" multiId="INDUSTRY" text2="?"/>
 	
-	<box id="box" copyOverId="box" color="white|black|pink|green|blue|red|yellow|purple" width="500" height="500" />
+	<box id="box" copyOverId="box" color="white|black|green|blue|red|yellow|purple" width="500" height="500" />
 	
 	
-    <button howMany="2" y="95%" hideResults="true" x="35%---65%"  key="t---d" id="trust (t)---distrust (d)" answer="1---0" verticalAlign="bottom" text="trust (t)---distrust (d)" width="170" height="40"  fontSize="18">
+    <button howMany="2" y="95%" hideResults="true" x="35%---65%"  key="t---d" id="trust (t)---distrust (d)" answer="1---0" SHUFFLE="x ---" verticalAlign="bottom" text="trust (t)---distrust (d)" width="170" height="40"  fontSize="18">
 		<action>
 			Trial.save('trust', stim.get('answer'));
 			Experiment.nextTrial()

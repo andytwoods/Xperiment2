@@ -70,10 +70,8 @@ class Shortcuts
 			XRandom.shuffle(secondaryShuffle);
 		}
 		
-		command.reorder(primaryShuffle, secondaryShuffle);
-		
-		command.save();
-	
+		command.reorder(primaryShuffle, secondaryShuffle);	
+		command.save();	
 	}
 	
 }

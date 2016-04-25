@@ -83,7 +83,7 @@ class Scripting
 		
 		bundle.scriptEngine.variables.set("Experiment", experiment);
 		bundle.scriptEngine.variables.set("Debug", DebugManager.instance);
-		bundle.scriptEngine.variables.set("Motion", Actuate);
+		bundle.scriptEngine.variables.set("Filter", Actuate);
 		bundle.scriptEngine.variables.set("Stage", Lib.current.stage);	
 		bundle.scriptEngine.variables.set("Stims", StimHelper);
 		bundle.scriptEngine.variables.set("System", new SystemWrapper());

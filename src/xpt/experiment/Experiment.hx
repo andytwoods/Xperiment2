@@ -61,8 +61,9 @@ class Experiment extends EventDispatcher {
 		if (script == null) return; //used for testing
 		this.script = script;
 
-		new Templates(script);
 		Shortcuts.instance.experiment_wide(script);
+		new Templates(script);
+		
 		//trace(script);
 		ExptWideSpecs.init();
 		//trace("------------------------------");
