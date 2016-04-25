@@ -2,6 +2,7 @@ package xpt.preloader;
 import code.Scripting;
 import thx.Arrays;
 import thx.Ints;
+import xpt.stimuli.StimuliFactory;
 import xpt.tools.PathTools;
 import xpt.tools.XTools;
 import xpt.trial.TrialSkeleton;
@@ -12,7 +13,7 @@ class Preloader_extract_loadable
 	static private var trial_sep:String = "|";
 	static private var stim_sep:String = "---";
 	static private var resourcePattern:String = "resourcePattern";
-	static private var loadableWords:Array<String> = ["resource",resourcePattern];
+	static private var loadableWords:Array<String> = ["resource", "resources", resourcePattern];
 	
 	public function new() {}
 	
@@ -62,16 +63,18 @@ class Preloader_extract_loadable
 																		loadableWord,
 																		baseStim.props	);
 						
-						if (stimPreload.length>0) {
+						if (stimPreload.length > 0) {
 							preloadList = preloadList.concat(stimPreload);
 						}
 					}
+
+					
 				}
 			}
 		}
+		var final:Array<String> = new Array<String>();
 		
         var distinct:Array<String> = Arrays.distinct(preloadList);
-        var final:Array<String> = [];
         for (path in distinct) {
             final.push(PathTools.fixPath(path));
         }
@@ -79,6 +82,20 @@ class Preloader_extract_loadable
 		return final;
 	}
 	
+	public function extract_defaults(resourceCollection:Array<String>):Array<String>
+	{
+		var arr:Array<String> = new Array<String>();
+		for (resource in resourceCollection) {
+		
+			resource = resource.split(",").join(trial_sep);
+			resource = resource.split(stim_sep).join(trial_sep);
+			for (item in resource.split(trial_sep)) {
+				arr.push(item);
+			}
+		}
+		trace(arr);
+		return arr;
+	}
 	
 	
 	@:allow(xpt.preloader.Test_Preloader_extract_loadable)
@@ -108,7 +125,12 @@ class Preloader_extract_loadable
 					if (Ints.canParse(modKey.charAt(modKey.length - 1)) == false) {
 						if (loadableWord == resourcePattern) arr = arr.concat(resourcePatternMultiply(modVal, props));
 						else if (modVal.indexOf("${")!=-1) arr.push(Scripting.expandScriptValues(modVal));
-						else arr.push(modVal);
+						else {
+							if (modVal.indexOf(",") != -1) {
+								arr = arr.concat(modVal.split(","));
+							}
+							else arr.push(modVal);
+						}
 					}
 				}
 			}
@@ -138,7 +160,7 @@ class Preloader_extract_loadable
 	function strip_to_loadable(map:Map<String,String>, nam:String):Map<String,String> 
 	{
 		var found:Map<String,String> = new Map<String,String>();
-		
+
 		found.set(nam, map.get(nam));
 		
 		for (key in map.keys()) {
@@ -146,7 +168,6 @@ class Preloader_extract_loadable
 				found.set(key, map.get(key));
 			}
 		}
-		
 		return found;
 	}
 	

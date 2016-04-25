@@ -27,16 +27,17 @@ class Shortcuts
 	public function experiment_wide(xml:Xml) {
 		
 		var uppercase_keys:Array<String> = XTools.iteratorToArray(shortcuts.keys());
+		
 		for (i in 0...uppercase_keys.length) {
 			uppercase_keys[i] = uppercase_keys[i].toUpperCase();
 		}
-		
+
 		crunch(xml, uppercase_keys);
 	}
 	
 	private inline function crunch(xml:Xml, list:Array<String>) {
 		var found:Map<String, Array<Xml>> = XML_tools.find_val(xml, list);
-		
+
 		for (key in found.keys()) {
 			iterate_over_finds(found.get(key), key);	
 		}	
@@ -71,6 +72,7 @@ class Shortcuts
 		}
 		
 		command.reorder(primaryShuffle, secondaryShuffle);	
+
 		command.save();	
 	}
 	
@@ -168,6 +170,7 @@ class Shortcuts_Command {
 				}
 				
 			}
+		
 		}
 		if (splitBy_arr.length == 0) {
 			var vals:Array<String> = [];
@@ -175,11 +178,14 @@ class Shortcuts_Command {
 				vals.push(propVal.val);
 			}	
 			var detected:String = detect_split(vals, xml);
+
 			splitBy_arr.push(detected);
 		}	
 		for (propVal in propVals) { 
 			propVal.doSplit(splitBy_arr);
 		}
+		
+
 	}
 	
 
@@ -190,6 +196,7 @@ class Shortcuts_Command {
 		for (split in permitted) {
 			if (combined.indexOf(split) != -1) found.push(split);
 		}
+
 		if (found.length == 1) return found[0];
 		else if(found.length == 0) return null;
 		else {

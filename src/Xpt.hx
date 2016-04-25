@@ -30,7 +30,9 @@ class Xpt {
 		//exptName = 'ShapeApproachAvoidance';
 		//exptName = 'testLogos';
 		//exptName = 'evolve1';
-        exptName = "colourService";
+        //exptName = "colourService";
+		//exptName = "colourService2";
+		exptName = "colourService3";
 		diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		
 		

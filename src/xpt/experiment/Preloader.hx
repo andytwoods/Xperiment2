@@ -6,9 +6,11 @@ import assets.manager.misc.FileType;
 import assets.manager.misc.LoaderStatus;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
+import openfl.media.Sound;
 import openfl.events.Event;
 import openfl.events.EventDispatcher;
 import xpt.debug.DebugManager;
+import xpt.tools.XTools;
 
 class PreloaderEvent extends Event {
 	public static inline var BEGIN:String = "preloadBegin";
@@ -44,6 +46,7 @@ class Preloader extends EventDispatcher {
 	
 	public var preloadedImages:Map<String, Bitmap> = new Map<String, Bitmap>();
 	public var preloadedText:Map<String, String> = new Map<String, String>();
+	public var preloadedSound:Map<String, Sound> = new Map<String, Sound>();
 	public var stimuli_to_load:Array<String>;
 	
 	public function new() {
@@ -67,7 +70,7 @@ class Preloader extends EventDispatcher {
 				case FileType.TEXT:
 					preloadedText.set(file.id, file.data);
 				case FileType.SOUND:
-					throw 'to do';
+					preloadedSound.set(file.id, file.data);
 				case FileType.BINARY:
 					throw 'to do';
 			}	
@@ -80,6 +83,9 @@ class Preloader extends EventDispatcher {
 				var f:Void->Void = callBacks.get(file.id).shift();
 				if (f != null) f();
 			}
+		}
+		else {
+		trace(file.id, 222);	
 		}
 		
 		
@@ -121,6 +127,8 @@ class Preloader extends EventDispatcher {
 					_loader.queueImage(stimulus);
 				case "SVG" | "TXT":
 					_loader.queueText(stimulus);
+				case "MP3":
+					_loader.queueSound(stimulus);
 				default:
 					throw 'unknown file type: ' + stimulus;
 			}			

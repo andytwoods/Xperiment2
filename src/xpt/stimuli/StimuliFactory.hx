@@ -13,8 +13,10 @@ class StimuliFactory {
 	private static var overTrialSep:String;
 	
 	private static var _stimBuilderMap:Map<String, Class<StimulusBuilder>>;
-	private static var _stimParams:Map<String, Map<String, String>>;
+	public static var _stimParams:Map<String, Map<String, String>>;
 	private static var _stimChildDefs:Map<String, Array<Xml>>;
+	
+
 	
 	public function new() {}
 	
@@ -163,6 +165,7 @@ class StimuliFactory {
 			params = new Map<String, String>();
 			_stimParams.set(type, params);
 		}
+		
 		params.set(name, value);
 	}
 	

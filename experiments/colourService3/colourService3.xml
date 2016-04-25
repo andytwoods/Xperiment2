@@ -50,7 +50,14 @@ Statement of informed consent
 	<nextTrialButton y="90%" width="200" height="50" text="I CONSENT" fontSize="18" />
 </TRIAL>
 
-
+<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
+	<soundCheck resource="1.mp3,2.mp3,3.mp3,4.mp3,5.mp3,6.mp3,7.mp3,8.mp3,9.mp3,0.mp3"/>
+   
+	<nextTrialButton y="80%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+	
+	
+	
 <TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
 	<text text="What is your Prolific Academic ID?" fontSize="20" width="400" height="30" textAlign="center"  y="40%" />
 	
@@ -80,7 +87,7 @@ Statement of informed consent
 <TRIAL block="5">
 	
 	<text width="80%" height="25%"
-     text="On each trial you will see a colour patch. You will be asked to respond as fast and as accurate as possible whether you would trust " text1="BANKING SERVICES" multiId="instruct" text2=" that use such a colour. There are 14 trials in total."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
+     text="On each trial you will see a shape. You will be asked to respond as fast and as accurate as possible whether you would trust " text1="BANKING SERVICES" multiId="instruct" text2=" that use such a shape. There are 12 trials in total."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
 	<nextTrialButton y="90%" x="50%" width="200" depth="0" height="50" verticalAlign="bottom" text="Begin" fontSize="18" />
 	
 	<text copyOverId="taste2" text="" />
@@ -88,28 +95,17 @@ Statement of informed consent
 	
 
 
-<TRIAL multiId="over_results" template="dim,template"></TRIAL>
-	<TRIAL multiId="over_results" template="bright,template"></TRIAL>
-
-
-<bright>
-	<box copyOverId="box" alpha=".5" />
-</bright>
-
-<dim>
-	<box copyOverId="box" alpha="1" />
-</dim>
+<TRIAL multiId="over_results" template="template"></TRIAL>
 	
 
+<template order="random" trials="12" block="10">
 
-<template order="random" trials="7" block="10">
-
-	<text textAlign="center"  fontSize="30" width="100%" height="100" verticalAlign="top"  y="9%" text="Do you trust this colour for " text1="BANKING SERVICES" multiId="INDUSTRY" text2="?"/>
+	<text textAlign="center"  fontSize="30" width="100%" height="100" verticalAlign="top"  y="9%" text="Do you trust this shape for " text1="BANKING SERVICES" multiId="INDUSTRY" text2="?"/>
 	
-	<box id="box" copyOverId="box" color="white|black|green|blue|red|yellow|purple" width="500" height="500" />
+	<sound id="image" resource1=".mp3" resource="1" />
 	
 	
-    <button howMany="2" y="95%" hideResults="true" x="35%---65%" SHUFFLE="x ---" key="t---d" id="trust (t)---distrust (d)" answer="1---0" verticalAlign="bottom" text="trust (t)---distrust (d)" width="170" height="40"  fontSize="18">
+    <button howMany="2" y="95%" hideResults="true" x="35%---65%"  key="t---d" id="trust (t)---distrust (d)" answer="1---0" SHUFFLE="x ---" verticalAlign="bottom" text="trust (t)---distrust (d)" width="170" height="40"  fontSize="18">
 		<action>
 			Trial.save('trust', stim.get('answer'));
 			Experiment.nextTrial()
@@ -118,9 +114,9 @@ Statement of informed consent
 	
 	<rt/>
 	
-	<results colour="${box.get('color')}" alpha="${box.get('alpha')}" />
+	<results colour="${image.get('resource')}" />
 	
-	<trialCounter height="60" depth="0" y="8%" total="14" />
+	<trialCounter height="60" depth="0" y="8%" total="12" />
 	
 </template>
 	

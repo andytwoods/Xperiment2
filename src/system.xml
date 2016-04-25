@@ -63,9 +63,11 @@
 			<color>0x1a0dab</color>
 		</link>
 		
+		
 		<!-- ***********************************************************************************
 			NON-VISUAL STIMULI
 		************************************************************************************ -->
+		<sound builder="xpt.stimuli.builders.nonvisual.StimSound"/>
 		<timer builder="xpt.stimuli.builders.nonvisual.StimTimer"/>
 		<rt builder="xpt.stimuli.builders.nonvisual.StimRT">
 			<id>rt</id>
@@ -87,13 +89,16 @@
 			LAYOUT STIMULI
 		************************************************************************************ -->
 		<hbox builder="xpt.stimuli.builders.layout.StimHBox" />
-		
+		<grid builder="xpt.stimuli.builders.layout.StimGrid" />
 		
 		<!-- ***********************************************************************************
 			COMPOUND STIMULI
 		************************************************************************************ -->
 		<multiNumberStepper builder="xpt.stimuli.builders.compound.StimMultiNumberStepper" />
-		
+		<soundCheck builder="xpt.stimuli.builders.compound.StimSoundCheck">
+			<width>300</width>
+			<height>300</height>
+		</soundCheck>
 		<!-- ***********************************************************************************
 			ALIAS STIMULI
 		************************************************************************************ -->

@@ -139,6 +139,7 @@ class Experiment extends EventDispatcher {
 		//attempt to incorporate --- and |
 		var find_loadable:Preloader_extract_loadable = new Preloader_extract_loadable();
 		var preloadList:Array<String> = find_loadable.extract(skeletons);
+		
 		find_loadable = null;
 		
 		if (preloadList.length > 0) {

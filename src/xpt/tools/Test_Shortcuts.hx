@@ -15,7 +15,7 @@ class Test_Shortcuts
 	}
 	
 	public function test_1() {
-	
+		Shortcuts_Command.permitted = ["|","---"];
 		var xml:Xml = Xml.parse("<a><b d='1|2|3' e='1' f='5|6' SHUFFLE='d e f'><c/></b></a>");
 
 		XRandom.setSeed("1");
@@ -24,19 +24,14 @@ class Test_Shortcuts
 		Assert.equals(xml.firstElement().firstElement().get('d'), "2|3|1");
 		Assert.equals(xml.firstElement().firstElement().get('e'), "1|1|1");
 		Assert.equals(xml.firstElement().firstElement().get('f'), "6|5|5");
-		
-	
-		var xml:Xml = Xml.parse("<a><b d='1|2|3' e='1' SHUFFLE='d e banana.f'><c id='banana' f='5|6'/></b></a>");
 
+		var xml:Xml = Xml.parse("<a><b d='1|2|3' e='1' SHUFFLE='d e banana.f'><c id='banana' f='5|6'/></b></a>");	
 		Shortcuts.instance.experiment_wide(xml);
 		Assert.equals(xml.firstElement().firstElement().get('d'), "1|3|2");
 		Assert.equals(xml.firstElement().firstElement().get('e'), "1|1|1");
 		
 		var test_xml = XTools.iteratorToArray(XML_tools.findNode(xml, 'c'));
 		Assert.equals(test_xml[0].get('f'), '5|5|6');
-		
-		//Assert.equals(xml.firstElement().firstElement().get('f'), "6|5|5");
-		
 	}
 
 	

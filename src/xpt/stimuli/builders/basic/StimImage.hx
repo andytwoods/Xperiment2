@@ -64,7 +64,6 @@ class StimImage extends StimulusBuilder {
 		   
            if(bmp!=null) setBitmap(bmp, image);	
 		   else {
-			   trace('prob');
 				Preloader.instance.callbackWhenLoaded(resource, function() {
 					update();
 				});

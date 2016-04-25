@@ -80,7 +80,7 @@ Statement of informed consent
 <TRIAL block="5">
 	
 	<text width="80%" height="25%"
-     text="On each trial you will see a colour patch. You will be asked to respond as fast and as accurate as possible whether you would trust " text1="BANKING SERVICES" multiId="instruct" text2=" that use such a colour. There are 14 trials in total."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
+     text="On each trial you will see 3 images of packaging. You are asked to arrange those items in a box according to a given question. There are 32 trials in total."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
 	<nextTrialButton y="90%" x="50%" width="200" depth="0" height="50" verticalAlign="bottom" text="Begin" fontSize="18" />
 	
 	<text copyOverId="taste2" text="" />
@@ -104,12 +104,12 @@ Statement of informed consent
 
 <template order="random" trials="7" block="10">
 
-	<text textAlign="center"  fontSize="30" width="100%" height="100" verticalAlign="top"  y="9%" text="Do you trust this colour for " text1="BANKING SERVICES" multiId="INDUSTRY" text2="?"/>
+	<text textAlign="center"  fontSize="30" width="100%" height="100" verticalAlign="top"  y="9%" text="Do you trust this colour for " text1="BANKING" multiId="INDUSTRY" text2="?"/>
 	
 	<box id="box" copyOverId="box" color="white|black|green|blue|red|yellow|purple" width="500" height="500" />
 	
 	
-    <button howMany="2" y="95%" hideResults="true" x="35%---65%" SHUFFLE="x ---" key="t---d" id="trust (t)---distrust (d)" answer="1---0" verticalAlign="bottom" text="trust (t)---distrust (d)" width="170" height="40"  fontSize="18">
+    <button howMany="2" y="95%" hideResults="true" x="35%---65%"  key="t---d" id="trust (t)---distrust (d)" answer="1---0" SHUFFLE="x ---" verticalAlign="bottom" text="trust (t)---distrust (d)" width="170" height="40"  fontSize="18">
 		<action>
 			Trial.save('trust', stim.get('answer'));
 			Experiment.nextTrial()
@@ -120,7 +120,7 @@ Statement of informed consent
 	
 	<results colour="${box.get('color')}" alpha="${box.get('alpha')}" />
 	
-	<trialCounter height="60" depth="0" y="8%" total="14" />
+	<trialCounter height="60" depth="0" y="8%" total="32" />
 	
 </template>
 	
@@ -147,7 +147,6 @@ PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLFIC ACADEMIC KNOWS YOU HAVE COMPL
 	
 <insurance>
 	<INDUSTRY text1="INSURANCE COMPANIES"/>
-    <instruct text1="INSURANCE COMPANIES"/>
 </insurance>
 	
 </multi>
