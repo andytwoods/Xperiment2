@@ -85,7 +85,7 @@ class Preloader extends EventDispatcher {
 			}
 		}
 		else {
-		trace(file.id, 222);	
+			//
 		}
 		
 		

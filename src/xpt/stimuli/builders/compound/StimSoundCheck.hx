@@ -22,6 +22,7 @@ class StimSoundCheck extends StimulusBuilder {
 	var buttons:Map<String, Button>;
 	var sounds:Map<String, Sound>;
 	var pword:Password;
+	var startWhenLoaded:Bool = false;
 	
     public function new() {
         super();
@@ -66,7 +67,7 @@ class StimSoundCheck extends StimulusBuilder {
 			var dimension:Float = c.width * .20 * .5;
 			
 			var text:String;
-			for (i in 0...9) {
+			for (i in 0...10) {
 				
 				button = new Button();
 				button.percentWidth = button.percentHeight = 20;
@@ -90,16 +91,32 @@ class StimSoundCheck extends StimulusBuilder {
 	inline function setSound(nam:String, sound:Sound) 
 	{
 		sounds.set(nam, sound);
+		if (startWhenLoaded) {
+			if ( checkLoaded() ) start();
+		}
 	}
     
+	
+	private function start() {
+		//pword = new Password(buttons, sounds, success);	
+	}
+	
 	
 		//*********************************************************************************
 	// CALLBACKS
 	//*********************************************************************************
     public override function onAddedToTrial() {
-		pword = new Password(buttons, sounds);
+		if ( checkLoaded() ) start();
+		else startWhenLoaded = true;
     }
+	
+	private inline function checkLoaded():Bool {
+		return XTools.iteratorToArray(sounds.keys()).length == 10;
+	}
     
+	private function success() {
+		trace( 123);	
+	}
     
     
     public override function onRemovedFromTrial() {
@@ -115,8 +132,12 @@ class Password {
 	var current:Int = 0;
 	var playing:Sound;
 	var channel:SoundChannel;
-
-	public function new(buttons:Map<String,Button>, sounds:Map<String,Sound>) {
+	var clickStream:String = "";
+	var passcodeStr:String;
+	var callback:Void->Void;
+	
+	public function new(buttons:Map<String,Button>, sounds:Map<String,Sound>, callback:Void ->Void) {
+		this.callback = callback;
 		this.buttons = buttons;
 		this.sounds = sounds;
 		for (b in buttons) {
@@ -127,26 +148,28 @@ class Password {
 		for (i in 0...3) {
 			passcode.push(XRandom.randomlySelect(list));
 		}
-		
+		passcodeStr = passcode.join("");
 		playNext();
 		
 	}
 	
 	function playNext() 
 	{
-		trace(11);
 		if (current > passcode.length) current = 0;
-		clean();
+		trace(passcode, passcode[current]);
 		playing = sounds.get(passcode[current]);
 		channel = playing.play(0);
-		trace(channel.position);
+
 		channel.addEventListener(Event.SOUND_COMPLETE, soundFinishedL);
 		current++;
 	}
 	
 	private function soundFinishedL(e:Event):Void 
 	{
-		if (current < passcode.length) playNext();
+		clean();
+		if (current < passcode.length) {
+				XTools.delay(500, playNext);
+		}
 	}
 	
 	function clean() {
@@ -158,7 +181,11 @@ class Password {
 	
 	private function onClick(e:MouseEvent):Void 
 	{
-		trace(e.currentTarget.name);
+		clickStream += e.currentTarget.name;
+		if(clickStream.length > passcode.length) {
+			clickStream = clickStream.substr(clickStream.length - passcode.length, passcode.length);
+		}
+		if (clickStream == passcodeStr) if(callback!=null) callback();
 	}
 	
 	public function kill() {
