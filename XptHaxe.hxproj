@@ -17,7 +17,7 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="C:\HaxeToolkit\haxe\lib\haxeui\1,8,17" />
-    <class path="C:\HaxeToolkit\haxe\lib\lime\2,9,1" />
+    <class path="C:\HaxeToolkit\haxe\lib\lime\2,8,2" />
     <class path="C:\HaxeToolkit\haxe\lib\openfl\3,6,1" />
     <class path="C:\HaxeToolkit\haxe\lib\actuate\1,8,6" />
     <class path="C:\HaxeToolkit\haxe\lib\hscript\2,0,7" />
@@ -36,12 +36,12 @@
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="haxeui=1.8.17&#xA;lime=2.9.1&#xA;openfl=3.6.1&#xA;actuate=1.8.6&#xA;hscript=2.0.7&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.4&#xA;mlib=2.0.2&#xA;thx_core&#xA;thx.core=0.39.0&#xA;rest-client=0.2.0&#xA;haxe-rest-client=0.2.0&#xA;polygonal-core=1.0.4&#xA;polygonal-ds=1.4.1&#xA;polygonal-printf=1.0.2-beta&#xA;svg=1.0.9&#xA;dom&#xA;openfl-next&#xA;tools=2.9.1&#xA;haxeui-no-gif-support&#xA;no-compilation&#xA;openfl-html5&#xA;canvas&#xA;lime-html5&#xA;html5&#xA;web&#xA;dom&#xA;hscriptPos&#xA;haxeui-no-gif-support&#xA;html5&#xA;display" />
+    <option directives="haxeui=1.8.17&#xA;lime=2.8.2&#xA;openfl=3.6.1&#xA;actuate=1.8.6&#xA;hscript=2.0.7&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.4&#xA;mlib=2.0.2&#xA;thx_core&#xA;thx.core=0.39.0&#xA;rest-client=0.2.0&#xA;haxe-rest-client=0.2.0&#xA;polygonal-core=1.0.4&#xA;polygonal-ds=1.4.1&#xA;polygonal-printf=1.0.2-beta&#xA;svg=1.0.9&#xA;dom&#xA;openfl-next&#xA;tools=2.8.2&#xA;haxeui-no-gif-support&#xA;no-compilation&#xA;openfl-html5&#xA;canvas&#xA;lime-html5&#xA;html5&#xA;web&#xA;dom&#xA;hscriptPos&#xA;haxeui-no-gif-support&#xA;html5&#xA;display" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="#--macro keep('IntIterator')&#xA;--remap flash:openfl&#xA;--macro allowPackage(&quot;flash&quot;)&#xA;-debug " />
+    <option additional="#--macro keep('IntIterator')&#xA;--remap flash:openfl&#xA;--macro allowPackage(&quot;flash&quot;)" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

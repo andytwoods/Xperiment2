@@ -34,8 +34,8 @@ class StimulusBuilder {
 	
 	public function new() {
 		#if html5
-			fontSize_multiplier = Browser.window.devicePixelRatio;
-			if (fontSize_multiplier > 1) fontSize_multiplier * .75;
+			//fontSize_multiplier = Browser.window.devicePixelRatio;
+			//if (fontSize_multiplier > 1) fontSize_multiplier * .75;
 		#end
 	}
 	
@@ -235,9 +235,9 @@ class StimulusBuilder {
     
 			var n = getInt("fontSize") * fontSize_multiplier;
 			
-            if (n % 2 != 0) {
-                n++;
-            }
+            //if (n % 2 != 0) {
+            //    n++;
+            //}
 			c.style.fontSize = n;
 		}	
 		

@@ -104,15 +104,11 @@ class ScreenManager
 					onResize(null);
 				} );
 			}
-			else {
-				stage.addEventListener(Event.RESIZE, onResize);
-			}
+			trace(width_multiplier, 222);
 
-		#else 
-			stage.addEventListener(Event.RESIZE, onResize);
-			
 		#end
 		
+		stage.addEventListener(Event.RESIZE, onResize);
 		onResize(null);
 	}
 	
@@ -134,8 +130,8 @@ class ScreenManager
 	
 	public function refresh() 
 	{
-		if (height_multiplier > 1) mobileDeviceRefresh();
-		else webRefresh();
+		//if (height_multiplier > 1) mobileDeviceRefresh();
+		webRefresh();
 		
 		for (callBack in callbacks) {
 			callBack(root.x, root.y);
