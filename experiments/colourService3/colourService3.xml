@@ -50,7 +50,7 @@ Statement of informed consent
 	<nextTrialButton y="90%" width="200" height="50" text="I CONSENT" fontSize="18" />
 </TRIAL>
 
-<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
 	<soundCheck resource="1.mp3,2.mp3,3.mp3,4.mp3,5.mp3,6.mp3,7.mp3,8.mp3,9.mp3,0.mp3"/>
    
 	<nextTrialButton y="80%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />

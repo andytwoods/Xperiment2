@@ -96,8 +96,9 @@
 		************************************************************************************ -->
 		<multiNumberStepper builder="xpt.stimuli.builders.compound.StimMultiNumberStepper" />
 		<soundCheck builder="xpt.stimuli.builders.compound.StimSoundCheck">
-			<width>300</width>
-			<height>300</height>
+			<width>70%</width>
+			<height>50%</height>
+			<text>We need to check the volume of the sound coming from your speakers. Please enter the password you hear (just start entering the password again if you make a mistake). Press play to repeat the sound. Please adjust your volume if you cannot hear anything (the password will loop forever).</text>
 		</soundCheck>
 		<!-- ***********************************************************************************
 			ALIAS STIMULI
@@ -200,7 +201,7 @@
 			</action>
 		</previousTrialButton>
 		<text builder="xpt.stimuli.builders.basic.StimText">
-f			<verticalAlign>center</verticalAlign>
+			<verticalAlign>center</verticalAlign>
 			<horizontalAlign>center</horizontalAlign>
 			<x>50%</x>
 			<y>50%</y>

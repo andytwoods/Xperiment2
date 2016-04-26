@@ -25,7 +25,7 @@ class StimSound extends StimulusBuilder {
 		if (resource != null) {
            resource = PathTools.fixPath(resource);
 		   
-		   var sound = Preloader.instance.preloadedSound.get(resource);
+		   var sound = Preloader.instance.getSound(resource);
 		   
            if(sound!=null) setSound(sound);	
 		   else {

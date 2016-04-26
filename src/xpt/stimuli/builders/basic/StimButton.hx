@@ -7,6 +7,7 @@ import openfl.events.MouseEvent;
 import xpt.stimuli.builders.basic.StimButton;
 import xpt.stimuli.StimulusBuilder;
 import xpt.stimuli.tools.KeyPress;
+import xpt.tools.XTools;
 
 class StimButton extends StimulusBuilder {
 	public var clicked:Int = 0;
@@ -49,13 +50,25 @@ class StimButton extends StimulusBuilder {
 				if ( get('keyEnabled', '').toLowerCase() == 'true') {
 					var disabled:Bool = b.disabled;
 					b.disabled = false;
+					simButtonDown(b);
 					b.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 					b.disabled = disabled;
 				}
-				else b.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+				else {
+					simButtonDown(b);
+					b.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+				}
 			} );
 		}
     }
+	
+	function simButtonDown(button:Button) 
+	{
+		button.state = Button.STATE_DOWN;
+		XTools.delay(100, function() { 
+			if (button !=null ) button.state = Button.STATE_NORMAL;
+		} );
+	}
     
     override public function onRemovedFromTrial() {
 		super.onRemovedFromTrial();
