@@ -69,13 +69,7 @@ class Preloader extends EventDispatcher {
 	}
 	
 	private function onFileLoaded(file:FileInfo) {
-		_current++;
-		
-		var event:PreloaderEvent = new PreloaderEvent(PreloaderEvent.PROGRESS);
-		event.current = _current;
-		event.total = _total;
-		dispatchEvent(event);
-        if (file.status == LoaderStatus.LOADED) {
+		if (file.status == LoaderStatus.LOADED) {
 			switch(file.type) {		
 				case FileType.IMAGE:
 					preloadedImages.set(file.id, new Bitmap(file.data));
@@ -90,9 +84,19 @@ class Preloader extends EventDispatcher {
         } else {
             DebugManager.instance.error("Could not preload stimulus", file.id);
         }
-		if (callBacks.exists(file.id)) {
-			while (callBacks.get(file.id).length > 0) {
-				var f:Void->Void = callBacks.get(file.id).shift();
+		_onFileLoaded(file.id);
+	}
+	
+	private function _onFileLoaded(id:String) {
+		_current++;
+		var event:PreloaderEvent = new PreloaderEvent(PreloaderEvent.PROGRESS);
+		event.current = _current;
+		event.total = _total;
+		dispatchEvent(event);
+
+		if (callBacks.exists(id)) {
+			while (callBacks.get(id).length > 0) {
+				var f:Void->Void = callBacks.get(id).shift();
 				if (f != null) f();
 			}
 		}
@@ -113,29 +117,14 @@ class Preloader extends EventDispatcher {
 		_total = _current;
 		
 		
-		
 		var event:PreloaderEvent = new PreloaderEvent(PreloaderEvent.PROGRESS);
 		event.current = _current;
 		event.total = _total;
-		
-		var soundInfo:Map<String,Int> = null;
-		
-		if (soundLoader != null) {
-			soundInfo = soundLoader.progress();
-			event.current += soundInfo.get('current');
-			event.total += soundInfo.get('total');
-		}
-		
 		dispatchEvent(event);
 		
 		var event:PreloaderEvent = new PreloaderEvent(PreloaderEvent.COMPLETE);
 		event.current = _current;
 		event.total = _total;
-		
-		if (soundLoader != null) {
-			event.current += soundInfo.get('current');
-			event.total += soundInfo.get('total');
-		}
 		dispatchEvent(event);
 	}
 	
@@ -145,40 +134,35 @@ class Preloader extends EventDispatcher {
 		return arr[arr.length - 1].toUpperCase();
 	}
 	
-	private function soundLoader_callback(sl:SoundLoader) {
-		if (sl.err == false) this.preloadedSound = sl.sounds;
-		var keys:Array<String> = XTools.iteratorToArray(sl.sounds.keys());
-		for (key in keys) {
-			if (callBacks.exists(key)) {
-				while (callBacks.get(key).length > 0) {
-					var f:Void->Void = callBacks.get(key).shift();
-					if (f != null) f();
-				}
-			}
+	private function soundLoader_callback(sl:SoundLoader, nam:String, sound:Sound) {
+		if (sound == null) {
+			'do something';
+			return;
 		}
+
+		preloadedSound.set(nam, sound);
+		_onFileLoaded(nam);
 	}
 	
 	public function preloadStimuli(stimuli:Array<String>) {
 		
 		stimuli_to_load = stimuli;
-		_total = 0;
+		_current = _total = 0;
 		for (stimulus in stimuli) {
 			switch(fileType(stimulus)) {
 				case "JPG" | "PNG":
 					_loader.queueImage(stimulus);
-					_total++;
 				case "SVG" | "TXT":
 					_loader.queueText(stimulus);
-					_total++;
 				case "MP3":
 					if (soundLoader == null) soundLoader = new SoundLoader();
 					soundLoader.load(stimulus, soundLoader_callback);
-					//_loader.queueSound(stimulus);
 				default:
 					throw 'unknown file type: ' + stimulus;
-			}			
+			}
+			_total++;
 		}
-		_current = 0;
+		
 
 		_loader.loadQueuedFiles();
 
@@ -186,24 +170,11 @@ class Preloader extends EventDispatcher {
 		event.current = _current;
 		event.total = _total;
 		
-		var soundInfo:Map<String,Int>;
-		if (soundLoader != null) {
-			soundInfo = soundLoader.progress();
-			event.current += soundInfo.get('current');
-			event.total += soundInfo.get('total');
-		}
 		dispatchEvent(event);
 		
 		var event:PreloaderEvent = new PreloaderEvent(PreloaderEvent.BEGIN);
 		event.current = _current;
 		event.total = _total;
-		
-		if (soundLoader != null) {
-			soundInfo = soundLoader.progress();
-			event.current += soundInfo.get('current');
-			event.total += soundInfo.get('total');	
-		}
-		
 
 		dispatchEvent(event);
 	}
@@ -220,46 +191,29 @@ class Preloader extends EventDispatcher {
 
 class SoundLoader {
 
-	public var sounds:Map<String,Sound> = new Map<String,Sound>();
     public var soundsArr:Array<SoundBundle> = new Array<SoundBundle>();
 	public var err:Bool = false;
 	public var complete:Bool = false;
-	public var callback:SoundLoader->Void;
-	private var totalMB:Int = 0;
+	public var callback:SoundLoader->String->Sound->Void;
 	
 	public function new(){}
 	
-	public function load(url:String, callback:SoundLoader->Void) {
+	public function load(url:String, callback:SoundLoader->String->Sound->Void) {
 		if (this.callback == null) this.callback = callback;
-		soundsArr.push(new SoundBundle(url, callback_soundBundle));
 		
+		soundsArr.push(new SoundBundle(url, callback_soundBundle));
 	}
 	
 	function callback_soundBundle(sb:SoundBundle) 
 	{
+		
 		if (sb.err == true) {
 			err = true;
-			complete = true;
-			callback(this);
 		}
-		totalMB += Std.int(sb.bytesTotal);
-		sounds.set(sb.url, sb.sound);
-		soundsArr.remove(sb);
-		if (soundsArr.length == 0) {
-			complete = true;
-			callback(this);
-		}
-	}
-	
-	public function progress():Map<String,Int> {
-		var total:Int = totalMB;
-		var current:Int = totalMB;
 		
-		for (sb in soundsArr) {
-			total += Std.int(sb.bytesTotal);
-			current += Std.int(sb.bytesLoaded);
-		}
-		return ["total"=> total, "current"=> current];
+		soundsArr.remove(sb);
+		
+		callback(this, sb.url, sb.sound);
 	}
 }
 
@@ -270,9 +224,7 @@ class SoundBundle {
 	public var completed:Bool = false;
 	public var err:Bool = false;
 	public var attempts:Int = 4;
-	
-	public var bytesTotal:Float = 0;
-	public var bytesLoaded:Float = 0;
+
 	
 	public function new(url:String, callback:SoundBundle-> Void) {
 		this.callback = callback;
@@ -289,11 +241,9 @@ class SoundBundle {
 	private function listeners(on:Bool) {
 		if (on) {
 			sound.addEventListener(Event.COMPLETE, loadedL);
-			sound.addEventListener(ProgressEvent.PROGRESS, progressL);
 			sound.addEventListener(IOErrorEvent.IO_ERROR, errL);		
 		}else {
 			sound.removeEventListener(Event.COMPLETE, loadedL);
-			sound.removeEventListener(ProgressEvent.PROGRESS, progressL);
 			sound.removeEventListener(IOErrorEvent.IO_ERROR, errL);		
 		}
 	}
@@ -303,11 +253,7 @@ class SoundBundle {
 		if (callback != null) callback(this);
 	}
 	
-	private function progressL(e:ProgressEvent):Void 
-	{
-		this.bytesLoaded = e.bytesLoaded;
-		this.bytesTotal = e.bytesTotal;
-	}
+
 	
 	private function errL(e:IOErrorEvent):Void 
 	{

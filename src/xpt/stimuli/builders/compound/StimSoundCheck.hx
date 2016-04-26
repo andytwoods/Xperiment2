@@ -24,11 +24,12 @@ class StimSoundCheck extends StimulusBuilder {
 	
 
 	var buttons:Map<String, Button>;
-	var sounds:Map<String, SoundChannelBundle>;
+	var sounds:Map<String, Sound>;
 	var pword:Password;
 	var startWhenLoaded:Bool = false;
 	var pause:Button;
 	var play:Button;
+	var text:Text;
 	
     public function new() {
         super();
@@ -45,7 +46,7 @@ class StimSoundCheck extends StimulusBuilder {
 		if (sounds == null) {
 			var resources = get("resource", null);
 			if (resources == null) throw 'devel error. Assets not defined properly in system.xml';
-			sounds = new Map<String, SoundChannelBundle>();
+			sounds = new Map<String, Sound>();
 			for (resource in resources.split(",")) {
 
 				var load_resource = PathTools.fixPath(resource);
@@ -104,17 +105,19 @@ class StimSoundCheck extends StimulusBuilder {
 			play.percentWidth = play.percentHeight = 13;
 			play.iconPosition = 'center';
 			c.addChild(play);
-			
-			var text:Text = new Text();
-			text.percentWidth = 100;
-			text.percentHeight = 20;
-			text.style.fontSize = 20;
-			text.multiline = true;
-			text.wrapLines = true;
-			text.text = get('text');
-			text.x = 0;
-			c.addChild(text);
 		}
+		
+		if (text != null) c.removeChild(text);
+		
+		text = new Text();
+		text.width = 100;
+		//text.height = c.height * .2;
+		//text.style.fontSize = 20;
+		text.text = get('text');
+		//text.multiline = true;
+		//text.wrapLines = true;
+		c.addChild(text);
+		
 	}
 	
 
@@ -122,9 +125,11 @@ class StimSoundCheck extends StimulusBuilder {
 
 	inline function setSound(nam:String, sound:Sound) 
 	{
-		sounds.set(nam, new SoundChannelBundle(sound));
+		sounds.set(nam, sound);
 		if (startWhenLoaded) {
-			if ( checkLoaded() ) start();
+			if ( checkLoaded() ) {
+				start();
+			}
 		}
 	}
     
@@ -138,7 +143,9 @@ class StimSoundCheck extends StimulusBuilder {
 	// CALLBACKS
 	//*********************************************************************************
     public override function onAddedToTrial() {
-		if ( checkLoaded() ) start();
+		if ( checkLoaded() ) {
+			start();
+		}
 		else startWhenLoaded = true;
     }
 	
@@ -160,11 +167,10 @@ class StimSoundCheck extends StimulusBuilder {
 }
 
 class Password {
-	var sounds:Map<String, SoundChannelBundle>;
+	var sounds:Map<String, Sound>;
 	var buttons:Map<String, Button>;
 	var passcode:Array<String> = [];
 	var current:Int = 0;
-	var playing:SoundChannelBundle;
 	var clickStream:String = "";
 	var passcodeStr:String;
 	var callback:Void->Void;
@@ -172,13 +178,19 @@ class Password {
 	var start:Button;
 	var paused:Bool = false;
 	var keys:Array<String> = '1,2,3,4,5,6,7,8,9,0'.split(",");
+	var short_pause:Int = 500;
+	var long_pause:Int = 1000;
+	var playing:SoundChannel;
 	
-	public function new(buttons:Map<String,Button>, sounds:Map<String,SoundChannelBundle>, callback:Void ->Void, pause:Button, start:Button) {
+	public function new(buttons:Map<String,Button>, sounds:Map<String,Sound>, callback:Void ->Void, pause:Button, start:Button) {
 		this.callback = callback;
 		this.buttons = buttons;
 		this.sounds = sounds;
 		this.pause = pause;
 		this.start = start;
+		
+
+		
 		for (b in buttons) {
 			b.addEventListener(MouseEvent.CLICK, onClick);
 		}
@@ -187,9 +199,9 @@ class Password {
 		for (i in 0...3) {
 			passcode.push(XRandom.randomlySelect(list));
 		}
+		
 		passcodeStr = passcode.join("");
 		playNext();
-		
 		
 		pause.addEventListener(MouseEvent.CLICK, pauseL);
 		start.addEventListener(MouseEvent.CLICK, startL);
@@ -235,25 +247,25 @@ class Password {
 	function playNext() 
 	{
 		if (paused == false) {
-				if(sounds!=null){
-				playing = sounds.get(passcode[current]);
-				playing.play(soundchannelbundle_callback);
+			if (sounds != null) {
+				
+				var sound = sounds.get(passcode[current]);
+				playing = sound.play(0);
+
 				current++;
+				var delay:Int = short_pause;
+				if (current >= passcode.length) {
+					current = 0;
+					delay = long_pause;
+				}
+				
+				XTools.delay(delay, playNext);
+				
 			}
 		}
 	}
 	
-	private function soundchannelbundle_callback():Void 
-	{
-		if (current >= passcode.length) {
-			current = 0;
-			XTools.delay(1000, playNext);
-		}
-		else playNext();
-	}
-	
 
-	
 	private function onClick(e:MouseEvent):Void 
 	{
 		clickStream_add(e.currentTarget.name);
@@ -264,18 +276,19 @@ class Password {
 		if(clickStream.length > passcode.length) {
 			clickStream = clickStream.substr(clickStream.length - passcode.length, passcode.length);
 		}
-		if (clickStream == passcodeStr) if(callback!=null) callback();
+		if (clickStream == passcodeStr) {
+		trace(11);
+			if(callback!=null) callback();
+		}
 	}
 	
 	public function kill() {
 		start.sprite.stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyboardL);
+		if (playing != null) playing.stop();
 		pause.removeEventListener(MouseEvent.CLICK, pauseL);
 		start.removeEventListener(MouseEvent.CLICK, startL);
 		pause = start = null;
 		
-		for (s in sounds) {
-			s.kill();
-		}
 		sounds = null;
 			
 		for (b in buttons) {
@@ -285,46 +298,4 @@ class Password {
 	}
 }
 
-class SoundChannelBundle {
-	
-	private var callback:Void->Void;
-	private var t:Timer;
-	public var sound:Sound;
-	
-	public function new(sound:Sound) {
-		this.sound = sound;
-		t = new Timer(1000, 0);
-		listeners(true);
-	}
-	
-	public function kill() {
-		listeners(false);
-	}
-	
-	public function play(callback:Void->Void) {
-		this.callback = callback;
-		sound.play();
-		t.start();
 
-		
-	}
-	
-	function listeners(on:Bool) 
-	{
-		if(on) t.addEventListener(TimerEvent.TIMER, finishedL);
-		else t.removeEventListener(Event.SOUND_COMPLETE, finishedL);
-		
-	}
-	
-	private function finishedL(e:Event):Void 
-	{
-		t.stop();
-		if (callback != null) {
-			callback();
-		}
-	}
-
-	
-
-	
-}
