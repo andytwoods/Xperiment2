@@ -110,12 +110,19 @@ class StimSoundCheck extends StimulusBuilder {
 		if (text != null) c.removeChild(text);
 		
 		text = new Text();
-		text.width = 100;
-		//text.height = c.height * .2;
-		//text.style.fontSize = 20;
+		
+		#if html5
+			text.autoSize = false;
+			text.width= c.width;
+		#else
+			text.percentWidth = 100;
+		#end
+
+		text.style.fontSize = 20;
+		text.multiline = true;
+		text.wrapLines = true;
 		text.text = get('text');
-		//text.multiline = true;
-		//text.wrapLines = true;
+		
 		c.addChild(text);
 		
 	}
@@ -240,8 +247,7 @@ class Password {
 	private function pauseL(e:MouseEvent):Void 
 	{
 		paused = true;
-		
-
+		playing.stop();
 	}
 	
 	function playNext() 
@@ -268,7 +274,12 @@ class Password {
 
 	private function onClick(e:MouseEvent):Void 
 	{
-		clickStream_add(e.currentTarget.name);
+		#if html5
+			clickStream_add(e.currentTarget.__name);
+		#else
+			clickStream_add(e.currentTarget.name);
+		#end
+
 	}
 	
 	private function clickStream_add(str:String):Void {
@@ -277,7 +288,6 @@ class Password {
 			clickStream = clickStream.substr(clickStream.length - passcode.length, passcode.length);
 		}
 		if (clickStream == passcodeStr) {
-		trace(11);
 			if(callback!=null) callback();
 		}
 	}
