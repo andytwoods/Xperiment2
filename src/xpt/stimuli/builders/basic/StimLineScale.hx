@@ -1,8 +1,11 @@
 package xpt.stimuli.builders.basic;
 
-import flash.events.MouseEvent;
+import flash.events.Event;
+import haxe.ui.toolkit.containers.Box;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.events.UIEvent;
+import openfl.display.Sprite;
+import openfl.events.MouseEvent;
 import thx.Floats;
 import xpt.stimuli.StimulusBuilder;
 import xpt.tools.XRandom;
@@ -11,6 +14,9 @@ import xpt.ui.custom.LineScale;
 class StimLineScale extends StimulusBuilder {
 	
 	var lineScale:LineScale;
+	#if html5
+		var spr:Sprite;
+	#end
 	
 	public function new() {
 		super();
@@ -19,28 +25,36 @@ class StimLineScale extends StimulusBuilder {
 	private override function createComponentInstance():Component {
         lineScale = new LineScale();
         lineScale.addEventListener(UIEvent.CHANGE, function(e) {
-           onStimValueChanged(lineScale.val); 
+			trace(lineScale.val);
+           onStimValueChanged(Floats.roundTo(lineScale.val,2)); 
         });
+
 		return lineScale;
 	}
 	
 	private override function applyProperties(c:Component) {
 		super.applyProperties(c);
-		var lineScale:LineScale = cast c;
-		
-		sortLabels(lineScale, get("labels"), get("labelPositions"));
+	
+		lineScale = cast c;			
+		sortLabels(lineScale, get("labels",""), get("labelPositions",""));
 		sortStartPosition(lineScale, get('startPosition'));
 		
+		#if html5
+			if (lineScale.sprite.stage != null) {
+				spr = new Sprite();
+				spr.graphics.drawRect(0, 0, 1, 1);
+				lineScale.sprite.stage.addChild(spr);
+			}
+		#end
 	}
 	
 	function sortStartPosition(lineScale:LineScale, startPosition:String) 
 	{
-		
 		switch(startPosition.toLowerCase()) {
 			case 'random':
 				lineScale.position_percent(XRandom.random());
 			case 'hidden':
-				if(lineScale.hasEventListener(MouseEvent.MOUSE_OVER)==false) lineScale.addEventListener(MouseEvent.MOUSE_OVER, mouseOverL);
+				if(lineScale.sprite.hasEventListener(MouseEvent.MOUSE_OVER)==false) lineScale.sprite.addEventListener(MouseEvent.MOUSE_OVER, mouseOverL);
 				lineScale.selectionVisible(false);
 		}
 	}
@@ -48,7 +62,7 @@ class StimLineScale extends StimulusBuilder {
 	private function mouseOverL(e:MouseEvent):Void 
 	{
 		lineScale.pos_from_stageX(e.stageX);
-		lineScale.removeEventListener(e.type, mouseOverL);
+		if(lineScale.sprite.hasEventListener(MouseEvent.MOUSE_OVER)==true)lineScale.sprite.removeEventListener(e.type, mouseOverL);
 		lineScale.selectionVisible(true);		
 				
 	}
@@ -56,8 +70,6 @@ class StimLineScale extends StimulusBuilder {
 	
 	function sortLabels(lineScale:LineScale, labels:String, labelPositions:String) 
 	{
-		
-		
 		if (labels!= null && labels.length == 0) return;
 		var labelList:Array<String> = labels.split(",");
 		
@@ -82,5 +94,10 @@ class StimLineScale extends StimulusBuilder {
 		lineScale.sortLabels(labelList, labelPositionsList);
 		
 	}
+	
+	 override public function onRemovedFromTrial() {
+		super.onRemovedFromTrial();
+		if(lineScale.sprite.hasEventListener(MouseEvent.MOUSE_OVER)==true)lineScale.sprite.removeEventListener(MouseEvent.MOUSE_OVER, mouseOverL);
+    }
 
 }

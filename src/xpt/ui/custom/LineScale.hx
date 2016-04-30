@@ -12,11 +12,12 @@ import haxe.ui.toolkit.events.UIEvent;
 import haxe.ui.toolkit.layout.BoxLayout;
 import haxe.ui.toolkit.layout.VerticalLayout;
 import openfl.events.MouseEvent;
+import xpt.screenManager.ScreenManager;
 
 class LineScale extends StateComponent {
 	private var _selection:Triangle;
 	private var _line:Line;
-	private var _bufferZone:Box;
+	public var bufferZone:Box;
 	
 	public function new() {
 		super();
@@ -29,14 +30,14 @@ class LineScale extends StateComponent {
 		_line.verticalAlign = "bottom";
 		addChild(_line);
 
-		_bufferZone = new Box();
-		_bufferZone.percentWidth = 100;
-		_bufferZone.percentHeight = 100;
-		_bufferZone.style.backgroundColor = 0x000000;
-		_bufferZone.style.backgroundAlpha = 0;
-		_bufferZone.verticalAlign = "center";
-		_bufferZone.addEventListener(MouseEvent.MOUSE_DOWN, _onTriangleMouseDown);
-		addChild(_bufferZone);
+		bufferZone = new Box();
+		bufferZone.percentWidth = 100;
+		bufferZone.percentHeight = 100;
+		bufferZone.style.backgroundColor = 0x000000;
+		bufferZone.style.backgroundAlpha = 0;
+		bufferZone.verticalAlign = "center";
+		//bufferZone.addEventListener(MouseEvent.MOUSE_DOWN, _onTriangleMouseDown);
+		addChild(bufferZone);
 		
 		_selection = new Triangle();
 		_selection.x = 10;
@@ -48,6 +49,7 @@ class LineScale extends StateComponent {
 		addChild(_selection);
 
 	}
+
 	
 	public function selectionVisible(b:Bool):Bool 
 	{
@@ -61,7 +63,6 @@ class LineScale extends StateComponent {
 
 	private var _mouseDownOffset:Float = -1;
 	private function _onTriangleMouseDown(event:MouseEvent):Void {
-		trace(event.target);
 		_mouseDownOffset = event.stageX - _selection.stageX;
 		Screen.instance.addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
 		Screen.instance.addEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
@@ -70,11 +71,15 @@ class LineScale extends StateComponent {
 	private function _onMouseMove(event:MouseEvent):Void {
 		if (_mouseDownOffset == -1) {
 			return;
-		}
+		}		
+	
 		pos_from_stageX(event.stageX);
 	}
 	
 	public inline function pos_from_stageX(pos:Float) {
+		//var mod = 1 / ScreenManager.instance.stageScaleX;
+		//if (mod > 1) mod = mod * 1.099;
+		
 		var xpos:Float = pos - this.stageX - _mouseDownOffset;
 		var newVal = calcPosFromCoord(xpos + _mouseDownOffset);
 		val = newVal;	
@@ -120,7 +125,6 @@ class LineScale extends StateComponent {
 		var range:Float = _max - _min;
 		_val = p * range + _min;
 		invalidate(InvalidationFlag.LAYOUT);
-		trace(11);
 		return val;
 	}
 	
@@ -206,7 +210,8 @@ class LineScaleLayout extends BoxLayout {
 		var m = scale.max - scale.min;
 		var n = ucx / m;
 		var v = scale.val;
-		selection.x = (v * n) + (selection.width / 2) - (line.offsetX - 10);
+
+		selection.x = (v * n) + (selection.width * .5) - (line.offsetX - 10);
         selection.y = usableHeight - selection.height - 10;
         
         // now lets position the labels

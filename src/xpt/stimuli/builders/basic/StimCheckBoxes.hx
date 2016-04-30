@@ -4,6 +4,7 @@ import haxe.ui.toolkit.containers.HBox;
 import haxe.ui.toolkit.controls.CheckBox;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.events.UIEvent;
+import openfl.events.MouseEvent;
 import thx.Arrays;
 import thx.Strings;
 import xpt.stimuli.StimulusBuilder;
@@ -13,7 +14,7 @@ import xpt.ui.custom.NumberStepper;
 class StimCheckBoxes extends StimulusBuilder {
 	private var _checkBoxes:Array<CheckBox>;
     private var _currentSelection:Array<String>;
-	
+	private var selectMany:Bool;
 	public function new() {
 		super();
 	}
@@ -28,6 +29,7 @@ class StimCheckBoxes extends StimulusBuilder {
 	private override function applyProperties(c:Component) {
 		super.applyProperties(c);
 		c.removeAllChildren();
+		selectMany = getBool('selectMany', true);
 		create(cast(c, HBox));
 	}
 	
@@ -66,29 +68,8 @@ class StimCheckBoxes extends StimulusBuilder {
 			for (label in labelsArr) {
 				checkBox = new CheckBox();
 				checkBox.text = label;
-
 				
-/*				if (checkBoxWidth != -1) {
-					checkBox.width = checkBoxWidth;
-					checkBox.autoSize = false;
-				}
-				if (checkBoxPercentWidth != -1) {
-					checkBox.percentWidth = checkBoxPercentWidth;
-				}
-                
-				if (checkBoxHeight != -1) {
-					checkBox.height = checkBoxHeight;
-					checkBox.autoSize = false;
-				}
-				if (checkBoxPercentHeight != -1) {
-					checkBox.percentHeight = checkBoxPercentHeight;
-				}
-                
-				if (fontSize != -1) {
-					checkBox.style.fontSize = fontSize;
-				}*/
-				
-                checkBox.addEventListener(UIEvent.CHANGE, oncheckBoxChange);
+                checkBox.sprite.addEventListener(MouseEvent.CLICK, oncheckBoxChange);
 				_checkBoxes.push(checkBox);
 				hbox.addChild(checkBox);
 			}
@@ -112,15 +93,29 @@ class StimCheckBoxes extends StimulusBuilder {
 	
 
     
-    private function oncheckBoxChange(event:UIEvent) {
+    private function oncheckBoxChange(e:MouseEvent) {
+		trace(1);
 		_currentSelection = [];
-		for (checkBox in _checkBoxes) {
-			if (checkBox.selected == true) {
-				_currentSelection.push(checkBox.text);
+		if(selectMany == true){
+			for (checkBox in _checkBoxes) {
+				if (checkBox.selected == true) {
+					_currentSelection.push(checkBox.text);
+				}
 			}
 		}
-		
+		else {
+			for (checkBox in _checkBoxes) {
+				if (e.target == checkBox.sprite) {
+					_currentSelection.push(checkBox.text);
+					checkBox.selected = true;
+				}
+				else {
+					checkBox.selected = false;
+				}
+			}
+
+		}
         onStimValueChanged(_currentSelection);
-		runScriptEvent("action", event);
+		runScriptEvent("action", e);
     }
 }

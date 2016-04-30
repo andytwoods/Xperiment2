@@ -38,9 +38,9 @@ class ScreenManager
 	static private var width_multiplier:Float = 1;
 	static private var height_multiplier:Float = 1;
 	
-	private var stageScaleX:Float;
-	private var stageScaleY:Float;
-	private var stageScale:Float ;
+	public var stageScaleX:Float;
+	public var stageScaleY:Float;
+	public var stageScale:Float ;
 	
 	
 	public static var instance(get, null):ScreenManager;
@@ -104,7 +104,6 @@ class ScreenManager
 					onResize(null);
 				} );
 			}
-			trace(width_multiplier, 222);
 
 		#end
 		

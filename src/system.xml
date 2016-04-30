@@ -46,6 +46,7 @@
 			<width>50%</width>
 			<startPosition>hidden</startPosition>
             <valid>notEmpty()</valid>
+			<labels>not at all,very much so</labels>
         </lineScale>    
 		<multipleChoice builder="xpt.stimuli.builders.basic.StimMultipleChoice">
             <valid>notEmpty()</valid>

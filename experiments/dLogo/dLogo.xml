@@ -1,0 +1,97 @@
+<exptA>
+
+<SETUP>  
+	  <screen BGcolour="808080" orientation="vertical" ></screen>                          
+	  <computer  encrypt='false' />
+	  <style BUTTON_DOWN="0xff5656"  />
+	  <variables practice='0' />
+</SETUP>
+
+
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+	
+	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
+	
+	<text width="100%" height="20%" 
+		  text=
+		  "Thank you for your interest in this study. On each trial you will see logos that are being decided upon for a company. You are asked to arrange these in a box according to a given question. There are 6 trials in total."
+	fontSize="20" />
+	
+	
+	<preloadProgress x="20" y="90%"  horizontalAlign="left" width="70%" height="40" />
+	<preloadReadyButton x="85%" y="90%" width="20%" height="40" fontSize="18" />
+	
+</TRIAL>
+
+
+
+
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="What is your Prolific Academic ID?" fontSize="20" width="400" height="30" textAlign="center"  y="40%" />
+	
+	<input y="50%" width="300" height="50" fontSize="20"  />
+   
+	<nextTrialButton y="80%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+	
+
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="Some questions before we start:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
+	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
+	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
+    <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
+	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
+
+	<nextTrialButton y="50%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+	
+	
+
+
+
+<TRIAL order="random" trials="6" multiId="cond1" block="10">
+
+	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text1=" Please drag the logos into the box below, arranging the logos according to the labels at the bottom of the screen. Vertical position does not matter." text=
+	"How FAMILIAR do you think a company to each logo would be to you?|How much would you TRUST companies with these logos?|How INNOVATIVE do you think companies with the following logos would be?|How WELCOMING do you think a company with each logo woud be?|Do you think a company with each logo would be FUN to deal with?|How much do you think a company with each logo would CHARGE for its products?"
+		/>
+
+	<image copyOverId="image"   x="8%---22%---36%---50%---64%---78%---92%" width="13%" y="22%" group="g1" howMany="7" resource="1---2---3---4---5---6---7" resource1=".png"  />
+	
+	<shuffle groups="g1" />
+    
+    <drag target="dragTarget" groups="g1" capture="x" dragTransparency=".5" />
+	
+	<text copyOverId="taste2" id="dv2---dv1" horizontalAlign="left---right" y="100%" verticalAlign="bottom" textAlign="left---right" x="0%---100%" howMany="2" fontSize="18" height="50" width="400"
+		text="not at all---very much so|not at all---very much so|not at all---very much so|not at all---very much so|not at all---very much so|not a lot---a large amount"   />
+    
+    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="bottom"  y="93%" width="99%" height="55%" borderAlpha=".5" borderSize="2" />
+
+    <nextTrialButton y="100%"  key=" " verticalAlign="bottom" text="next (SPACE)" width="170" height="40"  fontSize="18" />
+	
+	<results dv="${dv1.get('text')}" />
+	
+	<trialCounter height="60" depth="0" y="43%" total="6" textAlign="center" />
+	
+</TRIAL>
+	
+	
+
+	
+
+	
+<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
+
+<text  colour="black" timeStart="0" width="80%" y="40%" height="70%" fontSize="16">
+	<.text>Thank-you for completing our study!     
+We very much appreciate your input into helping rating the logos. 
+PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLFIC ACADEMIC KNOWS YOU HAVE COMPLETED THE STUDY. THANKS.
+</.text>
+</text>
+
+<link text="Prolific Academic Link" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/56ec13b6388e1d000b589209/complete?cc=DCPAOKVF" />
+
+</TRIAL>	
+	
+
+</exptA>
+	

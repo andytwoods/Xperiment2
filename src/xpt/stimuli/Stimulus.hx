@@ -284,7 +284,7 @@ class Stimulus {
 	//*********************************************************************************
 	// LISTENERS
 	//*********************************************************************************
-    private static var possibleMouseListeners:Map<String,String> = ['onClick'=>MouseEvent.CLICK ];
+    private static var possibleMouseListeners:Map<String,String> = ['onClick'=>MouseEvent.CLICK, 'onMouseDown'=>MouseEvent.MOUSE_DOWN ];
 	private var listeners:Map<String, Stim_Listener>;
 	
 	
