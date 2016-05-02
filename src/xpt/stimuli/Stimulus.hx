@@ -4,6 +4,7 @@ import code.Scripting;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import haxe.ui.toolkit.core.Component;
+import haxe.ui.toolkit.events.UIEvent;
 import thx.Strings;
 import xpt.experiment.Experiment;
 import xpt.stimuli.validation.Validator;
@@ -284,7 +285,7 @@ class Stimulus {
 	//*********************************************************************************
 	// LISTENERS
 	//*********************************************************************************
-    private static var possibleMouseListeners:Map<String,String> = ['onClick'=>MouseEvent.CLICK, 'onMouseDown'=>MouseEvent.MOUSE_DOWN ];
+    private static var possibleMouseListeners:Map<String,String> = ['onClick'=>MouseEvent.CLICK, 'onMouseDown'=>MouseEvent.MOUSE_DOWN, 'onChange' =>UIEvent.CHANGE ];
 	private var listeners:Map<String, Stim_Listener>;
 	
 	

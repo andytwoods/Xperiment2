@@ -27,4 +27,6 @@ class Line extends Box {
 		_sprite.graphics.moveTo(_width - offsetX, offsetY - 5);
 		_sprite.graphics.lineTo(_width - offsetX, offsetY + 5);
 	}
+	
+
 }

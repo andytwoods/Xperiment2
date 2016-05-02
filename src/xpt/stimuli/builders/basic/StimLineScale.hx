@@ -25,7 +25,6 @@ class StimLineScale extends StimulusBuilder {
 	private override function createComponentInstance():Component {
         lineScale = new LineScale();
         lineScale.addEventListener(UIEvent.CHANGE, function(e) {
-			trace(lineScale.val);
            onStimValueChanged(Floats.roundTo(lineScale.val,2)); 
         });
 
@@ -57,13 +56,15 @@ class StimLineScale extends StimulusBuilder {
 				if(lineScale.sprite.hasEventListener(MouseEvent.MOUSE_OVER)==false) lineScale.sprite.addEventListener(MouseEvent.MOUSE_OVER, mouseOverL);
 				lineScale.selectionVisible(false);
 		}
+
 	}
 	
 	private function mouseOverL(e:MouseEvent):Void 
 	{
-		lineScale.pos_from_stageX(e.stageX);
-		if(lineScale.sprite.hasEventListener(MouseEvent.MOUSE_OVER)==true)lineScale.sprite.removeEventListener(e.type, mouseOverL);
-		lineScale.selectionVisible(true);		
+		lineScale.change_visible(true);
+		lineScale.pos_from_localX(e.localX);
+		lineScale.dispatchEvent(new UIEvent(UIEvent.CHANGE));
+		if(lineScale.sprite.hasEventListener(MouseEvent.MOUSE_OVER)==true)lineScale.sprite.removeEventListener(e.type, mouseOverL);		
 				
 	}
 	

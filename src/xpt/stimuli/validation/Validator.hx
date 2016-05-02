@@ -67,7 +67,8 @@ class Validator extends ScriptInterp {
 	//*********************************************************************************
     private function notEmpty(stim:Stimulus):Bool {
 		if (stim.value == 0) return true;
-        return (stim.value != null && stim.value != "" );
+		else if (stim.value == null) return false;
+        return  stim.value != "";
     }
     
     private function equals(stim:Stimulus, v:Dynamic):Bool {

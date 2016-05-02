@@ -10,6 +10,7 @@ import haxe.ui.toolkit.style.Style;
 import haxe.ui.toolkit.style.StyleManager;
 import openfl.Lib;
 import xpt.tools.XTools;
+import haxe.ui.toolkit.core.Root;
 
 #if html5
 	import js.Browser;

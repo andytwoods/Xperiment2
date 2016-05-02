@@ -94,7 +94,7 @@ class StimCheckBoxes extends StimulusBuilder {
 
     
     private function oncheckBoxChange(e:MouseEvent) {
-		trace(1);
+		
 		_currentSelection = [];
 		if(selectMany == true){
 			for (checkBox in _checkBoxes) {

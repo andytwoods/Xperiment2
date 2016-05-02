@@ -11,12 +11,16 @@ import haxe.ui.toolkit.core.StateComponent;
 import haxe.ui.toolkit.events.UIEvent;
 import haxe.ui.toolkit.layout.BoxLayout;
 import haxe.ui.toolkit.layout.VerticalLayout;
+import openfl.events.Event;
+import openfl.events.FocusEvent;
 import openfl.events.MouseEvent;
+import openfl.geom.Rectangle;
 import xpt.screenManager.ScreenManager;
 
 class LineScale extends StateComponent {
 	private var _selection:Triangle;
 	private var _line:Line;
+	private var bounds:Rectangle;
 	public var bufferZone:Box;
 	
 	public function new() {
@@ -48,6 +52,7 @@ class LineScale extends StateComponent {
 		_selection.addEventListener(MouseEvent.MOUSE_DOWN, _onTriangleMouseDown);
 		addChild(_selection);
 
+		
 	}
 
 	
@@ -61,52 +66,49 @@ class LineScale extends StateComponent {
 	}
 	
 
-	private var _mouseDownOffset:Float = -1;
+
 	private function _onTriangleMouseDown(event:MouseEvent):Void {
-		_mouseDownOffset = event.stageX - _selection.stageX;
-		Screen.instance.addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
-		Screen.instance.addEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
+		calcBounds();
+		_selection.sprite.startDrag(false, bounds);
+		//_selection.sprite.stage.addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove); //note some weird interaction with this. Causes mouse to continue to move, despite stopDrag() 
+		_selection.sprite.stage.addEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
 	}
 	
-	private function _onMouseMove(event:MouseEvent):Void {
-		if (_mouseDownOffset == -1) {
-			return;
-		}		
-	
-		pos_from_stageX(event.stageX);
+	private inline function calcBounds() {
+		bounds = _line.sprite.getBounds(_line.sprite);
+		bounds.x -= _selection.width * .5 - 1;
+		bounds.width -= 2;
+		bounds.y = _selection.y;
+		bounds.height = 0;
 	}
 	
-	public inline function pos_from_stageX(pos:Float) {
-		//var mod = 1 / ScreenManager.instance.stageScaleX;
-		//if (mod > 1) mod = mod * 1.099;
-		
-		var xpos:Float = pos - this.stageX - _mouseDownOffset;
-		var newVal = calcPosFromCoord(xpos + _mouseDownOffset);
-		val = newVal;	
+	private function _onMouseMove(e:MouseEvent):Void {
+		val = 100 * (_selection.sprite.x - bounds.x) / bounds.width;
 	}
 	
-	private function _onMouseUp(event:MouseEvent):Void {
-		_mouseDownOffset = -1;
-		Screen.instance.removeEventListener(MouseEvent.MOUSE_UP, _onMouseMove);
-		Screen.instance.removeEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
+	public function change_visible(on:Bool) {
+		_selection.visible = true;
+		//move mouse
 	}
 	
-	private function calcPosFromCoord(xpos:Float):Float {
-		var minX:Float = _line.offsetX;
-		var maxX:Float = _line.width - (_line.offsetX);
-		
-		if (xpos < minX) {
-			xpos = minX;
-		} else if (xpos > maxX) {
-			xpos = maxX;
-		}
-		
-		var ucx:Float = _line.width - (_line.offsetX * 2);
-		var m:Int = Std.int(max - min);
-		var v:Float = xpos - minX;
-		var newValue:Float = min + ((v / ucx) * m);
-		return newValue;
+	public function pos_from_localX(pos:Float) {
+		if (bounds == null) calcBounds();
+		pos -= _selection.width * .5;
+		if (pos < bounds.x) pos = bounds.x;
+		else if (pos > bounds.width) pos = bounds.width;
+		_selection.x = pos;		
+		_onMouseMove(null);
 	}
+	
+	private function _onMouseUp(e:MouseEvent):Void {
+		//e.target.removeEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
+		e.target.removeEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
+		_onMouseMove(null);
+		_selection.sprite.stopDrag();
+
+	}
+	
+
 	
 	// ************************************************************************************************************
 	// PROPERTIES
