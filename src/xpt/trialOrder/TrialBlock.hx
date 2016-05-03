@@ -291,7 +291,7 @@ class TrialBlock
 			if(type=='order')return OrderType.RANDOM;
 			else if(type=='blockDepthOrder')	return OrderType.DEFAULT_DEPTH_ORDER;
 		}
-		throw "";
+		throw "unknown ordering:" +" "+ ordUpdated +" "+ type;
 
 		return OrderType.RANDOM;
 	}

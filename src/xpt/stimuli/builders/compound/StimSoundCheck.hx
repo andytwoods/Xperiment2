@@ -1,6 +1,7 @@
 package xpt.stimuli.builders.compound;
 import haxe.ui.toolkit.controls.Text;
 import haxe.ui.toolkit.core.Component;
+import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.events.KeyboardEvent;
 import openfl.events.TimerEvent;
@@ -30,6 +31,9 @@ class StimSoundCheck extends StimulusBuilder {
 	var pause:Button;
 	var play:Button;
 	var text:Text;
+	#if html5
+		var silly_hack:Sprite;
+	#end
 	
     public function new() {
         super();
@@ -125,6 +129,14 @@ class StimSoundCheck extends StimulusBuilder {
 		
 		c.addChild(text);
 		
+		#if html5
+			if (c.sprite.stage != null) {
+				silly_hack = new Sprite();
+				silly_hack.graphics.drawRect(0, 0, 1, 1);
+				c.sprite.stage.addChild(silly_hack);
+			}
+		#end
+		
 	}
 	
 
@@ -168,7 +180,13 @@ class StimSoundCheck extends StimulusBuilder {
     
     
     public override function onRemovedFromTrial() {
-      if(pword !=null) pword.kill();
+      if (pword != null) pword.kill();
+	#if html5
+		if (_stim.component.sprite.stage != null && silly_hack !=null) {
+			_stim.component.sprite.stage.removeChild(silly_hack);
+		}
+	#end
+	
     }
     
 }

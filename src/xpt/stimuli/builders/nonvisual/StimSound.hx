@@ -1,6 +1,7 @@
 package xpt.stimuli.builders.nonvisual;
 
 import haxe.ui.toolkit.core.Component;
+import openfl.media.SoundChannel;
 import xpt.experiment.Preloader;
 import xpt.debug.DebugManager;
 import xpt.stimuli.Stimulus;
@@ -11,6 +12,7 @@ import openfl.media.Sound;
 class StimSound extends StimulusBuilder {
 	
 	private var my_sound:Sound;
+	var soundChannel:SoundChannel;
 
     public function new() {
         super();
@@ -47,15 +49,17 @@ class StimSound extends StimulusBuilder {
 	//*********************************************************************************
     public override function onAddedToTrial() {
         if (this.my_sound != null) {
-			this.my_sound.play();
+			soundChannel = this.my_sound.play();
 		}
     }
     
     
     
     public override function onRemovedFromTrial() {
-       if (this.my_sound != null) {
-			this.my_sound.close();
+       if (this.soundChannel != null) {
+			this.soundChannel.stop();
+			soundChannel = null;
+			my_sound = null;
 		}
     }
     

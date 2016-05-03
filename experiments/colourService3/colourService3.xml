@@ -1,4 +1,4 @@
-<multi forceCondition="insurance">
+<multi forceCondition="insuranceReverse">
 
 <banking exptType="WEB">
 
@@ -50,10 +50,8 @@ Statement of informed consent
 	<nextTrialButton y="90%" width="200" height="50" text="I CONSENT" fontSize="18" />
 </TRIAL>
 
-<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
 	<soundCheck resource="1.mp3,2.mp3,3.mp3,4.mp3,5.mp3,6.mp3,7.mp3,8.mp3,9.mp3,0.mp3"/>
-   
-	<nextTrialButton y="80%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
 </TRIAL>	
 	
 	
@@ -95,17 +93,28 @@ Statement of informed consent
 	
 
 
-<TRIAL multiId="over_results" template="template"></TRIAL>
+<TRIAL multiId="block_order1" template="block1,template" block="10"></TRIAL>
+<TRIAL multiId="block_order2" template="block2,template" block="11"></TRIAL>
+
+<block1>
+	<sound copyOverId="sound" resource="Ascending_Fast|Ascending_Slow|Descending_Fast|Descending_Slow" />
+</block1>
+
+<block2>
+	<sound copyOverId="sound" resource="HighPitch_HighVol|HighPitch_LowVol|LowPitch_HighVol|LowPitch_LowVol"/>
+</block2>
+	
+	
 	
 
-<template order="random" trials="12" block="10">
+<template order="random" trials="4" >
 
 	<text textAlign="center"  fontSize="30" width="100%" height="100" verticalAlign="top"  y="9%" text="Do you trust this shape for " text1="BANKING SERVICES" multiId="INDUSTRY" text2="?"/>
 	
-	<sound id="image" resource1=".mp3" resource="1" />
+	<sound copyOverId="sound" id="snd" resource1=".mp3"  />
 	
 	
-    <button howMany="2" y="95%" hideResults="true" x="35%---65%"  key="t---d" id="trust (t)---distrust (d)" answer="1---0" SHUFFLE="x ---" verticalAlign="bottom" text="trust (t)---distrust (d)" width="170" height="40"  fontSize="18">
+    <button howMany="2" y="95%" start="2000" hideResults="true" x="35%---65%"  key="t---d" id="trust (t)---distrust (d)" answer="1---0" SHUFFLE="x ---" verticalAlign="bottom" text="trust (t)---distrust (d)" width="170" height="40"  fontSize="18">
 		<action>
 			Trial.save('trust', stim.get('answer'));
 			Experiment.nextTrial()
@@ -114,7 +123,7 @@ Statement of informed consent
 	
 	<rt/>
 	
-	<results colour="${image.get('resource')}" />
+	<results colour="${snd.get('resource')}" />
 	
 	<trialCounter height="60" depth="0" y="8%" total="12" />
 	
@@ -137,13 +146,24 @@ PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLFIC ACADEMIC KNOWS YOU HAVE COMPL
 
 </TRIAL>	
 	
-
 </banking>
+	
+<bankingReverse>
+	<block_order1 block="11"/>
+	<block_order2 block="10"/>
+</bankingReverse>
 	
 	
 <insurance>
 	<INDUSTRY text1="INSURANCE COMPANIES"/>
     <instruct text1="INSURANCE COMPANIES"/>
 </insurance>
+	
+<insuranceReverse>
+	<INDUSTRY text1="INSURANCE COMPANIES"/>
+    <instruct text1="INSURANCE COMPANIES"/>
+	<block_order1 block="11"/>
+	<block_order2 block="10"/>
+</insuranceReverse>
 	
 </multi>

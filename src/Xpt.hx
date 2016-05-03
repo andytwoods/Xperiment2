@@ -32,9 +32,9 @@ class Xpt {
 		//exptName = 'evolve1';
         //exptName = "colourService";
 		//exptName = "colourService2";
-		//exptName = "colourService3";
+		exptName = "colourService3";
 		//exptName = "dLogo";
-		exptName = "eyeGaze1";
+		//exptName = "eyeGaze1";
 		diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		
 		
