@@ -41,7 +41,7 @@
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="#--macro keep('IntIterator')&#xA;--remap flash:openfl&#xA;--macro allowPackage(&quot;flash&quot;)" />
+    <option additional="#--macro keep('IntIterator')&#xA;--remap flash:openfl&#xA;--macro allowPackage(&quot;flash&quot;)&#xA;-debug " />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

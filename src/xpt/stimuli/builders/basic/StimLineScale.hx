@@ -49,7 +49,7 @@ class StimLineScale extends StimulusBuilder {
 				lineScale.position_percent(XRandom.random());
 			case 'hidden':
 				if(lineScale.sprite.hasEventListener(MouseEvent.MOUSE_OVER)==false) lineScale.sprite.addEventListener(MouseEvent.MOUSE_OVER, mouseOverL);
-				lineScale.selectionVisible(false);
+				lineScale.change_visible(false);
 		}
 
 	}

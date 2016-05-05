@@ -11,6 +11,7 @@ import haxe.ui.toolkit.core.StateComponent;
 import haxe.ui.toolkit.events.UIEvent;
 import haxe.ui.toolkit.layout.BoxLayout;
 import haxe.ui.toolkit.layout.VerticalLayout;
+import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.events.FocusEvent;
 import openfl.events.MouseEvent;
@@ -26,6 +27,10 @@ class LineScale extends StateComponent {
 	private var _line:Line;
 	private var bounds:Rectangle;
 	public var bufferZone:Box;
+	
+	#if html5
+		var spr:Sprite;
+	#end
 	
 	public function new() {
 		super();
@@ -63,10 +68,6 @@ class LineScale extends StateComponent {
 	}
 
 	
-	public function selectionVisible(b:Bool):Bool 
-	{
-		return _selection.visible = b;
-	}
 	
 	public override function initialize():Void {
 		super.initialize();
@@ -75,7 +76,16 @@ class LineScale extends StateComponent {
 
 	public function kill() {
 		#if html5
-		Browser.window.removeEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
+			Browser.window.removeEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
+			if (spr != null) {
+				if (_line != null && _line.sprite.stage != null && _line.sprite.stage.contains(spr))_line.sprite.stage.removeChild(spr);
+				spr = null;
+			}
+			#if html5
+		var spr:Sprite;
+	#end
+		
+		
 		#end
 	}
 
@@ -99,7 +109,20 @@ class LineScale extends StateComponent {
 	}
 	
 	public function change_visible(on:Bool) {
-		_selection.visible = true;
+		_selection.visible = on;
+		#if html5
+			if(on){
+				spr = new Sprite();
+				spr.graphics.drawRect(0, 0, 1, 1);
+				if (_line.sprite.stage != null) {
+					_line.sprite.stage.addChild(spr);
+				}
+			}
+			
+		#end
+		
+		return on;
+		
 		//move mouse
 	}
 	

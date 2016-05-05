@@ -91,7 +91,8 @@ class ScreenManager
 	}
 		
 		
-	public function new(){
+	public function new() {
+	
 	
 		callbacks = new Array<Float->Float->Void>();
 		root = RootManager.instance.currentRoot;
