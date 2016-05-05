@@ -56,7 +56,7 @@ class StimulusBuilder {
         return _stim.id;
     }
     
-	private var trial(get, null):Trial;
+	public var trial(get, null):Trial;
 	private function get_trial():Trial {
 		var t:Trial = getDynamic("trial");
 		return t;

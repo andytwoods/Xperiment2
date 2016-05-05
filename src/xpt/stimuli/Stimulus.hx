@@ -8,7 +8,9 @@ import haxe.ui.toolkit.events.UIEvent;
 import thx.Strings;
 import xpt.experiment.Experiment;
 import xpt.stimuli.validation.Validator;
+import xpt.timing.TimingManager;
 import xpt.tools.XTools;
+import xpt.trial.Trial;
 
 @:allow(xpt.stimuli.builders.Test_Stimulus)
 @:allow(xpt.trialOrder.Test_TrialOrder)
@@ -17,7 +19,7 @@ class Stimulus {
 	
 	static public inline var UNSPECIFIED:String = 'unspecified';
 	
-	public var start:Float = -1;
+	public var start:Float = 0;
 	public var stop:Float = -1;
 	public var duration:Float = -1;
 	public var hideResults:Bool = false;
@@ -34,6 +36,40 @@ class Stimulus {
 
 	public function new() {
 		__properties = new Map<String, Dynamic>();
+	}
+	
+	public function begin(delay:Int = 0) {
+		function start_from_trial() {
+			if (builder.trial != null) {
+				builder.trial.addStimulus(this);	
+			}
+		}
+		
+		if (delay != 0) {
+			XTools.delay(delay, function() {
+				start_from_trial();
+			});
+		}
+		else {
+			start_from_trial();
+		}
+	}
+	
+	
+	public function end(delay:Int = 0) {
+		function stop_from_trial() {
+			if (builder.trial != null) {
+				builder.trial.addStimulus(this);	
+			}
+		}
+		
+		if (delay != 0) {
+			XTools.delay(delay, function() {
+				stop_from_trial();
+			});
+		}
+		else stop_from_trial();
+		
 	}
 	
     public var isValid(get, null):Bool;

@@ -9,6 +9,7 @@ import openfl.events.MouseEvent;
 import thx.Floats;
 import xpt.stimuli.StimulusBuilder;
 import xpt.tools.XRandom;
+import xpt.tools.XTools;
 import xpt.ui.custom.LineScale;
 
 class StimLineScale extends StimulusBuilder {
@@ -38,13 +39,7 @@ class StimLineScale extends StimulusBuilder {
 		sortLabels(lineScale, get("labels",""), get("labelPositions",""));
 		sortStartPosition(lineScale, get('startPosition'));
 		
-		#if html5
-			if (lineScale.sprite.stage != null) {
-				spr = new Sprite();
-				spr.graphics.drawRect(0, 0, 1, 1);
-				lineScale.sprite.stage.addChild(spr);
-			}
-		#end
+		
 	}
 	
 	function sortStartPosition(lineScale:LineScale, startPosition:String) 
@@ -96,9 +91,25 @@ class StimLineScale extends StimulusBuilder {
 		
 	}
 	
+	public override function onAddedToTrial() {
+			#if html5
+			if (lineScale.sprite.stage != null) {
+				XTools.delay(50, function(){
+					if (lineScale.sprite.stage.contains(spr)) lineScale.sprite.stage.removeChild(spr);
+					spr = new Sprite();
+					spr.graphics.drawRect(0, 0, 1, 1);
+					lineScale.sprite.addChild(spr);
+				});
+			}
+			#end
+		super.onAddedToTrial();
+    }
+    
+	
 	 override public function onRemovedFromTrial() {
 		super.onRemovedFromTrial();
-		if(lineScale.sprite.hasEventListener(MouseEvent.MOUSE_OVER)==true)lineScale.sprite.removeEventListener(MouseEvent.MOUSE_OVER, mouseOverL);
+		if (lineScale.sprite.hasEventListener(MouseEvent.MOUSE_OVER) == true) lineScale.sprite.removeEventListener(MouseEvent.MOUSE_OVER, mouseOverL);
+		lineScale.kill();
     }
 
 }

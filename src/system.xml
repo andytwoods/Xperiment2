@@ -84,6 +84,12 @@
 		<results builder="xpt.stimuli.builders.nonvisual.StimResults" >
 			<id>results</id>
 		</results>
+		<key builder="xpt.stimuli.builders.nonvisual.StimKey">
+			<key> </key>
+			<action>
+				Experiment.nextTrial()
+			</action>
+		</key>
 		<evolve builder="xpt.stimuli.builders.nonvisual.StimEvolve"/>
         
 		<!-- ***********************************************************************************

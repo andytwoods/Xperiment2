@@ -99,6 +99,7 @@ class Trial {
 				TimingManager.instance.add(stim);
 			}
 		}
+		else TimingManager.instance.force_start(stim);
 	}
 	
 	public function removeStimulus(stim:Stimulus) {

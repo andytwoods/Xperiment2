@@ -17,6 +17,10 @@ import openfl.events.MouseEvent;
 import openfl.geom.Rectangle;
 import xpt.screenManager.ScreenManager;
 
+#if html5
+	import js.Browser;
+#end
+
 class LineScale extends StateComponent {
 	private var _selection:Triangle;
 	private var _line:Line;
@@ -50,6 +54,9 @@ class LineScale extends StateComponent {
 		_selection.height = 50;
 		_selection.id = "selection";
 		_selection.addEventListener(MouseEvent.MOUSE_DOWN, _onTriangleMouseDown);
+		#if html5
+			Browser.window.addEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
+		#end
 		addChild(_selection);
 
 		
@@ -66,6 +73,11 @@ class LineScale extends StateComponent {
 	}
 	
 
+	public function kill() {
+		#if html5
+		Browser.window.removeEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
+		#end
+	}
 
 	private function _onTriangleMouseDown(event:MouseEvent):Void {
 		calcBounds();
@@ -105,7 +117,6 @@ class LineScale extends StateComponent {
 		e.target.removeEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
 		_onMouseMove(null);
 		_selection.sprite.stopDrag();
-
 	}
 	
 

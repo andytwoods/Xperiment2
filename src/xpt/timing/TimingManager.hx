@@ -63,18 +63,22 @@ class TimingManager {
 					duration = stop - start;
 				}
 			}
-			
-            addTimingEvent(start, duration, function(e:TimingEvent) {
-                switch (e) {
-                    case TimingEvent.SHOW:
-                        addToTrial(stim);
-                    case TimingEvent.HIDE:
-                        removeFromTrial(stim);
-                }
-            });
+			if(start!=-1){
+				addTimingEvent(start, duration, function(e:TimingEvent) {
+					switch (e) {
+						case TimingEvent.SHOW:
+							addToTrial(stim);
+						case TimingEvent.HIDE:
+							removeFromTrial(stim);
+					}
+				});
+			}
 		}
-		
-
+	}
+	
+	public function force_start(stim:Stimulus) {
+		stim.start = 0;
+		addToTrial(stim);
 	}
 	
 	public function reset() {
@@ -94,8 +98,7 @@ class TimingManager {
 			return -1;
 			
 		});
-
-		if (stim.start <= 0) {
+		if (stim.start <= 0 && stim.start!=-1) {
 			addToTrial(stim);
 		}
 	}
@@ -105,7 +108,6 @@ class TimingManager {
 	}
 	
 	private function addToTrial(stim:Stimulus) {
-
 
 		if (RootManager.instance.currentRoot.contains(stim.component) == false) {
 			DebugManager.instance.stimulus("Adding stimulus, type: " + stim.get("stimType"));

@@ -24,5 +24,5 @@ class StimText extends StimulusBuilder {
 			text.textAlign = get("textAlign");
 		}
 	}
-	
+
 }

@@ -1,4 +1,4 @@
-<multi forceToRun="awayThenTowards_Likeable">
+<multi forceToRun="awayThenTowards_Attractive">
 
 <awayThenTowards_Attractive>
 
@@ -16,8 +16,7 @@
 
 	<text width="100%" height="70%" y="60%" multiId="like1"
 		  text=
-		  "Attractiveness of Virtual Characters
-Thank you for your interest in this study. In this experiment, you will be shown images of some computer generated female faces. When prompted, your task will be to rate how " text1="attractive" text2=" the face is.
+		  "Thank you for your interest in this study. In this experiment, you will be shown images of some computer generated female faces. When prompted, your task will be to rate how " text1="attractive" text2=" the face is.
 This experiment will take approximately 5 minutes to complete. Prior to the experiment, you will be asked to answer a few general background questions and give your consent to participate in the research. You will also be required to complete a short pre-test. Finally, you can read a short description of the study at the end."
 	fontSize="18" />
 	
@@ -90,11 +89,13 @@ Please utilize the whole scale when rating the faces. Please respond quickly but
 
 	<image copyOverId="image" id="a|b"  howMany="2" multiId="image_order" start="1500---500" duration="1000" resource="F2_F_D_N---F2_F_A_N|F3_F_D_N---F3_F_A_N|F5_F_D_N---F5_F_A_N|F6_F_D_N---F6_F_A_N|F7_F_D_N---F7_F_A_N|F8_F_D_N---F8_F_A_N|F9_F_D_N---F9_F_A_N|F11_F_D_N---F11_F_A_N|F12_F_D_N---F12_F_A_N|F13_F_D_N---F13_F_A_N|F14_F_D_N---F14_F_A_N|F15_F_D_N---F15_F_A_N|F16_F_D_N---F16_F_A_N|F17_F_D_N---F17_F_A_N|F18_F_D_N---F18_F_A_N|F19_F_D_N---F19_F_A_N|F20_F_D_N---F20_F_A_N|F21_F_D_N---F21_F_A_N|F22_F_D_N---F22_F_A_N|F23_F_D_N---F23_F_A_N|F24_F_D_N---F24_F_A_N|F25_F_D_N---F25_F_A_N|F26_F_D_N---F26_F_A_N|F27_F_D_N---F27_F_A_N|F28_F_D_N---F28_F_A_N|F30_F_D_N---F30_F_A_N|F31_F_D_N---F31_F_A_N|F33_F_D_N---F33_F_A_N|F34_F_D_N---F34_F_A_N|F35_F_D_N---F35_F_A_N|F36_F_D_N---F36_F_A_N|F37_F_D_N---F37_F_A_N|F38_F_D_N---F38_F_A_N" resource1=".jpg"  />
 	
-	<lineScale y="80%" start="2500" onChange="next.component.visible=true" multiId="like4" labels="Very Unattractive,Very Attractive" />
+	<lineScale y="80%" start="2500" onChange="key.begin();next.begin()" multiId="like4" labels="Very Unattractive,Very Attractive" />
 	
 	<trialCounter height="60" start="2500" depth="0" y="15%" total="33" textAlign="center" />
 	
-	<nextTrialButton y="95%" x="50%" text="next" key=" " id="next" start="0"  visible="false" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+	<key id="key" start="-1"/>
+	
+	<text textAlign="center" id="next" fontSize="18" width="100%" start="-1" height="100" y="95%" text="Press SPACE for next trial."/>
 	
 </TRIAL>
 	

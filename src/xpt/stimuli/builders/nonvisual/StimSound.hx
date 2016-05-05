@@ -51,6 +51,7 @@ class StimSound extends StimulusBuilder {
         if (this.my_sound != null) {
 			soundChannel = this.my_sound.play();
 		}
+		super.onAddedToTrial();
     }
     
     
