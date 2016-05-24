@@ -14,28 +14,16 @@ import xpt.tools.PathTools;
 import xpt.experiment.Preloader;
 import xpt.tools.XTools;
 
-#if svg
-	import format.SVG;
-#end
 
 class StimImage extends StimulusBuilder {
 	
-	var _svgSprite:Sprite = null;
-	
-	private static inline var SVG_Tag = 'svg_';
+
 	
 	public function new() {
 		super();
 	}
 	
-	override public function onRemovedFromTrial() {
-		super.onRemovedFromTrial();
-		if(_svgSprite !=null){
-			if (_svgSprite.parent != null) _svgSprite.parent.removeChild(_svgSprite);
-			_svgSprite = null;
-		}
-		
-    }
+
 
 	
 	private override function createComponentInstance():Component {
@@ -55,53 +43,20 @@ class StimImage extends StimulusBuilder {
 		var resource:String = get("resource");
 
 		if (resource != null) {
-           resource = PathTools.fixPath(resource);
-		   if (XTools.filetype(resource, true) == "SVG") {
-			  processSVG(resource, image);
-			  return;
-		   }
-		   var bmp = Preloader.instance.preloadedImages.get(resource);
+           if(resource.indexOf('http')==-1) resource = PathTools.fixPath(resource);
 		   
-           if(bmp!=null) setBitmap(bmp, image);	
-		   else {
+		   var bmp = Preloader.instance.preloadedImages.get(resource);
+           if (bmp != null) setBitmap(bmp, image);	
+		
+			else 
 				Preloader.instance.callbackWhenLoaded(resource, function() {
-					update();
-				});
-			}
-		}
-	}
-	
-	function processSVG(resource:String, image:Image) 
-	{
-		var svg:String = Preloader.instance.preloadedText.get(resource);
-		if (svg != null) setSvg(svg, image);	
-	    else{
-			Preloader.instance.callbackWhenLoaded(resource, function() {
-				update();
+					update();	
 			});
 		}
 	}
 	
-	@:access(haxe.ui.toolkit.controls.Image)
-	private function setSvg(svg_txt:String, image:Image) {
-		svg_txt = insertSvgParams(svg_txt);
-		#if svg
-			var svg:SVG = new SVG(svg_txt);
-			image.updateSvg(svg);
-		#end
-	}
 	
-	function insertSvgParams(svg_txt:String) 
-	{
-		var prop:String;
-		for (key in _stim.props.keys()) {
-			if (StringTools.startsWith(key, SVG_Tag)) {
-				prop = key.substr(SVG_Tag.length);
-				svg_txt = StringTools.replace(svg_txt, prop, _stim.get(key));
-			}
-		}
-		return svg_txt;
-	}
+	
 	
 	private function setBitmap(bmp:Bitmap, image:Image) {
 		var scale:Float = getFloat('scale', 1);

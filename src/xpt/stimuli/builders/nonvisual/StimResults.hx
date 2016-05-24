@@ -26,10 +26,10 @@ class StimResults extends StimulusBuilder {
 		var stimuli:Array<Stimulus> = trial.stimuli;
 		
 
-		for (prop in _stim.props.keys()) {
+		for (prop in stim.props.keys()) {
 			if(ignoreParamsList.indexOf(prop)==-1){
 				//res.set(prop, retrieveInfo(_stim.props.get(prop), stimuli));
-				res.set(prop, _stim.props.get(prop));
+				res.set(prop, stim.props.get(prop));
 			}
 		}
 		return res;

@@ -18,6 +18,7 @@ import wrappers.SystemWrapper;
 import xpt.debug.DebugManager;
 import xpt.experiment.Experiment;
 import xpt.stimuli.StimHelper;
+import xpt.stimuli.StimTools;
 import xpt.stimuli.Stimulus;
 import xpt.tools.XTools;
 import xpt.trial.Trial;
@@ -88,6 +89,8 @@ class Scripting
 		bundle.scriptEngine.variables.set("Stims", StimHelper);
 		bundle.scriptEngine.variables.set("System", new SystemWrapper());
 		bundle.scriptEngine.variables.set("Text", Text);
+		bundle.scriptEngine.variables.set("Tools", StimTools);
+		
 
 		all_bundles.push(bundle);
 

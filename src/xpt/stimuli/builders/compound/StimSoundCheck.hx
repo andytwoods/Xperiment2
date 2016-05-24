@@ -182,8 +182,8 @@ class StimSoundCheck extends StimulusBuilder {
     public override function onRemovedFromTrial() {
       if (pword != null) pword.kill();
 	#if html5
-		if (_stim.component.sprite.stage != null && silly_hack !=null) {
-			_stim.component.sprite.stage.removeChild(silly_hack);
+		if (stim.component.sprite.stage != null && silly_hack !=null) {
+			stim.component.sprite.stage.removeChild(silly_hack);
 		}
 	#end
 	

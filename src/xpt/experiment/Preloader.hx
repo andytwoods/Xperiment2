@@ -84,6 +84,7 @@ class Preloader extends EventDispatcher {
         } else {
             DebugManager.instance.error("Could not preload stimulus", file.id);
         }
+
 		_onFileLoaded(file.id);
 	}
 	
@@ -93,7 +94,6 @@ class Preloader extends EventDispatcher {
 		event.current = _current;
 		event.total = _total;
 		dispatchEvent(event);
-
 		if (callBacks.exists(id)) {
 			while (callBacks.get(id).length > 0) {
 				var f:Void->Void = callBacks.get(id).shift();

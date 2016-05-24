@@ -5,6 +5,7 @@ import haxe.ui.toolkit.controls.TextInput;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.events.UIEvent;
 import haxe.ui.toolkit.text.ITextDisplay;
+import haxe.ui.toolkit.text.TextDisplay;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.events.FocusEvent;
@@ -12,6 +13,8 @@ import openfl.events.KeyboardEvent;
 import openfl.events.MouseEvent;
 import openfl.events.TimerEvent;
 import openfl.text.TextField;
+import openfl.text.TextFieldAutoSize;
+import openfl.text.TextFieldType;
 import openfl.utils.Timer;
 import xpt.events.ExperimentEvent;
 import xpt.stimuli.builders.basic.StimInputText.FakeCaret;
@@ -19,7 +22,7 @@ import xpt.stimuli.StimulusBuilder;
 
 class StimInputText extends StimulusBuilder {
 	#if html5
-		var fakeCaret:FakeCaret;
+		//var fakeCaret:FakeCaret;
 	#end
 	
     public function new() {
@@ -29,24 +32,25 @@ class StimInputText extends StimulusBuilder {
 	
 	override public function onRemovedFromTrial() {
 		#if html5
-			fakeCaret.kill();
-			fakeCaret = null;
+			//fakeCaret.kill();
+			//fakeCaret = null;
 		#end
 		super.onRemovedFromTrial();
     }
     
+	@:access(haxe.ui.toolkit.controls.TextInput, haxe.ui.toolkit.text.TextDisplay, openfl.text.TextField)
     private override function createComponentInstance():Component {
         var input:TextInput = new TextInput();
         
         #if html5
-			if (this.fakeCaret != null) fakeCaret.kill();
-			this.fakeCaret = new FakeCaret(input);
-			this.fakeCaret.x = 10;
+			//if (this.fakeCaret != null) fakeCaret.kill();
+			//this.fakeCaret = new FakeCaret(input);
+			//this.fakeCaret.x = 10;
 			
 		
 			// stupid openfl workarounds for html5 - onchange never fired
 			input.sprite.addEventListener(KeyboardEvent.KEY_DOWN, function(e) {
-			   fakeCaret.onLength(input.text.length);
+			   //fakeCaret.onLength(input.text.length);
 			   onStimValueChanged(input.text); 
 			});
 			input.sprite.addEventListener(KeyboardEvent.KEY_UP, function(e) {
@@ -55,17 +59,33 @@ class StimInputText extends StimulusBuilder {
 			
 			input.sprite.addEventListener(MouseEvent.CLICK, function(e) { 
 				input.style.borderSize = 2;
-				if (input.text.length == 0) fakeCaret.on();
+				//if (input.text.length == 0) fakeCaret.on();
 		
 			} );
 			input.sprite.addEventListener(FocusEvent.FOCUS_OUT, function(e) { 
 				input.style.borderSize = 1;
 			} );
-	
+			
+			
+			var td:TextDisplay = cast(input._textDisplay, TextDisplay);
+			var tf: TextField = td._tf;
+			
+			tf.autoSize = TextFieldAutoSize.NONE;
+			
+			//var de:DOMElement = cast(tf, DOMElement);
+			tf.text = '123';
+			tf.multiline = false;
+
+			
+			tf.restrict = "1";
+			
+			
         #else
         
 			input.addEventListener(UIEvent.CHANGE, function(e:UIEvent) {
 			   onStimValueChanged(input.text); 
+			 
+			   
 			});
 			
         #end
@@ -80,7 +100,7 @@ class StimInputText extends StimulusBuilder {
 	
 	override public function results():Map<String,String> {
 		var map:Map<String,String> = new Map<String,String>();
-		map.set('', _stim.value);
+		map.set('', stim.value);
 		return map;
 	}
 }

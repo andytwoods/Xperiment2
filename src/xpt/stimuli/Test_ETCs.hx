@@ -59,10 +59,6 @@ class Test_ETCs
 		map = genMap("b", "bb---etc");
 		ETCs.compose(map,  1, 3);
 		Assert.isTrue(map.get("b") == "bb---etc");
-
-		map = genMap("b", "bb;cc;dd;;;etc;;;");
-		ETCs.compose(map,  4, 1);
-		Assert.isTrue(map.get("b")=="bb;cc;dd;bb");
 		
 		map = genMap("b", "bb---cc---etc---");
 		ETCs.compose(map,  1, 3);

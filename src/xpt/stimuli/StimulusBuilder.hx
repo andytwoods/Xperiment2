@@ -25,7 +25,7 @@ import xpt.trial.Trial;
 class StimulusBuilder {
 	
 	@:allow(StimImage)
-	private var _stim:Stimulus;
+	public var stim:Stimulus;
 	
 	public static var stageOffset_x:Float = 0;
 	public static var stageOffset_y:Float = 0;
@@ -53,7 +53,7 @@ class StimulusBuilder {
     
     public var stimId(get, null):String;
     private function get_stimId():String {
-        return _stim.id;
+        return stim.id;
     }
     
 	public var trial(get, null):Trial;
@@ -64,16 +64,16 @@ class StimulusBuilder {
 	
     public var experiment(get, null):Experiment;
     private function get_experiment():Experiment {
-        return _stim.experiment;
+        return stim.experiment;
     }
 	
 	private function getDynamic(what:String, defaultValue:Dynamic = null):Dynamic {
 		var v:Dynamic = defaultValue;
-		if (_stim == null) {
+		if (stim == null) {
 			return v;
 		}
 		
-		var temp = _stim.get(what);
+		var temp = stim.get(what);
 		if (temp != null) {
 			v = temp;
 		}
@@ -82,10 +82,10 @@ class StimulusBuilder {
 	
 	public function get(what:String, defaultValue:String = null):String {
 		var v:String = defaultValue;
-		if (_stim == null) {
+		if (stim == null) {
 			return v;
 		}
-		var temp = _stim.get(what);
+		var temp = stim.get(what);
 		if (temp != null) {
 			v = temp;
 		}
@@ -281,7 +281,7 @@ class StimulusBuilder {
 	}
 	
 	private function onPreloaderProgress(event:PreloaderEvent) {
-		Scripting.runScriptEvent("onPreloadProgress", event, _stim, false);
+		Scripting.runScriptEvent("onPreloadProgress", event, stim, false);
 	}
 
 	private function onPreloaderComplete(event:PreloaderEvent) {
@@ -291,29 +291,29 @@ class StimulusBuilder {
 	}
 	
 	private function onTrialValid(event:ExperimentEvent) {
-		Scripting.runScriptEvent("onTrialValid", event, _stim);
+		Scripting.runScriptEvent("onTrialValid", event, stim);
 	}
     
 	private function onTrialInvalid(event:ExperimentEvent) {
-		Scripting.runScriptEvent("onTrialInvalid", event, _stim);
+		Scripting.runScriptEvent("onTrialInvalid", event, stim);
 	}
     
     private function onStimValueChanged(value:Dynamic) {
-        _stim.value = value;
+        stim.value = value;
         trial.validateStims();
     }
     
 	public inline function runScriptEvent(action:String, event:Event) {
-		Scripting.runScriptEvent(action, event, _stim);
+		Scripting.runScriptEvent(action, event, stim);
 	}
 
 	private function addScriptVars(vars:Map<String, Dynamic>) {
-		vars.set("this", _stim.component);
-		vars.set("me", _stim.component);
+		vars.set("this", stim.component);
+		vars.set("me", stim.component);
 	}
 	
 	public function build(stim:Stimulus):Component {
-		_stim = stim;
+		this.stim = stim;
 		var c = createComponentInstance();
 		applyProperties(c);
 
@@ -321,7 +321,7 @@ class StimulusBuilder {
 	}
 	
     public function update():Void {
-        applyProperties(_stim._component);
+        applyProperties(stim._component);
     }
 	
 	public function buildPreloadList(props:Map<String, String>):Array<String> {
@@ -355,10 +355,10 @@ class StimulusBuilder {
     
 	//override this
 	public function results():Map<String,String> {
-		if (_stim == null || _stim.value == null) return null;
+		if (stim == null || stim.value == null) return null;
 		
 		var r:Map<String,String> = new Map<String,String>();
-		r.set('', Std.string(_stim.value));
+		r.set('', Std.string(stim.value));
 		return r;
 	}
     
@@ -366,10 +366,10 @@ class StimulusBuilder {
 	// CALLBACKS
 	//*********************************************************************************
     public function onAddedToTrial() {
-		Scripting.runScriptEvent("onAddedToTrial", null, _stim, false);
+		Scripting.runScriptEvent("onAddedToTrial", null, stim, false);
     }
     
     public function onRemovedFromTrial() {
-		Scripting.runScriptEvent("onRemovedToTrial", null, _stim, false);
+		Scripting.runScriptEvent("onRemovedToTrial", null, stim, false);
     }
 }

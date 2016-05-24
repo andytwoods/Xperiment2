@@ -4,10 +4,12 @@ import assets.manager.misc.FileInfo;
 import assets.manager.misc.LoaderStatus;
 import openfl.utils.Dictionary;
 import openfl.utils.Object;
+import xpt.backend_driven_expt.BackendDriven;
 import xpt.error.ErrorMessage;
 import xpt.runner.Runner;
 import xpt.tools.PathTools;
 import xpt.tools.XTools;
+import xpt.comms.services.UrlParams_service;
 
 /**
  * ...
@@ -69,6 +71,7 @@ class WebStart
 		var script:Xml;
 		if (str.length > 0) {
 			try {
+				str = BackendDriven.instance.process(str);
 				XTools.protectCodeBlocks(str, 'code');
 				script = Xml.parse(str);
 			}
@@ -84,7 +87,7 @@ class WebStart
 			ErrorMessage.error(ErrorMessage.Report_to_experimenter, "loaded script, but it was empty.");
 		}
 	}
-	
+
 
 	
 	public function exptPlatform():Runner {

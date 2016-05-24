@@ -26,7 +26,7 @@ class Xpt {
         //exptName = 'tastePosition';
 		//exptName = "Expt1";
         //exptName = 'test';
-		///exptName = 'twinSmokers';
+		//exptName = 'twinSmokers';
 		//exptName = 'ShapeApproachAvoidance';
 		//exptName = 'testLogos';
 		//exptName = 'evolve1';
@@ -34,7 +34,10 @@ class Xpt {
 		//exptName = "colourService2";
 		//exptName = "colourService3";
 		//exptName = "dLogo";
-		exptName = "eyeGaze1";
+		//exptName = "eyeGaze1";
+		//exptName = "KT1";
+		//exptName = "nColours";
+		exptName = 'backendDriven';
 		diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		
 		

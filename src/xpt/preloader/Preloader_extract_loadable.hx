@@ -76,9 +76,10 @@ class Preloader_extract_loadable
 		
         var distinct:Array<String> = Arrays.distinct(preloadList);
         for (path in distinct) {
-            final.push(PathTools.fixPath(path));
+            if (path.indexOf('http') == -1) final.push(PathTools.fixPath(path));
+			else final.push(path);
         }
-        
+
 		return final;
 	}
 	

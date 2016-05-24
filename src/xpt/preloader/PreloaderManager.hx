@@ -89,7 +89,7 @@ class ExtractStimuli {
 	{
 		var arr:Array<String> = filenames.split(ExptWideSpecs.stim_sep);
 		for (str in arr.iterator()) {
-			for(filename in str.split(ExptWideSpecs.trial_sep)){
+			for (filename in str.split(ExptWideSpecs.trial_sep)) {
 				loadable.push(filename);
 			}
 		}
@@ -101,7 +101,8 @@ class ExtractStimuli {
 		
 		var str:String;
 		for (i in 0...loadable.length) {
-			loadable[i] = deco+loadable[i];
+			if(loadable[i].indexOf('http')==-1)
+				loadable[i] = deco+loadable[i];
 		}
 		
 	}

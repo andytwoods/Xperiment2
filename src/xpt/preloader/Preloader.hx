@@ -57,7 +57,7 @@ class Preloader extends EventDispatcher {
 		event.current = _current;
 		event.total = _total;
 		dispatchEvent(event);
-		trace(".....................",file.id);
+		
 		preloadedImages.set(file.id, new Bitmap(file.data));
 		
 		if (_current >= _total) {

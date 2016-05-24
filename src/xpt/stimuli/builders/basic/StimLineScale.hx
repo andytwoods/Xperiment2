@@ -36,6 +36,15 @@ class StimLineScale extends StimulusBuilder {
 		super.applyProperties(c);
 	
 		lineScale = cast c;			
+		
+		var lhs:String = get('lhs', '');
+		var rhs:String = get('rhs', '');
+		
+		if (lhs.length > 0 && rhs.length > 0) {
+			stim.set('labels', [lhs, rhs].join(","));
+			
+		}
+		
 		sortLabels(lineScale, get("labels",""), get("labelPositions",""));
 		sortStartPosition(lineScale, get('startPosition'));
 		

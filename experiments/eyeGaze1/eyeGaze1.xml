@@ -49,7 +49,7 @@ By clicking the “I consent” button below you agree to participate in the stu
 
 
 
-<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
 	<text text="Some questions before we start:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
 	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
@@ -83,7 +83,7 @@ Please utilize the whole scale when rating the faces. Please respond quickly but
 
 
 
-<TRIAL order="random" trials="33" multiId="cond1" block="-10">
+<TRIAL order="random" trials="33" multiId="cond1" block="10">
 
 	<text textAlign="center" fontSize="18" width="100%" start="2500" height="100" verticalAlign="top"  y="0" multiId="like3" text="How " text1="attractive" text2=" was the face?"/>
 

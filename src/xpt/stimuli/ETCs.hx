@@ -26,13 +26,12 @@ class ETCs
 		list = new Array<String>();
 		
 		for (sym in splitByList) {
-			list[list.length] = generate_seq(sym);
-			
+			list[list.length] = generate_seq(sym);	
 		}
 	}
 	
-	static private function generate_seq(sym:String):String {
-		return sym + sym + sym + 'etc' + sym + sym + sym;
+	static private inline function generate_seq(sym:String):String {
+		return sym + 'etc' + sym;
 	}
 	
 	
@@ -63,18 +62,15 @@ class ETCs
 		var val:String;
 		var splitBy:String;
 		
-		for (splitter in list) {
+		
+		for (splitter in ['---etc---']) {
 			
-			
-			iterate = __getIterate(splitter, props, trials,howMany);
+			iterate = __getIterate(splitter, props, trials, howMany);
 			splitBy = __getSplit(splitter);
-			
-			
 			for (prop in props.keys()) {
 				val = props.get(prop);
 				if (val.indexOf(splitter) != -1) {
 					val = val.split(splitter).join("");
-					
 					var newVal:String = __buildETC(splitBy, val, iterate);
 					props.set(prop, newVal);
 				}
@@ -90,68 +86,36 @@ class ETCs
 	
 	inline static public inline function __getIterate(splitter:String, props:Map<String, String>, trials:Int, howMany:Int):Int 
 	{
-		
-		var num = howMany;
-		
-		if (splitter == generate_seq(overTrialSep)) {
-			num = trials;
-		}
-
-		var etcHowMany:String = props.get("etcHowMany");
-		if (etcHowMany != null) num = Std.parseInt(etcHowMany);
-
-		return num;
-	}
-
-
-	/*inline static public function compose(script:Xml) 
-	{
-
-		
-		
-		var map:Map<String,Array<NodesWithFilteredAttribs>> = XML_tools.find_inVal(script, list);
-		
-		for (splitter in map.keys()) {
-			for (nodesWithFilteredAttribs in map.get(splitter)){
-			
-				var iterate:Int = __getIterate(nodesWithFilteredAttribs.xml, splitter);
-				var newVal:String = __buildETC(splitter, nodesWithFilteredAttribs.attribVal, iterate);
 				
-				nodesWithFilteredAttribs.xml.modifyAttrib(nodesWithFilteredAttribs.attribName, newVal);
-
-			}
+		var i:Int = howMany;
+		
+		var etcHowMany:String = props.get("etcHowMany");
+		if (etcHowMany != null) i = Std.parseInt(etcHowMany);
+		
+		else if (splitter == generate_seq(overTrialSep)) {
+			i= trials;
 		}
-	
-		return script;
-	}
-	
-	static public inline function __getIterate(stimulus:Xml, splitter:String):Int 
-	{
-		
-		var num = Std.parseInt(stimulus.findAttr("howMany"));	
-		
-		if (splitter == ";;;etc;;;") {
-			var str = XML_tools.findParentAttr(stimulus, "trials");
-			num = Std.parseInt(str);
+		else if (splitter == generate_seq(withinTrialSep)) {
+			var hm:String = props.get("howMany");
+			if(hm !=null) i = Std.parseInt(hm);
 		}
 
-		
-		var etcHowMany:String = stimulus.findAttr("etcHowMany");
-		if (etcHowMany != "") num = Std.parseInt(etcHowMany);
 
-		return num;
+
+		return i;
 	}
-	*/
+
+
 	public static inline function __buildETC(splitter:String, oldVal:String, iterate:Int):String
 	{
 			
 		
-		var isPercent:String = "";
+		var isPercent:Bool = false;
 		
 
 		if(oldVal.indexOf("%")!=-1){
 			oldVal=oldVal.split("%").join("");
-			isPercent="%";
+			isPercent=true;
 		}
 		
 
@@ -160,11 +124,19 @@ class ETCs
 		if (etcArr.length <= 1) return oldVal;
 		
 		var numArr:Array<Float> = XTools.strArr_to_FloatArr(etcArr);
-		
+		var arr:Array<String> = null;
 		if (numArr != null) {
-			return __extendNumSequence(numArr, iterate).join(splitter);
+			arr = __extendNumSequence(numArr, iterate);
 		}
-		else return __extendDecoratedNumSequence(etcArr, iterate).join(splitter);
+		else arr = __extendDecoratedNumSequence(etcArr, iterate);
+		
+		if (isPercent) {
+			for (i in 0...arr.length) {
+				arr[i] += "%";
+			}
+		}
+		
+		return arr.join(splitter);
 
 	}
 	
