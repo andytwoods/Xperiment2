@@ -86,6 +86,7 @@ class ExptWideSpecs
 	//blocking
 		map.set("blockDepthOrder","");
 	//saving
+		map.set("do_not_prepend_data", 'false');
 		map.set("email", "backup@xperiment.mobi");
 		map.set("saveFailMessage", "There was a problem when trying to save your results.\n\nCould you try to send us your results again? If this is unsuccessful after several attempts, could you download your results and send them to EMAIL? WE are really sorry about this and appreciate your help. Your results are very valuable to us. Thankyou.");
 		map.set("saveSuccessMessage","Successfully saved your data! Thankyou.");
@@ -165,7 +166,8 @@ class ExptWideSpecs
 	{	
 		map.set('evolveUrl', 'http://127.0.0.1:8000/evolve/');
 		map.set('cloudUrl', 'http://127.0.0.1:8000/api/sj_data');
-		//map.set('exptId', '17c23b394aab4c4da6f4acbcf458e065');
+		
+		map.set('cloudUrl', 'http://127.0.0.1:8000/questionator/data/233139c0b8704fae88fe00108c496129/');
 	}
 	
 	static public function updateExternalVars(params:Map<String, String>) 

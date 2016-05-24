@@ -217,6 +217,8 @@ class Stimulus {
 				
 					if (key.length == 0) label = id;
 					else label = id + "_" + key;
+					
+
 					labelledResults.set(trial_id+label, myResults.get(key));
 				}
 

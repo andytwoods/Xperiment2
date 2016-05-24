@@ -125,17 +125,27 @@ class TrialResults
 
 		var stimRes:Map<String,String> = trial.results();
 		var stimulus:Stimulus;
-		var prepend_trial_id:String = 'b' + Std.string(trial.trialBlock) + 'i' + Std.string(trial.trialNum) + "_";
+				
+		var prepend_trial_id:String = null;
 		
-		trialResults.addMultipleResults(stimRes,prepend_trial_id);
+		if (ExptWideSpecs.IS('do_not_prepend_data') == 'false') {
+			prepend_trial_id = 'b' + Std.string(trial.trialBlock) + 'i' + Std.string(trial.trialNum) + "_";
+		}
+		else {
+			prepend_trial_id = '';
+		}
+		
+		trialResults.addMultipleResults(stimRes, prepend_trial_id);
 		
 		for (i in 0...trial.stimuli.length) {
 			stimulus = trial.stimuli[i]; //ensures order
 			if (stimulus.hideResults == false) {
+
 				stimRes = stimulus.results(prepend_trial_id);
 				trialResults.addMultipleResults(stimRes);		
 			}
 		}
+
 		return trialResults;
 	}	
 	

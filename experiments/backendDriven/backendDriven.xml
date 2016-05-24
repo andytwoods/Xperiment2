@@ -4,7 +4,7 @@
 	  <screen BGcolour="808080" orientation="vertical" ></screen>                          
 	  <computer  encrypt='false' />
 	  <style BUTTON_DOWN="0xff5656"  />
-	  <variables practice='0' />
+	  <variables practice='0' do_not_prepend_data="true" />
 </SETUP>
 
 
@@ -45,7 +45,7 @@
 </TRIAL>	
 	
 	
-<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
 	<text text="In this study, you will see the below images. You are asked to rate them according to the below questions." fontSize="30" textAlign="center" width="100%" height="100" verticalAlign="top" y="0" />
 
 	
@@ -61,7 +61,7 @@
 	
 	<image resource="{{ q1.images }}"/>
 	
-	<lineScale lhs="{{ q1.lhs }}" rhs="{{ q1.rhs }}" />
+	<lineScale id="{{ q1.images }}" lhs="{{ q1.lhs }}" rhs="{{ q1.rhs }}" />
 
 	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
 </TRIAL>
