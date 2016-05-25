@@ -47,7 +47,6 @@
 	
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
 	<text text="In this study, you will see the below images. You are asked to rate them according to the below questions." fontSize="30" textAlign="center" width="100%" height="100" verticalAlign="top" y="0" />
-
 	
 	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="40%---47%---etc---" howMany="5" text="How CITRUS do you think each logo is?---How FLORAL do you think each logo is?---How SPICY do you think each logo is?---How FRUITY do you think each logo is?---How CREAMY do you think each logo is?"
 		/>
@@ -59,9 +58,13 @@
 
 <TRIAL order="random" trials="{{ q1.trials }}" multiId="cond1" block="-10">
 	
-	<image resource="{{ q1.images }}"/>
+	<results q="{{ q1.q }}" />
+		
+	<text text="{{ q1.q }}" width="100%"  textAlign="center" y="70%" />
 	
-	<lineScale id="{{ q1.images }}" lhs="{{ q1.lhs }}" rhs="{{ q1.rhs }}" />
+	<image resource="{{ q1.images }}" y="30%" />
+	
+	<lineScale id="{{ q1.images }}" lhs="{{ q1.lhs }}" rhs="{{ q1.rhs }}" y="80%" />
 
 	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
 </TRIAL>

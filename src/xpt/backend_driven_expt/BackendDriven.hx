@@ -48,7 +48,7 @@ class BackendDriven
 	
 	public function process(script:String) {
 			var backend_driven_expt:String = UrlParams_service.get('backend_driven_expt');
-			backend_driven_expt = '[{"instance_id":"wzXog","question_id":"q1","image":"/static/img/line_scale.svg","q":"How innovative is the logo?u","lhs":"not at all","rhs":"very much so","images":["https://questionator.s3.amazonaws.com/075e028bfd784ec5af3f8e6a40e92f42/media/isis.png","https://questionator.s3.amazonaws.com/075e028bfd784ec5af3f8e6a40e92f42/media/isis1-557x197-71906.png"]},{"instance_id":"HhYSR","question_id":"q1","image":"/static/img/line_scale.svg","q":"How innovative is the logo?","lhs":"not at all","rhs":"very much so","images":["https://questionator.s3.amazonaws.com/075e028bfd784ec5af3f8e6a40e92f42/media/isis.png","https://questionator.s3.amazonaws.com/075e028bfd784ec5af3f8e6a40e92f42/media/isis1-557x197-71906.png"]},{"instance_id":"y9U9R","question_id":"q1","image":"/static/img/line_scale.svg","q":"How innovative is the logo?","lhs":"not at all","rhs":"very much so","images":["https://questionator.s3.amazonaws.com/075e028bfd784ec5af3f8e6a40e92f42/media/isis.png","https://questionator.s3.amazonaws.com/075e028bfd784ec5af3f8e6a40e92f42/media/isis1-557x197-71906.png"]}]';
+			backend_driven_expt = '[{"instance_id":"RMb1g","question_id":"q1","image":"/static/img/line_scale.svg","q":"How innovative is the logo?","lhs":"not at all","rhs":"very much so","images":["https://questionator.s3.amazonaws.com/0a98a8fd83974f5699c6495fbd02d6a7/media/1.png","https://questionator.s3.amazonaws.com/0a98a8fd83974f5699c6495fbd02d6a7/media/6.png"]}]';
 			if (backend_driven_expt.length > 0) {
 				var Qs:Questions = new Questions(backend_driven_expt);	
 				if (Qs.proceed()) {
@@ -78,7 +78,6 @@ class Questions {
 
 	
 	public inline function proceed() {
-		trace(questions.length);
 		return questions.length > 0;
 	}
 	
@@ -106,6 +105,7 @@ class Questions {
 		var first:Question = questions[0];
 		var arr:Array<String>;
 		
+		var hack_count:Int = 1;
 		var variables = ['rhs', 'lhs', 'q', 'images'];
 		var val:String;
 		for (f in variables){
@@ -113,7 +113,8 @@ class Questions {
 			for (q in questions) {
 				val = Reflect.getProperty(q, f);
 				if (f == 'images') {
-					val = val.split(',').join('---');
+					hack_count = val.split(',').length;
+					val = val.split(',').join('|');
 				}
 				arr.push(val);
 			}
@@ -127,8 +128,10 @@ class Questions {
 		for (f in variables) {
 			map.set(lhs + question_id + "." + f + rhs, Reflect.getProperty(combined, f));
 		}
+		
+		trace(map);
 
-		map.set(lhs + question_id+'.trials' + rhs, Std.string(questions.length));
+		map.set(lhs + question_id+'.trials' + rhs, Std.string(hack_count));
 		return map;
 	}
 	
