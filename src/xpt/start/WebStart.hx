@@ -70,9 +70,12 @@ class WebStart
 	function processScript(str:String):Void {
 		var script:Xml;
 		if (str.length > 0) {
+			
+			str = BackendDriven.instance.process(str);
+			XTools.protectCodeBlocks(str, 'code');
+			
 			try {
-				str = BackendDriven.instance.process(str);
-				XTools.protectCodeBlocks(str, 'code');
+				
 				script = Xml.parse(str);
 			}
 			catch (e:String) {

@@ -27,7 +27,7 @@ class BackendDriven
 		var decoded:String = StringTools.urlDecode(info);
 		decoded = decoded.split("'").join("\"");
 		var crunched: { method:String, data:Array<String> } = Json.parse(decoded);
-		var questions = new Array<Question>();
+		var questions = new Array<Map<String,String>>();
 		for (n in Reflect.fields(crunched))
 			questions.push(process_row(Reflect.field(crunched, n)));
 			
@@ -35,11 +35,11 @@ class BackendDriven
 	}
 	
 	private function process_row(row) {
-		var question:Question = new Question();
+		var question:Map<String,String> = new Map<String,String>();
 		
 		for (n in Reflect.fields(row)){
-			if(Reflect.hasField(question, n)){
-				Reflect.setField(question, n, Reflect.field(row, n));
+			if (Reflect.hasField(question, n)) {
+				question.set(n, Reflect.field(row, n));
 			}
 		}
 		return question;
@@ -71,7 +71,7 @@ class BackendDriven
 
 
 class Questions {
-	public var questions:Array<Question> = new Array<Question>();
+	public var questions:Array<Map<String,String>> = new Array<Map<String,String>>();
 	var lhs:String = "{{ ";
 	var rhs:String = " }}";
 	
@@ -90,46 +90,48 @@ class Questions {
 	}
 	
 	private function process_row(row) {
-		var question:Question = new Question();
+		var question:Map<String,String> = ['rhs' => "", 'lhs' => "", 'question_id' => "", 'images' => "", 'q'=>''];
 		
-		for (n in Reflect.fields(row)){
-			if(Reflect.hasField(question, n)){
-				Reflect.setField(question, n, Reflect.field(row, n));
-			}
+		for (n in Reflect.fields(row)) {
+			if(question.exists(n)) question.set(n, Reflect.field(row, n));
 		}
 		questions.push(question);
 	}
 	
 	public function combine() {
-		var combined:Question = new Question();
-		var first:Question = questions[0];
+		var combined:Map<String,String> = new Map<String,String>();
+		var first:Map<String,String> = questions[0];
 		var arr:Array<String>;
 		
 		var hack_count:Int = 1;
-		var variables = ['rhs', 'lhs', 'q', 'images'];
+		var variables = ['rhs', 'lhs', 'question_id', 'images', 'q'];
 		var val:String;
+		var arr:Array<String>;
 		for (f in variables){
 			arr = [];
 			for (q in questions) {
-				val = Reflect.getProperty(q, f);
-				if (f == 'images') {
-					hack_count = val.split(',').length;
+				val = Std.string(q.get(f));
+				if (f == 'images' && val != null) {
+					#if html5
+						val = val.substring(1, val.length - 1);
+					#end
+					arr = val.split(',');
+					
+					hack_count = arr.length;
 					val = val.split(',').join('|');
 				}
 				arr.push(val);
 			}
 
-			Reflect.setField(combined, f, arr.join("|"));
+			combined.set(f, arr.join("|"));
 		}
 
 		var map:Map<String, String> = new Map<String, String>();
-		var question_id:String = questions[0].question_id;
+		var question_id:String = questions[0].get('question_id');
 		
 		for (f in variables) {
-			map.set(lhs + question_id + "." + f + rhs, Reflect.getProperty(combined, f));
+			map.set(lhs + question_id + "." + f + rhs, combined.get(f));
 		}
-		
-		trace(map);
 
 		map.set(lhs + question_id+'.trials' + rhs, Std.string(hack_count));
 		return map;
@@ -137,17 +139,3 @@ class Questions {
 	
 }
 
-class Question {
-
-	public function new() {
-		
-	}
-	
-	public var rhs:String;
-	public var lhs:String;
-	public var q:String;
-	public var images:String;
-	public var question_id:String;
-	
-	
-}
