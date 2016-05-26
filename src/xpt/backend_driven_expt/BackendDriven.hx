@@ -48,7 +48,11 @@ class BackendDriven
 	
 	public function process(script:String) {
 			var backend_driven_expt:String = UrlParams_service.get('backend_driven_expt');
-			backend_driven_expt = '[{"instance_id":"RMb1g","question_id":"q1","image":"/static/img/line_scale.svg","q":"How innovative is the logo?","lhs":"not at all","rhs":"very much so","images":["https://questionator.s3.amazonaws.com/0a98a8fd83974f5699c6495fbd02d6a7/media/1.png","https://questionator.s3.amazonaws.com/0a98a8fd83974f5699c6495fbd02d6a7/media/6.png"]}]';
+			
+			if (backend_driven_expt == '') {	
+				backend_driven_expt = '[{"instance_id":"LUS7b","q_image":"/static/img/questionator/q1.png","question_id":"q1","q":"How innovative is the logo?","lhs":"not bananaall","rhs":"very much so","images":["https://questionator.s3.amazonaws.com/cb65963919f148ddad5131b96dbe264a/media/isis.png"]}]';
+			}
+			
 			if (backend_driven_expt.length > 0) {
 				var Qs:Questions = new Questions(backend_driven_expt);	
 				if (Qs.proceed()) {

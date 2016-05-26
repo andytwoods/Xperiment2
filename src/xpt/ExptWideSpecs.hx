@@ -164,10 +164,8 @@ class ExptWideSpecs
 	
 	static public function override_for_develServer() 
 	{	
-		map.set('evolveUrl', 'http://127.0.0.1:8000/evolve/');
-		map.set('cloudUrl', 'http://127.0.0.1:8000/api/sj_data');
-		
-		map.set('cloudUrl', 'http://127.0.0.1:8000/questionator/data/0a98a8fd83974f5699c6495fbd02d6a7/');
+		//map.set('evolveUrl', 'http://127.0.0.1:8000/evolve/');
+		//map.set('cloudUrl', 'http://127.0.0.1:8000/api/sj_data');
 	}
 	
 	static public function updateExternalVars(params:Map<String, String>) 
