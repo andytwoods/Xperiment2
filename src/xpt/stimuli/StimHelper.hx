@@ -4,6 +4,7 @@ import xpt.tools.XTools;
 
 class StimHelper {
     public static function shuffle(list:Array<Stimulus>, fixedProps:Array<String> = null) {
+		
         var fixedValues:Map<String, Array<String>> = null;
         if (fixedProps != null) {
             fixedValues = new Map<String, Array<String>>();

@@ -60,7 +60,7 @@
 
 <TRIAL order="random" trials="5" multiId="cond1" block="-10">
 
-	<svg  resource="homer.svg" onClick="Tools.ColourAtCursor()" />
+	<svg resource="colour_swatch.svg" svgtool_shuffle="shuffle" onClick="Tools.ColourAtCursor()" />
 	
 	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
 </TRIAL>

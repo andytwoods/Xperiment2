@@ -1,6 +1,5 @@
 package xpt.stimuli.builders.basic;
 
-import de.polygonal.ds.Map;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
 import haxe.ui.toolkit.controls.Image;

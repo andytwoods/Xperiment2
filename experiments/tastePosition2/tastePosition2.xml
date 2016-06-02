@@ -1,0 +1,154 @@
+<study>
+
+<SETUP>  
+	  <screen backgroundColour="white" ></screen>                          
+</SETUP>
+
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+
+	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
+
+	<text width="100%" height="70%" 
+		  text=
+		  "Imagineering Institute, Iskandar, Malaysia. Researcher Contact Details: Carlos Velasco (Email: carlos@imagineeringinstitute.org)
+Trust online
+Dear participant,
+Welcome to our study! We are the Imagineering Institute, based in Iskandar, Malaysia.    
+We are interested in understanding how people trust information across the senses. If you decide to take part in this experiment, you will be presented with different colours, one at a time, which may be used in the corporate image of a bank. We would like you to categorize the colours in terms whether you would trust a bank that uses the colour in its corporate image.
+There are no right or wrong responses, so please respond according to what feels right to you. We hope you enjoy it. Your participation is very important to us.    
+You are being invited to participate because you are a member of the Prolific Academic online participant panel. The study will take around 5 minutes to complete.   
+You would still be free to withdraw from the study at any time during the questionnaire, without needing to give a reason, and without penalty. The data will be fully anonymized, and stored on a secure computer at the Imagineering Institute."
+	fontSize="15" />
+	
+	
+	<preloadProgress x="20" y="90%"  horizontalAlign="left" width="70%" height="40" />
+	<preloadReadyButton x="85%" y="90%" width="20%" height="40" fontSize="18" />
+	
+</TRIAL>
+
+
+
+<TRIAL TYPE="Trial" hideResults="false" block="1" order="fixed" trials="1">
+	 
+<text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top">
+<.text>Before we begin, please read below. By clicking I CONSENT you indicate you have consented to take part.
+If you decide to take part in this experiment, you will be asked to look at some different colours, one at a time, and will be asked categorize them in terms of trust.
+At the end of the study we will tell you more about the purpose of the study and why we are doing this research. You can also contact Carlos Velasco (carlos@imagineeringinstitute.org) for further information at a later date if you wish.
+If you have a concern about any aspect of this project, please contact Professor Adrian Cheok (Director of Imagineering Institute, Email: adrian@imagineeringinstitute.org, or May Quah, Email: May.Quah@khazanah.com.my. They will seek to resolve the matter in a reasonably expeditious manner.  
+Please read the below consent statement and indicate whether you consent. 
+Statement of informed consent
+1.	I have read and understand the information above and understand the general purpose of this experiment.
+2.	I understand that I can withdraw from the questionnaire at any time, for any reason, and without penalty, and that doing so will destroy my data. (NB – Please be aware that data collected is anonymous – if you change your mind after completing the experiment, we will be unable to trace your specific data to remove it).
+3.	I understand how to raise a concern or make a complaint (detailed above).
+4.	I understand that my responses are anonymous.
+5.	I agree to take part in this online experiment.
+		</.text></text>
+	
+	
+	<nextTrialButton y="90%" width="200" height="50" text="I CONSENT" fontSize="18" />
+</TRIAL>
+
+
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="What is your Prolific Academic ID?" fontSize="20" width="400" height="30" textAlign="center"  y="40%" />
+	
+	<input y="50%" width="300" height="50" fontSize="20"  />
+   
+	<nextTrialButton y="80%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+	
+
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="Some questions before we start:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
+	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
+	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
+	<text text="What country do you come from?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
+	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
+    <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
+	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
+	
+	<text text="English proficiency:" fontSize="20" width="200" height="30" x="60"  y="50%" horizontalAlign="left" />
+	<multipleChoice id="eng" y="48%" x="30%" labels="none,basic,conversational,fluent"/>
+
+	
+	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+	
+	
+<TRIAL block="5">
+	
+	<text width="80%" height="25%"
+     text="On each trial you will see 3 images of packaging. You are asked to arrange those items in a box according to a given question. There are 32 trials in total."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
+	<nextTrialButton y="90%" x="50%" width="200" depth="0" height="50" verticalAlign="bottom" text="Begin" fontSize="18" />
+	
+	<text copyOverId="taste2" text="" />
+</TRIAL>
+	
+
+
+<TRIAL block="1" multiId="over_results" template="catch,template"></TRIAL>
+<TRIAL multiId="over_results" template="target,template"></TRIAL>
+
+
+
+<catch>
+	<image  id="distractor4" group="images" x="25%" y="25%" SHUFFLE="resource |" resource="1_1_1.jpg|1_1_2.jpg|1_1_3.jpg|1_1_4.jpg|1_2_1.jpg|1_2_2.jpg|1_2_3.jpg|1_2_4.jpg|1_3_1.jpg|1_3_2.jpg|1_3_3.jpg|1_3_4.jpg|1_4_1.jpg|1_4_2.jpg|1_4_3.jpg|1_4_4.jpg|2_1_1.jpg|2_1_2.jpg|2_1_3.jpg|2_1_4.jpg|2_2_1.jpg|2_2_2.jpg|2_2_3.jpg|2_2_4.jpg|2_3_1.jpg|2_3_2.jpg|2_3_3.jpg|2_3_4.jpg|2_4_1.jpg|2_4_2.jpg|2_4_3.jpg|2_4_4.jpg|3_1_1.jpg|3_1_2.jpg|3_1_3.jpg|3_1_4.jpg|3_2_1.jpg|3_2_2.jpg|3_2_3.jpg|3_2_4.jpg|3_3_1.jpg|3_3_2.jpg|3_3_3.jpg|3_3_4.jpg|3_4_1.jpg|3_4_2.jpg|3_4_3.jpg|3_4_4.jpg|4_1_1.jpg|4_1_2.jpg|4_1_3.jpg|4_1_4.jpg|4_2_1.jpg|4_2_2.jpg|4_2_3.jpg|4_2_4.jpg|4_3_1.jpg|4_3_2.jpg|4_3_3.jpg|4_3_4.jpg|4_4_1.jpg|4_4_2.jpg|4_4_3.jpg|4_4_4.jpg" />
+	<results tt="catch" />
+</catch>
+
+<target>
+	<image  id="target" group="images" x="25%" y="25%" SHUFFLE="resource |" resource="1_Bitter.jpg|1_Salty.jpg|1_Sour.jpg|1_Sweet.jpg|2_Bitter.jpg|2_Salty.jpg|2_Sour.jpg|2_Sweet.jpg|3_Bitter.jpg|3_Salty.jpg|3_Sour.jpg|3_Sweet.jpg|4_Bitter.jpg|4_Salty.jpg|4_Sour.jpg|4_Sweet.jpg" />
+	<results tt="target"  target="${target.get('resource')}" />
+</target>
+	
+
+
+<template order="random" trials="7" block="-10">
+	
+	<text text="+" start="0" end="1000" />
+	
+	<image  id="distractor1" group="images" x="75%" y="25%" SHUFFLE="resource |" resource="1_1_1.jpg|1_1_2.jpg|1_1_3.jpg|1_1_4.jpg|1_2_1.jpg|1_2_2.jpg|1_2_3.jpg|1_2_4.jpg|1_3_1.jpg|1_3_2.jpg|1_3_3.jpg|1_3_4.jpg|1_4_1.jpg|1_4_2.jpg|1_4_3.jpg|1_4_4.jpg|2_1_1.jpg|2_1_2.jpg|2_1_3.jpg|2_1_4.jpg|2_2_1.jpg|2_2_2.jpg|2_2_3.jpg|2_2_4.jpg|2_3_1.jpg|2_3_2.jpg|2_3_3.jpg|2_3_4.jpg|2_4_1.jpg|2_4_2.jpg|2_4_3.jpg|2_4_4.jpg|3_1_1.jpg|3_1_2.jpg|3_1_3.jpg|3_1_4.jpg|3_2_1.jpg|3_2_2.jpg|3_2_3.jpg|3_2_4.jpg|3_3_1.jpg|3_3_2.jpg|3_3_3.jpg|3_3_4.jpg|3_4_1.jpg|3_4_2.jpg|3_4_3.jpg|3_4_4.jpg|4_1_1.jpg|4_1_2.jpg|4_1_3.jpg|4_1_4.jpg|4_2_1.jpg|4_2_2.jpg|4_2_3.jpg|4_2_4.jpg|4_3_1.jpg|4_3_2.jpg|4_3_3.jpg|4_3_4.jpg|4_4_1.jpg|4_4_2.jpg|4_4_3.jpg|4_4_4.jpg" />
+
+	<image  id="distractor2" group="images" x="25%" y="75%" SHUFFLE="resource |" resource="1_1_1.jpg|1_1_2.jpg|1_1_3.jpg|1_1_4.jpg|1_2_1.jpg|1_2_2.jpg|1_2_3.jpg|1_2_4.jpg|1_3_1.jpg|1_3_2.jpg|1_3_3.jpg|1_3_4.jpg|1_4_1.jpg|1_4_2.jpg|1_4_3.jpg|1_4_4.jpg|2_1_1.jpg|2_1_2.jpg|2_1_3.jpg|2_1_4.jpg|2_2_1.jpg|2_2_2.jpg|2_2_3.jpg|2_2_4.jpg|2_3_1.jpg|2_3_2.jpg|2_3_3.jpg|2_3_4.jpg|2_4_1.jpg|2_4_2.jpg|2_4_3.jpg|2_4_4.jpg|3_1_1.jpg|3_1_2.jpg|3_1_3.jpg|3_1_4.jpg|3_2_1.jpg|3_2_2.jpg|3_2_3.jpg|3_2_4.jpg|3_3_1.jpg|3_3_2.jpg|3_3_3.jpg|3_3_4.jpg|3_4_1.jpg|3_4_2.jpg|3_4_3.jpg|3_4_4.jpg|4_1_1.jpg|4_1_2.jpg|4_1_3.jpg|4_1_4.jpg|4_2_1.jpg|4_2_2.jpg|4_2_3.jpg|4_2_4.jpg|4_3_1.jpg|4_3_2.jpg|4_3_3.jpg|4_3_4.jpg|4_4_1.jpg|4_4_2.jpg|4_4_3.jpg|4_4_4.jpg" />
+	
+	<image  id="distractor3" group="images" x="75%" y="75%" SHUFFLE="resource |" resource="1_1_1.jpg|1_1_2.jpg|1_1_3.jpg|1_1_4.jpg|1_2_1.jpg|1_2_2.jpg|1_2_3.jpg|1_2_4.jpg|1_3_1.jpg|1_3_2.jpg|1_3_3.jpg|1_3_4.jpg|1_4_1.jpg|1_4_2.jpg|1_4_3.jpg|1_4_4.jpg|2_1_1.jpg|2_1_2.jpg|2_1_3.jpg|2_1_4.jpg|2_2_1.jpg|2_2_2.jpg|2_2_3.jpg|2_2_4.jpg|2_3_1.jpg|2_3_2.jpg|2_3_3.jpg|2_3_4.jpg|2_4_1.jpg|2_4_2.jpg|2_4_3.jpg|2_4_4.jpg|3_1_1.jpg|3_1_2.jpg|3_1_3.jpg|3_1_4.jpg|3_2_1.jpg|3_2_2.jpg|3_2_3.jpg|3_2_4.jpg|3_3_1.jpg|3_3_2.jpg|3_3_3.jpg|3_3_4.jpg|3_4_1.jpg|3_4_2.jpg|3_4_3.jpg|3_4_4.jpg|4_1_1.jpg|4_1_2.jpg|4_1_3.jpg|4_1_4.jpg|4_2_1.jpg|4_2_2.jpg|4_2_3.jpg|4_2_4.jpg|4_3_1.jpg|4_3_2.jpg|4_3_3.jpg|4_3_4.jpg|4_4_1.jpg|4_4_2.jpg|4_4_3.jpg|4_4_4.jpg" />
+	
+	<shuffle group="images" />
+
+    <Text howMany="2" disabled="true" keyEnabled="true" hideResults="true" x="40%---60%"  key="z---m" id="a---b"  y="51%" textAlign="right---left" verticalAlign="center" text="present---absent" text1=" (" text2="z---m" text3=")" width="150" height="40"  fontSize="18"/>
+	
+	<key howMany="2" key="z---m">
+		<action>
+			Trial.save('ans', stim.get('key'));
+			Experiment.nextTrial()
+		</action>
+	</key>
+	
+	<rt/>
+	
+
+	
+	<trialCounter height="60" depth="0" y="8%" total="32" />
+	
+</template>
+	
+
+	
+<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
+
+<text  colour="black" timeStart="0" width="80%" y="40%" height="70%" fontSize="16">
+	<.text>Trust online    
+Thank-you for completing our study!     
+The aim of this research was to investigate how colours influence trust online. Previous research has suggested that certain colours facilitate turst more than others. In that sense, we want to study which colours may be more trustable when it comes to the context of financial services.    
+      If you have any further questions, please contact Carlos Velasco (Email: carlos@imagineeringinstitute.org).         
+PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLFIC ACADEMIC KNOWS YOU HAVE COMPLETED THE STUDY. THANKS.
+</.text>
+</text>
+
+<link text="Prolific Academic Link" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB" />
+
+</TRIAL>	
+	
+
+</study>
+	

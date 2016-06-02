@@ -177,17 +177,13 @@ class Scripting
 
 	
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
-		
-		var bundle:ScriptBundle = getBundle();
-		
-		
-
 		if (stim.get(prop) != null) {
+			var bundle:ScriptBundle = getBundle();
 			try {
 				bundle.add("this", stim.component);
 				bundle.add("me", stim.component);
 				bundle.add("stim", stim);
-				bundle.add("e", event);
+				if(event!=null) bundle.add("e", event);
 
 				addExtraVars(bundle);
 				
@@ -203,8 +199,10 @@ class Scripting
 				trace("ERROR executing script: " + e + " code: " + bundle.code+ '(prop: '+prop+').');
 				DebugManager.instance.error("Error running script event", "" + e);
 			}
+			
+			returnBundle(bundle);
 		}
-		returnBundle(bundle);
+		
 		
 	}
 	

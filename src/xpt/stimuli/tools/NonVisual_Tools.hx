@@ -17,9 +17,9 @@ class NonVisual_Tools
             var stimIds:Array<String> = stim.getStringArray("stims");
             if (stimIds != null) {
                 for (stimId in stimIds) {
-                    var stim:Stimulus = trial.findStimulus(stimId);
-                    if (stim != null && stims.indexOf(stim) == -1) {
-                        stims.push(stim);
+                    var found_stim:Stimulus = trial.findStimulus(stimId);
+                    if (found_stim != null && stims.indexOf(found_stim) == -1) {
+                        stims.push(found_stim);
                     }
                 }
             }
@@ -38,6 +38,8 @@ class NonVisual_Tools
 				}
 			}
 		}
+		
+		stims.remove(stim.stim);
 		 
         return Arrays.distinct(stims);
 	}

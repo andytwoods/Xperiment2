@@ -46,6 +46,7 @@ class StimShuffle extends StimulusBuilder {
             
 		if (stims.length > 0) { // lets do the shuffle
 			var fixed:String = get("fixed");
+
 			var fixedArray:Array<String> = null;
 			if (fixed != null) {
 				fixedArray = new Array<String>();

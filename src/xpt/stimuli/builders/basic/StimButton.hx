@@ -46,23 +46,16 @@ class StimButton extends StimulusBuilder {
 		if (get("key") != null) {
 			KeyPress.instance.listen(this, get("key"), function(char:Int) { 
 				
-				if (b.disabled) return;
-				/*
-				
-				
-				if ( get('keyEnabled', '').toLowerCase() == 'true') {
+				if (getBool('keyEnabled',false)) return;
+
 					var disabled:Bool = b.disabled;
 					b.disabled = false;
 					simButtonDown(b);
 					b.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 					b.disabled = disabled;
 				}
-				else {
-					trace(11);*/
-					simButtonDown(b);
-					b.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
-				//}
-			} );
+			);
+				
 		}
     }
 	
