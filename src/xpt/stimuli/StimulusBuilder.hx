@@ -197,7 +197,9 @@ class StimulusBuilder {
 	private function applyProperties(c:Component) {
 		var root:Root = RootManager.instance.currentRoot;
 		
+		trace('setting text', get('text'), stim.props);
 		var text:String = get("text");
+		
 		if (text == null) {
 			text = "";
 		}
@@ -321,7 +323,7 @@ class StimulusBuilder {
 	}
 	
     public function update():Void {
-        applyProperties(stim._component);
+        if(stim != null) applyProperties(stim._component);
     }
 	
 	public function buildPreloadList(props:Map<String, String>):Array<String> {

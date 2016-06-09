@@ -69,7 +69,6 @@ class BaseStimuli
 		var nodeVal:String;
 		
 		for (child in children) {
-		
 			if (child.nodeType == Xml.Element) {
 				nodeName = child.nodeName;
 				
@@ -77,6 +76,7 @@ class BaseStimuli
 					nodeVal = child.firstChild().nodeValue;
 					props.set(nodeName.substr(1), XTools.removeProtectedTextIndicators(nodeVal));
 					children.remove(child);
+					props.remove(nodeName);
 				}
 				
 			}
@@ -85,9 +85,6 @@ class BaseStimuli
 		removeSpacesForKeyParams(props);
 		
 		baseStim.children = _generateStimuli(children , numTrials);
-		
-		//var nodeVal:String = XML_tools.getNodeVal(stimXML);
-		//if (nodeVal != null) props.set('nodeValue', nodeVal);
 		
 		ETCs.compose(props, numTrials, baseStim.howMany);
 		baseStim.setProps(	props	);

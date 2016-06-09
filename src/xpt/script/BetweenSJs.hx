@@ -15,6 +15,7 @@ class BetweenSJs
 	static public inline var betweenSJ_nodeName = "multi";
 	static public inline var PARENT:String = "parent";
 	static public inline var MULTIID:String = "multiId";
+	static public inline var FORCE:String = 'forceToRun';
 	
 	public function new() { };
 	
@@ -36,8 +37,8 @@ class BetweenSJs
 		}
 		
 		if (forceToRun == "") {
-			if (parent.exists('forceToRun')) {
-				forceToRun = parent.get('forceToRun');
+			if (parent.exists(FORCE)) {
+				forceToRun = parent.get(FORCE);
 			}
 			
 		}

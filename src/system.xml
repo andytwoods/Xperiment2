@@ -70,6 +70,7 @@
 			NON-VISUAL STIMULI
 		************************************************************************************ -->
 		<sound builder="xpt.stimuli.builders.nonvisual.StimSound"/>
+		<synth builder="xpt.stimuli.builders.nonvisual.StimSynth"/>
 		<timer builder="xpt.stimuli.builders.nonvisual.StimTimer"/>
 		<rt builder="xpt.stimuli.builders.nonvisual.StimRT">
 			<id>rt</id>
@@ -82,6 +83,9 @@
 			<saveId>id</saveId>
             <valid>equals(groups(prop("groups")))</valid>
         </drag> 
+		<dragxy builder="xpt.stimuli.builders.nonvisual.StimDrag">
+			<saveId>id</saveId>
+        </dragxy> 
 		<results builder="xpt.stimuli.builders.nonvisual.StimResults" >
 			<id>results</id>
 		</results>

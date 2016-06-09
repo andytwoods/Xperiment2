@@ -260,6 +260,12 @@ class XTools
 			return Ints.parse(colour);
 		}
 		
+		if(Ints.canParse('0x'+colour)) {
+			return Ints.parse('0x'+colour);
+		}
+		
+		
+		
 		throw "you have specified a colour incorrectly or have used text I don't understand:"+colour;
 		return 0;
 	}

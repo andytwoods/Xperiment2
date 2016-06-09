@@ -55,10 +55,10 @@ class StimuliFactory {
 					if (stim.id == Stimulus.UNSPECIFIED) {
 						stim.id = "id" + Std.string(unknownIdCount++);
 					}
-					
+
 					if (parent != null) parent.addUnderling(stim);
 
-					if(baseStimulus.children.length>0)	__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount,scriptedBasedProps);
+					if(baseStimulus.children.length>0)	__recursiveGenerate(trial, stim, baseStimulus.children, unknownIdCount, scriptedBasedProps);
 
 					stimuli.push(stim);
 				}
@@ -73,7 +73,7 @@ class StimuliFactory {
 		var trialIteration:Int = trial.iteration;
 		var scriptBasedProp:ScriptBasedProp;
 		var stimProps:Map<String,String> = new Map<String,String>();
-		
+
 		for (key in props.keys()) {
 			var val:String = props.get(key);
 
@@ -88,8 +88,11 @@ class StimuliFactory {
 				}
 				scriptBasedProp = new ScriptBasedProp();
 				scriptBasedProp.f = function(stimuli:Array<Stimulus>) {	
-					val = Scripting.expandScriptValues(val, ["index" => copyNum, 'Trial'=> trial], exceptions, stimuli);
-					stimProps.set(key, val);
+					val = Scripting.expandScriptValues(val, ["index" => copyNum, 'Trial' => trial], exceptions, stimuli);
+					stim.props.set(key, val);
+					stim.set(key, val);
+					trace('update');
+					stim.builder.update();
 				}
 				
 				scriptedBasedProps.push(scriptBasedProp);
@@ -99,7 +102,6 @@ class StimuliFactory {
 		}
 		
 		XTools.appendUpNumberedProps(stimProps);
-
 		stim.setProps(stimProps);
 		
 		if (stimProps.exists('present') && stimProps.get('present') == 'false') return false;

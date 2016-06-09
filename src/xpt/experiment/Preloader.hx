@@ -154,7 +154,7 @@ class Preloader extends EventDispatcher {
 					_loader.queueImage(stimulus);
 				case "SVG" | "TXT":
 					_loader.queueText(stimulus);
-				case "MP3":
+				case "MP3" | "WAV":
 					if (soundLoader == null) soundLoader = new SoundLoader();
 					soundLoader.load(stimulus, soundLoader_callback);
 				default:

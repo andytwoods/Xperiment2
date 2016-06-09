@@ -73,16 +73,17 @@
 	
 
 	
-<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="false" block="-100" order="fixed" trials="1">
 
-<text  colour="black" timeStart="0" width="80%" y="40%" height="70%" fontSize="16">
+<text  colour="555555" timeStart="0" width="80%" y="40%" height="30%" fontSize="20">
 	<.text>Thank-you for completing our study!     
-We very much appreciate your input into helping rating the logos. 
-PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLIFIC ACADEMIC KNOWS YOU HAVE COMPLETED THE STUDY. THANKS.
+We very much appreciate your help in rating these images. 
 </.text>
 </text>
 
-<link text="Prolific Academic Link" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/56ec13b6388e1d000b589209/complete?cc=DCPAOKVF" />
+<text fontSize="40" id="mturkpword" start="500" width="100%" y="60%" textAlign="center" height="10%">
+	<.text>Your MTurk password is ${ ExptWideSpecs.getMTurkCode()}</.text>
+</text>
 
 </TRIAL>	
 	

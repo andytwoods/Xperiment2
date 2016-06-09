@@ -10,13 +10,12 @@
 
 	<text width="100%" height="70%" 
 		  text=
-		  "Imagineering Institute, Iskandar, Malaysia. Researcher Contact Details: Carlos Velasco (Email: carlos@imagineeringinstitute.org)
+		  "Imagineering Institute, Iskandar, Malaysia. Researcher Contact Details: Olivia Petit (Email: oliviapetit@imagineeringinstitute.org)
 Trust online
 Dear participant,
 Welcome to our study! We are the Imagineering Institute, based in Iskandar, Malaysia.    
-We are interested in understanding how people trust information across the senses. If you decide to take part in this experiment, you will be presented with different colours, one at a time, which may be used in the corporate image of a bank. We would like you to categorize the colours in terms whether you would trust a bank that uses the colour in its corporate image.
-There are no right or wrong responses, so please respond according to what feels right to you. We hope you enjoy it. Your participation is very important to us.    
-You are being invited to participate because you are a member of the Prolific Academic online participant panel. The study will take around 5 minutes to complete.   
+We are interested in understanding how people search product pictures with different taste names. If you decide to take part in this experiment, you will first read a target taste word, followed by a display containing 4 products, and your task will be to press, as rapidly as possible, one key when the target taste label product is present and another key when it is absent. We hope you enjoy it. Your participation is very important to us.    
+You are being invited to participate because you are a member of the Prolific Academic online participant panel. The study will take around 15 minutes to complete.   
 You would still be free to withdraw from the study at any time during the questionnaire, without needing to give a reason, and without penalty. The data will be fully anonymized, and stored on a secure computer at the Imagineering Institute."
 	fontSize="15" />
 	
@@ -32,8 +31,8 @@ You would still be free to withdraw from the study at any time during the questi
 	 
 <text  width="100%" height="95%" fontSize="17" y="0" verticalAlign="top">
 <.text>Before we begin, please read below. By clicking I CONSENT you indicate you have consented to take part.
-If you decide to take part in this experiment, you will be asked to look at some different colours, one at a time, and will be asked categorize them in terms of trust.
-At the end of the study we will tell you more about the purpose of the study and why we are doing this research. You can also contact Carlos Velasco (carlos@imagineeringinstitute.org) for further information at a later date if you wish.
+If you decide to take part in this experiment, you will be asked to read some different taste words, one at a time, followed by a display containing 4 packages, and you will be asked to indicate, as soon as possible, whether or not a package with the target taste word is present.
+At the end of the study we will tell you more about the purpose of the study and why we are doing this research. You can also contact Olivia Petit (oliviapetit@imagineeringinstitute.org) for further information at a later date if you wish.
 If you have a concern about any aspect of this project, please contact Professor Adrian Cheok (Director of Imagineering Institute, Email: adrian@imagineeringinstitute.org, or May Quah, Email: May.Quah@khazanah.com.my. They will seek to resolve the matter in a reasonably expeditious manner.  
 Please read the below consent statement and indicate whether you consent. 
 Statement of informed consent
@@ -78,44 +77,54 @@ Statement of informed consent
 <TRIAL block="5">
 	
 	<text width="80%" height="25%"
-     text="On each trial you will see 3 images of packaging. You are asked to arrange those items in a box according to a given question. There are 32 trials in total."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
+     text="On each trial you will  first read a target taste word. After seeing the taste word, a ﬁxation cross will be presented on the screen. Please remain fixated on the fixation cross, as long as the fixation cross is present. Then, you will see a display containing 4 packages. A word will be written on the front on each package. Your task will be to press, as rapidly as possible, one key when the target taste word is present and another key when it is absent. You will have 10 practice trials. The main experience will contain 160 trials."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
 	<nextTrialButton y="90%" x="50%" width="200" depth="0" height="50" verticalAlign="bottom" text="Begin" fontSize="18" />
-	
-	<text copyOverId="taste2" text="" />
 </TRIAL>
 	
+	
+<TRIAL block="10" trials="5" multiId="over_results" template="catch,template"></TRIAL>
+<TRIAL block="10" trials="5" multiId="over_results" template="target,template"></TRIAL>	
+	
+	
+<TRIAL block="10">
+	<text width="80%" height="25%"
+     text="We have finished the practice trials. Click 'begin' to start the study."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
+	<nextTrialButton y="90%" x="50%" width="200" depth="0" height="50" verticalAlign="bottom" text="Begin" fontSize="18" />
+</TRIAL>
+		
+	
+	
 
-
-<TRIAL block="1" multiId="over_results" template="catch,template"></TRIAL>
+<TRIAL multiId="over_results" template="catch,template"></TRIAL>
 <TRIAL multiId="over_results" template="target,template"></TRIAL>
 
 
-
 <catch>
-	<image  id="distractor4" group="images" x="25%" y="25%" SHUFFLE="resource |" resource="1_1_1.jpg|1_1_2.jpg|1_1_3.jpg|1_1_4.jpg|1_2_1.jpg|1_2_2.jpg|1_2_3.jpg|1_2_4.jpg|1_3_1.jpg|1_3_2.jpg|1_3_3.jpg|1_3_4.jpg|1_4_1.jpg|1_4_2.jpg|1_4_3.jpg|1_4_4.jpg|2_1_1.jpg|2_1_2.jpg|2_1_3.jpg|2_1_4.jpg|2_2_1.jpg|2_2_2.jpg|2_2_3.jpg|2_2_4.jpg|2_3_1.jpg|2_3_2.jpg|2_3_3.jpg|2_3_4.jpg|2_4_1.jpg|2_4_2.jpg|2_4_3.jpg|2_4_4.jpg|3_1_1.jpg|3_1_2.jpg|3_1_3.jpg|3_1_4.jpg|3_2_1.jpg|3_2_2.jpg|3_2_3.jpg|3_2_4.jpg|3_3_1.jpg|3_3_2.jpg|3_3_3.jpg|3_3_4.jpg|3_4_1.jpg|3_4_2.jpg|3_4_3.jpg|3_4_4.jpg|4_1_1.jpg|4_1_2.jpg|4_1_3.jpg|4_1_4.jpg|4_2_1.jpg|4_2_2.jpg|4_2_3.jpg|4_2_4.jpg|4_3_1.jpg|4_3_2.jpg|4_3_3.jpg|4_3_4.jpg|4_4_1.jpg|4_4_2.jpg|4_4_3.jpg|4_4_4.jpg" />
-	<results tt="catch" />
+	<image start="3000" id="distractor4" group="images" x="25%" y="25%" SHUFFLE="resource |" resource="1_1_1.jpg|1_1_2.jpg|1_1_3.jpg|1_1_4.jpg|1_2_1.jpg|1_2_2.jpg|1_2_3.jpg|1_2_4.jpg|1_3_1.jpg|1_3_2.jpg|1_3_3.jpg|1_3_4.jpg|1_4_1.jpg|1_4_2.jpg|1_4_3.jpg|1_4_4.jpg|2_1_1.jpg|2_1_2.jpg|2_1_3.jpg|2_1_4.jpg|2_2_1.jpg|2_2_2.jpg|2_2_3.jpg|2_2_4.jpg|2_3_1.jpg|2_3_2.jpg|2_3_3.jpg|2_3_4.jpg|2_4_1.jpg|2_4_2.jpg|2_4_3.jpg|2_4_4.jpg|3_1_1.jpg|3_1_2.jpg|3_1_3.jpg|3_1_4.jpg|3_2_1.jpg|3_2_2.jpg|3_2_3.jpg|3_2_4.jpg|3_3_1.jpg|3_3_2.jpg|3_3_3.jpg|3_3_4.jpg|3_4_1.jpg|3_4_2.jpg|3_4_3.jpg|3_4_4.jpg|4_1_1.jpg|4_1_2.jpg|4_1_3.jpg|4_1_4.jpg|4_2_1.jpg|4_2_2.jpg|4_2_3.jpg|4_2_4.jpg|4_3_1.jpg|4_3_2.jpg|4_3_3.jpg|4_3_4.jpg|4_4_1.jpg|4_4_2.jpg|4_4_3.jpg|4_4_4.jpg" />
+	<results copyOverId="results" tt="catch" />
 </catch>
 
 <target>
-	<image  id="target" group="images" x="25%" y="25%" SHUFFLE="resource |" resource="1_Bitter.jpg|1_Salty.jpg|1_Sour.jpg|1_Sweet.jpg|2_Bitter.jpg|2_Salty.jpg|2_Sour.jpg|2_Sweet.jpg|3_Bitter.jpg|3_Salty.jpg|3_Sour.jpg|3_Sweet.jpg|4_Bitter.jpg|4_Salty.jpg|4_Sour.jpg|4_Sweet.jpg" />
-	<results tt="target"  target="${target.get('resource')}" />
+	<image start="3000" id="target" group="images" x="25%" y="25%" resource="1_Bitter.jpg|1_Salty.jpg|1_Sour.jpg|1_Sweet.jpg|2_Bitter.jpg|2_Salty.jpg|2_Sour.jpg|2_Sweet.jpg|3_Bitter.jpg|3_Salty.jpg|3_Sour.jpg|3_Sweet.jpg|4_Bitter.jpg|4_Salty.jpg|4_Sour.jpg|4_Sweet.jpg" />
+	<results copyOverId="results" id="results" tt="target"  target="${target.resource}" />
 </target>
 	
 
+<template order="random" trials="80" block="20">
+	
+	<text copyOverId="taste" id="taste" text="bitter|salty|sour|sweet" width="100%" height="10%" fontSize="40" start="0" stop="2000" textAlign="center" />
+	
+	<text text="+" start="2000" fontSize="20" width="200" height="10%" y="52%" textAlign="center" stop="3000" />
+	
+	<image start="3000" id="distractor1" group="images" x="75%" y="25%" SHUFFLE="resource |" resource="1_1_1.jpg|1_1_2.jpg|1_1_3.jpg|1_1_4.jpg|1_2_1.jpg|1_2_2.jpg|1_2_3.jpg|1_2_4.jpg|1_3_1.jpg|1_3_2.jpg|1_3_3.jpg|1_3_4.jpg|1_4_1.jpg|1_4_2.jpg|1_4_3.jpg|1_4_4.jpg|2_1_1.jpg|2_1_2.jpg|2_1_3.jpg|2_1_4.jpg|2_2_1.jpg|2_2_2.jpg|2_2_3.jpg|2_2_4.jpg|2_3_1.jpg|2_3_2.jpg|2_3_3.jpg|2_3_4.jpg|2_4_1.jpg|2_4_2.jpg|2_4_3.jpg|2_4_4.jpg|3_1_1.jpg|3_1_2.jpg|3_1_3.jpg|3_1_4.jpg|3_2_1.jpg|3_2_2.jpg|3_2_3.jpg|3_2_4.jpg|3_3_1.jpg|3_3_2.jpg|3_3_3.jpg|3_3_4.jpg|3_4_1.jpg|3_4_2.jpg|3_4_3.jpg|3_4_4.jpg|4_1_1.jpg|4_1_2.jpg|4_1_3.jpg|4_1_4.jpg|4_2_1.jpg|4_2_2.jpg|4_2_3.jpg|4_2_4.jpg|4_3_1.jpg|4_3_2.jpg|4_3_3.jpg|4_3_4.jpg|4_4_1.jpg|4_4_2.jpg|4_4_3.jpg|4_4_4.jpg" />
 
-<template order="random" trials="7" block="-10">
+	<image start="3000"  id="distractor2" group="images" x="25%" y="75%" SHUFFLE="resource |" resource="1_1_1.jpg|1_1_2.jpg|1_1_3.jpg|1_1_4.jpg|1_2_1.jpg|1_2_2.jpg|1_2_3.jpg|1_2_4.jpg|1_3_1.jpg|1_3_2.jpg|1_3_3.jpg|1_3_4.jpg|1_4_1.jpg|1_4_2.jpg|1_4_3.jpg|1_4_4.jpg|2_1_1.jpg|2_1_2.jpg|2_1_3.jpg|2_1_4.jpg|2_2_1.jpg|2_2_2.jpg|2_2_3.jpg|2_2_4.jpg|2_3_1.jpg|2_3_2.jpg|2_3_3.jpg|2_3_4.jpg|2_4_1.jpg|2_4_2.jpg|2_4_3.jpg|2_4_4.jpg|3_1_1.jpg|3_1_2.jpg|3_1_3.jpg|3_1_4.jpg|3_2_1.jpg|3_2_2.jpg|3_2_3.jpg|3_2_4.jpg|3_3_1.jpg|3_3_2.jpg|3_3_3.jpg|3_3_4.jpg|3_4_1.jpg|3_4_2.jpg|3_4_3.jpg|3_4_4.jpg|4_1_1.jpg|4_1_2.jpg|4_1_3.jpg|4_1_4.jpg|4_2_1.jpg|4_2_2.jpg|4_2_3.jpg|4_2_4.jpg|4_3_1.jpg|4_3_2.jpg|4_3_3.jpg|4_3_4.jpg|4_4_1.jpg|4_4_2.jpg|4_4_3.jpg|4_4_4.jpg" />
 	
-	<text text="+" start="0" end="1000" />
-	
-	<image  id="distractor1" group="images" x="75%" y="25%" SHUFFLE="resource |" resource="1_1_1.jpg|1_1_2.jpg|1_1_3.jpg|1_1_4.jpg|1_2_1.jpg|1_2_2.jpg|1_2_3.jpg|1_2_4.jpg|1_3_1.jpg|1_3_2.jpg|1_3_3.jpg|1_3_4.jpg|1_4_1.jpg|1_4_2.jpg|1_4_3.jpg|1_4_4.jpg|2_1_1.jpg|2_1_2.jpg|2_1_3.jpg|2_1_4.jpg|2_2_1.jpg|2_2_2.jpg|2_2_3.jpg|2_2_4.jpg|2_3_1.jpg|2_3_2.jpg|2_3_3.jpg|2_3_4.jpg|2_4_1.jpg|2_4_2.jpg|2_4_3.jpg|2_4_4.jpg|3_1_1.jpg|3_1_2.jpg|3_1_3.jpg|3_1_4.jpg|3_2_1.jpg|3_2_2.jpg|3_2_3.jpg|3_2_4.jpg|3_3_1.jpg|3_3_2.jpg|3_3_3.jpg|3_3_4.jpg|3_4_1.jpg|3_4_2.jpg|3_4_3.jpg|3_4_4.jpg|4_1_1.jpg|4_1_2.jpg|4_1_3.jpg|4_1_4.jpg|4_2_1.jpg|4_2_2.jpg|4_2_3.jpg|4_2_4.jpg|4_3_1.jpg|4_3_2.jpg|4_3_3.jpg|4_3_4.jpg|4_4_1.jpg|4_4_2.jpg|4_4_3.jpg|4_4_4.jpg" />
-
-	<image  id="distractor2" group="images" x="25%" y="75%" SHUFFLE="resource |" resource="1_1_1.jpg|1_1_2.jpg|1_1_3.jpg|1_1_4.jpg|1_2_1.jpg|1_2_2.jpg|1_2_3.jpg|1_2_4.jpg|1_3_1.jpg|1_3_2.jpg|1_3_3.jpg|1_3_4.jpg|1_4_1.jpg|1_4_2.jpg|1_4_3.jpg|1_4_4.jpg|2_1_1.jpg|2_1_2.jpg|2_1_3.jpg|2_1_4.jpg|2_2_1.jpg|2_2_2.jpg|2_2_3.jpg|2_2_4.jpg|2_3_1.jpg|2_3_2.jpg|2_3_3.jpg|2_3_4.jpg|2_4_1.jpg|2_4_2.jpg|2_4_3.jpg|2_4_4.jpg|3_1_1.jpg|3_1_2.jpg|3_1_3.jpg|3_1_4.jpg|3_2_1.jpg|3_2_2.jpg|3_2_3.jpg|3_2_4.jpg|3_3_1.jpg|3_3_2.jpg|3_3_3.jpg|3_3_4.jpg|3_4_1.jpg|3_4_2.jpg|3_4_3.jpg|3_4_4.jpg|4_1_1.jpg|4_1_2.jpg|4_1_3.jpg|4_1_4.jpg|4_2_1.jpg|4_2_2.jpg|4_2_3.jpg|4_2_4.jpg|4_3_1.jpg|4_3_2.jpg|4_3_3.jpg|4_3_4.jpg|4_4_1.jpg|4_4_2.jpg|4_4_3.jpg|4_4_4.jpg" />
-	
-	<image  id="distractor3" group="images" x="75%" y="75%" SHUFFLE="resource |" resource="1_1_1.jpg|1_1_2.jpg|1_1_3.jpg|1_1_4.jpg|1_2_1.jpg|1_2_2.jpg|1_2_3.jpg|1_2_4.jpg|1_3_1.jpg|1_3_2.jpg|1_3_3.jpg|1_3_4.jpg|1_4_1.jpg|1_4_2.jpg|1_4_3.jpg|1_4_4.jpg|2_1_1.jpg|2_1_2.jpg|2_1_3.jpg|2_1_4.jpg|2_2_1.jpg|2_2_2.jpg|2_2_3.jpg|2_2_4.jpg|2_3_1.jpg|2_3_2.jpg|2_3_3.jpg|2_3_4.jpg|2_4_1.jpg|2_4_2.jpg|2_4_3.jpg|2_4_4.jpg|3_1_1.jpg|3_1_2.jpg|3_1_3.jpg|3_1_4.jpg|3_2_1.jpg|3_2_2.jpg|3_2_3.jpg|3_2_4.jpg|3_3_1.jpg|3_3_2.jpg|3_3_3.jpg|3_3_4.jpg|3_4_1.jpg|3_4_2.jpg|3_4_3.jpg|3_4_4.jpg|4_1_1.jpg|4_1_2.jpg|4_1_3.jpg|4_1_4.jpg|4_2_1.jpg|4_2_2.jpg|4_2_3.jpg|4_2_4.jpg|4_3_1.jpg|4_3_2.jpg|4_3_3.jpg|4_3_4.jpg|4_4_1.jpg|4_4_2.jpg|4_4_3.jpg|4_4_4.jpg" />
+	<image start="3000"  id="distractor3" group="images" x="75%" y="75%" SHUFFLE="resource |" resource="1_1_1.jpg|1_1_2.jpg|1_1_3.jpg|1_1_4.jpg|1_2_1.jpg|1_2_2.jpg|1_2_3.jpg|1_2_4.jpg|1_3_1.jpg|1_3_2.jpg|1_3_3.jpg|1_3_4.jpg|1_4_1.jpg|1_4_2.jpg|1_4_3.jpg|1_4_4.jpg|2_1_1.jpg|2_1_2.jpg|2_1_3.jpg|2_1_4.jpg|2_2_1.jpg|2_2_2.jpg|2_2_3.jpg|2_2_4.jpg|2_3_1.jpg|2_3_2.jpg|2_3_3.jpg|2_3_4.jpg|2_4_1.jpg|2_4_2.jpg|2_4_3.jpg|2_4_4.jpg|3_1_1.jpg|3_1_2.jpg|3_1_3.jpg|3_1_4.jpg|3_2_1.jpg|3_2_2.jpg|3_2_3.jpg|3_2_4.jpg|3_3_1.jpg|3_3_2.jpg|3_3_3.jpg|3_3_4.jpg|3_4_1.jpg|3_4_2.jpg|3_4_3.jpg|3_4_4.jpg|4_1_1.jpg|4_1_2.jpg|4_1_3.jpg|4_1_4.jpg|4_2_1.jpg|4_2_2.jpg|4_2_3.jpg|4_2_4.jpg|4_3_1.jpg|4_3_2.jpg|4_3_3.jpg|4_3_4.jpg|4_4_1.jpg|4_4_2.jpg|4_4_3.jpg|4_4_4.jpg" />
 	
 	<shuffle group="images" />
 
-    <Text howMany="2" disabled="true" keyEnabled="true" hideResults="true" x="40%---60%"  key="z---m" id="a---b"  y="51%" textAlign="right---left" verticalAlign="center" text="present---absent" text1=" (" text2="z---m" text3=")" width="150" height="40"  fontSize="18"/>
+    <Text start="3000" howMany="2" disabled="true" keyEnabled="true" hideResults="true" x="40%---60%"  key="z---m" id="a---b"  y="51%" textAlign="right---left" verticalAlign="center" text="present---absent" text1=" (" text2="z---m" text3=")" width="150" height="40"  fontSize="18"/>
 	
 	<key howMany="2" key="z---m">
 		<action>
@@ -127,6 +136,7 @@ Statement of informed consent
 	<rt/>
 	
 
+	<results copyOverId="results" id="results" taste="${taste.text}"  />
 	
 	<trialCounter height="60" depth="0" y="8%" total="32" />
 	
@@ -139,8 +149,8 @@ Statement of informed consent
 <text  colour="black" timeStart="0" width="80%" y="40%" height="70%" fontSize="16">
 	<.text>Trust online    
 Thank-you for completing our study!     
-The aim of this research was to investigate how colours influence trust online. Previous research has suggested that certain colours facilitate turst more than others. In that sense, we want to study which colours may be more trustable when it comes to the context of financial services.    
-      If you have any further questions, please contact Carlos Velasco (Email: carlos@imagineeringinstitute.org).         
+The aim of this research was to investigate how spatial location would facilitate visual search for product packaging that was associated with a specific taste label. Previous research has demonstrated the existence of a number of crossmodal correspondences between taste/flavour and visual attributes. Here, we want to assess the correspondence between a taste and spatial elevation (up and down) and/or laterality (left and right).     
+      If you have any further questions, please contact Olivia Petit (Email: oliviapetit@imagineeringinstitute.org).         
 PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLFIC ACADEMIC KNOWS YOU HAVE COMPLETED THE STUDY. THANKS.
 </.text>
 </text>

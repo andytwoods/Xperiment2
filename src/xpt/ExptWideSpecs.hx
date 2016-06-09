@@ -1,5 +1,6 @@
 package xpt;
 
+import xpt.tools.Base64;
 import openfl.Assets;
 import thx.Uuid;
 import xpt.tools.XML_tools;
@@ -130,6 +131,32 @@ class ExptWideSpecs
 		return map.get("exptId");
 	}
 	
+	public static function getMTurkCode():String {
+			
+		var assignment_id:String = get("assignment_id", '');
+		if (assignment_id == null || assignment_id.length == 0) return 'ERROR!';
+		
+		var s1:Int = 0;
+		var s2:Int = 0;
+		var tempInt:Int;
+		for (i in 0...assignment_id.length)
+		{
+			tempInt = assignment_id.charCodeAt(i);
+			s1+=Math.floor(tempInt/10);
+			s2+=tempInt-(Math.floor(tempInt*.1)*10);
+		}
+		return Std.string(s1+s2);
+
+	}
+	
+	public static function get(what, _default:Dynamic = null):Dynamic {
+		var found = IS(what, false);
+		if (found == null) {
+			return _default;
+		}
+		return found;
+	}
+	
 	public static function IS(what:String, throwException:Bool = true):Dynamic {
 		if (map.exists(what) == false) { 
 			if (what == 'startTime') return startTime;
@@ -173,6 +200,7 @@ class ExptWideSpecs
 		if (params == null) return;
 		
 		for (key in params.keys()) {
+			trace(key, params.get(key));
 			map.set(key, params.get(key));
 		}		
 		

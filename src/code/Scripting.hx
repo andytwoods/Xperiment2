@@ -17,6 +17,7 @@ import openfl.utils.Object;
 import wrappers.SystemWrapper;
 import xpt.debug.DebugManager;
 import xpt.experiment.Experiment;
+import xpt.ExptWideSpecs;
 import xpt.stimuli.StimHelper;
 import xpt.stimuli.StimTools;
 import xpt.stimuli.Stimulus;
@@ -90,6 +91,7 @@ class Scripting
 		bundle.scriptEngine.variables.set("System", new SystemWrapper());
 		bundle.scriptEngine.variables.set("Text", Text);
 		bundle.scriptEngine.variables.set("Tools", StimTools);
+		bundle.scriptEngine.variables.set("ExptWideSpecs", ExptWideSpecs);
 		
 
 		all_bundles.push(bundle);
@@ -177,12 +179,15 @@ class Scripting
 
 	
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
+		
 		if (stim.get(prop) != null) {
+			
 			var bundle:ScriptBundle = getBundle();
 			try {
 				bundle.add("this", stim.component);
 				bundle.add("me", stim.component);
 				bundle.add("stim", stim);
+				bundle.add("event", event);
 				if(event!=null) bundle.add("e", event);
 
 				addExtraVars(bundle);
@@ -219,7 +224,7 @@ class Scripting
 	
 	
 	 public static function expandScriptValues(script:String, vars:Map<String, Dynamic> = null, exceptions:Array<String> = null, stimuli:Array<Stimulus> = null ):String {
-   
+
 		var finalResult:String = script;
 		var n1:Int = finalResult.indexOf("${");
        
@@ -255,6 +260,7 @@ class Scripting
         }
         
 		returnBundle(bundle);
+
         return finalResult;
     }
 	

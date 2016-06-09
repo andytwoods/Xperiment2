@@ -250,7 +250,7 @@ class Stimulus {
 		}
 		return _component;
 	}
-	
+		
     public function updateComponent():Void {
         if (_component != null) {
             builder.update();

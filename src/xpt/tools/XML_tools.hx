@@ -509,29 +509,30 @@ class XML_tools
 	static public inline function overwriteAttribs_addAbsentChildren(found:Iterator<Xml>, map:Map<String, String>, children:Iterator<Xml>) 
 	{
 		var val:String;
-		
+
 		var childrenArr:Array<Xml> = [];
 		
 		for (child in children) {
 			childrenArr[childrenArr.length] = child;	
 		}
 
-		for (key in map.keys()) {
-			val = map.get(key);
-			for (xml in found) {	
+		for (xml in found) {
+			for (child in childrenArr) {			
+				xml.addChild(copy(child).firstChild());
+			}	
 			
-				xml.set(key, val);				
-				for (child in childrenArr) {			
-					xml.addChild(copy(child).firstChild());
-				}				
+			for (key in map.keys()) {
+				val = map.get(key);
+				xml.set(key, val);	
 			}
 		}
+		
 	}
+}
 	
 	
 	
 
-}
 
 			
 

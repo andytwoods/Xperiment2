@@ -1,11 +1,13 @@
 package xpt.ui.custom;
 
+import flash.display.Stage;
 import haxe.Constraints.FlatEnum;
 import haxe.ui.toolkit.containers.Box;
 import haxe.ui.toolkit.containers.VBox;
 import haxe.ui.toolkit.controls.Text;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.interfaces.InvalidationFlag;
+import haxe.ui.toolkit.core.RootManager;
 import haxe.ui.toolkit.core.Screen;
 import haxe.ui.toolkit.core.StateComponent;
 import haxe.ui.toolkit.events.UIEvent;
@@ -27,6 +29,9 @@ class LineScale extends StateComponent {
 	private var _line:Line;
 	private var bounds:Rectangle;
 	public var bufferZone:Box;
+	public var triangleMoveCallBack:Float->Void;
+	
+	var stage:Stage;
 	
 	#if html5
 		var spr:Sprite;
@@ -63,6 +68,8 @@ class LineScale extends StateComponent {
 			Browser.window.addEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
 		#end
 		addChild(_selection);
+		
+		
 
 		
 	}
@@ -78,7 +85,7 @@ class LineScale extends StateComponent {
 		#if html5
 			Browser.window.removeEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
 			if (spr != null) {
-				if (_line != null && _line.sprite.stage != null && _line.sprite.stage.contains(spr))_line.sprite.stage.removeChild(spr);
+				RootManager.instance.currentRoot.sprite.stage.removeChild(spr);
 				spr = null;
 			}
 			#if html5
@@ -92,9 +99,21 @@ class LineScale extends StateComponent {
 	private function _onTriangleMouseDown(event:MouseEvent):Void {
 		calcBounds();
 		_selection.sprite.startDrag(false, bounds);
-		//_selection.sprite.stage.addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove); //note some weird interaction with this. Causes mouse to continue to move, despite stopDrag() 
-		_selection.sprite.stage.addEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
+		if (triangleMoveCallBack != null) {
+			_selection.sprite.stage.addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMoveCallback);
+		}
+		//_selection.sprite.stage.addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove); //note some weird interaction with this. Causes mouse to continue to move, despite stopDrag()
+		
+		RootManager.instance.currentRoot.sprite.stage.addEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
 	}
+	
+	function _onMouseMoveCallback(e:MouseEvent) {
+		if (triangleMoveCallBack != null) {
+			_onMouseMove(null);
+			triangleMoveCallBack(val);
+		}
+	}
+	
 	
 	private inline function calcBounds() {
 		bounds = _line.sprite.getBounds(_line.sprite);
@@ -114,9 +133,7 @@ class LineScale extends StateComponent {
 			if(on){
 				spr = new Sprite();
 				spr.graphics.drawRect(0, 0, 1, 1);
-				if (_line.sprite.stage != null) {
-					_line.sprite.stage.addChild(spr);
-				}
+				RootManager.instance.currentRoot.sprite.stage.addChild(spr);	
 			}
 			
 		#end
@@ -136,6 +153,9 @@ class LineScale extends StateComponent {
 	}
 	
 	private function _onMouseUp(e:MouseEvent):Void {
+		if (triangleMoveCallBack != null) {
+			RootManager.instance.currentRoot.sprite.stage.removeEventListener(MouseEvent.MOUSE_MOVE, _onMouseMoveCallback);	
+		}
 		//e.target.removeEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
 		e.target.removeEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
 		_onMouseMove(null);

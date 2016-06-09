@@ -10,6 +10,10 @@ class Base64 {
 		return BaseCode.encode( t, CHARS ) + "=";
 	}
 	
+	
+	public static inline function decode( t : String ) : String {
+		return BaseCode.decode( t, CHARS );
+	}
 
 	
 

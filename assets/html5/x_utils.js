@@ -72,6 +72,7 @@ var x_utils = (function() {
 				} else{
 					negative = false;
 				}
+				trace(deviceNam, device.hasOwnProperty(deviceNam),33);
 				if(device.hasOwnProperty(deviceNam) == false){
 					return {'is_good': false, 'message': 'Experimenter error. Asked to screen for an unknown device: '+deviceNam};
 				}

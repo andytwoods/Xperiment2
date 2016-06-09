@@ -49,12 +49,12 @@ class TimingManager {
 			f();
 			f = null;
 		}
-	
+
 		for (stim in _stims) {
 			var start:Float = stim.start;
 			var stop:Float = stim.stop;
 			var duration:Float = stim.duration;
-			
+		
 			if (stop != -1 || duration != -1) {
 				if (start < 0) {
 					start = 0;

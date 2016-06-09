@@ -25,11 +25,15 @@ class StimLineScale extends StimulusBuilder {
 	
 	private override function createComponentInstance():Component {
         lineScale = new LineScale();
-        lineScale.addEventListener(UIEvent.CHANGE, function(e) {
-           onStimValueChanged(Floats.roundTo(lineScale.val,2)); 
-        });
-
+		lineScale.triangleMoveCallBack = triangleMoveCallBack;
+  
 		return lineScale;
+	}
+	
+	private function triangleMoveCallBack(val:Float) {
+		onStimValueChanged(Floats.roundTo(val, 2)); 
+		var e:UIEvent = new UIEvent(UIEvent.CHANGE);
+		lineScale.dispatchEvent(e);
 	}
 	
 	private override function applyProperties(c:Component) {
