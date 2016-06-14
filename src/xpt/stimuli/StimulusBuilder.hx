@@ -197,7 +197,6 @@ class StimulusBuilder {
 	private function applyProperties(c:Component) {
 		var root:Root = RootManager.instance.currentRoot;
 		
-		trace('setting text', get('text'), stim.props);
 		var text:String = get("text");
 		
 		if (text == null) {

@@ -34,16 +34,12 @@ class StimTimer extends StimulusBuilder {
     }
     
     private function onTimer(event:TimerEvent) {
-        runScriptEvent("action", event);
         if (_interval > 0) {
             _timer.removeEventListener(TimerEvent.TIMER_COMPLETE, onTimer);
             _timer.stop();
             _timer = null;
-            
-            _timer = new Timer(_interval, 1);
-            _timer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimer);
-            _timer.start();
         }
+		runScriptEvent("action", event);
     }
     
     public override function onRemovedFromTrial() {

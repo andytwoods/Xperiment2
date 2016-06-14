@@ -5,6 +5,7 @@ import code.CheckIsCode;
 import code.CheckIsCode.RunCodeEvents;
 import code.Scripting;
 import flash.events.Event;
+import haxe.ui.toolkit.core.RootManager;
 import openfl.events.EventDispatcher;
 import openfl.utils.Object;
 import xpt.backend_driven_expt.BackendDriven;
@@ -40,6 +41,7 @@ import xpt.trial.TrialFactory;
 import xpt.trial.TrialSkeleton;
 import xpt.trialOrder.TrialBlock;
 import xpt.trialOrder.TrialOrder;
+import openfl.Lib;
 
 @:allow(xpt.trialOrder.Test_TrialOrder)
 class Experiment extends EventDispatcher {
@@ -89,7 +91,7 @@ class Experiment extends EventDispatcher {
 		//DebugManager.instance.enabled = true;
 
 		DebugManager.instance.info("Experiment ready");
-		ScreenManager.instance.background(ExptWideSpecs.IS("backgroundColour")); 
+		background(ExptWideSpecs.IS("backgroundColour")); 
 		
 		setupTrials(script);
 
@@ -100,6 +102,11 @@ class Experiment extends EventDispatcher {
 		});	
 	}
 	
+	public function background(colStr:String) {
+		var col:Int = XTools.getColour(colStr);	
+		RootManager.instance.currentRoot.style.backgroundAlpha = 0;
+		Lib.current.stage.color = col;
+	}
 
 
 	private function linkups() {

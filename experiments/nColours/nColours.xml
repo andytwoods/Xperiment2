@@ -1,22 +1,30 @@
-<multi _forceToRun='exptSwatchRight'>
-<exptSwatchLeft>
+<multi>
+<exptA>
 
 <SETUP>  
-	  <screen BGcolour="808080" orientation="vertical" ></screen>                          
-	  <computer  encrypt='false' />
-	  <style BUTTON_DOWN="0xff5656"  />
-	  <variables practice='0' />
+	  <screen></screen>                          
 </SETUP>
 
-
+<!-- SCREEN ONE: INTRODUCTION SCREEN -->
+  
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
-	
+
 	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
-	<text width="100%" height="20%" 
+
+	<text width="100%" height="70%" 
 		  text=
-		  "Thank you for your interest in this study. On each trial you will see images that are being fine tuned for various taste-related attributes. You are asked to arrange these in a box according to a given question. There are 5 trials in total."
-	fontSize="20" />
-	
+"Crossmodal Research Laboratory, Department of Experimental Psychology, Tinbergen Building, 9 South Parks Road, Oxford, OX1 3UD, England. Researcher Contact Details: Noemi Dreksler (Email: noemi.dreksler@psy.ox.ac.uk)
+Colour Shape Matching – The Role of Emotion, Mental Imagery, and Creativity
+Dear participant,
+Welcome to this experiment exploring colours and shapes from the Crossmodal Research Laboratory at the University of Oxford. In this experiment you will be asked to match colours and shapes, rate them, and answer some questions about yourself and some items. To find out more about what to expect download the official participant sheet here (LINK TO PDF - TO BE DONE).
+If you have any questions or concerns, please contact the researcher under noemi.dreksler@psy.ox.ac.uk.
+Before you begin please make sure:
+ -  You have normal or corrected-to-normal vision
+ -  You are not colour blind or colour impaired in any way (e.g. red/green colour blindness, which is common in men)
+ -  You are sitting in a room lit normally (not dark) that is quiet and free from distractions.
+Thank you for your help with our research!"
+
+	fontSize="15"/>
 	
 	<preloadProgress x="20" y="90%"  horizontalAlign="left" width="70%" height="40" />
 	<preloadReadyButton x="85%" y="90%" width="20%" height="40" fontSize="18" />
@@ -25,47 +33,185 @@
 
 
 
+<!-- SCREEN TWO: CONSENT SCREEN -->
 
-<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
-	<text text="What is your Prolific Academic ID?" fontSize="20" width="400" height="30" textAlign="center"  y="40%" />
+<TRIAL TYPE="Trial" hideResults="false" block="2" order="fixed" trials="1">
+	 
+<text  width="100%" height="80%" fontSize="17" y="100" verticalAlign="top">
+<.text>This is our online consent form. Please click 'I agree' at the bottom of the page if you consent to all conditions listed below.
+(1) I have read the information sheet and have had the opportunity to ask questions and receive satisfactory answers from the researcher. 
+(2) I understand that my participation is voluntary and that I am free to withdraw at any point during or after the experiment, without any academic or financial penalty, and without giving any reason for my withdrawal.
+(3) I understand that my data will be handled only by the researchers involved in this project and will be kept strictly confidential and anonymous through the use of number codes. I understand that the results of the analysis of the data of the experiment as a whole will be published in scientific journals and as part of a doctoral thesis. 
+(4) I understand that this project has been reviewed by, and received ethics clearance through, the University of Oxford Central University Research Ethics Committee.
+(5) I agree to take part in this study.
+(6) I understand how to raise a concern or make a complaint.
+		</.text></text>
 	
-	<input y="50%" width="300" height="50" fontSize="20"  />
-   
-	<nextTrialButton y="80%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
-</TRIAL>	
+	
+	<nextTrialButton y="95%" width="200" height="50" text="I agree" fontSize="18" />
+</TRIAL>
+
+
+
+<!-- SCREEN THREE: PRE-COUNTERBALANCING INFORMATION SCREEN -->
+
+<TRIAL TYPE="Trial" hideResults="true" block="3" order="fixed" trials="1">
+
+	<text width="100%" height="70%" text=
+"Instructions (1):
+
+Before we begin we have two short tasks for you to complete. 
+In this first task you will be presented with an item (e.g. a brick) and what it is usually used for (e.g. used for building). You will then be asked to write down six different ways one could use this item that you can think of (e.g. as a doorstop, for building a house, to throw through a window, as a toy coffin at a Barbie funeral, a diving aid, a paperweight). The uses you think of should aim to be as uncommon, original, and creative as possible. After 3 minutes you will be taken to the next task – but please try and not feel rushed and instead focus on writing down uncommon uses.
+Press ‘I’m ready’ below to be taken to the task."
+
+	fontSize="15"/>
+	
+	<nextTrialButton y="95%" width="250" height="50" text="I'm ready" fontSize="18" />
+	
+</TRIAL>
+
+
+
+<!-- SCREEN FOUR: PAPERCLIP 3MIN -->
+
+<TRIAL TYPE="Trial" hideResults="false" block="4" order="fixed" trials="1">
+
+	<text width="100%" height="70%" text=
+"Paperclip (used as stationary)
+List six uncommon, original, and creative uses for a paperclip you can think of. You have up to 3 minutes."
+	fontSize="15"/>
 	
 
-<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
-	<text text="Some questions before we start:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
-	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
-	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
-    <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
-	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
+  	<text  howMany="6" y="260---330---etc---" width="50" height="50" x="7%"  text="(" text1="1---2---etc---" text2=")" fontSize="15"/>
+    <input howMany="6" y="250---320---etc---" width="300" height="50" fontSize="15" horizontalAlign="left" x="10%" />
 
-	<nextTrialButton y="50%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
-</TRIAL>	
+    <timer interval="180000">
+		<action>Experiment.nextTrial()</action>
+	</timer>
+  
+	<nextTrialButton y="95%" width="250" height="50" text="Continue" fontSize="18" />
+  
+</TRIAL>
+
+
+
+<!-- SCREEN FIVE: PRE-COUNTERBALANCING INFORMATION SCREEN (AGAIN) -->
+
+<TRIAL TYPE="Trial" hideResults="true" block="5" order="fixed" trials="1">
+
+	<text width="100%" height="70%" text=
+"Instructions (2):
+
+The next task is slightly different: you will have one minute to write down as many uses for the object presented as possible. 
+When you are ready to continue press the ‘I’m ready’ button below to continue to the next task."
+
+	fontSize="15"/>
 	
+	<nextTrialButton y="95%" width="250" height="50" text="I'm ready" fontSize="18" />
 	
-<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
-	<text text="In this study, you will see the below images. You are asked to rate them according to the below questions." fontSize="30" textAlign="center" width="100%" height="100" verticalAlign="top" y="0" />
+</TRIAL>
+
+
+
+<!-- SCREEN SIX: NEWSPAPER 1MIN -->
+
+<TRIAL TYPE="Trial" hideResults="false" block="6" order="fixed" trials="1">
+
+	<text width="100%" height="70%" text=
+"Newspaper  (used as a medium for reporting news)
+List as many uses for a newspaper you can think of in one minute. Separate items with commas (,)."
+	fontSize="15"/>
+  
+    <input y="50%" width="80%" height="350" fontSize="15" horizontalAlign="left" x="10%" />
+	
+	<nextTrialButton y="95%" width="250" height="50" text="Continue" fontSize="18" />
+  
+
+    <timer interval="60000">
+		<action>Experiment.nextTrial()</action>
+	</timer>
+	
+</TRIAL>
+
+
+
+
+
+<TRIAL TYPE="Trial" hideResults="true" block="7" order="fixed" trials="1">
+
+	<text width="100%" height="70%" text=
+"Well done! The rest of the experiment is not timed, so you can answer at your own pace.
+
+When you are ready to continue press the ‘I’m ready’ button below to continue to the next task."
+
+	fontSize="15"/>
+	
+	<nextTrialButton y="95%" width="250" height="50" text="I'm ready" fontSize="18" />
+	
+</TRIAL>
+
+
+
+<!-- SCREEN EIGHT: MATCHING SHAPES TO COLOURS INTRODUCTIONS -->
+	<!-- SCREEN EIGHT-A: COUNTERBALANCED INTRODUCTION ~ PART I -->
+	
+	<!-- ??? UNSURE ??? -->
+	<!-- Not sure what the two different instructions are meant for - they seem very similar to me? (GS) -->
+
+<TRIAL TYPE="Trial" hideResults="true" block="8" order="fixed" trials="1">
+
+	<text width="100%" height="70%" text=
+"Instructions:
+
+In this part of the experiment, you will be presented with various shapes on the screen. Your task will be to pick the colour that you intuitively think fits best to the shape you see – follow your gut instincts and try to not pick based on knowledge of specific objects (there are no right or wrong answers). You will then be asked how intuitive and right this match feels to you. Note that as soon as you click on a colour you will be taken to the next screen.
+
+When you are ready to continue press the ‘I’m ready’ button below to continue to the next task."
+
+	fontSize="15"/>
+	
+	<nextTrialButton y="95%" width="250" height="50" text="I'm ready" fontSize="18" />
+	
+</TRIAL>
+
+	<!-- SCREEN EIGHT-B: COUNTERBALANCED INTRODUCTION ~ PART II -->
+
+<TRIAL TYPE="Trial" hideResults="true" block="9" order="fixed" trials="1">
+
+	<text width="100%" height="70%" text=
+"Instructions:
+
+In this part of the experiment, you will be presented with a screen filled at the top with a colour. Below this you will see a variety of shapes. Your task will be to pick the shape that you intuitively think fits best to the colour shown at the top of the screen – follow your gut instincts and try to not pick based on knowledge of specific objects (there are no right or wrong answers). You will then be asked how intuitive and right this match feels to you. Note that as soon as you click on a shape you will be taken to the next screen.
+
+When you are ready to continue press the ‘I’m ready’ button below to continue to the next task."
+
+	fontSize="15"/>
+	
+	<do><action>Experiment.background('yellow')</action></do>
+	
+	<nextTrialButton y="95%" width="250" height="50" text="I'm ready" fontSize="18" />
+	
+</TRIAL>
+
+
+
+<!-- SCREENS NINE THROUGH ???: MATCHING SHAPES TO COLOURS TASKS -->
+
+	<!-- ??? UNSURE HOW TO PROCEED ??? -->
+	
+	<!-- (1) Screen needs to now be grey. Not sure how to achieve this - can you change 'SETUP' mid-experiment? -->
+	<!-- Also, you'll need to decide what RGB value you want to use as the grey background: https://en.wikipedia.org/wiki/Middle_gray -->
+	<!-- Both #777777 and #BCBCBC seem appropriate to me. -->
 
 	
-	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="40%---47%---etc---" howMany="5" text="How CITRUS do you think each logo is?---How FLORAL do you think each logo is?---How SPICY do you think each logo is?---How FRUITY do you think each logo is?---How CREAMY do you think each logo is?"
-		/>
 	
-	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
-</TRIAL>	
-	
-	
-	
-
-<TRIAL order="random" trials="58" multiId="cond1" block="10">
+<TRIAL order="random" trials="58" block="10">
 	
 	<text text="Some explanation..." fontSize="30" textAlign="center" width="100%" height="100" verticalAlign="top" y="0" />
 
-	<image multiId="a" id="image" x="75%" resource="1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|36|37|38|39|40|41|42|43|44|45|46|47|48|49|50|51|52|53|54|55|56|57|58" resource1=".png" />
+	<image id="image" multiId='imageX' x="75%" resource="1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|36|37|38|39|40|41|42|43|44|45|46|47|48|49|50|51|52|53|54|55|56|57|58" resource1=".png" />
 	
-	<svg resource="colour_swatch.svg" multiId="b" x="25%" svgtool_shuffle="shuffle">
+	<svg SHUFFLE="resource" resource="colour_swatch.svg---colour_swatch.svg" multiId='svg' x="25%">
+      <!-- add \\svgtool_shuffle="shuffle"\\ in the function above (just after \\x="25%"\\) to re-add the colour shuffling each trial-->
 		<onClick>
 			Trial.save('image', image.get('resource'));
 			Trial.save('clicked', Tools.ColourAtCursor());
@@ -76,9 +222,7 @@
 	
 </TRIAL>
 	
-	
-
-	
+		
 <TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
 
 <text  colour="black" timeStart="0" width="80%" y="40%" height="70%" fontSize="16">
@@ -91,12 +235,13 @@ PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLIFIC ACADEMIC KNOWS YOU HAVE COMP
 <link text="Prolific Academic Link" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/56ec13b6388e1d000b589209/complete?cc=DCPAOKVF" />
 
 </TRIAL>	
-</exptSwatchLeft>
-  
-<exptSwatchRight>
-  <a x="25%"/>
-  <b x="75%"/>
-  
-</exptSwatchRight>
-</multi>
 	
+</exptA>
+
+<exptB>
+	<svg x="75%" />
+	<imageX x='25%'/>
+</exptB>
+	
+
+</multi>	
