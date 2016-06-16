@@ -8,11 +8,11 @@
 	<!-- output -->
 	<app main="Xpt" file="XptHaxe" path="bin" />
 	
-    
+<!--    
     <haxedef name="dom" />
 	<haxeflag name="-D dom" />
     
-	
+	-->
 	<app main="Xpt" preloader="xpt.loadingScreen.LoadingScreen"/>
 	
 	<!--<haxeflag name="-D haxeJSON"/>-->

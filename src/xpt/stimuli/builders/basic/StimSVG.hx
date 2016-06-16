@@ -7,6 +7,7 @@ import haxe.ui.toolkit.controls.Image;
 import haxe.ui.toolkit.core.Component;
 import openfl.display.Bitmap;
 import openfl.display.Sprite;
+import openfl.events.MouseEvent;
 import thx.Arrays;
 import thx.Maps;
 import thx.Objects;
@@ -37,6 +38,7 @@ class StimSVG extends StimulusBuilder {
 		return new Image();
 	}
 	
+
 	private override function applyProperties(c:Component) {
 		super.applyProperties(c);
 		var image:Image = cast c;
@@ -54,14 +56,29 @@ class StimSVG extends StimulusBuilder {
 		processSVG(resource, image);
 
 		}
+		
+
 	}
 	
+	@:access(haxe.ui.toolkit.controls.Image)
 	function processSVG(resource:String, image:Image) 
 	{
 		var svg:String = Preloader.instance.preloadedText.get(resource);
 		if (svg != null) {
 			if (svg_txt != null) return;
 			setSvg(svg, image);	
+			
+			
+					#if html5
+			var onClick:String = get("onClick");
+			
+			image._svgSprite.addEventListener(MouseEvent.CLICK, function(e:MouseEvent) {
+				trace(123);
+			});
+		
+		#end
+			
+			
 		}
 	    else{
 			Preloader.instance.callbackWhenLoaded(resource, function() {

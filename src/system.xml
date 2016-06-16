@@ -70,7 +70,7 @@
 			NON-VISUAL STIMULI
 		************************************************************************************ -->
 		<sound builder="xpt.stimuli.builders.nonvisual.StimSound"/>
-		<synth builder="xpt.stimuli.builders.nonvisual.StimSynth"/>
+		<!--<synth builder="xpt.stimuli.builders.nonvisual.StimSynth"/>-->
 		<timer builder="xpt.stimuli.builders.nonvisual.StimTimer"/>
 		<do builder="xpt.stimuli.builders.nonvisual.StimDo"/>
 		<rt builder="xpt.stimuli.builders.nonvisual.StimRT">
