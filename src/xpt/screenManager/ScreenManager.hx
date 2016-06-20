@@ -96,6 +96,7 @@ class ScreenManager
 	
 		callbacks = new Array<Float->Float->Void>();
 		root = RootManager.instance.currentRoot;
+	
 		root.autoSize = false;
 		stage = Lib.current.stage;
 	

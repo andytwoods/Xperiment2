@@ -104,6 +104,7 @@ class TimingManager {
 	}
 	
 	public function remove(stim:Stimulus) {
+		removeFromTrial(stim);
 		_stims.remove(stim);
 	}
 	

@@ -67,17 +67,11 @@ class StimInputText extends StimulusBuilder {
 			} );
 			
 			
-			var td:TextDisplay = cast(input._textDisplay, TextDisplay);
-			var tf: TextField = td._tf;
 			
-			tf.autoSize = TextFieldAutoSize.NONE;
 			
-			//var de:DOMElement = cast(tf, DOMElement);
-			tf.text = '123';
-			tf.multiline = false;
+			//tf.autoSize = TextFieldAutoSize.NONE;
 
-			
-			tf.restrict = "1";
+
 			
 			
         #else
@@ -89,7 +83,17 @@ class StimInputText extends StimulusBuilder {
 			});
 			
         #end
+		
+		var bg = getColor('background', -1);
+		
+		if (bg != -1) {
+			var td:TextDisplay = cast(input._textDisplay, TextDisplay);
+			var tf: TextField = td._tf;
+			tf.background = true;
+			tf.backgroundColor = bg;	
+		}
 
+		
         return input;
     }
 	

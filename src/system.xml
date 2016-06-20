@@ -57,7 +57,7 @@
 		<imageSequence builder="xpt.stimuli.builders.basic.StimImageSequence" />
 		<progressBar builder="xpt.stimuli.builders.basic.StimProgressBar" />
 		<image builder="xpt.stimuli.builders.basic.StimImage"/>
-		<svg builder="xpt.stimuli.builders.basic.StimSVG"/>
+		<!--<svg builder="xpt.stimuli.builders.basic.StimSVG"/>-->
 		<text builder="xpt.stimuli.builders.basic.StimText" />
         <link builder="xpt.stimuli.builders.basic.StimLink">
 			<hideResults>true</hideResults>
