@@ -18,7 +18,9 @@ import openfl.events.Event;
 import openfl.events.FocusEvent;
 import openfl.events.MouseEvent;
 import openfl.geom.Rectangle;
+import thx.Floats;
 import xpt.screenManager.ScreenManager;
+import xpt.tools.XTools;
 
 #if html5
 	import js.Browser;
@@ -210,7 +212,7 @@ class LineScale extends StateComponent {
             return v;
         }
         
-		_val = v;
+		_val = Floats.roundTo(v,2);
 		invalidate(InvalidationFlag.LAYOUT);
         
         var event:UIEvent = new UIEvent(UIEvent.CHANGE, this);

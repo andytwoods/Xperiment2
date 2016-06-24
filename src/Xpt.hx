@@ -36,10 +36,11 @@ class Xpt {
 		//exptName = "dLogo";
 		//exptName = "eyeGaze1";
 		//exptName = "KT1";
-		exptName = "nColours";
+		//exptName = "nColours";
 		//exptName = 'backendDriven';
 		//exptName = 'tastePosition2';
 		//exptName = 'seasons1';
+		exptName = 'drop';
 		
 		diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		

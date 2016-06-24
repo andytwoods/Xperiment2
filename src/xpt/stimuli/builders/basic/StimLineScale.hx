@@ -71,12 +71,12 @@ class StimLineScale extends StimulusBuilder {
 	{
 		lineScale.change_visible(true);
 		lineScale.pos_from_localX(e.localX);
+		stim.value = lineScale.val;
 		lineScale.dispatchEvent(new UIEvent(UIEvent.CHANGE));
 		if(lineScale.sprite.hasEventListener(MouseEvent.MOUSE_OVER)==true)lineScale.sprite.removeEventListener(e.type, mouseOverL);		
 				
 	}
-	
-	
+		
 	function sortLabels(lineScale:LineScale, labels:String, labelPositions:String) 
 	{
 		if (labels!= null && labels.length == 0) return;
