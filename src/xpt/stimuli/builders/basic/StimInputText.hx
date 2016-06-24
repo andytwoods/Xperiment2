@@ -92,6 +92,8 @@ class StimInputText extends StimulusBuilder {
 			tf.background = true;
 			tf.backgroundColor = bg;	
 		}
+		
+		input.multiline = getBool('multiline', true);
 
 		
         return input;

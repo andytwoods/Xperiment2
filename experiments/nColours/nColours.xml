@@ -121,7 +121,7 @@ When you are ready to continue press the ‘I’m ready’ button below to conti
 
 <!-- SCREEN SIX: NEWSPAPER 1MIN -->
 
-<TRIAL TYPE="Trial" hideResults="false" block="6" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="false" block="-6" order="fixed" trials="1">
 
 	<text width="100%" height="70%" text=
 "Newspaper  (used as a medium for reporting news)
