@@ -69,7 +69,12 @@
 		<!-- ***********************************************************************************
 			NON-VISUAL STIMULI
 		************************************************************************************ -->
-		<sound builder="xpt.stimuli.builders.nonvisual.StimSound"/>
+		<sound builder="xpt.stimuli.builders.nonvisual.StimSound">
+			<width>150</width>
+			<height>70</height>
+			<x>50%</x>
+			<y>50%</y>
+		</sound>
 		<!--<synth builder="xpt.stimuli.builders.nonvisual.StimSynth"/>-->
 		<timer builder="xpt.stimuli.builders.nonvisual.StimTimer"/>
 		<do builder="xpt.stimuli.builders.nonvisual.StimDo"/>

@@ -80,7 +80,7 @@ Press ‘I’m ready’ below to be taken to the task."
 	
 </TRIAL>
 
-<TRIAL template="template" block="10">
+<TRIAL template="template" block="-10">
 	<image copyOverId="im" resource="Round_Black|Round_White|Spiky_Black|Spiky_White" />
 	
 </TRIAL>
@@ -96,7 +96,7 @@ Press ‘I’m ready’ below to be taken to the task."
 
 	<image copyOverId="im" id="image" multiId='imageX' resource1=".jpg" />
 	
-	<sound shuffle="start ---" start="0---1500" howMany="2" id="bouba---kiki" SHUFFLE="resource |" resource="bouba1---kiki1|bouba1---kiki2|bouba1---kiki3|bouba2---kiki1|bouba2---kiki2|bouba2---kiki3|bouba3---kiki1|bouba3---kiki2|bouba3---kiki3" resource1=".mp3"  />
+	<sound controls="true" x="10%---90%" select="true" shuffle="start ---" start="0---1500" howMany="2" id="bouba---kiki" SHUFFLE="resource |" resource="bouba1---kiki1|bouba1---kiki2|bouba1---kiki3|bouba2---kiki1|bouba2---kiki2|bouba2---kiki3|bouba3---kiki1|bouba3---kiki2|bouba3---kiki3" resource1=".mp3"  />
 	
 	<button  howMany="2" id="first---second" start="2000" text="first word (1)---second word (2)" key="1---2" multiId='svg' y="90%" width="20%" height="10%" x="35%---65%">
 		<onClick>
