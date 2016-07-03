@@ -1,4 +1,5 @@
 package xpt.tools;
+import xpt.trial.Trial;
 
 /**
  * ...
@@ -6,6 +7,8 @@ package xpt.tools;
  */
 class Shortcuts
 {
+
+	
 	
 	public var shortcuts = new Map<String, Xml-> Shortcuts_Command -> Void>();
 	
@@ -22,6 +25,22 @@ class Shortcuts
 	{
 		shortcuts.set('shuffle', shortcut_shuffle);
 	}
+	
+		
+	public function stimulus_wide(props:Map<String,String>, trial:Trial) {
+	//ugly hack
+		
+	for (shortcut in shortcuts.keys()) {
+		if (props.exists(shortcut)) {
+			var mod:String = props.get('start');
+			var arr:Array<String> = XRandom.shuffle(mod.split("---"));
+			props.set('start', arr.join("---"));
+			
+		}
+	
+	}
+	}
+	
 	
 	
 	public function experiment_wide(xml:Xml) {

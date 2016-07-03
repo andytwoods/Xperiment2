@@ -10,10 +10,9 @@
 
 <TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
 	
-	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
 	<text width="100%" height="20%" 
 		  text=
-		  "Thank you for your interest in this study. On each trial you will see images that are being fine tuned for various taste-related attributes. You are asked to arrange these in a box according to a given question. There are 5 trials in total."
+		  "Thank you for your interest in this Hit. On each screen you will see some images and will be asked to rate those images on some attribute."
 	fontSize="20" />
 	
 	
@@ -21,38 +20,6 @@
 	<preloadReadyButton x="85%" y="90%" width="20%" height="40" fontSize="18" />
 	
 </TRIAL>
-
-
-
-
-<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
-	<text text="What is your Prolific Academic ID?" fontSize="20" width="400" height="30" textAlign="center"  y="40%" />
-	
-	<input y="50%" width="300" height="50" fontSize="20"  />
-   
-	<nextTrialButton y="80%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
-</TRIAL>	
-	
-
-<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
-	<text text="Some questions before we start:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
-	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
-	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
-    <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
-	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
-
-	<nextTrialButton y="50%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
-</TRIAL>	
-	
-	
-<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
-	<text text="In this study, you will see the below images. You are asked to rate them according to the below questions." fontSize="30" textAlign="center" width="100%" height="100" verticalAlign="top" y="0" />
-	
-	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="40%---47%---etc---" howMany="5" text="How CITRUS do you think each logo is?---How FLORAL do you think each logo is?---How SPICY do you think each logo is?---How FRUITY do you think each logo is?---How CREAMY do you think each logo is?"
-		/>
-	
-	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
-</TRIAL>	
 	
 	
 
@@ -64,19 +31,21 @@
 	
 	<image resource="{{ q1.images }}" y="30%" />
 	
+	<results lhs="{{ q1.lhs }}" rhs="{{ q1.rhs }}" />
+	
 	<lineScale id="{{ q1.images }}" lhs="{{ q1.lhs }}" rhs="{{ q1.rhs }}" y="80%" />
 
 	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
 </TRIAL>
 	
 
-	
+
 
 	
-<TRIAL TYPE="Trial" hideResults="false" block="-100" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
 
 <text  colour="555555" timeStart="0" width="80%" y="40%" height="30%" fontSize="20">
-	<.text>Thank-you for completing our study!     
+	<.text>Thank-you for completing our Hit!     
 We very much appreciate your help in rating these images. 
 </.text>
 </text>

@@ -203,8 +203,8 @@ class Password {
 	var start:Button;
 	var paused:Bool = false;
 	var keys:Array<String> = '1,2,3,4,5,6,7,8,9,0'.split(",");
-	var short_pause:Int = 500;
-	var long_pause:Int = 1000;
+	var short_pause:Int = 750;
+	var long_pause:Int = 1500;
 	var playing:SoundChannel;
 	
 	public function new(buttons:Map<String,Button>, sounds:Map<String,Sound>, callback:Void ->Void, pause:Button, start:Button) {
@@ -226,7 +226,7 @@ class Password {
 		}
 		
 		passcodeStr = passcode.join("");
-		playNext();
+		//playNext();
 		
 		pause.addEventListener(MouseEvent.CLICK, pauseL);
 		start.addEventListener(MouseEvent.CLICK, startL);
@@ -254,12 +254,19 @@ class Password {
 	
 	private function startL(e:MouseEvent):Void 
 	{
-		var origPause:Bool = paused;
-		paused = false;
-		if (origPause == true) {
+		if (paused == true) {
+			paused = false;
 			playNext();
+			return;
+		}
+			
+		if(playing!=null){
+			current = 0;
+			return;
 		}
 		
+		playNext();
+	
 	}
 	
 	private function pauseL(e:MouseEvent):Void 

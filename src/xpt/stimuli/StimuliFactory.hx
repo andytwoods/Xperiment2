@@ -1,9 +1,11 @@
 package xpt.stimuli;
 
 import code.Scripting;
+import thx.Maps;
 import xpt.experiment.Experiment;
 import xpt.stimuli.BaseStimulus;
 import xpt.stimuli.StimuliFactory.ScriptBasedProp;
+import xpt.tools.Shortcuts;
 import xpt.tools.XTools;
 import xpt.trial.Trial;
 import xpt.trial.TrialSkeleton;
@@ -42,13 +44,17 @@ class StimuliFactory {
 		
 		for (i in 0...baseStimuli.length) {
 			baseStimulus = baseStimuli[i];
+			
+			var props_copy = new Map<String,String>();
+			Maps.copyTo(baseStimulus.props, props_copy);
+			Shortcuts.instance.stimulus_wide(props_copy, trial);
 
 			for(stim_copy in 0...baseStimulus.howMany){
 
 
 				stim = getStim(baseStimulus.type);
 
-				var do_continue:Bool = setProps(stim, stim_copy, baseStimulus.props, trial,scriptedBasedProps);
+				var do_continue:Bool = setProps(stim, stim_copy, props_copy, trial,scriptedBasedProps);
 
 				if (do_continue) {
 
@@ -74,6 +80,7 @@ class StimuliFactory {
 		var scriptBasedProp:ScriptBasedProp;
 		var stimProps:Map<String,String> = new Map<String,String>();
 
+		
 		for (key in props.keys()) {
 			var val:String = props.get(key);
 

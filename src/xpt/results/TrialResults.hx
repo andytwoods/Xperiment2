@@ -139,9 +139,8 @@ class TrialResults
 		
 		for (i in 0...trial.stimuli.length) {
 			stimulus = trial.stimuli[i]; //ensures order
-			trace(stimulus, 222);
-			if (stimulus.hideResults == false) {
 
+			if (stimulus.hideResults == false) {
 				stimRes = stimulus.results(prepend_trial_id);
 				trialResults.addMultipleResults(stimRes);		
 			}
