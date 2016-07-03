@@ -1,0 +1,148 @@
+<exptA>
+
+<SETUP>  
+	  <screen></screen>                          
+</SETUP>
+
+<!-- SCREEN ONE: INTRODUCTION SCREEN -->
+  
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+
+	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
+
+	<text width="100%" height="70%" 
+		  text=
+"Crossmodal Research Laboratory, Department of Experimental Psychology, Tinbergen Building, 9 South Parks Road, Oxford, OX1 3UD, England. Researcher Contact Details: Yi-Chuan Chen (Email: yi-chuan.chen@psy.ox.ac.uk)
+Colour Shape Matching – The Role of Emotion, Mental Imagery, and Creativity
+Dear participant,
+Welcome to this experiment exploring colours and shapes from the Crossmodal Research Laboratory at the University of Oxford. In this experiment you will be asked to match colours and shapes, rate them, and answer some questions about yourself and some items. To find out more about what to expect download the official participant sheet here (LINK TO PDF - TO BE DONE).
+If you have any questions or concerns, please contact the researcher under noemi.dreksler@psy.ox.ac.uk.
+Before you begin please make sure:
+ -  You have normal or corrected-to-normal vision
+ -  You are not colour blind or colour impaired in any way (e.g. red/green colour blindness, which is common in men)
+ -  You are sitting in a room lit normally (not dark) that is quiet and free from distractions.
+Thank you for your help with our research!"
+
+	fontSize="15"/>
+	
+	<preloadProgress x="20" y="90%"  horizontalAlign="left" width="70%" height="40" />
+	<preloadReadyButton x="85%" y="90%" width="20%" height="40" fontSize="18" />
+	
+</TRIAL>
+
+
+
+<!-- SCREEN TWO: CONSENT SCREEN -->
+
+<TRIAL TYPE="Trial" hideResults="false" block="2" order="fixed" trials="1">
+	 
+<text  width="100%" height="80%" fontSize="17" y="100" verticalAlign="top">
+<.text>This is our online consent form. Please click 'I agree' at the bottom of the page if you consent to all conditions listed below.
+(1) I have read the information sheet and have had the opportunity to ask questions and receive satisfactory answers from the researcher. 
+(2) I understand that my participation is voluntary and that I am free to withdraw at any point during or after the experiment, without any academic or financial penalty, and without giving any reason for my withdrawal.
+(3) I understand that my data will be handled only by the researchers involved in this project and will be kept strictly confidential and anonymous through the use of number codes. I understand that the results of the analysis of the data of the experiment as a whole will be published in scientific journals and as part of a doctoral thesis. 
+(4) I understand that this project has been reviewed by, and received ethics clearance through, the University of Oxford Central University Research Ethics Committee.
+(5) I agree to take part in this study.
+(6) I understand how to raise a concern or make a complaint.
+		</.text></text>
+	
+	
+	<nextTrialButton y="95%" width="200" height="50" text="I agree" fontSize="18" />
+</TRIAL>
+
+<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
+	<text text="We need to make sure the sounds you hear in this study are loud enough. If you cannot hear the auditory password playing, can you adjust your speakers. Please enter the password to continue." fontSize="20" width="60%" height="80" textAlign="center"  y="30%" />
+	<soundCheck resource="1.mp3,2.mp3,3.mp3,4.mp3,5.mp3,6.mp3,7.mp3,8.mp3,9.mp3,0.mp3"/>
+</TRIAL>	
+
+  <TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="What is your Prolific Academic ID?" fontSize="20" width="400" height="30" textAlign="center"  y="40%" />
+	
+	<input y="50%" width="300" height="50" fontSize="20"  />
+   
+	<nextTrialButton y="80%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+</TRIAL>	
+
+<!-- SCREEN THREE: PRE-COUNTERBALANCING INFORMATION SCREEN -->
+
+<TRIAL TYPE="Trial" hideResults="true" block="3" order="fixed" trials="1">
+
+	<text width="100%" height="70%" text=
+"In this task you will be presented with an item (e.g. a brick) and what it is usually used for (e.g. used for building). You will then be asked to write down six different ways one could use this item that you can think of (e.g. as a doorstop, for building a house, to throw through a window, as a toy coffin at a Barbie funeral, a diving aid, a paperweight). 
+ 
+The uses you think of should aim to be as uncommon, original, and creative as possible. After 3 minutes you will be taken to the next task – but please try and not feel rushed and instead focus on writing down uncommon uses.
+
+Press ‘I’m ready’ below to be taken to the task."
+
+	fontSize="20"/>
+	
+	<nextTrialButton y="95%" width="250" height="50" text="I'm ready" fontSize="18" />
+	
+</TRIAL>
+
+<TRIAL template="template" block="10">
+	<image copyOverId="im" resource="Round_Black|Round_White|Spiky_Black|Spiky_White" />
+	
+</TRIAL>
+	
+<TRIAL template="template" block="11">
+	<image copyOverId="im" resource="Bouba_Black|Bouba_White|Kiki_Black|Kiki_White" />
+	
+</TRIAL>
+	
+<template order="random" trials="4" block="10">
+	
+	<text text="Pick the colour that you intuitively think fits best to the shape you see." id="info" fontSize="30" textAlign="center" width="100%" height="100" verticalAlign="top" y="0" />
+
+	<image copyOverId="im" id="image" multiId='imageX' resource1=".jpg" />
+	
+	<sound shuffle="start ---" start="0---1500" howMany="2" id="bouba---kiki" SHUFFLE="resource |" resource="bouba1---kiki1|bouba1---kiki2|bouba1---kiki3|bouba2---kiki1|bouba2---kiki2|bouba2---kiki3|bouba3---kiki1|bouba3---kiki2|bouba3---kiki3" resource1=".mp3"  />
+	
+	<button  howMany="2" id="first---second" start="2000" text="first word (1)---second word (2)" key="1---2" multiId='svg' y="90%" width="20%" height="10%" x="35%---65%">
+		<onClick>
+			Trial.save('button', stim.id);
+			Trial.save('boubaStart', bouba.start);
+			
+			Trial.save('bouba', bouba.get('resource'));
+			Trial.save('kiki', kiki.get('resource'));
+			
+			Trial.removeStimulus(info);
+			Trial.removeStimulus(image);
+			Trial.removeStimulus(first);
+			Trial.removeStimulus(second);
+			Trial.addStimulus(intuitTxt);
+			Trial.addStimulus(intuit);
+		</onClick>
+	</button>
+	
+	<button hideResults="true" id="next" start="-1" y="95%" width="150" height="50" text="Next (SPACE)" key=" " fontSize="18">
+		<onClick>Experiment.nextTrial()</onClick>
+	</button>
+	
+	<text id="intuitTxt" start="-1" text="How intuitive did the match feel?" fontSize="30" height="100" width="80%" textAlign="center" y="30%"/>
+	<lineScale start="-1" id="intuit" >
+		<onChange>Trial.addStimulus(next);</onChange>
+	</lineScale>
+	
+</template>
+	
+
+		
+<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
+
+<text  colour="black" timeStart="0" width="80%" y="40%" height="70%" fontSize="16">
+	<.text>Trust online    
+Thank-you for completing our study!     
+The aim of this research was to investigate how spatial location would facilitate visual search for product packaging that was associated with a specific taste label. Previous research has demonstrated the existence of a number of crossmodal correspondences between taste/flavour and visual attributes. Here, we want to assess the correspondence between a taste and spatial elevation (up and down) and/or laterality (left and right).     
+      If you have any further questions, please contact Olivia Petit (Email: oliviapetit@imagineeringinstitute.org).         
+PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLFIC ACADEMIC KNOWS YOU HAVE COMPLETED THE STUDY. THANKS.
+</.text>
+</text>
+
+<link text="Prolific Academic Link" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/56719bdd73f58b000a6641ae/complete?cc=URZ6D8GB" />
+
+</TRIAL>	
+		
+	
+</exptA>
+
