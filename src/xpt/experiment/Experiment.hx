@@ -126,6 +126,7 @@ class Experiment extends EventDispatcher {
 	private function linkups_Post_ExptWideSpecs() {
 		AbstractService.wait_til_error = Std.parseInt(ExptWideSpecs.IS("saveWaitDuration"));
 		Results.setup(ExptWideSpecs.exptId(), ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS("trickleToCloud"), ExptWideSpecs.IS('csrftoken'));
+		Results.save = ExptWideSpecs.IS('save') == 'true';
 		EvolveCommsManager.setup(ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS('csrftoken'), ExptWideSpecs.IS('evolveUrl'));
 		Results.url = ExptWideSpecs.IS('cloudUrl');
 		Trial._ITI = Std.int(ExptWideSpecs.IS("ITI"));

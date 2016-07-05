@@ -24,6 +24,7 @@ import xpt.ui.Xpt2Info;
 class Results
 {
 	public static var testing:Bool = false;
+	public static var save:Bool = true;
 	static public var url:String;
 	
 	private static var trickleToCloud:Bool;
@@ -137,6 +138,7 @@ class Results
 		}
 
 		if (testing) return;
+		if (save == false) return;
 		
 		//compiling all results, which are sent on very last trial (as a backup).
 		if (combinedResults != null && combinedResults != trialResults) {
