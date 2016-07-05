@@ -1,5 +1,6 @@
 package xpt.stimuli.builders.nonvisual;
 
+import haxe.ui.toolkit.containers.Absolute;
 import haxe.ui.toolkit.controls.Button;
 import haxe.ui.toolkit.core.Component;
 import openfl.events.MouseEvent;
@@ -17,11 +18,53 @@ class StimSound extends StimulusBuilder {
 	var soundChannel:SoundChannel;
 	var play:Button;
 	var pause:Button;
-	var selectButton:Button;
+	public var selectButton:Button;
+	var absolute:Absolute;
+	var destroyed:Bool = false;
 		
     public function new() {
         super();
     }
+	
+	override function enabled(val:String) {
+		var valBool = val != 'true';
+		if (play != null) play.disabled = pause.disabled = valBool;
+		if (selectButton != null) selectButton.disabled = valBool;
+	}
+	
+	
+	public override function onRemovedFromTrial() {
+		destroyed = true;
+		if (this.soundChannel != null) {
+			this.soundChannel.stop();
+			soundChannel = null;
+			my_sound = null;
+		}
+		
+		if (play != null) {
+			if (play.parent!=null){
+				play.parent.removeChild(play);
+				play.parent.removeChild(pause);
+			}
+			pause.removeEventListener(MouseEvent.CLICK, mouseL);
+			play.removeEventListener(MouseEvent.CLICK, mouseL);
+		}
+		if (selectButton != null) {
+			if(selectButton.parent != null) {
+				selectButton.parent.removeChild(selectButton);
+			}
+			selectButton.removeEventListener(MouseEvent.CLICK, selectL);
+		}
+		
+
+	
+	
+	}
+	
+	
+	private override function createComponentInstance():Component {
+		return new Absolute();
+	}
     
 	private override function applyProperties(c:Component) {
         
@@ -58,46 +101,63 @@ class StimSound extends StimulusBuilder {
 	
 	inline function setup_buttons(c:Component, select:String) 
 	{
-		if (pause == null) {
-			pause = new Button();
-			play = new Button();
-			pause.addEventListener(MouseEvent.CLICK, mouseL);
-			play.addEventListener(MouseEvent.CLICK, mouseL);
-		};
-	
+		absolute = cast c;
+		if (pause != null) {
+			c.removeAllChildren();
+			pause.removeEventListener(MouseEvent.CLICK, mouseL);
+			play.removeEventListener(MouseEvent.CLICK, mouseL);
+		}
+		
+		pause = new Button();
+		play = new Button();
+		
+		pause.addEventListener(MouseEvent.CLICK, mouseL);
+		play.addEventListener(MouseEvent.CLICK, mouseL);
+		
 		
 		pause.icon = "img/icons/pause.png";
 		play.icon = "img/icons/play.png";
 
-		
 		if(select != ''){
-			
-			if (selectButton == null) {
-				selectButton = new Button();
-		
-				selectButton.addEventListener(MouseEvent.CLICK, selectL);
-			}						
+			if (selectButton != null) {
+				selectButton.removeEventListener(MouseEvent.CLICK, selectL);
+			}
+			selectButton = new Button();		
+			selectButton.addEventListener(MouseEvent.CLICK, selectL);
 		}
 
 		play.iconPosition = pause.iconPosition = 'center';
+
+		play.percentWidth = pause.percentWidth = 49;
 		
 		c.addChild(pause);
 		c.addChild(play);
-		pause.x = c.width * .51;
-		play.percentWidth = pause.percentWidth = 49;
 		
+		pause.x = c.width * .51;
+
 		if (selectButton != null) {
-			c.addChild(selectButton);
+					
+			selectButton.percentWidth = 100;
 			play.percentHeight = pause.percentHeight = selectButton.percentHeight = 49;
-			selectButton.y = c.height * .51;
+			selectButton.y = c.height*.51;
 			selectButton.text = select;	
+			c.addChild(selectButton);
+
 		}
+		else {
+			play.percentHeight = pause.percentHeight = c.height;
+		}
+		
+		enabled(get('enabled'));
 	}
 	
 	private function mouseL(e:MouseEvent):Void 
 	{
-		if (e.currentTarget == play) {
-			if(my_sound!=null) my_sound.play();
+		if (e.currentTarget == play.sprite) {
+			if(this.my_sound != null){
+				soundChannel = this.my_sound.play();
+			}
+			
 		}
 		else {
 			if(soundChannel!=null) this.soundChannel.stop();
@@ -119,20 +179,11 @@ class StimSound extends StimulusBuilder {
 	// CALLBACKS
 	//*********************************************************************************
     public override function onAddedToTrial() {
-        if (this.my_sound != null) {
+        if (this.my_sound != null && destroyed == false) {
 			soundChannel = this.my_sound.play();
 		}
 		super.onAddedToTrial();
     }
-    
-    
-    
-    public override function onRemovedFromTrial() {
-       if (this.soundChannel != null) {
-			this.soundChannel.stop();
-			soundChannel = null;
-			my_sound = null;
-		}
-    }
+
     
 }

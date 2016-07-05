@@ -49,6 +49,8 @@
 We very much appreciate your help in rating these images. 
 </.text>
 </text>
+	
+	
 
 <text fontSize="40" id="mturkpword" start="500" width="100%" y="60%" textAlign="center" height="10%">
 	<.text>Your MTurk password is ${ ExptWideSpecs.getMTurkCode()}</.text>

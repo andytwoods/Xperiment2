@@ -44,6 +44,10 @@ class StimulusBuilder {
 		stageOffset_y = y;
 	}
 	
+	public function enabled(val:String) {
+		
+	}
+	
     private var reactionTime:Float = -1;
     
     public var stimType(get, null):String;

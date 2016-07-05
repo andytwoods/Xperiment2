@@ -38,6 +38,18 @@ class Stimulus {
 		__properties = new Map<String, Dynamic>();
 	}
 	
+	public function hide() {
+		this._component.visible = false;
+	}
+	
+	public function enabled(val:String) {
+		builder.enabled(val);
+	}
+	
+	public function show() {
+		this._component.visible = true;
+	}
+	
 	public function begin(delay:Int = 0) {
 		function start_from_trial() {
 			if (builder.trial != null) {

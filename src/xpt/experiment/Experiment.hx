@@ -8,7 +8,6 @@ import flash.events.Event;
 import haxe.ui.toolkit.core.RootManager;
 import openfl.events.EventDispatcher;
 import openfl.utils.Object;
-import xpt.backend_driven_expt.BackendDriven;
 import xpt.comms.services.AbstractService;
 import xpt.comms.services.REST_Service;
 import xpt.comms.services.UrlParams_service;
@@ -223,6 +222,7 @@ class Experiment extends EventDispatcher {
 
 
 		if (runningTrial != null) {
+
 			Scripting.DO(null, RunCodeEvents.AfterTrial, runningTrial);
             runningTrial.trialEnded();
 			Scripting.scriptableStimuli(runningTrial.stimuli, false);

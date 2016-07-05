@@ -50,18 +50,31 @@ Thank you for your help with our research!"
 	<nextTrialButton y="95%" width="200" height="50" text="I agree" fontSize="18" />
 </TRIAL>
 
-<TRIAL TYPE="Trial"  block="-1" order="fixed" trials="1">
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
 	<text text="We need to make sure the sounds you hear in this study are loud enough. If you cannot hear the auditory password playing, can you adjust your speakers. Please enter the password to continue." fontSize="20" width="60%" height="80" textAlign="center"  y="30%" />
 	<soundCheck resource="1.mp3,2.mp3,3.mp3,4.mp3,5.mp3,6.mp3,7.mp3,8.mp3,9.mp3,0.mp3"/>
+		<nextTrialButton y="80%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
 </TRIAL>	
 
-  <TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
-	<text text="What is your Prolific Academic ID?" fontSize="20" width="400" height="30" textAlign="center"  y="40%" />
+
+<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
+	<text text="Some questions before we start:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
+	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
+	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
+	<text text="What country do you come from?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
+	<input y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
+    <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
+	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
 	
-	<input y="50%" width="300" height="50" fontSize="20"  />
-   
-	<nextTrialButton y="80%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+	<text text="English proficiency:" fontSize="20" width="200" height="30" x="60"  y="50%" horizontalAlign="left" />
+	<multipleChoice id="eng" y="48%" x="30%" labels="none,basic,conversational,fluent"/>
+
+	
+	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
 </TRIAL>	
+		
+	
+
 
 <!-- SCREEN THREE: PRE-COUNTERBALANCING INFORMATION SCREEN -->
 
@@ -79,13 +92,38 @@ Press ‘I’m ready’ below to be taken to the task."
 	<nextTrialButton y="95%" width="250" height="50" text="I'm ready" fontSize="18" />
 	
 </TRIAL>
+	
+	
+	
+<TRIAL TYPE="Trial" forcePositionInBlock="first" hideResults="true" block="10" order="fixed" trials="1">
 
-<TRIAL template="template" block="-10">
+	<text width="100%" height="70%" text="some explanation."fontSize="20"/>
+	
+	<image howMany="4" x="35%---65%" y="35%---35%---65%---65%" width="15%" height="15%" resource="Round_Black---Round_White---Spiky_Black---Spiky_White"  resource1=".jpg" />
+	
+	<nextTrialButton y="95%" width="250" height="50" text="I'm ready" fontSize="18" />
+	
+</TRIAL>
+		
+	
+<TRIAL TYPE="Trial" forcePositionInBlock="first" hideResults="true" block="11" order="fixed" trials="1">
+
+	<text width="100%" height="70%" text="some explanation."fontSize="20"/>
+	
+	<image howMany="4" x="35%---65%" y="35%---35%---65%---65%" width="15%" height="15%" resource="Bouba_Black---Bouba_White---Kiki_Black---Kiki_White"  resource1=".jpg" />
+	
+	<nextTrialButton y="95%" width="250" height="50" text="I'm ready" fontSize="18" />
+	
+</TRIAL>	
+	
+	
+
+<TRIAL template="template" block="10">
 	<image copyOverId="im" resource="Round_Black|Round_White|Spiky_Black|Spiky_White" />
 	
 </TRIAL>
 	
-<TRIAL template="template" block="11">
+<TRIAL template="template" block="-11">
 	<image copyOverId="im" resource="Bouba_Black|Bouba_White|Kiki_Black|Kiki_White" />
 	
 </TRIAL>
@@ -96,10 +134,21 @@ Press ‘I’m ready’ below to be taken to the task."
 
 	<image copyOverId="im" id="image" multiId='imageX' resource1=".jpg" />
 	
-	<sound controls="true" x="10%---90%" select="true" shuffle="start ---" start="0---1500" howMany="2" id="bouba---kiki" SHUFFLE="resource |" resource="bouba1---kiki1|bouba1---kiki2|bouba1---kiki3|bouba2---kiki1|bouba2---kiki2|bouba2---kiki3|bouba3---kiki1|bouba3---kiki2|bouba3---kiki3" resource1=".mp3"  />
+	<shuffle stims="kiki,bouba" />
 	
-	<button  howMany="2" id="first---second" start="2000" text="first word (1)---second word (2)" key="1---2" multiId='svg' y="90%" width="20%" height="10%" x="35%---65%">
-		<onClick>
+	<do start="3000">
+		
+		<action>
+			bouba.enabled('true');
+			kiki.enabled('true');
+		</action>
+	</do>
+	
+	<sound enabled="false" controls="true" x="10%---90%" select="select" shuffle="start ---" start="0---1500" howMany="2" id="bouba---kiki" SHUFFLE="resource |" resource="bouba1---kiki1|bouba1---kiki2|bouba1---kiki3|bouba2---kiki1|bouba2---kiki2|bouba2---kiki3|bouba3---kiki1|bouba3---kiki2|bouba3---kiki3" resource1=".mp3">
+		<action>
+			bouba.hide();
+			kiki.hide();
+			
 			Trial.save('button', stim.id);
 			Trial.save('boubaStart', bouba.start);
 			
@@ -108,16 +157,16 @@ Press ‘I’m ready’ below to be taken to the task."
 			
 			Trial.removeStimulus(info);
 			Trial.removeStimulus(image);
-			Trial.removeStimulus(first);
-			Trial.removeStimulus(second);
+			
 			Trial.addStimulus(intuitTxt);
 			Trial.addStimulus(intuit);
-		</onClick>
-	</button>
+		</action>
+	</sound>
 	
 	<button hideResults="true" id="next" start="-1" y="95%" width="150" height="50" text="Next (SPACE)" key=" " fontSize="18">
 		<onClick>Experiment.nextTrial()</onClick>
 	</button>
+
 	
 	<text id="intuitTxt" start="-1" text="How intuitive did the match feel?" fontSize="30" height="100" width="80%" textAlign="center" y="30%"/>
 	<lineScale start="-1" id="intuit" >
