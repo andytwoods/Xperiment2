@@ -56,7 +56,6 @@ class LineScale extends StateComponent {
 		bufferZone.style.backgroundColor = 0x000000;
 		bufferZone.style.backgroundAlpha = 0;
 		bufferZone.verticalAlign = "center";
-		//bufferZone.addEventListener(MouseEvent.MOUSE_DOWN, _onTriangleMouseDown);
 		addChild(bufferZone);
 		
 		_selection = new Triangle();

@@ -67,6 +67,7 @@ class StimLineScale extends StimulusBuilder {
 
 	}
 	
+	@:access(xpt.ui.custom.LineScale)
 	private function mouseOverL(e:MouseEvent):Void 
 	{
 		lineScale.change_visible(true);
@@ -74,7 +75,7 @@ class StimLineScale extends StimulusBuilder {
 		stim.value = lineScale.val;
 		lineScale.dispatchEvent(new UIEvent(UIEvent.CHANGE));
 		if(lineScale.sprite.hasEventListener(MouseEvent.MOUSE_OVER)==true)lineScale.sprite.removeEventListener(e.type, mouseOverL);		
-				
+		onStimValueChanged(Floats.roundTo(stim.value, 2)); 
 	}
 		
 	function sortLabels(lineScale:LineScale, labels:String, labelPositions:String) 
