@@ -40,7 +40,6 @@ class WebStart
 
 		#if html5
 			var check_script_exists:Bool = untyped x_utils != undefined && x_utils['expt_script'] != undefined;
-		
 			if (check_script_exists == true) {
 				processScript(untyped x_utils['expt_script']);
 				return;
@@ -71,7 +70,7 @@ class WebStart
 		var script:Xml;
 		if (str.length > 0) {
 			
-			str = BackendDriven.instance.process(str);
+			str = BackendDriven.process(str);
 			XTools.protectCodeBlocks(str, 'code');
 			
 			try {

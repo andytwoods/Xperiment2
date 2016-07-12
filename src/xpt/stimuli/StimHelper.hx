@@ -1,4 +1,7 @@
 package xpt.stimuli;
+import thx.Arrays;
+import thx.Ints;
+import xpt.stimuli.Stimulus;
 import xpt.tools.XRandom;
 import xpt.tools.XTools;
 
@@ -45,4 +48,37 @@ class StimHelper {
         //fixedProps = fixedProps.concat(['x', 'y', 'horizontalAlign', 'verticalAlign', 'marginLeft', 'marginTop', 'marginRight', 'marginBottom']);
         shuffle(list, fixedProps);
     }
+	
+	static public function arrange(stims:Array<Stimulus>) 
+	{
+		for (prop in ['x','y']) {
+			arrange_prop(prop, stims);
+		}
+	}
+	
+	static private function arrange_prop(prop:String, stims:Array<Stimulus>) 
+	{
+		var propsArr:Array<Int> = new Array<Int>();
+		for (stim in stims) {
+			propsArr.push(Reflect.getProperty(stim.component, prop));
+		}
+		var max:Int = ArrayInts.max(propsArr);
+		var min:Int = ArrayInts.min(propsArr);
+			
+		var overall_gap:Int = max - min;
+		
+		var gap_per_stim:Float = overall_gap / (stims.length -1);
+		
+		var positions:Array<Int> = new Array<Int>();
+		
+		for (i in 0...stims.length) {
+			positions.push(Std.int(i * gap_per_stim) + min);
+		}
+
+		XRandom.shuffle(positions);
+		
+		for (stim in stims) {
+			Reflect.setProperty(stim.component, prop,  positions.shift());
+		}
+	}
 }

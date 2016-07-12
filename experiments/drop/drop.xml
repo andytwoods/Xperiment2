@@ -123,7 +123,7 @@ Press ‘I’m ready’ below to be taken to the task."
 	
 </TRIAL>
 	
-<TRIAL template="template" block="-11">
+<TRIAL template="template" block="11">
 	<image copyOverId="im" resource="Bouba_Black|Bouba_White|Kiki_Black|Kiki_White" />
 	
 </TRIAL>

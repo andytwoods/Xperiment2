@@ -49,9 +49,11 @@ class Preloader extends EventDispatcher {
 	private var _total:Int;
 	private var _current:Int;
 	private var callBacks:Map <String, Array<Void->Void>> = new Map<String,Array<Void->Void>>();
-	
+	public var success:Bool = true;
+	public var failed_to_load:Array<String>;
 	public var preloadedImages:Map<String, Bitmap> = new Map<String, Bitmap>();
 	public var preloadedText:Map<String, String> = new Map<String, String>();
+	
 	private var preloadedSound:Map<String, Sound> = new Map<String, Sound>();
 	
 	public var stimuli_to_load:Array<String>;
@@ -69,6 +71,7 @@ class Preloader extends EventDispatcher {
 	}
 	
 	private function onFileLoaded(file:FileInfo) {
+		
 		if (file.status == LoaderStatus.LOADED) {
 			switch(file.type) {		
 				case FileType.IMAGE:
@@ -82,10 +85,20 @@ class Preloader extends EventDispatcher {
 			}	
 		    
         } else {
+			if (failed_to_load == null)  failed_to_load = new Array<String>();
+			failed_to_load.push(file.id);
             DebugManager.instance.error("Could not preload stimulus", file.id);
+			var event:PreloaderEvent = new PreloaderEvent(PreloaderEvent.COMPLETE);
+			success = false;
+			dispatchEvent(event);
         }
 
 		_onFileLoaded(file.id);
+	}
+	
+	public function failed_to_load_list():String {
+	
+		return failed_to_load.join(",");
 	}
 	
 	private function _onFileLoaded(id:String) {
@@ -95,10 +108,12 @@ class Preloader extends EventDispatcher {
 		event.total = _total;
 		dispatchEvent(event);
 		if (callBacks.exists(id)) {
-			while (callBacks.get(id).length > 0) {
-				var f:Void->Void = callBacks.get(id).shift();
+			var file_callbacks = callBacks.get(id);
+			for(i in 0...file_callbacks.length) {
+				var f:Void->Void = file_callbacks[i];
 				if (f != null) f();
 			}
+			file_callbacks = null;
 		}
 		else {
 			

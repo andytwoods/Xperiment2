@@ -53,6 +53,7 @@ class PreloaderManager
 	}
 	
 	private function _onPreloadComplete(event:PreloaderEvent) {
+
 		DebugManager.instance.progress("Preload complete");
 		Preloader.instance.removeEventListener(PreloaderEvent.PROGRESS, _onPreloadProgress);
 		Preloader.instance.removeEventListener(PreloaderEvent.COMPLETE, _onPreloadComplete);

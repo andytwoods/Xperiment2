@@ -150,7 +150,7 @@ class Experiment extends EventDispatcher {
 		var preloadList:Array<String> = find_loadable.extract(skeletons);
 		
 		find_loadable = null;
-		
+
 		if (preloadList.length > 0) {
 			DebugManager.instance.progress("Preloading " + preloadList.length + " image(s)");
 			Preloader.instance.addEventListener(PreloaderEvent.PROGRESS, _onPreloadProgress);
@@ -171,6 +171,10 @@ class Experiment extends EventDispatcher {
 	}
 	
 	private function _onPreloadComplete(event:PreloaderEvent) {
+		if (Preloader.instance.success == false) {
+			ErrorMessage.error(ErrorMessage.Try_reload, 'We are very sorry, but there is some trouble downloading the stimuli used in this study ('+Preloader.instance.failed_to_load_list()+')');
+		}
+		
 		stimuli_loaded = true;
 		DebugManager.instance.progress("Preload complete");
 		Preloader.instance.removeEventListener(PreloaderEvent.PROGRESS, _onPreloadProgress);

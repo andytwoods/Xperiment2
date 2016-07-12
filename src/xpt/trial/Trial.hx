@@ -46,6 +46,8 @@ class Trial {
 	
     private var _valid:Null<Bool> = null; // lets start the trial off as neither valid or invalid for good measure
 	private var trial_results:Map<String,String>;
+	
+	public var prepend_results:String;
     
     public var stimValuesValid(get, null):Bool;
     private function get_stimValuesValid():Bool {
@@ -163,6 +165,7 @@ class Trial {
 		
 		//ternary operator (https://learnxinyminutes.com/docs/haxe/).
 		ITI = (potentialOverrides.exists('ITI') == false) ? _ITI : Std.parseInt(potentialOverrides.get('ITI'));
+		prepend_results = (potentialOverrides.exists('prependResults') == false) ? '' : potentialOverrides.get('prependResults');
 	}
 	
 	public function save(what:String, val:Dynamic) {

@@ -2,29 +2,41 @@
 <exptA>
 
 <SETUP>  
-	  <screen></screen>                          
+	  <screen backgroundColour="0xbcbcbc" ></screen>                           
 </SETUP>
 
 <!-- SCREEN ONE: INTRODUCTION SCREEN -->
   
-<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="true" block="-10" order="fixed" trials="1">
 
 	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
 
 	<text width="100%" height="70%" 
 		  text=
-"Crossmodal Research Laboratory, Department of Experimental Psychology, Tinbergen Building, 9 South Parks Road, Oxford, OX1 3UD, England. Researcher Contact Details: Noemi Dreksler (Email: noemi.dreksler@psy.ox.ac.uk)
-Colour Shape Matching – The Role of Emotion, Mental Imagery, and Creativity
+"
 Dear participant,
-Welcome to this experiment exploring colours and shapes from the Crossmodal Research Laboratory at the University of Oxford. In this experiment you will be asked to match colours and shapes, rate them, and answer some questions about yourself and some items. To find out more about what to expect download the official participant sheet here (LINK TO PDF - TO BE DONE).
+ 
+Welcome to this experiment exploring colours and shapes from the Crossmodal Research Laboratory at the University of Oxford. In this experiment you will be asked to match colours and shapes, asked for your opinions on various colours and shapes, and asked to answer some questions about yourself. 
+ 
+To find out more about what to expect, please read the online information sheet found here: http://noemidreksler.com/wp-content/uploads/2016/06/Online-Information-Sheet.pdf
+ 
 If you have any questions or concerns, please contact the researcher under noemi.dreksler@psy.ox.ac.uk.
+ 
 Before you begin please make sure:
  -  You have normal or corrected-to-normal vision
  -  You are not colour blind or colour impaired in any way (e.g. red/green colour blindness, which is common in men)
  -  You are sitting in a room lit normally (not dark) that is quiet and free from distractions.
-Thank you for your help with our research!"
 
-	fontSize="15"/>
+ Thank you for your help with our research!
+ 
+ Crossmodal Research Laboratory, Department of Experimental Psychology, Tinbergen Building, 9 South Parks Road, Oxford, OX1 3UD, England. 
+ 
+ Researcher Contact Details: Noemi Dreksler (Email: noemi.dreksler@psy.ox.ac.uk)
+
+ 
+ "
+
+	fontSize="18"/>
 	
 	<preloadProgress x="20" y="90%"  horizontalAlign="left" width="70%" height="40" />
 	<preloadReadyButton x="85%" y="90%" width="20%" height="40" fontSize="18" />
@@ -35,15 +47,21 @@ Thank you for your help with our research!"
 
 <!-- SCREEN TWO: CONSENT SCREEN -->
 
-<TRIAL TYPE="Trial" hideResults="false" block="2" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="false" block="-5" order="fixed" trials="1">
 	 
-<text  width="100%" height="80%" fontSize="17" y="100" verticalAlign="top">
+<text  width="100%" height="80%" fontSize="20" y="100" verticalAlign="top">
 <.text>This is our online consent form. Please click 'I agree' at the bottom of the page if you consent to all conditions listed below.
+  
 (1) I have read the information sheet and have had the opportunity to ask questions and receive satisfactory answers from the researcher. 
+  
 (2) I understand that my participation is voluntary and that I am free to withdraw at any point during or after the experiment, without any academic or financial penalty, and without giving any reason for my withdrawal.
+  
 (3) I understand that my data will be handled only by the researchers involved in this project and will be kept strictly confidential and anonymous through the use of number codes. I understand that the results of the analysis of the data of the experiment as a whole will be published in scientific journals and as part of a doctoral thesis. 
+  
 (4) I understand that this project has been reviewed by, and received ethics clearance through, the University of Oxford Central University Research Ethics Committee.
+  
 (5) I agree to take part in this study.
+  
 (6) I understand how to raise a concern or make a complaint.
 		</.text></text>
 	
@@ -65,9 +83,9 @@ Thank you for your help with our research!"
 <TRIAL TYPE="Trial" hideResults="true" block="3" order="fixed" trials="1">
 
 	<text width="100%" height="70%" text=
-"In this task you will be presented with an item (e.g. a brick) and what it is usually used for (e.g. used for building). You will then be asked to write down six different ways one could use this item that you can think of (e.g. as a doorstop, for building a house, to throw through a window, as a toy coffin at a Barbie funeral, a diving aid, a paperweight). 
+"In this first task you will be presented with an item (e.g. a brick) and what it is usually used for (e.g. used for building). You will then be asked to write down SIX DIFFERENT WAYS one could use this item that you can think of (e.g. as a doorstop, for building a house, to throw through a window, as a toy coffin at a Barbie funeral, a diving aid, a paperweight). 
  
-The uses you think of should aim to be as uncommon, original, and creative as possible. After 3 minutes you will be taken to the next task – but please try and not feel rushed and instead focus on writing down uncommon uses.
+The uses you think of should aim to be as UNCOMMON, ORIGINAL, and CREATIVE as possible. After 3 minutes you will be taken to the next task – but please try and not feel rushed and instead focus on writing down uncommon uses.
 
 Press ‘I’m ready’ below to be taken to the task."
 
@@ -81,11 +99,12 @@ Press ‘I’m ready’ below to be taken to the task."
 
 <!-- SCREEN FOUR: PAPERCLIP 3MIN -->
 
-<TRIAL TYPE="Trial" hideResults="false" block="4" order="random" trials="1">
+<TRIAL TYPE="Trial" hideResults="false" block="4" order="fixed" trials="1">
 
 	<text width="100%" height="70%" text=
 "Paperclip (used as stationary)
-List six uncommon, original, and creative uses for a paperclip you can think of. You have up to 3 minutes, so please take your time and try not to rush. The task will end on its own when the three minutes are over."
+ 
+List six uncommon, original, and creative uses for a paperclip you can think of. You have 3 minutes, so please take your time and try not to rush. The task will end on its own when the three minutes are over."
 	fontSize="20"/>
 	
 
@@ -104,10 +123,12 @@ List six uncommon, original, and creative uses for a paperclip you can think of.
 
 <!-- SCREEN FIVE: PRE-COUNTERBALANCING INFORMATION SCREEN (AGAIN) -->
 
-<TRIAL TYPE="Trial" hideResults="true" block="4" order="random" trials="1">
+<TRIAL TYPE="Trial" hideResults="true" block="4" order="fixed" trials="1">
 
 	<text width="100%" height="70%" text=
-"In this task you will be presented with an item (e.g. a brick) and what it is usually used for (e.g. used for building). You will then have one minute to write down as many other uses for the object presented as possible (e.g. as a doorstop, for building a house, to throw through a window, as a toy coffin at a Barbie funeral, a diving aid, a paperweight). 
+"This second task is slightly different.
+ 
+ You will be presented with an item again but this time you will have one minute to write down AS MANY OTHER ISSUES for the object presented as possible.
  
 When you are ready to continue press the ‘I’m ready’ button below to continue to the next task."
 
@@ -121,7 +142,7 @@ When you are ready to continue press the ‘I’m ready’ button below to conti
 
 <!-- SCREEN SIX: NEWSPAPER 1MIN -->
 
-<TRIAL TYPE="Trial" hideResults="false" block="-6" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="false" block="6" order="fixed" trials="1">
 
 	<text width="100%" height="70%" text=
 "Newspaper  (used as a medium for reporting news)
@@ -157,6 +178,26 @@ When you are ready to continue press the ‘I’m ready’ button below to conti
 </TRIAL>
 
 
+  <TRIAL TYPE="Trial" hideResults="true" block="8" order="fixed" trials="1">
+
+	<text width="100%" height="70%" text=
+"Instructions
+ 
+ In this part of the experiment, you will be presented with various shapes on the screen. Your task will be to pick the colour that you intuitively think fits best to the shape you see – follow your gut instincts and try to not pick based on knowledge of specific objects. There are no right or wrong answers. 
+                 
+You will then be asked how intuitive and right this match feels to you. 
+                 
+Note that as soon as you click on a colour you cannot amend your choice.|
+In this part of the experiment, you will be presented with various shapes on the screen. Your task will be to pick the colour that you intuitively think fits best to the shape you see.
+                 
+You will then be asked how intuitive and right this match feels to you below. 
+                 
+Note that as soon as you click on a colour you cannot amend your choice."
+	fontSize="20"/>
+	
+	<nextTrialButton y="95%" width="250" height="50" text="I'm ready" fontSize="18" />
+	
+</TRIAL>
 
 <!-- SCREEN EIGHT: MATCHING SHAPES TO COLOURS INTRODUCTIONS -->
 	<!-- SCREEN EIGHT-A: COUNTERBALANCED INTRODUCTION ~ PART I -->
@@ -164,12 +205,12 @@ When you are ready to continue press the ‘I’m ready’ button below to conti
 	<!-- ??? UNSURE ??? -->
 	<!-- Not sure what the two different instructions are meant for - they seem very similar to me? (GS) -->
 
-<TRIAL TYPE="Trial"  block="8" order="fixed" trials="1">
+<!--<TRIAL TYPE="Trial"  block="8" order="fixed" trials="1">
 
 	<text width="100%" id="instruction" height="70%" label="a|b" SHUFFLE="text1 label |" text="Instructions:
 
 " 
-          text1="In this part of the experiment, you will be presented with various shapes on the screen. Your task will be to pick the colour that you intuitively think fits best to the shape you see – follow your gut instincts and try to not pick based on knowledge of specific objects (there are no right or wrong answers). 
+          text1="In this part of the experiment, you will be presented with various shapes on the screen. Your task will be to pick the colour that you intuitively think fits best to the shape you see – follow your gut instincts and try to not pick based on knowledge of specific objects. There are no right or wrong answers. 
                  
 You will then be asked how intuitive and right this match feels to you. 
                  
@@ -188,28 +229,19 @@ When you are ready to continue press the ‘I’m ready’ button below to conti
 	
 	<nextTrialButton y="95%" width="250" height="50" text="I'm ready" fontSize="18" />
 	
-</TRIAL>
+</TRIAL>-->
 
 
-
-
-<!-- SCREENS NINE THROUGH ???: MATCHING SHAPES TO COLOURS TASKS -->
-
-	<!-- ??? UNSURE HOW TO PROCEED ??? -->
+	<!-- COLOUR SHAPE MATCHING -->
 	
-	<!-- (1) Screen needs to now be grey. Not sure how to achieve this - can you change 'SETUP' mid-experiment? -->
-	<!-- Also, you'll need to decide what RGB value you want to use as the grey background: https://en.wikipedia.org/wiki/Middle_gray -->
-	<!-- Both #777777 and #BCBCBC seem appropriate to me. -->
 
-	
-	
 <TRIAL order="random" trials="58" block="10">
 	
-	<text text="Pick the colour that you intuitively think fits best to the shape you see." fontSize="30" textAlign="center" width="100%" height="100" verticalAlign="top" y="0" />
+	<text text="Pick the colour that you intuitively think fits best to the shape you see. Click and drag the slider to the correct position to answer how intutive your choice was on a scale of 'I chose completely randomly' to 'This match feels very right'" fontSize="30" textAlign="center" width="100%" height="100" verticalAlign="top" y="0" />
 
 	<image id="image" multiId='imageX' x="75%" resource="1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|36|37|38|39|40|41|42|43|44|45|46|47|48|49|50|51|52|53|54|55|56|57|58" resource1=".png" />
 	
-	<image SHUFFLE="resource" id="svg" resource="cs1.png---cs1.png" multiId='svg' x="25%">
+	<image SHUFFLE="resource" id="svg" resource="csf.png---csf_flipped.png" multiId='svg' x="25%"> <!-- should this be png not svg?? -->
 		<onClick>
 			Trial.save('image', image.get('resource'));
 			Trial.save('clicked', Tools.ColourAtCursor());
@@ -220,19 +252,19 @@ When you are ready to continue press the ‘I’m ready’ button below to conti
 		</onClick>
 	</image>
 	
-	<button hideResults="true" id="next" start="-1" y="95%" x="95%" horizontalAlign="right" width="150" height="50" text="Next (SPACE)" key=" " fontSize="18">
+	<button hideResults="true" id="next" start="-1" y="95%" x="99%" horizontalAlign="right" width="120" height="50" text="Next (SPACE)" key=" " fontSize="16">
 		<onClick>Experiment.nextTrial()</onClick>
 	</button>
 	
 	<text id="intuitTxt" start="-1" text="How intuitive did the match feel?" width="80%" textAlign="center" y="80%"/>
 	<lineScale start="-1" id="intuit" y="90%">
+      			<labels>I chose completely randomly,This match feels very right</labels>
 		<onChange>Trial.addStimulus(next);</onChange>
 	</lineScale>
 	
   
 	
 </TRIAL>
-	
 		
 <TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
 
@@ -241,7 +273,7 @@ When you are ready to continue press the ‘I’m ready’ button below to conti
 </.text>
 </text>
 
-<link text="link" fontSize="50" y="80%" url="https://l.facebook.com/l.php?u=https%3A%2F%2Foxfordxpsy.qualtrics.com%2FSE%2F%3FSID%3DSV_6lKPdVUpurM2Idf&h=fAQFga1bY" />
+<link text="link" fontSize="50" y="80%" url="https://oxfordxpsy.qualtrics.com/SE/?SID=SV_6lKPdVUpurM2Idf" />
 
 </TRIAL>	
 	

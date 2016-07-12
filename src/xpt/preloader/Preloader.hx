@@ -2,6 +2,7 @@ package xpt.preloader;
 
 import assets.manager.FileLoader;
 import assets.manager.misc.FileInfo;
+import assets.manager.misc.LoaderStatus;
 import de.polygonal.ds.Map;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
@@ -45,15 +46,18 @@ class Preloader extends EventDispatcher {
 	
 	public function new() {
 		super();
+		
 		_loader = new FileLoader();		
 		_loader.onFileLoaded.add(onFileLoaded);
 		_loader.onFilesLoaded.add(onFilesLoaded);
 	}
 	
 	private function onFileLoaded(file:FileInfo) {
+
 		_current++;
 		
 		var event:PreloaderEvent = new PreloaderEvent(PreloaderEvent.PROGRESS);
+
 		event.current = _current;
 		event.total = _total;
 		dispatchEvent(event);
@@ -69,6 +73,7 @@ class Preloader extends EventDispatcher {
 	}
 	
 	private function onFilesLoaded(files:Array<FileInfo>) {
+		
 		_current = files.length;
 		_total = _current;
 		

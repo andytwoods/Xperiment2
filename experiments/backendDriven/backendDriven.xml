@@ -21,25 +21,36 @@
 	
 </TRIAL>
 	
+<backend_extra/>
+	
+	
 	
 
-<TRIAL order="random" trials="{{ q1.trials }}" multiId="cond1" block="-10">
-	
-	<results q="{{ q1.q }}" />
-		
-	<text text="{{ q1.q }}" width="100%"  textAlign="center" y="70%" />
-	
-	<image resource="{{ q1.images }}" y="30%" />
-	
-	<results lhs="{{ q1.lhs }}" rhs="{{ q1.rhs }}" />
-	
-	<lineScale id="{{ q1.images }}" lhs="{{ q1.lhs }}" rhs="{{ q1.rhs }}" y="80%" />
+<TRIAL order="random" trials="6" multiId="cond1" block="-10">
 
-	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text1=" Please drag the logos into the box below, arranging the logos according to the labels at the bottom of the screen. Vertical position does not matter." text=
+	"How FAMILIAR do you think a company to each logo would be to you?|How much would you TRUST companies with these logos?|How INNOVATIVE do you think companies with the following logos would be?|How WELCOMING do you think a company with each logo woud be?|Do you think a company with each logo would be FUN to deal with?|How much do you think a company with each logo would CHARGE for its products?"
+		/>
+
+	<image copyOverId="image"   x="15%---85%" y="22%" group="g1" howMany="8" resource="Kiki_Black---Kiki_White" resource1=".jpg"  />
+	
+	<arrange groups="g1" />
+    
+    <drag target="dragTarget" groups="g1" capture="x" dragTransparency=".5" />
+	
+	<text copyOverId="taste2" id="dv2---dv1" horizontalAlign="left---right" y="100%" verticalAlign="bottom" textAlign="left---right" x="0%---100%" howMany="2" fontSize="18" height="50" width="400"
+		text="not at all---very much so|not at all---very much so|not at all---very much so|not at all---very much so|not at all---very much so|not a lot---a large amount"   />
+    
+    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="bottom"  y="93%" width="99%" height="55%" borderAlpha=".5" borderSize="2" />
+
+    <nextTrialButton y="100%"  key=" " verticalAlign="bottom" text="next (SPACE)" width="170" height="40"  fontSize="18" />
+	
+	<results dv="${dv1.get('text')}" />
+	
+	<trialCounter height="60" depth="0" y="43%" total="6" textAlign="center" />
+	
 </TRIAL>
 	
-
-
 
 	
 <TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">

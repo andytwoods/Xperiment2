@@ -11,6 +11,7 @@ import openfl.text.TextFormat;
 class ErrorMessage
 {
 	public static var Report_to_experimenter:String = "Please report this message to the experimenter";
+	public static var Try_reload:String = "Please try to reload this study. If this fails several times, please report this message to the experimenter";
 	
 	private static var errors:Array<String>;
 	private static var text:TextField;
