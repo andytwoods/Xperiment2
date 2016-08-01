@@ -36,7 +36,7 @@ class StimTools
 		bmd.draw(stage);
 		
 		var rgb:Int = bmd.getPixel(Std.int(stage.mouseX), Std.int(stage.mouseY));
-		
+		trace(StringTools.hex(rgb));
 		return StringTools.hex(rgb);		
 	}
 }

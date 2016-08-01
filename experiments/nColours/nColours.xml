@@ -235,20 +235,17 @@ When you are ready to continue press the ‘I’m ready’ button below to conti
 	<!-- COLOUR SHAPE MATCHING -->
 	
 
-<TRIAL order="random" trials="58" block="10">
+<TRIAL order="random" trials="58" block="-10">
 	
 	<text text="Pick the colour that you intuitively think fits best to the shape you see. Click and drag the slider to the correct position to answer how intutive your choice was on a scale of 'I chose completely randomly' to 'This match feels very right'" fontSize="30" textAlign="center" width="100%" height="100" verticalAlign="top" y="0" />
 
 	<image id="image" multiId='imageX' x="75%" resource="1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|36|37|38|39|40|41|42|43|44|45|46|47|48|49|50|51|52|53|54|55|56|57|58" resource1=".png" />
 	
-	<image SHUFFLE="resource" id="svg" resource="csf.png---csf_flipped.png" multiId='svg' x="25%"> <!-- should this be png not svg?? -->
+	<image SHUFFLE="resource" id="svg" resource="csf.png" multiId='svg' x="25%"> <!-- should this be png not svg?? -->
 		<onClick>
 			Trial.save('image', image.get('resource'));
 			Trial.save('clicked', Tools.ColourAtCursor());
-			Trial.removeStimulus(svg);
-			Trial.removeStimulus(image);
-			Trial.addStimulus(intuitTxt);
-			Trial.addStimulus(intuit);
+			
 		</onClick>
 	</image>
 	

@@ -135,7 +135,7 @@ class TrialResults
 			prepend_trial_id = '';
 		}
 		
-		prepend_trial_id = trial.prepend_results + "";
+		prepend_trial_id = prepend_trial_id + trial.prepend_results;
 		
 		trialResults.addMultipleResults(stimRes, prepend_trial_id);
 		

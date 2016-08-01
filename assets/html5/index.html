@@ -11,13 +11,11 @@
 	
 	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
+		
+	<link rel="stylesheet" type="text/css" media="screen" href="pace.css" data-pace-options='{ "ajax": false }' />		
+	<script type="text/javascript" src="pace.min.js"></script>	
+
 	
-	::if linkedLibraries::::foreach (linkedLibraries)::
-	<script type="text/javascript" src="::__current__::"></script>::end::::end::
-	<script>document.write('<script src="./XptHaxe.js?dev=' + Math.floor(Math.random() * 10000) + '"\><\/script>');</script>
-	<script type="text/javascript" src="./FileSaver.min.js"></script>
-	<script type="text/javascript" src="./device.min.js"></script>	
-	<script type="text/javascript" src="./x_utils.js"></script>	
 	
 	<script>
 		window.addEventListener ("touchmove", function (event) { event.preventDefault (); }, false);
@@ -60,6 +58,13 @@
 	<div id="openfl-content"></div>
 
 
+	<script>document.write('<script src="./XptHaxe.js?dev=' + Math.floor(Math.random() * 10000) + '"\><\/script>');</script>
+	<script type="text/javascript" src="./FileSaver.min.js"></script>
+	<script type="text/javascript" src="./device.min.js"></script>	
+	<script type="text/javascript" src="./x_utils.js"></script>	
+		::if linkedLibraries::::foreach (linkedLibraries)::
+	<script type="text/javascript" src="::__current__::"></script>::end::::end::
+	
 	<script type="text/javascript">
 	
 		
