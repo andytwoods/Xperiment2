@@ -7,7 +7,7 @@
 	  <variables practice='0' />
 </SETUP>
 
-<TRIAL TYPE="Trial" hideResults="true" block="-100" order="fixed" trials="1">
+<TRIAL TYPE="Trial" hideResults="true" block="0" order="fixed" trials="1">
 
 	<image  y="0" verticalAlign="top" width="800" height="83" asset="img/logos/oxford02.png" />
 

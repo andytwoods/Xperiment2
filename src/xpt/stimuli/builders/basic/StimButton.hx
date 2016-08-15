@@ -49,6 +49,9 @@ class StimButton extends StimulusBuilder {
 				if (getBool('keyEnabled',false)) return;
 
 					var disabled:Bool = b.disabled;
+					if (disabled == true) {
+						if (getBool('ignoreButtonDisabled', false) == false) return;
+					}
 					b.disabled = false;
 					simButtonDown(b);
 					b.dispatchEvent(new MouseEvent(MouseEvent.CLICK));

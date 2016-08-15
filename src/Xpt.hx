@@ -23,7 +23,7 @@ class Xpt {
 		XRandom.init(RandomAlgorithm.Mersenne);
 		System.init();
 
-		//exptName = 'transparent';
+		exptName = 'transparent';
         //exptName = 'tastePosition';
 		//exptName = "Expt1";
         //exptName = 'test';
@@ -42,7 +42,7 @@ class Xpt {
 		//exptName = 'tastePosition2';
 		//exptName = 'seasons1';
 		//exptName = 'drop';
-		exptName = 'michel1';
+		//exptName = 'michel1';
 		
 		diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		
