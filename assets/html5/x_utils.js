@@ -49,7 +49,7 @@ var x_utils = (function() {
 
 			while(add<100){
 				sym = str.charAt(add);
-				if(sym !=" ") seq += sym;
+				if(sym !=" " && sym!="/") seq += sym;
 				else break;
 				add++;
 			}
