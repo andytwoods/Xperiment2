@@ -23,6 +23,19 @@
 	
 	
 
+<TRIAL TYPE="Trial" block="-1" order="fixed" trials="1">
+	
+	
+	
+	<image group="g1" resource="Kiki_Black---Kiki_White" howMany="2" resource1=".jpg" x="25%---75%" />
+	
+	<rank group="g1"/>
+	
+	<nextTrialButton y="90%" width="200" height="50" text="I CONSENT" fontSize="18" />
+	
+</TRIAL>	
+	
+
 <backend_extra/>
 
 

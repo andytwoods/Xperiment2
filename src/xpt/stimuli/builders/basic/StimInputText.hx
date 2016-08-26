@@ -65,15 +65,7 @@ class StimInputText extends StimulusBuilder {
 			input.sprite.addEventListener(FocusEvent.FOCUS_OUT, function(e) { 
 				input.style.borderSize = 1;
 			} );
-			
-			
-			
-			
-			//tf.autoSize = TextFieldAutoSize.NONE;
 
-
-			
-			
         #else
         
 			input.addEventListener(UIEvent.CHANGE, function(e:UIEvent) {

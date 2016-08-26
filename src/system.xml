@@ -103,6 +103,9 @@
 			</action>
 		</key>
 		<evolve builder="xpt.stimuli.builders.nonvisual.StimEvolve"/>
+		<rank builder="xpt.stimuli.builders.nonvisual.StimRank">
+			<valid>equals(true)</valid>
+		</rank>
         
 		<!-- ***********************************************************************************
 			LAYOUT STIMULI
