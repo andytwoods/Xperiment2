@@ -198,6 +198,10 @@ class StimulusBuilder {
 		}	
 	}
 	
+	inline public function sortPosition(c:Component, root:Root) {
+		c.x = getUnit("x", root.width);
+		c.y = getUnit("y", root.height);
+	}
 	
 
 	private function applyProperties(c:Component) {
@@ -216,17 +220,8 @@ class StimulusBuilder {
 
 		c.visible = getBool("visible", true);
 		
-        var cx = getUnit("width", root.width);
-        if (cx > 0) {
-		    c.width = cx;
-        }
-        var cy = getUnit("height", root.height);
-        if (cy > 0) {
-		    c.height = cy;
-        }
-		c.x = getUnit("x", root.width);
-		c.y = getUnit("y", root.height);
-		
+        sortDimensions(c, root);
+		sortPosition(c, root);
 		sort_alignment(c);
 		
         if (get("marginLeft") != null)          c.x += getInt("marginLeft", 0);
@@ -234,7 +229,7 @@ class StimulusBuilder {
         if (get("marginRight") != null)         c.x -= getInt("marginRight", 0);
         if (get("marginBottom") != null)        c.y -= getInt("marginBottom", 0);
         
-		if (cx != 0 || cy != 0) {
+		if (c.width != 0 || c.height != 0) {
 			c.autoSize = false;
 		}
         
@@ -359,6 +354,18 @@ class StimulusBuilder {
             'mouse.y: ${event.localY}'
         ]);
     }
+	
+	inline function sortDimensions(c:Component, root:Root):Void 
+	{
+		var cx = getUnit("width", root.width);
+		if (cx > 0) {
+			c.width = cx;
+		}
+		var cy = getUnit("height", root.height);
+		if (cy > 0) {
+			c.height = cy;
+		}
+	}
     
 	//override this
 	public function results():Map<String,String> {

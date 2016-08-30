@@ -4,11 +4,12 @@ import haxe.ui.toolkit.core.Component;
 import openfl.events.TimerEvent;
 import openfl.utils.Timer;
 import xpt.debug.DebugManager;
+import xpt.stimuli.builders.StimulusBuilder_nonvisual;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;
 import xpt.trial.Trial;
 
-class StimResults extends StimulusBuilder {
+class StimResults extends StimulusBuilder_nonvisual {
 	
 	public static var ignoreParamsList:Array<String> = ['multiId','copyOverId'];
     

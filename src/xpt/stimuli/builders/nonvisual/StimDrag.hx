@@ -9,13 +9,14 @@ import openfl.geom.Point;
 import openfl.geom.Rectangle;
 import thx.Floats;
 import xpt.events.ExperimentEvent;
+import xpt.stimuli.builders.StimulusBuilder_nonvisual;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;
 import haxe.ui.toolkit.core.Component;
 import xpt.stimuli.tools.NonVisual_Tools;
 import xpt.tools.XTools;
 
-class StimDrag extends StimulusBuilder {
+class StimDrag extends StimulusBuilder_nonvisual {
     private var _dragStims:Array<Stimulus>;
     private var _currentDrag:Component;
     private var _dragTarget:Stimulus;

@@ -1,7 +1,9 @@
 package xpt.stimuli.tools;
 import thx.Arrays;
+
 import xpt.stimuli.builders.nonvisual.StimDrag;
 import xpt.trial.Trial;
+import xpt.stimuli.builders.StimulusBuilder_nonvisual;
 
 /**
  * ...
@@ -19,6 +21,8 @@ class NonVisual_Tools
                 for (stimId in stimIds) {
                     var found_stim:Stimulus = trial.findStimulus(stimId);
                     if (found_stim != null && stims.indexOf(found_stim) == -1) {
+						
+						
                         stims.push(found_stim);
                     }
                 }
@@ -32,6 +36,7 @@ class NonVisual_Tools
 					for (groupId in groupIds) {
 						var groupStims:Array<Stimulus> = Stimulus.getGroup(groupId);
 						if (groupStims != null) {
+							
 							stims = stims.concat(groupStims);
 						}
 					}
@@ -39,7 +44,12 @@ class NonVisual_Tools
 			}
 		}
 		
-		stims.remove(stim.stim);
+		for (found_stim in stims) {	
+				if (Std.is(found_stim.builder, StimulusBuilder_nonvisual)) {
+					stims.remove(found_stim);	
+				}	
+		}
+
 		 
         return Arrays.distinct(stims);
 	}

@@ -2,9 +2,10 @@ package xpt.stimuli.builders.nonvisual;
 
 import haxe.ui.toolkit.core.Component;
 import xpt.events.ExperimentEvent;
+import xpt.stimuli.builders.StimulusBuilder_nonvisual;
 import xpt.stimuli.StimulusBuilder;
 
-class StimRT extends StimulusBuilder {
+class StimRT extends StimulusBuilder_nonvisual {
    
 	var startTime:Float;
 	var endTime:Float = -1;

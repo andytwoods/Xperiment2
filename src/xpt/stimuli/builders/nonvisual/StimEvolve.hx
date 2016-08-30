@@ -9,6 +9,7 @@ import xpt.debug.DebugManager;
 import xpt.events.ExperimentEvent;
 import xpt.evolve.Individual;
 import xpt.stimuli.builders.nonvisual.StimEvolve;
+import xpt.stimuli.builders.StimulusBuilder_nonvisual;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;
 import xpt.stimuli.tools.NonVisual_Tools;
@@ -16,7 +17,7 @@ import xpt.tools.XRandom;
 import xpt.trial.Trial;
 import xpt.comms.CommsResult;
 
-class StimEvolve extends StimulusBuilder {
+class StimEvolve extends StimulusBuilder_nonvisual {
     var _trialStarted:Bool = false;
 	var stims:Array<Stimulus>;
 	var target:Stimulus;

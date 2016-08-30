@@ -5,11 +5,12 @@ import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.layout.VerticalContinuousLayout;
 import xpt.debug.DebugManager;
 import xpt.events.ExperimentEvent;
+import xpt.stimuli.builders.StimulusBuilder_nonvisual;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;
 import xpt.stimuli.tools.NonVisual_Tools;
 
-class StimShuffle extends StimulusBuilder {
+class StimShuffle extends StimulusBuilder_nonvisual {
     private var _trialStarted:Bool = false;
     private var _suffleAdded:Bool = false;
     private var _shuffled:Bool = false;

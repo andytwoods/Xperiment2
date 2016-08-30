@@ -5,10 +5,11 @@ import openfl.events.KeyboardEvent;
 import openfl.events.MouseEvent;
 import openfl.ui.Keyboard;
 import xpt.events.ExperimentEvent;
+import xpt.stimuli.builders.StimulusBuilder_nonvisual;
 import xpt.stimuli.StimulusBuilder;
 import xpt.stimuli.tools.KeyPress;
 
-class StimKey extends StimulusBuilder {
+class StimKey extends StimulusBuilder_nonvisual {
    
 
     public function new() {

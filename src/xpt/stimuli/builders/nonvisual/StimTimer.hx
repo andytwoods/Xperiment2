@@ -4,9 +4,10 @@ import haxe.ui.toolkit.core.Component;
 import openfl.events.TimerEvent;
 import openfl.utils.Timer;
 import xpt.debug.DebugManager;
+import xpt.stimuli.builders.StimulusBuilder_nonvisual;
 import xpt.stimuli.StimulusBuilder;
 
-class StimTimer extends StimulusBuilder {
+class StimTimer extends StimulusBuilder_nonvisual {
     private var _interval:Int;
     private var _timer:Timer;
     
