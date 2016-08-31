@@ -93,7 +93,7 @@ var x_utils = (function() {
 		
 		api.check_device_ok = function(success_cb, failure_cb){
 
-			if('script' in api.urlParams){
+			if('script' in api.urlParams && !('backend_extra' in api.urlParams)){
 				script_name = api.urlParams['script'];
 
 				var success = function(script){

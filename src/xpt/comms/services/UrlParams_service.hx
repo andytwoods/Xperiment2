@@ -15,8 +15,9 @@ class UrlParams_service
 	public static function init() {
 		#if html5
 			url = StringTools.urlDecode(js.Browser.document.referrer);
-			if (url.length == 0) url = js.Browser.window.location.href;
 			
+			if (url.length == 0) url = js.Browser.window.location.href;
+		
 			var query:String = StringTools.urlDecode(js.Browser.window.location.search.substring(1));
 			
 			var paramsList = query.split("&");

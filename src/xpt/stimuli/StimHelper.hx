@@ -117,8 +117,6 @@ class StimHelper {
 		
 		var stimWidth_minus_colGap;
 		var stimHeight_minus_rowGap;
-		
-		
 
 		for (stim in stims) {
 			point = positions.shift();
