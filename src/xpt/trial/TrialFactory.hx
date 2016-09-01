@@ -25,6 +25,7 @@ class TrialFactory
 		var trial = new Trial(experiment);
 		compose(trial, skeleton, trialNum);
 		stimuliFactory.generate(trial, skeleton);
+
 		return trial;
 	}
 	

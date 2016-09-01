@@ -1,7 +1,7 @@
 <exptA>
 
 <SETUP>  
-	  <screen BGcolour="808080" orientation="vertical" ></screen>                          
+	  <screen BGcolour="808080" ITI="0" orientation="vertical" ></screen>                          
 	  <computer  encrypt='false' />
 	  <style BUTTON_DOWN="0xff5656"  />
 	  <variables practice='0' do_not_prepend_data="true" />
@@ -23,13 +23,13 @@
 	
 	
 
-<TRIAL TYPE="Trial" block="-1" order="fixed" trials="1">
+<TRIAL TYPE="Trial" block="1" order="fixed" trials="5">
 	
 	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="10%" text="{{ q }}"/>
 	
-	<image group="g1" resource="Kiki_Black---Kiki_White" howMany="2" resource1=".jpg" x="25%---75%" />
+	<image group="g1" resource="1---2---etc---" howMany="10" resource1=".jpg" x="25%---75%" />
 	
-    <arrange groups="g1" width="100%" height="100%" />
+    <arrange start="500" groups="g1" width="100%" height="100%" />
 	
 	<rank id="rank" group="g1"/>
 	

@@ -235,13 +235,13 @@ class Experiment extends EventDispatcher {
 			Scripting.stimuli = null;
 			runningTrial.kill();	
 		}
-		
+				
 		var info:NextTrialInfo = currentTrialInfo;
 
         Stimulus.resetGroups();
 
 		runningTrial = trialFactory.GET(info.skeleton, info.trialOrder, this);
-
+		//trace('start triall');
 
 		if(info.action !=null) {
 			switch(info.action) {
@@ -272,6 +272,7 @@ class Experiment extends EventDispatcher {
 		//Scripting.scriptableStimuli(runningTrial.stimuli,true);
 		Scripting.DO(null, RunCodeEvents.BeforeTrial, runningTrial);
 		DebugManager.instance.info("Starting trial");
+
 		runningTrial.start();    
 	}
 	

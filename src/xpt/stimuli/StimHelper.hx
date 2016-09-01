@@ -74,7 +74,6 @@ class StimHelper {
 		for (i in 0...count+1) {
 			list.push(i);
 		}
-
 		var fill_tuple_manager = new Fill_tuple_manager();
 		for (i in list) {
 			for (j in list) {
@@ -113,7 +112,7 @@ class StimHelper {
 		
 		XRandom.shuffle(positions);
 		
-		var margin:Int = 20;
+		var margin:Int = 100;
 		
 		var stimWidth_minus_colGap;
 		var stimHeight_minus_rowGap;
@@ -131,13 +130,17 @@ class StimHelper {
 				var resize_factor:Float;
 				if (stimWidth_minus_colGap < stimHeight_minus_rowGap) {
 					resize_factor = col_gap / ( stim.component.width + margin);
+					stim.component.width *= resize_factor;
 				}
 				else {
 					resize_factor = row_gap / (stim.component.height + margin);
-				}
-				stim.component.width *= resize_factor;
-				stim.component.height *= resize_factor;
+					stim.component.height *= resize_factor;
+				}		
+				
+				//note that HaxeUI preserves aspect ratio automatically
+
 			}
+			
 			
 			stim.component.x = bounding_box.x + Std.int(point.x) + (col_gap - stim.component.width) * .5;
 			stim.component.y = bounding_box.y + Std.int(point.y) + (row_gap - stim.component.height) * .5;

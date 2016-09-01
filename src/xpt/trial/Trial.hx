@@ -138,7 +138,6 @@ class Trial {
 	public function start() {
 		
         DiagnosticsManager.add(DiagnosticsManager.TRIAL_START, trialName);
-		
 		XTools.delay(ITI, function() { 
 			TimingManager.instance.start();
 			dispatchTrialEvent(ExperimentEvent.TRIAL_START);

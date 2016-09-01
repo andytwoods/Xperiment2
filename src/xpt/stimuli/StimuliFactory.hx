@@ -23,15 +23,17 @@ class StimuliFactory {
 	public function new() {}
 	
 	public function generate(trial:Trial, skeleton:TrialSkeleton) {
-		
+
 		var scriptedBasedProps:Array<ScriptBasedProp> = new Array<ScriptBasedProp>();
+
 		__recursiveGenerate(trial, null, skeleton.baseStimuli, 0, scriptedBasedProps);
-		
+
 
 		for (scriptedBasedProp in scriptedBasedProps) {
 			scriptedBasedProp.f(trial.stimuli);
 			scriptedBasedProp.f = null;
 		}
+
 		scriptedBasedProps = null;
 	
 		
@@ -43,6 +45,7 @@ class StimuliFactory {
 		var stimuli:Array<Stimulus> = new Array<Stimulus>();
 		
 		for (i in 0...baseStimuli.length) {
+			
 			baseStimulus = baseStimuli[i];
 			
 			var props_copy = new Map<String,String>();
