@@ -45,6 +45,12 @@ class Xpt {
 		//exptName = 'michel1';
 		//exptName = 'lineVbox1';
 		
+		#if html5
+			var force_exptName = UrlParams_service.get('exptName');
+			if (force_exptName != '') exptName = force_exptName;
+		#end
+		
+		
 		diagnositics.Timestamp.offset = diagnositics.Timestamp.get();
 		
 		

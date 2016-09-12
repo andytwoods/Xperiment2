@@ -98,8 +98,7 @@ class ExptWideSpecs
 		map.set("evolveUrl", "https://www.xpt.mobi/evolve/");
 		map.set("saveWaitDuration","5000");
 	//timing
-		map.set("ITI", "500");
-		
+		map.set("ITI", "500");		
 	//validation
 		map.set('invalidTrialBehaviour', 'disable');
 	//devices
@@ -201,7 +200,7 @@ class ExptWideSpecs
 		if (params == null) return;
 		
 		for (key in params.keys()) {
-			trace(key, params.get(key));
+			//trace(key, params.get(key));
 			map.set(key, params.get(key));
 		}		
 		

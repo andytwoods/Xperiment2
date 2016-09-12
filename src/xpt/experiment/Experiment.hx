@@ -284,8 +284,11 @@ class Experiment extends EventDispatcher {
 	
 	public function saveDataEndStudy() 
 	{
+		if (Std.string(ExptWideSpecs.IS("save")).toLowerCase() == 'false') return;
+		
 		resultsFeedback = new ResultsFeedback(this);
 		resultsFeedback.show(this);
 		results.endOfStudy(resultsFeedback.success);
+		
 	}
 }
