@@ -64,6 +64,7 @@
 			<depth>0</depth>
 			<color>0x1a0dab</color>
 		</link>
+		<video builder="xpt.stimuli.builders.basic.StimVideo" />
 		
 		
 		<!-- ***********************************************************************************

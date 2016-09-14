@@ -44,7 +44,7 @@ import xpt.trialOrder.Test_TrialOrderTools;
 class Tests
 {
 
-	public function new(callBack:Void->Void) 
+	public function new(callBack:String->Void) 
 	{
 		ExptWideSpecs.testingOn(["trial_sep" => ";", "stim_sep" => "---"]);
 		Trial.testing = true;
@@ -100,7 +100,7 @@ class Tests
 			Scripting.testing = false;
 			Results.testing = false;
 			Experiment.testing = false;
-			callBack();
+			callBack('');
 		} );
 		runner.run();
 		

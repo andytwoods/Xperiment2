@@ -22,7 +22,7 @@ class WebStart
 		
 	}
 
-	public function new(dir:String, exptName:String, overrideDir:Bool) 
+	public function new(experiments_dir:String, exptName:String, overrideDir:Bool, local_expt_dir='') 
 	{
         var combined_expt_name:String;
 		
@@ -32,9 +32,10 @@ class WebStart
 		}
 		
         else {
-			PathTools.experimentPath = dir;
+			PathTools.experimentPath = experiments_dir;
 			PathTools.experimentName = exptName;
-			combined_expt_name = dir + exptName + "/" + exptName+".xml";
+			if (local_expt_dir == '') local_expt_dir = exptName;
+			combined_expt_name = experiments_dir + local_expt_dir + "/" + exptName+".xml";
 		}
 		
 

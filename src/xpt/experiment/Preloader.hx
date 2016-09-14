@@ -17,6 +17,7 @@ import thx.Url;
 import xpt.debug.DebugManager;
 import xpt.experiment.Preloader.SoundBundle;
 import xpt.tools.XTools;
+import openfl.utils.ByteArray;
 
 class PreloaderEvent extends Event {
 	public static inline var BEGIN:String = "preloadBegin";
@@ -52,6 +53,7 @@ class Preloader extends EventDispatcher {
 	public var success:Bool = true;
 	public var failed_to_load:Array<String>;
 	public var preloadedImages:Map<String, Bitmap> = new Map<String, Bitmap>();
+	public var preloadedVideo:Map<String, ByteArray> = new Map<String, ByteArray>();
 	public var preloadedText:Map<String, String> = new Map<String, String>();
 	
 	private var preloadedSound:Map<String, Sound> = new Map<String, Sound>();
@@ -80,6 +82,8 @@ class Preloader extends EventDispatcher {
 					preloadedText.set(file.id, file.data);
 				case FileType.SOUND:
 					preloadedSound.set(file.id, file.data);
+				case FileType.VIDEO:
+					preloadedVideo.set(file.id, file.data);
 				case FileType.BINARY:
 					throw 'to do';
 			}	
@@ -169,6 +173,8 @@ class Preloader extends EventDispatcher {
 					_loader.queueImage(stimulus);
 				case "SVG" | "TXT":
 					_loader.queueText(stimulus);
+				case "MP4":
+					_loader.queueVideo(stimulus);
 				case "MP3" | "WAV":
 					if (soundLoader == null) soundLoader = new SoundLoader();
 					soundLoader.load(stimulus, soundLoader_callback);

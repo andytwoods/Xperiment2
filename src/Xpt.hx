@@ -38,12 +38,13 @@ class Xpt {
 		//exptName = "eyeGaze1";
 		//exptName = "KT1";
 		//exptName = "nColours";
-		exptName = 'backendDriven';
+		//exptName = 'backendDriven';
 		//exptName = 'tastePosition2';
 		//exptName = 'seasons1';
 		//exptName = 'drop';
 		//exptName = 'michel1';
 		//exptName = 'lineVbox1';
+		exptName = 'magic1';
 		
 		#if html5
 			var force_exptName = UrlParams_service.get('exptName');
@@ -55,7 +56,6 @@ class Xpt {
 		
 		
         DiagnosticsManager.add(DiagnosticsManager.EXPERIMENT_START, exptName);
-        
 		
         #if (debug && !html5)
             var tests:xpt.Tests = new xpt.Tests(start);
@@ -65,10 +65,11 @@ class Xpt {
             var script:String = UrlParams_service.get('script');
             if (script.length > 0) {
 				XRandom.setSeed(UrlParams_service.get('seed'));
-                webStart = new WebStart('.', script, true);
+                webStart = new WebStart('./.', script, true);
             }
             else {
-                start();
+				var local_expt_dir = UrlParams_service.get('local_expt_dir');
+                start('' + local_expt_dir);
             }
         
         #elseif !debug
@@ -78,9 +79,9 @@ class Xpt {
 	
 	
 	
-	private static function start() {
+	private static function start(local_expt_dir = '') {
 		trace("---starting study---");
 		XRandom.setSeed('random');
-		webStart = new WebStart('./' + localExptDirectory, exptName, false);
+		webStart = new WebStart(localExptDirectory, exptName, false, local_expt_dir);
 	}
 }
