@@ -75,6 +75,9 @@
 			<height>70</height>
 			<x>50%</x>
 			<y>50%</y>
+			<enabled>true</enabled>
+			<select>this one</select>
+			<controls>true</controls>
 		</sound>
 		<!--<synth builder="xpt.stimuli.builders.nonvisual.StimSynth"/>-->
 		<timer builder="xpt.stimuli.builders.nonvisual.StimTimer"/>

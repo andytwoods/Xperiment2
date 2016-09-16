@@ -169,7 +169,7 @@ class Preloader extends EventDispatcher {
 		_current = _total = 0;
 		for (stimulus in stimuli) {
 			switch(fileType(stimulus)) {
-				case "JPG" | "PNG":
+				case "JPG" | "JPEG" | "PNG":
 					_loader.queueImage(stimulus);
 				case "SVG" | "TXT":
 					_loader.queueText(stimulus);

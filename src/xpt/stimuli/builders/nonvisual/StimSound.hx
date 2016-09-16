@@ -88,7 +88,6 @@ class StimSound extends StimulusBuilder {
 		if (controls != "none") {
 			
 			var select:String = get("select", '' );
-			
 			super.applyProperties(c);
 			setup_buttons(c, select);
 
@@ -118,7 +117,7 @@ class StimSound extends StimulusBuilder {
 		pause.icon = "img/icons/pause.png";
 		play.icon = "img/icons/play.png";
 
-		if(select != ''){
+		if (select != '') {	
 			if (selectButton != null) {
 				selectButton.removeEventListener(MouseEvent.CLICK, selectL);
 			}
