@@ -111,7 +111,7 @@ class StimSoundCheck extends StimulusBuilder {
 			c.addChild(play);
 		}
 		
-		if (text != null) c.removeChild(text);
+		/*if (text != null) c.removeChild(text);
 		
 		text = new Text();
 		
@@ -127,7 +127,7 @@ class StimSoundCheck extends StimulusBuilder {
 		text.wrapLines = true;
 		text.text = get('text');
 		
-		c.addChild(text);
+		c.addChild(text);*/
 		
 		#if html5
 			if (c.sprite.stage != null) {

@@ -179,7 +179,7 @@ class Scripting
 
 	
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
-		
+
 		if (stim.get(prop) != null) {
 			
 			var bundle:ScriptBundle = getBundle();

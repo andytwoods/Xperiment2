@@ -32,9 +32,9 @@ class Shortcuts
 		
 	for (shortcut in shortcuts.keys()) {
 		if (props.exists(shortcut)) {
-			var mod:String = props.get('start');
+			var mod:String = props.get(shortcut);
 			var arr:Array<String> = XRandom.shuffle(mod.split("---"));
-			props.set('start', arr.join("---"));
+			props.set(shortcut, arr.join("---"));
 			
 		}
 	
