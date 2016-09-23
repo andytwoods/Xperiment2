@@ -53,7 +53,9 @@ class Preloader extends EventDispatcher {
 	public var success:Bool = true;
 	public var failed_to_load:Array<String>;
 	public var preloadedImages:Map<String, Bitmap> = new Map<String, Bitmap>();
-	public var preloadedVideo:Map<String, ByteArray> = new Map<String, ByteArray>();
+	
+	//below not needed as currently video handled entirely by external JS. As though preloading still done, necessary to pass video here to 1st be preloaded (and then retrieved from cache).
+	//public var preloadedVideoUrl:Map<String, String> = new Map<String, String>();
 	public var preloadedText:Map<String, String> = new Map<String, String>();
 	
 	private var preloadedSound:Map<String, Sound> = new Map<String, Sound>();
@@ -83,7 +85,8 @@ class Preloader extends EventDispatcher {
 				case FileType.SOUND:
 					preloadedSound.set(file.id, file.data);
 				case FileType.VIDEO:
-					preloadedVideo.set(file.id, file.data);
+					//see explanation where preloadedVideoUrl defined
+					//preloadedVideoUrl.set(file.id, file.id);
 				case FileType.BINARY:
 					throw 'to do';
 			}	

@@ -5,6 +5,18 @@
 var x_utils = (function() {
 	var api = {}
 	
+	api.html_video = function(url){
+		var my_player;
+		console.log(url,34343);
+		videojs("xVideo", {}, function(){
+			my_player = this;
+			my_player.src({"type":"video/mp4", "src":url});
+			my_player.play();
+			console.log('in here', url);
+		});
+	}
+	
+	
 	function loadTxt(path, success, error)
 		{
 			var xhr = new XMLHttpRequest();
