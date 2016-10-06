@@ -94,14 +94,16 @@ class Trial {
 	}
 	
 	public function addStimulus(stim:Stimulus) {
-
+		trace(stim.id, 3434);
+		
 		if(stimuli.indexOf(stim)==-1){
 			stimuli.push(stim);
-			if (testing == false) {
-				TimingManager.instance.add(stim);
-			}
+			stim.builder.trial = this;
 		}
-		else TimingManager.instance.force_start(stim);
+		 
+		trace(stimuli.indexOf(stim), stim.id, testing);
+		TimingManager.instance.add(stim);
+		
 	}
 	
 	public function removeStimulus(stim:Stimulus) {

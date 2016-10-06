@@ -52,6 +52,8 @@ class Stimulus {
 	
 	public function begin(delay:Int = 0) {
 		function start_from_trial() {
+			trace(21234, builder, builder.trial, id);
+			
 			if (builder.trial != null) {
 				builder.trial.addStimulus(this);	
 			}
@@ -119,12 +121,6 @@ class Stimulus {
     
 	public function addUnderling(stim:Stimulus) {
 		__underlings.push(stim);
-	}
-	
-	public function tidy_beforeRun() {
-		if (duration != -1) {
-			stop = start += duration;
-		}
 	}
 	
 	public function setProps(stimProps:Map<String, String>) 

@@ -21,6 +21,7 @@ import xpt.ExptWideSpecs;
 import xpt.stimuli.StimHelper;
 import xpt.stimuli.StimTools;
 import xpt.stimuli.Stimulus;
+import xpt.tools.XRandom;
 import xpt.tools.XTools;
 import xpt.trial.Trial;
 
@@ -92,6 +93,7 @@ class Scripting
 		bundle.scriptEngine.variables.set("Text", Text);
 		bundle.scriptEngine.variables.set("Tools", StimTools);
 		bundle.scriptEngine.variables.set("ExptWideSpecs", ExptWideSpecs);
+		bundle.scriptEngine.variables.set("Random", XRandom);
 		
 
 		all_bundles.push(bundle);
@@ -179,8 +181,9 @@ class Scripting
 
 	
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
+		var code = stim.get(prop);
 
-		if (stim.get(prop) != null) {
+		if (code != null) {
 			
 			var bundle:ScriptBundle = getBundle();
 			try {
@@ -192,7 +195,7 @@ class Scripting
 
 				addExtraVars(bundle);
 				
-				bundle.code = StringTools.trim(stim.get(prop));
+				bundle.code = StringTools.trim(code);
 
 				
 				if (logScript == true) {

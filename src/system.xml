@@ -59,6 +59,13 @@
 		<image builder="xpt.stimuli.builders.basic.StimImage"/>
 		<!--<svg builder="xpt.stimuli.builders.basic.StimSVG"/>-->
 		<text builder="xpt.stimuli.builders.basic.StimText" />
+		<fixationCross builder="xpt.stimuli.builders.basic.StimText">
+			<text>+</text>
+			<textAlign>center</textAlign>
+			<height>50</height>
+			<width>50</width>
+			<fontSize>30</fontSize>
+		</fixationCross>
         <link builder="xpt.stimuli.builders.basic.StimLink">
 			<hideResults>true</hideResults>
 			<depth>0</depth>

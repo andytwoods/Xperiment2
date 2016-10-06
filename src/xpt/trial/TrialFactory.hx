@@ -55,9 +55,7 @@ class TrialFactory
 
 		trial.overrideDefaults(overrideDefaults);
 	}
-	
-
-	
+		
 	private function getIteration(skeleton:TrialSkeleton, trialNum:Int):Int
 	{
 		var i = skeleton.trials.indexOf(trialNum);
@@ -70,9 +68,5 @@ class TrialFactory
 		withinTrialSep = stim_sep;
 		overTrialSep = trial_sep;
 	}
-	
-
-	
-
 	
 }

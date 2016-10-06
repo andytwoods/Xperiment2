@@ -60,11 +60,7 @@ class StimulusBuilder {
         return stim.id;
     }
     
-	public var trial(get, null):Trial;
-	private function get_trial():Trial {
-		var t:Trial = getDynamic("trial");
-		return t;
-	}
+	public var trial:Trial;
 	
     public var experiment(get, null):Experiment;
     private function get_experiment():Experiment {
@@ -380,10 +376,11 @@ class StimulusBuilder {
 	// CALLBACKS
 	//*********************************************************************************
     public function onAddedToTrial() {
-		Scripting.runScriptEvent("onAddedToTrial", null, stim, false);
+		Scripting.runScriptEvent("onAdded", null, stim, false);
     }
     
     public function onRemovedFromTrial() {
-		Scripting.runScriptEvent("onRemovedToTrial", null, stim, false);
+		trace('here');
+		Scripting.runScriptEvent("onRemoved", null, stim, false);
     }
 }

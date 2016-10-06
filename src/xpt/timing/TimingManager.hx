@@ -17,7 +17,7 @@ enum TimingEvent {
 
 class TimingManager {
 	private var started:Bool = false;
-	private var addWhenStarts:Array<Void->Void> = new Array<Void->Void>();
+	
 	private static var _instance:TimingManager;
 	public static var instance(get, never):TimingManager;
 	private static function get_instance():TimingManager {
@@ -43,37 +43,38 @@ class TimingManager {
 	public function start() {
 		started = true;
 		var f:Void->Void;
-		
-		while (addWhenStarts.length > 0) {
-			f = addWhenStarts.shift();
-			f();
-			f = null;
-		}
 
 		for (stim in _stims) {
 			var start:Float = stim.start;
-			var stop:Float = stim.stop;
-			var duration:Float = stim.duration;
-		
-			if (stop != -1 || duration != -1) {
-				if (start < 0) {
-					start = 0;
-				}
-				if (stop != -1) {
-					duration = stop - start;
-				}
-			}
-			if(start!=-1){
-				addTimingEvent(start, duration, function(e:TimingEvent) {
-					switch (e) {
-						case TimingEvent.SHOW:
-							addToTrial(stim);
-						case TimingEvent.HIDE:
-							removeFromTrial(stim);
-					}
-				});
+			if (start != -1) {
+				init_start_stop_events(stim, start);
 			}
 		}
+	}
+	
+	private function init_start_stop_events(stim:Stimulus, start:Float) {
+		var stop:Float = stim.stop;
+		var duration:Float = stim.duration;
+		
+		
+		if (start == -1) return;
+		
+		if (duration == -1) {
+			if (stop != -1) {
+				duration = stop - start;
+			}
+		}
+
+		addTimingEvent(start, duration, function(e:TimingEvent) {
+			trace(13, duration, start, stim.id);
+			if (stim == null) return;
+			switch (e) {
+				case TimingEvent.SHOW:
+					addToTrial(stim);
+				case TimingEvent.HIDE:
+					removeFromTrial(stim);
+			}
+		});	
 	}
 	
 	public function force_start(stim:Stimulus) {
@@ -90,17 +91,25 @@ class TimingManager {
 	}
 	
 	public function add(stim:Stimulus) {
-		_stims.push(stim);
+				trace(stim.id, 22);	
+		if (_stims.indexOf(stim) == -1) {
+			_stims.push(stim);
 
-		ArraySort.sort(_stims, function(a:Stimulus, b:Stimulus):Int {
-			if (a.depth == b.depth) return 0;
-			if (a.depth < b.depth) return 1;
-			return -1;
-			
-		});
-		if (stim.start <= 0 && stim.start!=-1) {
+			ArraySort.sort(_stims, function(a:Stimulus, b:Stimulus):Int {
+				if (a.depth == b.depth) return 0;
+				if (a.depth < b.depth) return 1;
+				return -1;
+				
+			});
+		}
+		
+		// programmatically added midtrial
+		if (started) {
+
+			init_start_stop_events(stim, 0);
 			addToTrial(stim);
 		}
+
 	}
 	
 	public function remove(stim:Stimulus) {
@@ -109,22 +118,11 @@ class TimingManager {
 	}
 	
 	private function addToTrial(stim:Stimulus) {
-
+trace('added', stim.id);
 		if (RootManager.instance.currentRoot.contains(stim.component) == false) {
 			DebugManager.instance.stimulus("Adding stimulus, type: " + stim.get("stimType"));
             DiagnosticsManager.add(DiagnosticsManager.STIMULUS_SHOW, stim.id, stim.get("stimType"));
             stim.component.addEventListener(UIEvent.ADDED_TO_STAGE, onStimAddedToStage);
-		    
-			
-			
-			if (started == false) {
-				addWhenStarts.push(function(){
-					RootManager.instance.currentRoot.addChild(stim.component);
-					updateDepths(stim);
-					stim.onAddedToTrial();
-				});
-				return;
-			}
 			
 			RootManager.instance.currentRoot.addChild(stim.component);
 			
