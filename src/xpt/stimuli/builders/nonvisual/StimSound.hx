@@ -5,7 +5,7 @@ import haxe.ui.toolkit.controls.Button;
 import haxe.ui.toolkit.core.Component;
 import openfl.events.MouseEvent;
 import openfl.media.SoundChannel;
-import xpt.experiment.Preloader;
+import xpt.preloader.Preloader;
 import xpt.debug.DebugManager;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;

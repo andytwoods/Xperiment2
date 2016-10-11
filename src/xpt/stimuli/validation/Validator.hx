@@ -27,6 +27,7 @@ class Validator extends ScriptInterp {
         variables.set("greaterThan", greaterThan);
         variables.set("prop", prop);
         variables.set("groups", groups);
+		variables.set("none", nothing);
     }
 
     public function validateStim(stim:Stimulus, validation:String):Bool {
@@ -70,6 +71,10 @@ class Validator extends ScriptInterp {
 		else if (stim.value == null) return false;
         return  stim.value != "";
     }
+	
+	private function nothing(stim:Stimulus):Bool {
+		return true;	
+	}
     
     private function equals(stim:Stimulus, v:Dynamic):Bool {
         return (stim.value == v);

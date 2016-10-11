@@ -1,4 +1,5 @@
 package xpt.experiment;
+import xpt.preloader.Preloader;
 
 import assets.manager.FileLoader;
 import code.CheckIsCode;
@@ -14,7 +15,7 @@ import xpt.comms.services.UrlParams_service;
 import xpt.debug.DebugManager;
 import xpt.error.ErrorMessage;
 import xpt.events.ExperimentEvent;
-import xpt.experiment.Preloader.PreloaderEvent;
+import xpt.preloader.Preloader.PreloaderEvent;
 import xpt.preloader.Preloader_extract_loadable;
 import xpt.results.Results;
 import xpt.results.ResultsFeedback;
@@ -167,7 +168,7 @@ class Experiment extends EventDispatcher {
 		var progressEvent:PreloaderEvent = new PreloaderEvent(event.type);
 		progressEvent.total = event.total;
 		progressEvent.current = event.current;
-		dispatchEvent(progressEvent);
+		this.dispatchEvent(progressEvent);
 	}
 	
 	private function _onPreloadComplete(event:PreloaderEvent) {
@@ -182,8 +183,7 @@ class Experiment extends EventDispatcher {
 		var progressEvent:PreloaderEvent = new PreloaderEvent(event.type);
 		progressEvent.total = event.total;
 		progressEvent.current = event.current;
-		dispatchEvent(progressEvent);
-				
+		this.dispatchEvent(progressEvent);		
 	}
 	
 	public function firstTrial() {
@@ -279,7 +279,7 @@ class Experiment extends EventDispatcher {
 	private function dispatch_ExperimentEvent(event:String, trial:Trial) {
 		var event:ExperimentEvent = new ExperimentEvent(event);
         event.trial = trial;
-        dispatchEvent(event);
+        this.dispatchEvent(event);
 	}
 	
 	public function saveDataEndStudy() 

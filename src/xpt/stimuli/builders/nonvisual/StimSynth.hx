@@ -3,7 +3,7 @@ package xpt.stimuli.builders.nonvisual;
 import haxe.ui.toolkit.core.Component;
 import openfl.media.SoundChannel;
 import thx.Floats;
-import xpt.experiment.Preloader;
+import xpt.preloader.Preloader;
 import xpt.debug.DebugManager;
 import xpt.stimuli.Stimulus;
 import xpt.stimuli.StimulusBuilder;

@@ -26,4 +26,10 @@ class ActuateTimingManager extends BaseTimingManager {
 		throw "Actuate haxelib not included";
 		#end
 	}
+	
+		
+	override public function reset() {
+		Actuate.reset();
+		super.reset();
+	}
 }

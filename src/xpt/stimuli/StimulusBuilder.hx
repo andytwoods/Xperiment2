@@ -1,4 +1,5 @@
 package xpt.stimuli;
+import xpt.preloader.Preloader;
 
 import code.Scripting;
 import diagnositics.DiagnosticsManager;
@@ -14,7 +15,7 @@ import openfl.events.MouseEvent;
 import xpt.debug.DebugManager;
 import xpt.events.ExperimentEvent;
 import xpt.experiment.Experiment;
-import xpt.experiment.Preloader.PreloaderEvent;
+import xpt.preloader.Preloader.PreloaderEvent;
 import xpt.tools.XTools;
 import xpt.trial.Trial;
 
@@ -380,7 +381,6 @@ class StimulusBuilder {
     }
     
     public function onRemovedFromTrial() {
-		trace('here');
 		Scripting.runScriptEvent("onRemoved", null, stim, false);
     }
 }

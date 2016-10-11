@@ -66,7 +66,7 @@ class TimingManager {
 		}
 
 		addTimingEvent(start, duration, function(e:TimingEvent) {
-			trace(13, duration, start, stim.id);
+		
 			if (stim == null) return;
 			switch (e) {
 				case TimingEvent.SHOW:
@@ -91,7 +91,6 @@ class TimingManager {
 	}
 	
 	public function add(stim:Stimulus) {
-				trace(stim.id, 22);	
 		if (_stims.indexOf(stim) == -1) {
 			_stims.push(stim);
 
@@ -118,7 +117,7 @@ class TimingManager {
 	}
 	
 	private function addToTrial(stim:Stimulus) {
-trace('added', stim.id);
+
 		if (RootManager.instance.currentRoot.contains(stim.component) == false) {
 			DebugManager.instance.stimulus("Adding stimulus, type: " + stim.get("stimType"));
             DiagnosticsManager.add(DiagnosticsManager.STIMULUS_SHOW, stim.id, stim.get("stimType"));

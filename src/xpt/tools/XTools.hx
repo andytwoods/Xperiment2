@@ -5,7 +5,7 @@ import openfl.events.TimerEvent;
 import openfl.utils.Timer;
 import thx.Floats;
 import thx.Ints;
-import xpt.experiment.Preloader;
+import xpt.preloader.Preloader;
 import xpt.tools.XRandom;
 
 /**

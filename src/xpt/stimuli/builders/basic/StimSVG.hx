@@ -13,7 +13,7 @@ import thx.Maps;
 import thx.Objects;
 import xpt.stimuli.StimulusBuilder;
 import xpt.tools.PathTools;
-import xpt.experiment.Preloader;
+import xpt.preloader.Preloader;
 import xpt.tools.XML_tools;
 import xpt.tools.XRandom;
 import xpt.tools.XTools;

@@ -7,7 +7,7 @@ import openfl.events.KeyboardEvent;
 import openfl.events.TimerEvent;
 import openfl.media.SoundChannel;
 import openfl.utils.Timer;
-import xpt.experiment.Preloader;
+import xpt.preloader.Preloader;
 import xpt.debug.DebugManager;
 import haxe.ui.toolkit.containers.Absolute;
 import xpt.stimuli.builders.compound.StimSoundCheck.Password;
@@ -51,16 +51,19 @@ class StimSoundCheck extends StimulusBuilder {
 			var resources = get("resource", null);
 			if (resources == null) throw 'devel error. Assets not defined properly in system.xml';
 			sounds = new Map<String, Sound>();
+			
+			var list = "1,2,3,4,5,6,7,8,9,0".split(",");
+			
 			for (resource in resources.split(",")) {
-
+				var current_i = list.shift();
 				var load_resource = PathTools.fixPath(resource);
 				var sound = Preloader.instance.getSound(load_resource);
-			   
-			    if(sound!=null) setSound(resource.split(".")[0], sound);	
+				
+			    if(sound!=null) setSound(current_i, sound);	
 			    else {
 					Preloader.instance.callbackWhenLoaded(load_resource, function() {
 						sound = Preloader.instance.getSound(load_resource);
-						setSound(resource.split(".")[0], sound);	
+						setSound(current_i, sound);	
 					});
 				}
 			}
@@ -111,23 +114,6 @@ class StimSoundCheck extends StimulusBuilder {
 			c.addChild(play);
 		}
 		
-		/*if (text != null) c.removeChild(text);
-		
-		text = new Text();
-		
-		#if html5
-			text.autoSize = false;
-			text.width= c.width;
-		#else
-			text.percentWidth = 100;
-		#end
-
-		text.style.fontSize = 20;
-		text.multiline = true;
-		text.wrapLines = true;
-		text.text = get('text');
-		
-		c.addChild(text);*/
 		
 		#if html5
 			if (c.sprite.stage != null) {

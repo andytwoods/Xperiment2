@@ -45,8 +45,8 @@ class Xpt {
 		//exptName = 'michel1';
 		//exptName = 'lineVbox1';
 		//exptName = 'magic1';
-		//exptName = 'BoubaKikiXpt2_1';
-		exptName = 'mBurt';
+		exptName = 'BoubaKikiXpt2_1';
+		//exptName = 'mBurt';
 		
 		#if html5
 			var force_exptName = UrlParams_service.get('exptName');

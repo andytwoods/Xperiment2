@@ -177,15 +177,17 @@
             <valid>notEmpty() && notEquals("Where are you from?")</valid>
 		</origin>
 		<preloadProgress builder="xpt.stimuli.builders.basic.StimProgressBar">
+			<start>100</start>
 			<onPreloadProgress>
 				this.pos = e.current;
 				this.max = e.total;
 			</onPreloadProgress>
-			<onAddedToTrial>
+			<onAdded>
 				if(Experiment.stimuli_loaded == true){
 					this.pos = 100;
 				}
-			</onAddedToTrial>
+				
+			</onAdded>
 		</preloadProgress>
 		<preloadReadyButton builder="xpt.stimuli.builders.basic.StimButton">
 			<icon>img/icons/control.png</icon>
@@ -194,11 +196,11 @@
 			<iconPosition>right</iconPosition>-->
 			<text>Continue</text>
 			<visible>false</visible>
-			<onAddedToTrial>
+			<onAdded>
 				if(Experiment.stimuli_loaded == true){
 					this.visible = true;
 				}
-			</onAddedToTrial>
+			</onAdded>
 			<onPreloadComplete>
 				this.visible = true
 			</onPreloadComplete>

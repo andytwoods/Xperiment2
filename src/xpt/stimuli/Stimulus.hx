@@ -52,8 +52,7 @@ class Stimulus {
 	
 	public function begin(delay:Int = 0) {
 		function start_from_trial() {
-			trace(21234, builder, builder.trial, id);
-			
+		
 			if (builder.trial != null) {
 				builder.trial.addStimulus(this);	
 			}
