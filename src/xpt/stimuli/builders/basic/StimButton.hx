@@ -11,7 +11,7 @@ import xpt.tools.XTools;
 
 class StimButton extends StimulusBuilder {
 	public var clicked:Int = 0;
-	private var b:Button;
+	public var b:Button;
 	
 	public function new() {
 		super();

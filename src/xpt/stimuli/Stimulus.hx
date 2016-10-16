@@ -38,6 +38,10 @@ class Stimulus {
 		__properties = new Map<String, Dynamic>();
 	}
 	
+	public function next(stim:Stimulus) {
+		builder.next(stim);
+	}
+	
 	public function hide() {
 		this._component.visible = false;
 	}

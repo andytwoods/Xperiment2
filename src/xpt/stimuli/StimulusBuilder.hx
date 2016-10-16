@@ -40,6 +40,10 @@ class StimulusBuilder {
 		#end
 	}
 	
+	public function next(stim:Stimulus) {
+		//to be overridden
+	}
+	
 	public static function updateTrial_XY(x:Float, y:Float) {
 		stageOffset_x = x;
 		stageOffset_y = y;

@@ -121,6 +121,8 @@
 			<valid>equals(true)</valid>
 		</rank>
 		<schedule builder="xpt.stimuli.builders.nonvisual.StimSchedule">	
+			<id>schedule</id>
+			<random>true</random>
 		</schedule>
         
 		<!-- ***********************************************************************************
