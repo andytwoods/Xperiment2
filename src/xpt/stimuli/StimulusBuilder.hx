@@ -1,6 +1,6 @@
 package xpt.stimuli;
-import xpt.preloader.Preloader;
 
+import xpt.preloader.Preloader;
 import code.Scripting;
 import diagnositics.DiagnosticsManager;
 import diagnositics.DiagnosticsRecord;
@@ -109,6 +109,7 @@ class StimulusBuilder {
         }
         return arr;
     }
+
     
 	public function getFloat(what:String, defaultValue:Float = -1):Float {
 		var i = defaultValue;

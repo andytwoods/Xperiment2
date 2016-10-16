@@ -12,7 +12,7 @@ import xpt.stimuli.tools.NonVisual_Tools;
 
 class StimShuffle extends StimulusBuilder_nonvisual {
     private var _trialStarted:Bool = false;
-    private var _suffleAdded:Bool = false;
+    private var _shuffleAdded:Bool = false;
     private var _shuffled:Bool = false;
     
     public function new() {
@@ -38,7 +38,7 @@ class StimShuffle extends StimulusBuilder_nonvisual {
     added until a timer event of course
     */
     private function performShuffle() {
-        if (_trialStarted == false || _suffleAdded == false || _shuffled == true) {
+        if (_trialStarted == false || _shuffleAdded == false || _shuffled == true) {
             return;
         }
         
@@ -74,7 +74,7 @@ class StimShuffle extends StimulusBuilder_nonvisual {
 	// CALLBACKS
 	//*********************************************************************************
     public override function onAddedToTrial() { // could happen instantly, could happen after a give time
-        _suffleAdded = true;
+        _shuffleAdded = true;
         performShuffle();
     }
 }

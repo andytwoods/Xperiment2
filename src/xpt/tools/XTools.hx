@@ -7,6 +7,7 @@ import thx.Floats;
 import thx.Ints;
 import xpt.preloader.Preloader;
 import xpt.tools.XRandom;
+import xpt.stimuli.Stimulus;
 
 /**
  * ...
@@ -19,6 +20,13 @@ class XTools
 	private static inline var endProtected:String = "]]>";
 
 	
+	static public function stimuli_to_map(stimuli:Array<Stimulus>):Map<String,Stimulus> {
+		var map = new Map<String, Stimulus>();
+		for (stim in stimuli) {
+			map[stim.id] = stim;
+		}
+		return map;
+	}
 	
 	static public function appendUpNumberedProps(map:Map<String,String>)
 		{

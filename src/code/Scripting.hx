@@ -177,8 +177,6 @@ class Scripting
 		}
 		
 	}
-
-
 	
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
 		var code = stim.get(prop);
@@ -224,6 +222,7 @@ class Scripting
 			if(stim.id != Stimulus.UNSPECIFIED) bundle.add(stim.id, stim);
 		}
 	}
+	
 	
 	
 	 public static function expandScriptValues(script:String, vars:Map<String, Dynamic> = null, exceptions:Array<String> = null, stimuli:Array<Stimulus> = null ):String {

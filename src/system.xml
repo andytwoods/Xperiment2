@@ -120,6 +120,8 @@
 		<rank builder="xpt.stimuli.builders.nonvisual.StimRank">
 			<valid>equals(true)</valid>
 		</rank>
+		<schedule builder="xpt.stimuli.builders.nonvisual.StimSchedule">	
+		</schedule>
         
 		<!-- ***********************************************************************************
 			LAYOUT STIMULI
