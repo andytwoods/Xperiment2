@@ -57,12 +57,17 @@ class StimLineScale extends StimulusBuilder {
 	
 	function sortStartPosition(lineScale:LineScale, startPosition:String) 
 	{
-		switch(startPosition.toLowerCase()) {
+		var startPos:String = startPosition.toLowerCase();
+		
+		switch(startPos) {
 			case 'random':
 				lineScale.position_percent(XRandom.random());
 			case 'hidden':
 				if(lineScale.sprite.hasEventListener(MouseEvent.MOUSE_OVER)==false) lineScale.sprite.addEventListener(MouseEvent.MOUSE_OVER, mouseOverL);
 				lineScale.change_visible(false);
+			default:
+				var pos:Float = Std.parseFloat(startPos.split("%").join(""));
+				lineScale.position_percent(pos/100);
 		}
 
 	}

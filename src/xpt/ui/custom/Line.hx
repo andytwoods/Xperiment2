@@ -8,13 +8,14 @@ class Line extends Box {
 	private var labels1:Array<Text>;
 	
 	public var offsetX:Float = 30;
+	public var verticalLine:Float = 5;
 	
 	public function new() {
 		super();
 	}
 	
 	public override function paint():Void {
-        var offsetY:Float = this.height - 10;
+        var offsetY:Float = this.height - verticalLine *2;
 		_sprite.graphics.clear();
 		
 		
@@ -22,11 +23,11 @@ class Line extends Box {
 		_sprite.graphics.moveTo(offsetX, offsetY);
 		_sprite.graphics.lineTo(_width - offsetX, offsetY);
 		
-		_sprite.graphics.moveTo(offsetX, offsetY - 5);
-		_sprite.graphics.lineTo(offsetX, offsetY + 5);
+		_sprite.graphics.moveTo(offsetX, offsetY - verticalLine);
+		_sprite.graphics.lineTo(offsetX, offsetY + verticalLine);
 		
-		_sprite.graphics.moveTo(_width - offsetX, offsetY - 5);
-		_sprite.graphics.lineTo(_width - offsetX, offsetY + 5);
+		_sprite.graphics.moveTo(_width - offsetX, offsetY - verticalLine);
+		_sprite.graphics.lineTo(_width - offsetX, offsetY + verticalLine);
 	}
 	
 

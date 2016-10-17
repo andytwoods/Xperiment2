@@ -65,17 +65,10 @@ class LineScale extends StateComponent {
 		_selection.height = 50;
 		_selection.id = "selection";
 		_selection.addEventListener(MouseEvent.MOUSE_DOWN, _onTriangleMouseDown);
-		#if html5
-			Browser.window.addEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
-		#end
-		addChild(_selection);
-		
-		
 
-		
+		addChild(_selection);	
 	}
 
-	
 	
 	public override function initialize():Void {
 		super.initialize();
@@ -84,14 +77,11 @@ class LineScale extends StateComponent {
 
 	public function kill() {
 		#if html5
-			Browser.window.removeEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
+
 			if (spr != null) {
 				RootManager.instance.currentRoot.sprite.stage.removeChild(spr);
 				spr = null;
 			}
-			#if html5
-		var spr:Sprite;
-	#end
 		
 		
 		#end
@@ -157,6 +147,7 @@ class LineScale extends StateComponent {
 		if (triangleMoveCallBack != null) {
 			RootManager.instance.currentRoot.sprite.stage.removeEventListener(MouseEvent.MOUSE_MOVE, _onMouseMoveCallback);	
 		}
+		RootManager.instance.currentRoot.sprite.stage.removeEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
 		//e.target.removeEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
 		e.target.removeEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
 		_onMouseMove(null);
