@@ -47,7 +47,13 @@
 			<startPosition>hidden</startPosition>
             <valid>notEmpty()</valid>
 			<labels>not at all,very much so</labels>
-        </lineScale>    
+        </lineScale>
+		<drawnLineScale builder="xpt.stimuli.builders.basic.StimDrawnLineScale">
+			<width>50%</width>
+			<startPosition>hidden</startPosition>
+            <valid>notEmpty()</valid>
+			<labels>not at all,very much so</labels>
+        </drawnLineScale>
 		<multipleChoice builder="xpt.stimuli.builders.basic.StimMultipleChoice">
             <valid>notEmpty()</valid>
         </multipleChoice>

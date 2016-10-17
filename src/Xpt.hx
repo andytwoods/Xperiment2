@@ -47,7 +47,8 @@ class Xpt {
 		//exptName = 'magic1';
 		//exptName = 'BoubaKikiXpt2_1';
 		//exptName = 'mBurt';
-		exptName = 'boubaKiki_icecream';
+		//exptName = 'boubaKiki_icecream';
+		exptName = 'choiceLund';
 		
 		#if html5
 			var force_exptName = UrlParams_service.get('exptName');

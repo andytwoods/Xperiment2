@@ -1,6 +1,6 @@
 package xpt.tools;
-import flash.events.Event;
-import flash.events.EventDispatcher;
+import openfl.events.Event;
+import openfl.events.EventDispatcher;
 import openfl.events.TimerEvent;
 import openfl.utils.Timer;
 import thx.Floats;
@@ -19,6 +19,30 @@ class XTools
 	private static inline var startProtected:String = "<![CDATA[";
 	private static inline var endProtected:String = "]]>";
 
+	
+	// returns a function that ensures response only every X ms
+	static public function onceEvery(time_period:Int):Void->Bool {
+
+		var t:Timer = null;
+		
+		return function():Bool {
+			
+			if (t != null && t.running == true) {
+				return false;
+			}
+
+			t = new Timer(time_period, 0);
+
+			function timerEnd(e:TimerEvent) {
+				t.stop();
+				t.removeEventListener(TimerEvent.TIMER, timerEnd);
+			}
+			t.addEventListener(TimerEvent.TIMER, timerEnd);
+		
+			t.start();	
+			return true;
+		}
+	}
 	
 	static public function stimuli_to_map(stimuli:Array<Stimulus>):Map<String,Stimulus> {
 		var map = new Map<String, Stimulus>();

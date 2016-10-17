@@ -1,6 +1,6 @@
 package xpt.ui.custom;
 
-import flash.display.Stage;
+import openfl.display.Stage;
 import haxe.Constraints.FlatEnum;
 import haxe.ui.toolkit.containers.Box;
 import haxe.ui.toolkit.containers.VBox;
