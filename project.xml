@@ -6,10 +6,10 @@
 	<meta title="XptHaxe" package="XptHaxe" version="1.0.0" company="com.flyingFishResearch" />
 	
 	<!-- output -->
-	<app main="Xpt" file="XptHaxe" path="bin" /><!--
+	<app main="Xpt" file="XptHaxe" path="bin" />
 	
    
-    <haxedef name="dom" />
+	<!--<haxedef name="dom" />
 	<haxeflag name="-D dom" />-->
 
 	<app main="Xpt" preloader="xpt.loadingScreen.LoadingScreen"/>

@@ -61,12 +61,17 @@ class LineScale extends StateComponent {
 		_selection = new Triangle();
 		_selection.x = 10;
 		_selection.y = 10;
-		_selection.width = 50;
-		_selection.height = 50;
+		//_selection.width = size;
+		//_selection.height = size;
 		_selection.id = "selection";
 		_selection.addEventListener(MouseEvent.MOUSE_DOWN, _onTriangleMouseDown);
 
 		addChild(_selection);	
+	}
+	
+	public function triangleSize(size:Int) {
+		_selection.width = size;
+		_selection.height = size;
 	}
 
 	
@@ -259,7 +264,7 @@ class LineScaleLayout extends BoxLayout {
 		var n = ucx / m;
 		var v = scale.val;
 
-		selection.x = (v * n) + (selection.width * .5) - (line.offsetX - 10);
+		selection.x = (v * n) - (selection.width * .5) + (line.offsetX)+1;
         selection.y = usableHeight - selection.height - 10;
         
         // now lets position the labels

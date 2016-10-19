@@ -25,6 +25,7 @@ class StimLineScale extends StimulusBuilder {
 	
 	private override function createComponentInstance():Component {
         lineScale = new LineScale();
+		lineScale.triangleSize(getInt('size'));
 		lineScale.triangleMoveCallBack = triangleMoveCallBack;
   
 		return lineScale;

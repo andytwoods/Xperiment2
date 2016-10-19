@@ -47,6 +47,7 @@
 			<startPosition>hidden</startPosition>
             <valid>notEmpty()</valid>
 			<labels>not at all,very much so</labels>
+			<size>50</size>
         </lineScale>
 		<drawnLineScale builder="xpt.stimuli.builders.basic.StimDrawnLineScale">
 			<width>50%</width>
