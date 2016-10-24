@@ -133,12 +133,12 @@ class StimulusBuilder {
 		return i;
 	}
 	
-	public function getPercent(what:String, defaultValue:Int = -1):Int {
+	public function getPercent(what:String, defaultValue:Float = -1):Float{
 		var i = defaultValue;
 		var v = get(what);
 		if (v != null && StringTools.endsWith(v, "%") == true) {
 			var s:String = cast v;
-			i = Std.parseInt(s.substr(0, s.length - 1));
+			i = Std.parseFloat(s.substr(0, s.length - 1));
 		}
 		return i;
 	}

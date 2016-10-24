@@ -135,7 +135,6 @@ class ETCs
 				arr[i] += "%";
 			}
 		}
-		
 		return arr.join(splitter);
 
 	}
