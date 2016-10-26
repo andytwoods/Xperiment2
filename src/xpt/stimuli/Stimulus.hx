@@ -33,7 +33,7 @@ class Stimulus {
     
 	private var __properties:Map<String,Dynamic>;
 	private var __underlings:Array<Stimulus> = [];
-
+	
 	public function new() {
 		__properties = new Map<String, Dynamic>();
 	}
@@ -259,9 +259,11 @@ class Stimulus {
 			}
 			_component = builder.build(this);
 		}
+	
 		return _component;
 	}
 		
+	
     public function updateComponent():Void {
         if (_component != null) {
             builder.update();

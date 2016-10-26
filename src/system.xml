@@ -81,6 +81,7 @@
 		<video builder="xpt.stimuli.builders.basic.StimVideo" />
 		<popup builder="xpt.stimuli.builders.basic.StimPopup">
 			<title>information</title>
+			<text>my popup</text>
 		</popup>
 		
 		
@@ -134,6 +135,11 @@
 			<id>schedule</id>
 			<random>true</random>
 		</schedule>
+		<smartGroup builder="xpt.stimuli.builders.nonvisual.StimSmartGroup">
+			<groupSizes>4,6</groupSizes>
+			<groupNames>selected,notSelected</groupNames>
+			<random>true</random>
+		</smartGroup>
         
 		<!-- ***********************************************************************************
 			LAYOUT STIMULI

@@ -27,7 +27,7 @@ class StimDrawnLineScale extends StimulusBuilder {
 	private override function createComponentInstance():Component {
         lineScale = new DrawnLineScale();
 		lineScale.updatedCallback = updatedCallback;
-  
+		this.stim.__properties.set('moderate', moderate);
 		return lineScale;
 	}
 	
@@ -53,9 +53,10 @@ class StimDrawnLineScale extends StimulusBuilder {
 		}
 		
 		sortLabels(lineScale, get("labels",""), get("labelPositions",""));
-
-		
-		
+	}
+	
+	public function moderate(val:Int) {
+		lineScale.bufferZone.moveOver(val,0);
 	}
 	
 
