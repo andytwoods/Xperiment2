@@ -8,7 +8,7 @@ import haxe.ui.toolkit.core.PopupManager.PopupButton;
 import haxe.ui.toolkit.core.RootManager;
 import xpt.experiment.Experiment;
 import xpt.tools.XTools;
-
+import xpt.results.ResultsFeedbackController;
 
 
 

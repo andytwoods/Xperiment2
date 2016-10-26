@@ -79,6 +79,9 @@
 			<color>0x1a0dab</color>
 		</link>
 		<video builder="xpt.stimuli.builders.basic.StimVideo" />
+		<popup builder="xpt.stimuli.builders.basic.StimPopup">
+			<title>information</title>
+		</popup>
 		
 		
 		<!-- ***********************************************************************************

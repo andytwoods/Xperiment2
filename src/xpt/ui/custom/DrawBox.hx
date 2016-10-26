@@ -173,9 +173,10 @@ class PointLine {
 	}
 	
 	public function moveOver(by_x:Int, by_y:Int) {
+		
 		for (point in line) {
 			point.x += by_x;
-			point.y += by_y;
+			point.y += 0;
 		}
 	}
 	
