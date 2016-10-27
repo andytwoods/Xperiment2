@@ -42,6 +42,10 @@ class Stimulus {
 		builder.next(stim);
 	}
 	
+	public function moveY(modY:Float) {
+		this.component.y = modY;
+	}
+	
 	public function hide() {
 		this._component.visible = false;
 	}
@@ -52,6 +56,10 @@ class Stimulus {
 	
 	public function show() {
 		this._component.visible = true;
+	}
+	
+	public function text(str:String) {
+		this.builder.set_text(str);
 	}
 	
 	public function begin(delay:Int = 0) {

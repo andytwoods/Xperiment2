@@ -40,6 +40,10 @@ class StimulusBuilder {
 		#end
 	}
 	
+	public function set_text(txt:String) {
+		//override
+	}
+	
 	public function next(stim:Stimulus) {
 		//to be overridden
 	}
@@ -100,18 +104,16 @@ class StimulusBuilder {
 	}
 	
     public function getStringArray(what:String, defaultValue:Array<String> = null, delim:String = ","):Array<String> {
-        var arr:Array<String> = defaultValue;
-        var v:String = get(what);
-        if (v != null) {
-            if (arr == null) {
-                arr = [];
-            }
-            var temp:Array<String> = v.split(delim);
-            for (s in temp) {
-                arr.push(StringTools.trim(s));
-            }
-        }
-        return arr;
+       
+        var v:String = get(what, null);
+		if (v == null || v.length == 0) return defaultValue;
+
+		var arr:Array<String> = [];
+		var temp:Array<String> = v.split(delim);
+		for (s in temp) {
+			arr.push(StringTools.trim(s));
+		}
+		return arr;
     }
 
     
@@ -141,6 +143,10 @@ class StimulusBuilder {
 			i = Std.parseFloat(s.substr(0, s.length - 1));
 		}
 		return i;
+	}
+	
+	public function exists(what:String):Bool {
+		return stim.__properties.exists(what);
 	}
 	
 	public function getBool(what:String, defaultValue:Bool = false):Bool {

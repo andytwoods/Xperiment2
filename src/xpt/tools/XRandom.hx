@@ -20,6 +20,10 @@ class XRandom
 	private static var rnd:RNG;
 	private static var algorithm:String;
 	
+	static public var alpha:String = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	static public var numeric:String = '0123456789';
+	static public var alphanumeric:String = alpha + numeric;
+	
 	public static function init(type:RandomAlgorithm) {
 		algorithm = type.getName();
 		switch(type) {
@@ -41,8 +45,9 @@ class XRandom
 	}
 	
 	//from https://github.com/jasononeil/hxrandom/blob/master/src/Random.hx
-	static public function string(len:Int, ?charactersToUse = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"):String
+	static public function string(len:Int,charactersToUse:String = null):String
 	{
+		if (charactersToUse == null) charactersToUse = alphanumeric;
 		var str = "";
 		for (i in 0...len)
 		{

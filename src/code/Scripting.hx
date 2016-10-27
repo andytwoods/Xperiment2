@@ -14,6 +14,7 @@ import openfl.errors.Error;
 import openfl.events.Event;
 import openfl.Lib;
 import openfl.utils.Object;
+import thx.Strings;
 import wrappers.SystemWrapper;
 import xpt.debug.DebugManager;
 import xpt.experiment.Experiment;
@@ -182,7 +183,7 @@ class Scripting
 		var code = stim.get(prop);
 
 		if (code != null) {
-			
+			code = repair(code);
 			var bundle:ScriptBundle = getBundle();
 			try {
 				bundle.add("this", stim.component);
@@ -210,6 +211,14 @@ class Scripting
 		}
 		
 		
+	}
+	
+	private static var repairs:Map<String,String> = ["&amp;" => "&"];
+	private static inline function repair(str:String) {
+		for (key in repairs.keys()) {
+			str = str.split(key).join(repairs.get(key));
+		}
+		return str;
 	}
 	
 	

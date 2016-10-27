@@ -21,6 +21,10 @@ class StimButton extends StimulusBuilder {
 		return new Button();
 	}
 	
+	override public function set_text(txt:String) {
+		b.text = txt;
+	}
+	
 	private override function applyProperties(c:Component) {
 		super.applyProperties(c);
 		b = cast c;

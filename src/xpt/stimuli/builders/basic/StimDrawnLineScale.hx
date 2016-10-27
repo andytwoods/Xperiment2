@@ -49,16 +49,17 @@ class StimDrawnLineScale extends StimulusBuilder {
 		
 		if (lhs.length > 0 && rhs.length > 0) {
 			stim.set('labels', [lhs, rhs].join(","));
-			
 		}
 		
 		sortLabels(lineScale, get("labels",""), get("labelPositions",""));
 	}
 	
-	public function moderate(val:Int) {
-		lineScale.bufferZone.moveOver(val,0);
+	public function moderate(val:Float) {
+		var change:Float = XTools.moderate(val, stim.value, 50);
+		
+		
+		lineScale.bufferZone.moveOver(change,0);
 	}
-	
 
 	@:access(xpt.ui.custom.DrawnLineScale)
 	private function mouseOverL(e:MouseEvent):Void 

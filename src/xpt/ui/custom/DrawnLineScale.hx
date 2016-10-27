@@ -291,7 +291,8 @@ class DrawnLineScaleLayout extends BoxLayout {
             var ucx:Float = line.width - (line.offsetX * 2);
             for (i in 0...scale._labelComponents.length) {
                 var label:Text = scale._labelComponents[i];
-                label.x = ucx * labelPositions[i];
+				label.style.textAlign = 'center';
+                label.x = ucx * labelPositions[i] - label.width *.25;
                 label.y = scale.height;
             }
         }

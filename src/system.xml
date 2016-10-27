@@ -82,6 +82,7 @@
 		<popup builder="xpt.stimuli.builders.basic.StimPopup">
 			<title>information</title>
 			<text>my popup</text>
+			<forceSize>false</forceSize>
 		</popup>
 		
 		
@@ -136,8 +137,8 @@
 			<random>true</random>
 		</schedule>
 		<smartGroup builder="xpt.stimuli.builders.nonvisual.StimSmartGroup">
-			<groupSizes>4,6</groupSizes>
-			<groupNames>selected,notSelected</groupNames>
+			<groupSizes></groupSizes>
+			<groupNames></groupNames>
 			<random>true</random>
 		</smartGroup>
         

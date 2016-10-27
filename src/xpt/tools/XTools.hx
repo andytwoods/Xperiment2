@@ -381,6 +381,18 @@ class XTools
 		}
 		return ip;
 	}
+	
+
+	public static function moderate(change:Float, actual:Float, central_limit:Float):Float {
+
+		if (actual> central_limit) {
+			if (actual - change < central_limit) return central_limit - actual;
+			return -change;
+		}
+		
+		if (actual + change > central_limit)  return central_limit - actual;
+		return change;
+	}
 		
 
 }

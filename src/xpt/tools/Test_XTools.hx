@@ -59,6 +59,14 @@ class Test_XTools
 	Assert.isTrue( XTools.protectCodeBlocks('123<code>222</code>123<code>222</code>', 'code') == "123<code><![CDATA[222]]></code>123<code><![CDATA[222]]></code>");
 	}
 	
+	public function test_moderate() {
+		Assert.equals(XTools.moderate(10, 10, 50), 10);
+		Assert.equals(XTools.moderate(50, 10, 50), 40);
+		
+		Assert.equals(XTools.moderate(10, 70, 50), -10);
+		Assert.equals(XTools.moderate(50, 70, 50), -20);
+	}
+	
 }
 
 

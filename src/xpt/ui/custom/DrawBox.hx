@@ -76,14 +76,20 @@ class DrawBox extends Box {
 	}
 	
 	public function check_lines_intersect():Point {
-		if (lines.length < 2) return null;
+		if (lines.length < 2) {
+			lineCol(0x000000);
+			return null;
+		}
 		var width_int = Std.int(width);
 		var height_int = Std.int(height);
 		
 		var first:BitmapData = lines[lines.length - 2].getBitmapData(width_int, height_int);
 		var second:BitmapData = lines[lines.length -1].getBitmapData(width_int, height_int);
 		
-		if (first == null || second == null) return null;
+		if (first == null || second == null) {
+			lineCol(0x000000);
+			return null;
+		}
 		
 		//http://stackoverflow.com/questions/5272155/iterating-each-pixel-of-a-bitmap-image-in-actionscript
 		//stores the width and height of the image
@@ -108,19 +114,26 @@ class DrawBox extends Box {
 			}
 		}
 		
-		if (xs.length == 0) return null;
+		if (xs.length == 0) {
+			lineCol(0x000000);
+			return null;
+		}
 		
 		var av:Point = new Point(ArrayInts.average(xs), ArrayInts.average(ys));
 	
-		_sprite.graphics.moveTo(av.x, av.y);
-		_sprite.graphics.drawCircle(av.x, av.y, 5);
-		
-		moveOver(100, 0);
-		
+		//_sprite.graphics.moveTo(av.x, av.y);
+		//_sprite.graphics.drawCircle(av.x, av.y, 5);
+		//moveOver(100, 0);
+		lineCol(0xff0000);
 		return av;
 	}
 	
-	public function moveOver(by_x:Int, by_y:Int) {
+	public function lineCol(col:Int) {
+		lineColour = col;
+		paint();
+	}
+	
+	public function moveOver(by_x:Float, by_y:Float) {
 		for (line in lines) {
 			line.moveOver(by_x, by_y);
 		}
@@ -172,11 +185,11 @@ class PointLine {
 	public function new() {
 	}
 	
-	public function moveOver(by_x:Int, by_y:Int) {
+	public function moveOver(by_x:Float, by_y:Float) {
 		
 		for (point in line) {
 			point.x += by_x;
-			point.y += 0;
+			point.y += by_y;
 		}
 	}
 	
