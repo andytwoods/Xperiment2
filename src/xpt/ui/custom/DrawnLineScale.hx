@@ -1,5 +1,6 @@
 package xpt.ui.custom;
 
+import de.polygonal.ds.Map;
 import openfl.display.Stage;
 import haxe.Constraints.FlatEnum;
 import haxe.ui.toolkit.containers.Box;
@@ -44,6 +45,9 @@ class DrawnLineScale extends StateComponent {
 	private var mouseUpListener = false;
 	private var mouseDown:Bool = false;
 	
+	private var unselectedBorderColor:Int = 0xe6e6e6;
+	private var selectedBorderColor:Int = 0x000000;
+	
 	var stage:Stage;
 	
 	#if html5
@@ -83,13 +87,20 @@ class DrawnLineScale extends StateComponent {
 				type = Cross;
 			default:
 				throw 'unknown type' + typeStr;
-				
 		}
 	}
 	
 	
 	private function _onMouseOut(e:MouseEvent):Void {
 		_onMouseUp(e);
+	}
+	
+	public function scoreableWidth():Float {
+		return bufferZone.width - 2 * _line.offsetX;
+	}
+	
+	public function getPercent_pixel_pos_in_box(position:Float):Float {
+		return (position - _line.offsetX) / scoreableWidth() * 100;
 	}
 
 	private function _onMouseUp(e:MouseEvent):Void {
@@ -108,26 +119,34 @@ class DrawnLineScale extends StateComponent {
 		}
 		
 		if (intersection != null) {
-			var percent:Float = (intersection.x - _line.offsetX) / (bufferZone.width - 2 * _line.offsetX) * 100;
+			var percent:Float = getPercent_pixel_pos_in_box(intersection.x);
 			if (percent < 0 || percent > 100) {
+				borderCol(unselectedBorderColor);
 				bufferZone.keep(1);
 				bufferZone.reset();
 				bufferZone.paint();
 			}
-			if(updatedCallback!=null)updatedCallback(percent);
+			else{
+				borderCol(selectedBorderColor);
+				if (updatedCallback != null) updatedCallback(percent);
+			}
 		}
 		else {
+			borderCol(unselectedBorderColor);
 			if (type == Cross) {
-			
-				
+			//	
 			}	
-			else{
+			else {	
+				consider_reset(null);
 				
-					consider_reset(null);
-					bufferZone.paint();
-			}	
-				
-			}	
+			}		
+		}	
+	}
+	
+	private function borderCol(col:Int) {
+		this.style.borderColor = col;
+		this.style.borderSize = 3;
+		this.refreshStyle();
 	}
 	
 	private inline function consider_reset(point:Point, extra:Bool=false) {

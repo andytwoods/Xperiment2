@@ -107,6 +107,7 @@
 		<swap builder="xpt.stimuli.builders.nonvisual.StimShuffle"/>
 		<shuffle builder="xpt.stimuli.builders.nonvisual.StimShuffle">
 			<fixed>x,y</fixed>
+			<groupSize></groupSize>
 		</shuffle>
 		<arrange builder="xpt.stimuli.builders.nonvisual.StimArrange">
 			<width></width>

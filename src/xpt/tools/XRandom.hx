@@ -68,16 +68,15 @@ class XRandom
 	
 //Fisher-yates Shuffle, adapted from JS from here:http://bost.ocks.org/mike/shuffle/		
 	
-	public static function shuffle <T>(arr:Array<T>,id:String=''):Array<T>{ 
+	public static function shuffle <T>(arr:Array<T>, id:String=null):Array<T>{ 
 		
 		var m:Int = arr.length, t:Dynamic, i:Int;
 		var randomList:Array<Float> = [];
 		for (i in 0...m) {	
-			
 			randomList[i] = random();
 		}
 		
-		if(id!=''){
+		if(id!=null){
 			if (shuffleArrMem == null) shuffleArrMem = new Map<String,Array<Float>>();
 			if (shuffleArrMem[id] != null) {
 				randomList = shuffleArrMem[id];

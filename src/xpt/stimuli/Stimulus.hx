@@ -62,6 +62,10 @@ class Stimulus {
 		this.builder.set_text(str);
 	}
 	
+	public function snapshot(nam:String) {
+		builder.snapshot(nam);
+	}
+	
 	public function begin(delay:Int = 0) {
 		function start_from_trial() {
 		
@@ -250,6 +254,7 @@ class Stimulus {
 		__underlings = null;
 		__properties = null;
 		removeListeners();
+		builder.kill();
 		disposeComponent();
 	}
 	

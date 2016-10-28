@@ -18,12 +18,12 @@ class DrawBox extends Box {
 	public var offsetX:Float = 30;
 	public var line:PointLine;
 	public var lines:Array<PointLine>;
+
 	
 	public function new(width:Int = -1, col:Int =-1) {
-		lineWidth = width;
-		lineColour = col;
 		
 		if (width == -1) lineWidth = _baseStyle.borderSize;
+		else lineWidth = width;
 		if (col == -1) lineColour =  _baseStyle.borderColor;
 		
 		line = new PointLine();
@@ -37,8 +37,9 @@ class DrawBox extends Box {
 
 		_sprite.graphics.clear();
 		_sprite.graphics.beginFill(0x000000, 0.1);
+
 		_sprite.graphics.drawRect(0, 0, _width, _height);
-		_sprite.graphics.lineStyle(lineWidth, lineColour);	
+		_sprite.graphics.lineStyle(lineWidth, lineColour, 1);	
 		
 		var next:Point;
 		var point:Point;
@@ -77,7 +78,6 @@ class DrawBox extends Box {
 	
 	public function check_lines_intersect():Point {
 		if (lines.length < 2) {
-			lineCol(0x000000);
 			return null;
 		}
 		var width_int = Std.int(width);
@@ -87,7 +87,6 @@ class DrawBox extends Box {
 		var second:BitmapData = lines[lines.length -1].getBitmapData(width_int, height_int);
 		
 		if (first == null || second == null) {
-			lineCol(0x000000);
 			return null;
 		}
 		
@@ -115,24 +114,19 @@ class DrawBox extends Box {
 		}
 		
 		if (xs.length == 0) {
-			lineCol(0x000000);
 			return null;
 		}
-		
+
 		var av:Point = new Point(ArrayInts.average(xs), ArrayInts.average(ys));
 	
 		//_sprite.graphics.moveTo(av.x, av.y);
 		//_sprite.graphics.drawCircle(av.x, av.y, 5);
 		//moveOver(100, 0);
-		lineCol(0xff0000);
 		return av;
 	}
 	
-	public function lineCol(col:Int) {
-		lineColour = col;
-		paint();
-	}
 	
+
 	public function moveOver(by_x:Float, by_y:Float) {
 		for (line in lines) {
 			line.moveOver(by_x, by_y);

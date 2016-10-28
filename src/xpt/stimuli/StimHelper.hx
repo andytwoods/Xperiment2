@@ -10,7 +10,7 @@ import xpt.tools.XTools;
 
 
 class StimHelper {
-    public static function shuffle(list:Array<Stimulus>, fixedProps:Array<String> = null) {
+    public static function shuffle(list:Array<Stimulus>, fixedProps:Array<String> = null, memory_id:String) {
 		
         var fixedValues:Map<String, Array<String>> = null;
         if (fixedProps != null) {
@@ -21,13 +21,12 @@ class StimHelper {
                     var propValue:String = s.get(propName);
                     valueList.push(propValue);
                 }
-                fixedValues.set(propName, valueList);
-                
+                fixedValues.set(propName, valueList);    
             }
         }
        
 		
-        XRandom.shuffle(list);
+        XRandom.shuffle(list, memory_id);
 	
 		
         if (fixedValues != null) {
@@ -45,12 +44,12 @@ class StimHelper {
 
     }
     
-    public static function shuffleArrangement(list:Array<Stimulus>, fixedProps:Array<String> = null) {
+    public static function shuffleArrangement(list:Array<Stimulus>, fixedProps:Array<String> = null, memory_id:String = null) {
         if (fixedProps == null) {
             fixedProps = [];
         }
         //fixedProps = fixedProps.concat(['x', 'y', 'horizontalAlign', 'verticalAlign', 'marginLeft', 'marginTop', 'marginRight', 'marginBottom']);
-        shuffle(list, fixedProps);
+        shuffle(list, fixedProps, memory_id);
     }
 	
 	static public function arrange(stims:Array<Stimulus>) 

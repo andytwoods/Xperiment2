@@ -16,6 +16,7 @@ import xpt.ui.custom.LineScale;
 class StimDrawnLineScale extends StimulusBuilder {
 	
 	var lineScale:DrawnLineScale;
+	var my_results:Map<String,String> = new Map<String,String>();
 	#if html5
 		var spr:Sprite;
 	#end
@@ -54,11 +55,15 @@ class StimDrawnLineScale extends StimulusBuilder {
 		sortLabels(lineScale, get("labels",""), get("labelPositions",""));
 	}
 	
-	public function moderate(val:Float) {
-		var change:Float = XTools.moderate(val, stim.value, 50);
-		
-		
-		lineScale.bufferZone.moveOver(change,0);
+	public function moderate(percent:Float) {
+		var moderatedPercent:Float = XTools.moderate(percent, stim.value, 50);
+		var pixelChange:Float = lineScale.scoreableWidth() * moderatedPercent / 100;
+		lineScale.bufferZone.moveOver(pixelChange, 0);
+		addResult('moderatedTo', Std.string(moderatedPercent + stim.value));
+	}
+	
+	override public function snapshot(nam:String) {
+		addResult(nam, stim.value);
 	}
 
 	@:access(xpt.ui.custom.DrawnLineScale)
@@ -89,12 +94,17 @@ class StimDrawnLineScale extends StimulusBuilder {
 			var numLabels:Int = labelList.length;
 			for (i in 0...labelList.length) {
 				labelPositionsList.push( i / (numLabels-1) );
-			}
-			
+			}	
 		}
-		
-		lineScale.sortLabels(labelList, labelPositionsList);
-		
+		lineScale.sortLabels(labelList, labelPositionsList);	
+	}
+	
+	public function addResult(what:String, val:String) {
+		my_results.set(stim.id + '_' + what, val);
+	}
+	
+	public override function results():Map<String,String> {
+		return my_results;
 	}
 	
 	public override function onAddedToTrial() {

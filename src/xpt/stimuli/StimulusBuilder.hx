@@ -40,6 +40,10 @@ class StimulusBuilder {
 		#end
 	}
 	
+	public function kill() {
+		stim = null;
+	}
+	
 	public function set_text(txt:String) {
 		//override
 	}
@@ -373,6 +377,10 @@ class StimulusBuilder {
 		if (cy > 0) {
 			c.height = cy;
 		}
+	}
+	
+	public function snapshot(nam:String) {
+		//override
 	}
     
 	//override this

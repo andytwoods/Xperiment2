@@ -114,12 +114,10 @@ class Preloader extends EventDispatcher {
 		event.current = _current;
 		event.total = _total;
 		dispatchEvent(event);
-		
 		if (callBacks.exists(id)) {
 			var file_callbacks = callBacks.get(id);
-			for(i in 0...file_callbacks.length) {
-				var f:Void->Void = file_callbacks[i];
-				if (f != null) f();
+			for(callback in file_callbacks) {
+				if(callback!=null) callback();
 			}
 			file_callbacks = null;
 		}
