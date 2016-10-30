@@ -76,6 +76,35 @@
 		
 		var success = function(){
 			lime.embed("openfl-content", 0, 0, "FFFFFF");
+			
+			var context = canvas.getContext('2d'),
+
+			devicePixelRatio = window.devicePixelRatio || 1,
+			backingStoreRatio = context.webkitBackingStorePixelRatio ||
+								context.mozBackingStorePixelRatio ||
+								context.msBackingStorePixelRatio ||
+								context.oBackingStorePixelRatio ||
+								context.backingStorePixelRatio || 1,
+
+			ratio = devicePixelRatio / backingStoreRatio;
+
+			if (devicePixelRatio !== backingStoreRatio)
+			{
+				var oldWidth = canvas.width;
+				var oldHeight = canvas.height;
+
+				canvas.width = oldWidth * ratio;
+				canvas.height = oldHeight * ratio;
+
+				canvas.style.width = oldWidth + 'px';
+				canvas.style.height = oldHeight + 'px';
+
+				context.scale(ratio, ratio);
+			}
+			
+			
+			
+			
 		}
 		var failure = function(message){
 			alert("We are sorry, there is a problem: " + message);

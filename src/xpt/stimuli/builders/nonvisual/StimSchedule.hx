@@ -37,8 +37,8 @@ class StimSchedule extends StimulusBuilder_nonvisual {
         performSchedule();
     }
 			
-	override public function next(stim:Stimulus) {
-		schedule.next(stim.id);
+	override public function next(stim:Stimulus):Bool {
+		return schedule.next(stim.id);
 	}
     
     private function performSchedule() {
@@ -92,17 +92,16 @@ class Schedule {
 	}
 	
 	
-	public function next(id:String = null) {
-		if(id!=null){
-			if (currentLevel.exists(id) == false) {
-				throw 'unknown stimulus pinged Schedule: '+id;
-			}
-		}
+	public function next(id:String = null):Bool {
+
 		if(currentLevel!=null)	currentLevel.kill();
 		
 		currentLevel = levels.shift();
-		if(currentLevel != null) currentLevel.init();
-		
+		if (currentLevel != null) {
+			currentLevel.init();
+			return true;
+		}
+		return false;
 	}
 
 	
@@ -137,8 +136,8 @@ class Level {
 			}
 			
 			stim = stimuliMap[stimStr];
-			trace(stimStr, 343);
-			if (stim == null) throw 'unknown stimulus asked for:' + stim;
+			
+			if (stim == null) throw 'unknown stimulus asked for:' + stimStr;
 			stims.push(stim);
 		}
 	}

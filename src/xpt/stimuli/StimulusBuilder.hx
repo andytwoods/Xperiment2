@@ -48,8 +48,9 @@ class StimulusBuilder {
 		//override
 	}
 	
-	public function next(stim:Stimulus) {
+	public function next(stim:Stimulus):Bool {
 		//to be overridden
+		return true;
 	}
 	
 	public static function updateTrial_XY(x:Float, y:Float) {

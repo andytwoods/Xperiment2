@@ -112,6 +112,10 @@ class Trial {
 		}
 	}
 	
+	public function getStim(stimId):Stimulus {
+		return findStimulus(stimId);
+	}
+	
     public function findStimulus(stimId:String):Stimulus {
         var stim:Stimulus = null;
         for (s in stimuli) {

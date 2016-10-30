@@ -180,6 +180,7 @@ class Scripting
 	}
 	
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
+		if (stim == null) return;
 		var code = stim.get(prop);
 
 		if (code != null) {
