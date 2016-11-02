@@ -214,7 +214,7 @@ class Scripting
 		
 	}
 	
-	private static var repairs:Map<String,String> = ["&amp;" => "&"];
+	private static var repairs:Map<String,String> = ["&amp;" => "&", "&gt;" => ">"];
 	private static inline function repair(str:String) {
 		for (key in repairs.keys()) {
 			str = str.split(key).join(repairs.get(key));

@@ -99,6 +99,63 @@ class StimDrawnLineScale extends StimulusBuilder {
 		lineScale.sortLabels(labelList, labelPositionsList);	
 	}
 	
+	public function lundhack_linescale(instruction:String, centre_zone:Float, shift:Float):Bool {
+		var currentPos:Null<Float> = stim.value;
+		if (currentPos == null) throw('devel err, currentPos is null');
+		var new_pos:Null<Float> = lundhack_linescale_engine(instruction, centre_zone, shift, currentPos);
+		if (new_pos == null) return false;
+		var pixelChange:Float = lineScale.scoreableWidth() * (new_pos - stim.value) / 100;
+		lineScale.bufferZone.moveOver(pixelChange, 0);
+		return true;
+	}
+	
+	private function lundhack_linescale_engine(instruction:String, centre_zone_percent:Float, shift:Float, currentPos:Float):Null<Float> {
+		var new_pos:Null<Float> = null;
+        var min_zone:Float = 50 - centre_zone_percent *.5;
+        var max_zone:Float = 50 + centre_zone_percent *.5;
+        
+		if(instruction == 'into'){
+         	if(currentPos>min_zone && currentPos<max_zone) return null;
+            
+            new_pos = currentPos + shift; //up into centre
+            if(new_pos>min_zone && new_pos<max_zone) return new_pos;
+                
+			new_pos = currentPos - shift; //down into centre               
+        	if(new_pos>min_zone && new_pos<max_zone) return new_pos        
+            else throw('shift value is too great and shifts value over centre_zone_percent / too small and does not shift enough');    
+            
+        }
+        else if(instruction =='within'){
+            
+            //nb DOES NOT detect whether inside centre_zone. 
+            var modded_shift:Float = shift;
+            var max_counter = 20;
+            var arr:Array<Float>;
+            
+            while(max_counter>0){
+                modded_shift = Math.random() * modded_shift;
+                
+                if(Math.random()>.5)arr = [1,-1];
+                else arr = [-1, 1];
+
+                new_pos = currentPos + arr.pop() * modded_shift;
+                if(new_pos>min_zone && new_pos<max_zone) return new_pos;
+
+                new_pos = currentPos + arr.pop() * modded_shift;
+                if(new_pos>min_zone && new_pos<max_zone) return new_pos;
+				
+                max_counter--;
+            }
+            throw('devel err: could not find a good central position.');
+        }
+            
+        else throw('devel err: unrecognised instruction');
+        
+		
+		return new_pos;
+	}
+	
+	
 	public function addResult(what:String, val:String) {
 		my_results.set(stim.id + '_' + what, val);
 	}
@@ -119,6 +176,7 @@ class StimDrawnLineScale extends StimulusBuilder {
 			}
 			#end
 		super.onAddedToTrial();
+		this.stim.__properties.set('lundhack_linescale', lundhack_linescale);
     }
     
 	
