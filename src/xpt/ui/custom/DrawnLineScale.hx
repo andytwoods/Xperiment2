@@ -1,6 +1,7 @@
 package xpt.ui.custom;
 
 import de.polygonal.ds.Map;
+import openfl.display.Shape;
 import openfl.display.Stage;
 import haxe.Constraints.FlatEnum;
 import haxe.ui.toolkit.containers.Box;
@@ -43,8 +44,9 @@ class DrawnLineScale extends StateComponent {
 	private var position:Point; 
 	private var type:ScaleType = DrawnLine;
 	private var mouseUpListener = false;
+	private var listenersOn:Bool = false;
 	private var mouseDown:Bool = false;
-	
+	private var disabledGloss:Shape;
 	private var unselectedBorderColor:Int = 0xe6e6e6;
 	private var selectedBorderColor:Int = 0x000000;
 	
@@ -72,11 +74,29 @@ class DrawnLineScale extends StateComponent {
 		bufferZone.verticalAlign = "center";
 		bufferZone.x = 100;
 		addChild(bufferZone);
-		bufferZone._sprite.addEventListener(MouseEvent.MOUSE_OUT, _onMouseOut);
-		bufferZone._sprite.addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
-		bufferZone._sprite.addEventListener(MouseEvent.MOUSE_DOWN, _onMouseDown);
+		listen(true);
 	}
 	
+	
+	public function disable(action:Bool):Bool {
+		listen(!action);
+		do_gloss(action);
+		return action;
+	}
+	
+	private function do_gloss(action:Bool) {
+		if (action == true) {	
+			if(disabledGloss==null){
+				disabledGloss = new Shape();
+				disabledGloss.graphics.beginFill(0xffffff, .7);
+				disabledGloss.graphics.drawRect(0, 0, bufferZone.width, bufferZone.height);	
+			}
+			if(this.sprite.contains(disabledGloss)==false)	this.sprite.addChild(disabledGloss);
+		}
+		else {
+			if(disabledGloss!=null && this.sprite.contains(disabledGloss)) this.sprite.removeChild(disabledGloss);	
+		}
+	}
 	
 	public function setType(typeStr:String) {
 
@@ -182,12 +202,31 @@ class DrawnLineScale extends StateComponent {
 	public override function initialize():Void {
 		super.initialize();
 	}	
+	
+	private function listen(yes:Bool) {
+		if (bufferZone == null || bufferZone._sprite == null) return;
+		
+		if (yes) {
+			if (listenersOn == true) return;
+			bufferZone._sprite.addEventListener(MouseEvent.MOUSE_OUT, _onMouseOut);
+			bufferZone._sprite.addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
+			bufferZone._sprite.addEventListener(MouseEvent.MOUSE_DOWN, _onMouseDown);
+			listenersOn = true;
+		}
+		else {
+			if (listenersOn == false) return;
+			if(mouseUpListener) bufferZone.sprite.stage.removeEventListener(MouseEvent.MOUSE_UP, _onMouseUp);
+			bufferZone._sprite.removeEventListener(MouseEvent.MOUSE_OUT, _onMouseOut);
+			bufferZone._sprite.removeEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
+			bufferZone._sprite.removeEventListener(MouseEvent.MOUSE_DOWN, _onMouseDown);	
+			listenersOn = false;
+		}
+	}
 
 	public function kill() {
+		if(disabledGloss!=null && this.sprite.contains(disabledGloss)) this.sprite.removeChild(disabledGloss);	
+		listen(false);
 		bufferZone.kill();
-		bufferZone._sprite.removeEventListener(MouseEvent.MOUSE_OUT, _onMouseOut);
-		bufferZone._sprite.removeEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
-		bufferZone._sprite.removeEventListener(MouseEvent.MOUSE_DOWN, _onMouseDown);
 		
 		#if html5
 			if (spr != null) {

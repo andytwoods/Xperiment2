@@ -42,6 +42,8 @@ class Stimulus {
 		return builder.next(stim);
 	}
 	
+	
+	
 	public function moveY(modY:Float) {
 		this.component.y = modY;
 	}
@@ -99,6 +101,10 @@ class Stimulus {
 		}
 		else stop_from_trial();
 		
+	}
+	
+	public function exists(what:String):Bool {
+		return __properties.exists(what);
 	}
 	
     public var isValid(get, null):Bool;

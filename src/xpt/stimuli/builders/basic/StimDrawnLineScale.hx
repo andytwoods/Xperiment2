@@ -29,6 +29,10 @@ class StimDrawnLineScale extends StimulusBuilder {
         lineScale = new DrawnLineScale();
 		lineScale.updatedCallback = updatedCallback;
 		this.stim.__properties.set('moderate', moderate);
+		this.stim.__properties.set('disable', lineScale.disable);
+		this.stim.__properties.set('disabled', disable);
+		this.stim.__properties.set('enabled', enable);
+
 		return lineScale;
 	}
 	
@@ -51,9 +55,19 @@ class StimDrawnLineScale extends StimulusBuilder {
 		if (lhs.length > 0 && rhs.length > 0) {
 			stim.set('labels', [lhs, rhs].join(","));
 		}
-		
+
 		sortLabels(lineScale, get("labels",""), get("labelPositions",""));
 	}
+	
+	public function disable() {
+		lineScale.disable(true);
+	}
+	
+	public function enable() {
+		lineScale.disable(false);
+	}
+	
+	
 	
 	public function moderate(percent:Float) {
 		var moderatedPercent:Float = XTools.moderate(percent, stim.value, 50);
@@ -99,59 +113,47 @@ class StimDrawnLineScale extends StimulusBuilder {
 		lineScale.sortLabels(labelList, labelPositionsList);	
 	}
 	
-	public function lundhack_linescale(instruction:String, centre_zone:Float, shift:Float):Bool {
-		var currentPos:Null<Float> = stim.value;
+	public function lundhack_linescale(instruction:String, centre_zone:Float):Bool {
+		var currentPos:Null<Float> = stim.value = 20;
 		if (currentPos == null) throw('devel err, currentPos is null');
-		var new_pos:Null<Float> = lundhack_linescale_engine(instruction, centre_zone, shift, currentPos);
+
+		var new_pos:Null<Float> = lundhack_linescale_engine(instruction, centre_zone, currentPos);
 		if (new_pos == null) return false;
 		var pixelChange:Float = lineScale.scoreableWidth() * (new_pos - stim.value) / 100;
 		lineScale.bufferZone.moveOver(pixelChange, 0);
 		return true;
 	}
 	
-	private function lundhack_linescale_engine(instruction:String, centre_zone_percent:Float, shift:Float, currentPos:Float):Null<Float> {
+	private function lundhack_linescale_engine(instruction:String, centre_zone_percent:Float, currentPos:Float):Null<Float> {
 		var new_pos:Null<Float> = null;
-        var min_zone:Float = 50 - centre_zone_percent *.5;
-        var max_zone:Float = 50 + centre_zone_percent *.5;
+        var half_centre_zone_percent:Float= centre_zone_percent *.5;
+        var min_zone:Float = 50 - half_centre_zone_percent;
+        var max_zone:Float = 50 + half_centre_zone_percent;
         
 		if(instruction == 'into'){
-         	if(currentPos>min_zone && currentPos<max_zone) return null;
-            
-            new_pos = currentPos + shift; //up into centre
-            if(new_pos>min_zone && new_pos<max_zone) return new_pos;
-                
-			new_pos = currentPos - shift; //down into centre               
-        	if(new_pos>min_zone && new_pos<max_zone) return new_pos        
-            else throw('shift value is too great and shifts value over centre_zone_percent / too small and does not shift enough');    
-            
+         	if(currentPos<min_zone){
+                new_pos = min_zone + half_centre_zone_percent * XRandom.random();
+            }
+            else if(currentPos > max_zone) {
+                new_pos = 50 + half_centre_zone_percent * XRandom.random();
+            }
+            else{
+                throw('was given a value that is already in green zone');
+            }
         }
         else if(instruction =='within'){
-            
-            //nb DOES NOT detect whether inside centre_zone. 
-            var modded_shift:Float = shift;
-            var max_counter = 20;
-            var arr:Array<Float>;
-            
-            while(max_counter>0){
-                modded_shift = Math.random() * modded_shift;
-                
-                if(Math.random()>.5)arr = [1,-1];
-                else arr = [-1, 1];
-
-                new_pos = currentPos + arr.pop() * modded_shift;
-                if(new_pos>min_zone && new_pos<max_zone) return new_pos;
-
-                new_pos = currentPos + arr.pop() * modded_shift;
-                if(new_pos>min_zone && new_pos<max_zone) return new_pos;
-				
-                max_counter--;
+        	if(currentPos<min_zone) throw('was given a value below green zone');
+            else if (currentPos>max_zone) throw('was given a value above green zone');   
+			
+            if(currentPos<50){
+               new_pos = min_zone + half_centre_zone_percent * XRandom.random(); 
             }
-            throw('devel err: could not find a good central position.');
+            else{
+                new_pos = 50 + half_centre_zone_percent * XRandom.random();
+            }
         }
-            
         else throw('devel err: unrecognised instruction');
-        
-		
+      		
 		return new_pos;
 	}
 	
@@ -175,6 +177,7 @@ class StimDrawnLineScale extends StimulusBuilder {
 				});
 			}
 			#end
+		if (getBool('disabled', false)) disable();
 		super.onAddedToTrial();
 		this.stim.__properties.set('lundhack_linescale', lundhack_linescale);
     }
