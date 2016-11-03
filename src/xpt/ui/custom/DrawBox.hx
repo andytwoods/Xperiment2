@@ -146,7 +146,7 @@ class DrawBox extends Box {
 	}
 	
 	public function keep(remainingLines:Int) {
-		while (lines.length >= remainingLines) {
+		while (lines.length > remainingLines) {
 			lines.shift().kill();
 		}
 	}

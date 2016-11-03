@@ -129,7 +129,11 @@ class StimLineScale extends StimulusBuilder {
 	 override public function onRemovedFromTrial() {
 		super.onRemovedFromTrial();
 		if (lineScale.sprite.hasEventListener(MouseEvent.MOUSE_OVER) == true) lineScale.sprite.removeEventListener(MouseEvent.MOUSE_OVER, mouseOverL);
-		lineScale.kill();
     }
+	
+	override public function kill() {
+		lineScale.kill();
+		super.kill();
+	}
 
 }

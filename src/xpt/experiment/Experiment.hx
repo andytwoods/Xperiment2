@@ -231,9 +231,11 @@ class Experiment extends EventDispatcher {
 			Scripting.DO(null, RunCodeEvents.AfterTrial, runningTrial);
             runningTrial.trialEnded();
 			Scripting.scriptableStimuli(runningTrial.stimuli, false);
+					
 			collectData_prevTrial();
 			Scripting.stimuli = null;
 			runningTrial.kill();	
+			
 		}
 				
 		var info:NextTrialInfo = currentTrialInfo;

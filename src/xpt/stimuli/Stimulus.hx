@@ -42,9 +42,8 @@ class Stimulus {
 		return builder.next(stim);
 	}
 	
-	
-	
 	public function moveY(modY:Float) {
+		this.set('y', modY);
 		this.component.y = modY;
 	}
 	
@@ -90,7 +89,7 @@ class Stimulus {
 	public function end(delay:Int = 0) {
 		function stop_from_trial() {
 			if (builder.trial != null) {
-				builder.trial.addStimulus(this);	
+				builder.trial.removeStimulus(this);	
 			}
 		}
 		

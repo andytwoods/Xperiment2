@@ -15,8 +15,8 @@ import xpt.ui.custom.LineScale;
 
 class StimDrawnLineScale extends StimulusBuilder {
 	
-	var lineScale:DrawnLineScale;
-	var my_results:Map<String,String> = new Map<String,String>();
+	public var lineScale:DrawnLineScale;
+
 	#if html5
 		var spr:Sprite;
 	#end
@@ -28,7 +28,7 @@ class StimDrawnLineScale extends StimulusBuilder {
 	private override function createComponentInstance():Component {
         lineScale = new DrawnLineScale();
 		lineScale.updatedCallback = updatedCallback;
-		this.stim.__properties.set('moderate', moderate);
+	
 		this.stim.__properties.set('disable', lineScale.disable);
 		this.stim.__properties.set('disabled', disable);
 		this.stim.__properties.set('enabled', enable);
@@ -67,18 +67,10 @@ class StimDrawnLineScale extends StimulusBuilder {
 		lineScale.disable(false);
 	}
 	
-	
-	
-	public function moderate(percent:Float) {
-		var moderatedPercent:Float = XTools.moderate(percent, stim.value, 50);
-		var pixelChange:Float = lineScale.scoreableWidth() * moderatedPercent / 100;
-		lineScale.bufferZone.moveOver(pixelChange, 0);
-		addResult('moderatedTo', Std.string(moderatedPercent + stim.value));
+	public function noInput() {
+		lineScale.noInput();
 	}
 	
-	override public function snapshot(nam:String) {
-		addResult(nam, stim.value);
-	}
 
 	@:access(xpt.ui.custom.DrawnLineScale)
 	private function mouseOverL(e:MouseEvent):Void 
@@ -113,58 +105,6 @@ class StimDrawnLineScale extends StimulusBuilder {
 		lineScale.sortLabels(labelList, labelPositionsList);	
 	}
 	
-	public function lundhack_linescale(instruction:String, centre_zone:Float):Bool {
-		var currentPos:Null<Float> = stim.value = 20;
-		if (currentPos == null) throw('devel err, currentPos is null');
-
-		var new_pos:Null<Float> = lundhack_linescale_engine(instruction, centre_zone, currentPos);
-		if (new_pos == null) return false;
-		var pixelChange:Float = lineScale.scoreableWidth() * (new_pos - stim.value) / 100;
-		lineScale.bufferZone.moveOver(pixelChange, 0);
-		return true;
-	}
-	
-	private function lundhack_linescale_engine(instruction:String, centre_zone_percent:Float, currentPos:Float):Null<Float> {
-		var new_pos:Null<Float> = null;
-        var half_centre_zone_percent:Float= centre_zone_percent *.5;
-        var min_zone:Float = 50 - half_centre_zone_percent;
-        var max_zone:Float = 50 + half_centre_zone_percent;
-        
-		if(instruction == 'into'){
-         	if(currentPos<min_zone){
-                new_pos = min_zone + half_centre_zone_percent * XRandom.random();
-            }
-            else if(currentPos > max_zone) {
-                new_pos = 50 + half_centre_zone_percent * XRandom.random();
-            }
-            else{
-                throw('was given a value that is already in green zone');
-            }
-        }
-        else if(instruction =='within'){
-        	if(currentPos<min_zone) throw('was given a value below green zone');
-            else if (currentPos>max_zone) throw('was given a value above green zone');   
-			
-            if(currentPos<50){
-               new_pos = min_zone + half_centre_zone_percent * XRandom.random(); 
-            }
-            else{
-                new_pos = 50 + half_centre_zone_percent * XRandom.random();
-            }
-        }
-        else throw('devel err: unrecognised instruction');
-      		
-		return new_pos;
-	}
-	
-	
-	public function addResult(what:String, val:String) {
-		my_results.set(stim.id + '_' + what, val);
-	}
-	
-	public override function results():Map<String,String> {
-		return my_results;
-	}
 	
 	public override function onAddedToTrial() {
 			#if html5
@@ -179,7 +119,7 @@ class StimDrawnLineScale extends StimulusBuilder {
 			#end
 		if (getBool('disabled', false)) disable();
 		super.onAddedToTrial();
-		this.stim.__properties.set('lundhack_linescale', lundhack_linescale);
+		
     }
     
 	

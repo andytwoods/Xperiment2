@@ -181,9 +181,10 @@ class Scripting
 	
 	public static function runScriptEvent(prop:String, event:Event, stim:Stimulus, logScript:Bool = true) {
 		if (stim == null) return;
-		var code = stim.get(prop);
+		var code = stim.get(prop, null);
 
 		if (code != null) {
+			//trace(prop, event, stim, code, Math.random);
 			code = repair(code);
 			var bundle:ScriptBundle = getBundle();
 			try {

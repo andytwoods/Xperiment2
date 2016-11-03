@@ -44,7 +44,6 @@ class Validator extends ScriptInterp {
     private function validateStimScript(script:String):Bool {
         var parser = new hscript.Parser();
         var program = parser.parseString(script);
-        
         var r = "" + execute(program);
         return (r == "true");
     }

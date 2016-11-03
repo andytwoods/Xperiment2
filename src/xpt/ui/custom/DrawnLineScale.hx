@@ -84,6 +84,11 @@ class DrawnLineScale extends StateComponent {
 		return action;
 	}
 	
+	public function noInput():Bool {
+		listen(false);
+		return true;
+	}
+	
 	private function do_gloss(action:Bool) {
 		if (action == true) {	
 			if(disabledGloss==null){
@@ -110,6 +115,7 @@ class DrawnLineScale extends StateComponent {
 		}
 	}
 	
+
 	
 	private function _onMouseOut(e:MouseEvent):Void {
 		_onMouseUp(e);
@@ -154,7 +160,7 @@ class DrawnLineScale extends StateComponent {
 		else {
 			borderCol(unselectedBorderColor);
 			if (type == Cross) {
-			//	
+	
 			}	
 			else {	
 				consider_reset(null);
@@ -175,7 +181,7 @@ class DrawnLineScale extends StateComponent {
 				bufferZone.reset(point);
 			case Cross:
 				if (extra) {
-					bufferZone.keep(2);
+					bufferZone.keep(1);
 					bufferZone.nextLine(point);	
 				}
 				'';
@@ -199,6 +205,10 @@ class DrawnLineScale extends StateComponent {
 		bufferZone.addPoint(new Point(e.localX, e.localY));	
 	}
 		
+	public function movePixels(pixels:Float) {
+		bufferZone.moveOver(pixels, 0);
+	}
+	
 	public override function initialize():Void {
 		super.initialize();
 	}	
