@@ -18,7 +18,7 @@ class DrawBox extends Box {
 	public var offsetX:Float = 30;
 	public var line:PointLine;
 	public var lines:Array<PointLine>;
-
+	public var my_duration:Float = -1;
 	
 	public function new(width:Int = -1, col:Int =-1) {
 		
@@ -102,6 +102,7 @@ class DrawBox extends Box {
 		return intersection;
 	}
 	
+	
 	public function check_lines_intersect():Point {
 		if (lines.length < 2) {
 			return null;
@@ -143,14 +144,11 @@ class DrawBox extends Box {
 			return null;
 		}
 
+		my_duration =  lines[lines.length -1].latest.getTime() - lines[lines.length -2].start.getTime();	
+		
 		var av:Point = new Point(ArrayInts.average(xs), ArrayInts.average(ys));
-	
-		//_sprite.graphics.moveTo(av.x, av.y);
-		//_sprite.graphics.drawCircle(av.x, av.y, 5);
-		//moveOver(100, 0);
 		return av;
 	}
-	
 	
 
 	public function moveOver(by_x:Float, by_y:Float) {
@@ -188,8 +186,10 @@ class DrawBox extends Box {
 		}
 	}
 	
+	
 	public function kill() {
 		keep(0);
+		my_duration = -1;
 		lines = null;
 	}
 
@@ -199,6 +199,8 @@ class DrawBox extends Box {
 class PointLine {
 	
 	public var line:Array<Point> = new Array<Point>();
+	public var start:Date;
+	public var latest:Date;
 	
 	var bitmapdata:BitmapData;
 		
@@ -237,10 +239,10 @@ class PointLine {
 		return bitmapdata;
 	}
 	
-	
-	
 	public function reset() {
 		line = new Array<Point>();
+		start = null;
+		latest = null;
 	}
 	
 	public function first() {
@@ -260,10 +262,14 @@ class PointLine {
 	}
 	
 	public function push(point:Point) {
+		if (start == null) start = Date.now();
+		else latest = Date.now();
 		line.push(point);
 	}
 	
 	public function kill() {
+		start = null;
+		latest = null;
 		line = null;
 	}
 	

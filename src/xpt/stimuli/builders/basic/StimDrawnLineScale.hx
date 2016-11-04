@@ -25,6 +25,14 @@ class StimDrawnLineScale extends StimulusBuilder {
 		super();
 	}
 	
+	public function reset_duration() {
+		lineScale.bufferZone.my_duration = -1;
+	}
+	
+	public function my_duration():Float {
+		return lineScale.bufferZone.my_duration;
+	}
+	
 	private override function createComponentInstance():Component {
         lineScale = new DrawnLineScale();
 		lineScale.updatedCallback = updatedCallback;

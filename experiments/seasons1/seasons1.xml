@@ -1,33 +1,42 @@
-
-<expt>
+<exptA>
 
 <SETUP>  
-	  <screen backgroundColour="white" devices='desktop' blockDepthOrder="10,*=random"></screen>                          
+	  <screen BGcolour="808080" ITI="0" orientation="vertical" ></screen>                          
+	  <computer  encrypt='false' />
+	  <style BUTTON_DOWN="0xff5656"  />
+	  <variables practice='0' do_not_prepend_data="true" />
 </SETUP>
 
-<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
 
-	<text width="100%" height="70%" 
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+	
+	<text text="PERSONALITY CHARACTERISTICS IN THE US ELECTION 2016" width="100%" height="10%" y="5%" fontSize="20" bold="true" />
+	
+	<text width="100%" height="80%" y="48%"	fontSize="17"
 		  text=
-		  "Dear participant,
-Welcome to our study!
-We are interested in understanding how different colours, sounds, concepts and shapes link with descriptions of beer tastes.
-You would still be free to withdraw from the study at any time during the questionnaire, without needing to give a reason, and without penalty. The data will be fully anonymized, and stored on a secure computer."
-	fontSize="20" />
+		  "This is a study run by the Lund University Cognitive Science department. 
+Before you decide to take part in this study, please take time to read the following information. To agree to participate, please click the ‘yes’ box on the bottom of the page.
+           
+DESCRIPTION
+           
+This is a study which investigates character assessment of the two presidential candidates in the US election 2016. Lund University have no political affiliation and the researchers have no political agenda.
+PROCEDURES 
+           
+We are looking for participants over the age of 18. The experiment may take up to 15 minutes but should be finished quicker than that. You will be paid £2 for your participation.
+         
+During the experiment you will be asked to fill in two questionnaires concerning how you view the two presidential candidates in terms of personality characteristics, such as which one is more confident or ambitious. In the end, there will be some brief questions about your views on the current campaign, and a chance to provide feedback to the researchers about the study.
+Please note that your participation is completely voluntary. You may withdraw for any reason at any point during the experiment. However, we are only able to reimburse participants who complete the full experiment. All data will be aggregated and anonymized, and in no way will any individual person be identifiable from the results. The data will be stored in a password-protected computer and may be used in academic publications and written up as part of a doctoral thesis.
+           
+[Click Proceed to participate in the study]."  />
 	
 	
-	<preloadProgress x="20" y="90%"  horizontalAlign="left" width="70%" height="40" />
-	<preloadReadyButton x="85%" y="90%" width="20%" height="40" fontSize="18" />
+	<preloadProgress y="90%"  width="70%" height="40" />
+	<preloadReadyButton text="Proceed" y="81%" width="20%" height="40" fontSize="18" />
+	
+	<image resource="Lund.jpg" width="10%" x="100%" horizontalAlign="right" verticalAlign="bottom" y="100%"   />
 	
 </TRIAL>
-
-<TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
-	<text text="We need to make sure the sounds you hear in this study are loud enough. If you cannot hear the auditory password playing, can you adjust your speakers. Please enter the password to continue." fontSize="20" width="60%" height="80" textAlign="center"  y="30%" />
-	<soundCheck resource="1.mp3,2.mp3,3.mp3,4.mp3,5.mp3,6.mp3,7.mp3,8.mp3,9.mp3,0.mp3"/>
-</TRIAL>	
-	
-	
-	
+  
 <TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
 	<text text="What is your Prolific Academic ID?" fontSize="20" width="60%" height="30" textAlign="center"  y="40%" />
 	
@@ -36,141 +45,230 @@ You would still be free to withdraw from the study at any time during the questi
 	<nextTrialButton y="80%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
 </TRIAL>	
 	
-
+		
 <TRIAL TYPE="Trial"  block="1" order="fixed" trials="1">
-	<text text="Some questions before we start:" fontSize="20" width="200" height="30" horizontalAlign="left" x="20" y="20" />
+	<text text="A few background questions before we start" fontSize="20" textAlign="center" width="100%" height="70" y="5%"  />
 	<text text="Sex:" fontSize="20" width="200" height="30" x="60" y="85" horizontalAlign="left" />
-	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>
+	<sex y="80" height="40" width="250" fontSize="20" horizontalAlign="left" x="30%"/>	
     <text text="Age:" fontSize="20" width="200" height="30" x="60"  y="165" horizontalAlign="left" />
 	<age  y="180" height="100" width="122.5" fontSize="20" horizontalAlign="left" x="30%" />
-	
+	<text text="What country do you come from?" fontSize="20" width="160" height="100" x="60" y="300" horizontalAlign="left"/>
+	<input id="country" y="280" width="300" height="50" fontSize="20" horizontalAlign="left" x="30%" />
 	<nextTrialButton y="90%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
-</TRIAL>	
 	
-	
-<TRIAL block="5">
-	
-	<text width="80%" height="25%"
-     text="Please follow the instructions on each trial. There are 26 trials in total."	fontSize="20" verticalAlign="center" horizontalAlign="center" textAlign="center" />	
-	<nextTrialButton y="90%" x="50%" width="200" depth="0" height="50" verticalAlign="bottom" text="Begin" fontSize="18" />
-	
-	<text copyOverId="taste2" text="" />
-</TRIAL>
-	
-
-	
-<TRIAL order="random" trials="1" block="10,1">
-
-	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text="Please drag the descriptions into the box below, arranging them according to how well you think each associates with the labels at the bottom of the screen (Bouba and Kiki). Vertical position does not matter."
-		/>
-
-	<text x="20%---40%---60%---80%" background="e9e9e9" textAlign="center" fontSize="18" y="15%" group="g1" howMany="4" width="10%" height="7%" text="cold & refreshing---fruity---biscuit & malty---bitter" id="refresh---fruity---biscuity---bitter" />
-	
-	<shuffle groups="g1" />
-    
-    <drag id="drag" target="dragTarget" groups="g1" capture="x" dragTransparency=".5" />
-	
-	<text copyOverId="taste2" id="dv2---dv1" horizontalAlign="left---right" y="100%" verticalAlign="bottom" textAlign="left---right" x="0%---100%" howMany="2" fontSize="22" height="50" width="400"
-		text="bouba---kiki"   />
-    
-    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="bottom"  y="93%" width="99%" height="55%" borderAlpha=".5" borderSize="2" />
-
-    <nextTrialButton y="100%"  key=" " verticalAlign="bottom" text="next (SPACE)" width="170" height="40"  fontSize="18" />
-	
-	<results dv="${dv1.get('text')}" />
-	
-	<trialCounter height="60" depth="0" y="43%" total="26" textAlign="center" />
-	
-</TRIAL>
-
-	
-<TRIAL order="random" trials="16" block="10,2">
-	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text="Please drag the descriptions into the box below, arranging them according to how well you think each associates with the colour. Vertical position does not matter."
-		/>
-	
-	<box color="0x00FFFF|0x000000|0x0000FF|0xFF00FF|0x808080|0x008000|0x00FF00|0x800000|0x000080|0x808000|0x800080|0xFF0000|0xC0C0C0|0x008080|0xFFFFFF|0xFFFF00" id="colour"
-		 name="aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow" borderColor="0xececec" borderSize="1"
-		 y="28%" width="100" height="100" />
-
-	<text x="20%---40%---60%---80%" background="e9e9e9" textAlign="center" fontSize="18" y="15%" group="g1" howMany="4" width="10%" height="7%" text="cold & refreshing---fruity---biscuit & malty---bitter" id="refresh---fruity---biscuity---bitter"  />
-	
-	<shuffle groups="g1" />
-    
-    <drag id="drag" target="dragTarget" groups="g1" capture="x" dragTransparency=".5" />
-	
-	<text copyOverId="taste2" id="dv2---dv1" horizontalAlign="left---right" y="100%" verticalAlign="bottom" textAlign="left---right" x="0%---100%" howMany="2" fontSize="22" height="50" width="400"
-		text="not at all associated with the colour---very much so associated with the colour"   />
-    
-    <box id="dragTarget" x="50%" horizontalAlign="center" verticalAlign="bottom"  y="93%" width="99%" height="55%" borderAlpha=".5" borderSize="2" />
-
-    <nextTrialButton y="100%"  key=" " verticalAlign="bottom" text="next (SPACE)" width="170" height="40"  fontSize="18" />
-	
-	<results dv="${colour.get('name')}" />
-	
-	<trialCounter height="60" depth="0" y="43%" total="26" textAlign="center" />
+	<image resource="Lund.jpg" width="10%" x="100%" horizontalAlign="right" verticalAlign="bottom" y="100%"   />
 </TRIAL>
 	
 	
-<TRIAL order="random" trials="4" block="10,3">
-	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text="Listen to the instrument. Please click the description that you feel the sound best links with."/>
+<TRIAL TYPE="Trial" hideResults="true" block="1" order="fixed" trials="1">
+	
+	<text width="100%" height="60%" verticalAlign="top" y="10%"	fontSize="17"
+		  text=
+		  "Your task in the following survey is to decide which current US presidential candidate (Donald Trump or Hillary Clinton) hat best fit with a list of personality traits. 
+           
+You will be asked to evaluate 12 personality traits (for example, being ”visionary”, or ”patriotic”) that many belive to be important for a president. You will give your answer on a continuous scale going from one candidate to the other. 
+The survey we is meant to function equally well with traditional computer input, as well as stylus or finger input on a touch screen. Therefore, you will be required to draw an X on the scale to mark your answer.  
+           
+Below is a test example. If you believe the trait in question is EXCLUSIVELY to be found in one candidate, then you should draw your X towards the end line of that candidate. If you think a trait is PREDOMINANTLY to be found in one candidate, then positition your X somewhat closer to the center. If you are OPEN MINDED about the question, then position your X close to the center. If you are not satisfied with your first answer, you can redraw your X at a new position. You can draw your X in any size or form. It does not have to be positioned perfectly across the line."  />
+	
+	<drawnLineScale group="groupScales" disabled="false" y="77%" width="40%" type="cross" height="6%" labels="" id="demo" >
+	</drawnLineScale>
+	
+	<image resource="Clinton.png" width="5%" x="27.5%" y="77%" />
+	<image resource="Trump.png" width="5%" x="72.5%" y="77%" />
+		
+	<image resource="Lund.jpg" width="10%" x="100%" horizontalAlign="right" verticalAlign="bottom" y="100%"   />
+	<nextTrialButton y="95%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+</TRIAL>
+		
+
+
 	
 
-	<button hideResults="true" x="30%---30%---70%---70%" y="30%---70%" fontSize="18" group="g1" howMany="4" width="17%" height="15%" text="cold & refreshing---fruity---biscuit & malty---bitter" id="refresh---fruity---biscuity---bitter">
+	
+<TRIAL block="10">
+	
+	<lundController IVs="IVs" id="lund" scalesGroup="groupScales" scaleImage1Group="scaleClintonImageGroup" scaleImage2Group="scaleTrumpImageGroup" pleaseUpdateTxtGroup="pleaseUpdateTxtGroup" pleaseUpdateButtonGroup="pleaseUpdateButtonGroup"popup="popup" finalQGroup="finalQGroup" afterLineScalesButton="afterScalesDoneButton" popupSummary="popupSummary" numbers="numbers" summaryTxt="clintonCnt,moderateCnt,trumpCnt"
+	bigq1="bigq1_trump,bigq1_clinton,bigq1_info,howCompare,bigq1_bttn,bigq1_title" openminded_txt="openminded_txt"
+	bigq2="bigq2_info,howImportant,bigq2_bttn,bigq2_title,pp1,pp2" end="end" debrief="debrief_txt1" debrief_button="debrief_btn1" openminded="openminded"
+					modify="5" unmodified="7" zonePercent="30"
+					/>
+	
+	<text width="200" group="IVs" howMany="12" y="11%---19%---etc---" x="3%" fontSize="17" height="70" horizontalAlign="left" textAlign="left" text="Analytic---Trustworthy---Decisive---Patriotic---Experienced---Empathetic---Visionary---Courageous---Diplomatic---Passionate---Charismatic---Principled" />
+
+		
+	<text width="50" group="numbers" howMany="12" y="11%---19%---etc---" x="0%" fontSize="17" height="70" horizontalAlign="left" textAlign="left" text="1---2---etc---" />
+	
+	<drawnLineScale hideResults="true" group="groupScales" disabled="false" y="8%---16%---etc---" x="19%" width="40%" horizontalAlign="left" howMany="12" type="cross" height="6%" labels="" id="Analytic---Trustworthy---Decisive---Patriotic---Experienced---Empathetic---Visionary---Courageous---Diplomatic---Passionate---Charismatic---Principled" >
+		<onChange>
+			lund.get('action')(stim, 'linescale_change');
+		</onChange>
+	</drawnLineScale>
+	
+	<image howMany="12" group="scaleClintonImageGroup" resource="Clinton.png" width="5%" x="16.5%" y="8%---16%---etc---" id="trumpHead_" id1="Analytic---Trustworthy---Decisive---Patriotic---Experienced---Empathetic---Visionary---Courageous---Diplomatic---Passionate---Charismatic---Principled"  />
+	<image howMany="12" group="scaleTrumpImageGroup" resource="Trump.png" width="5%" x="61.5%" y="8%---16%---etc---" id="clintonHead_" id1="Analytic---Trustworthy---Decisive---Patriotic---Experienced---Empathetic---Visionary---Courageous---Diplomatic---Passionate---Charismatic---Principled" />
+	
+	<button start="-1" id="afterScalesDoneButton" text="next" fontSize="18" width="250" height="70" x="80%">
 		<action>
-			Trial.save('selected',stim.id);
-			Experiment.nextTrial();
+			popup.begin();
+			stim.end();
+		</action>
+	</button>
+			
+	
+			
+	<text group="pleaseUpdateTxtGroup" width="27.5%" start="-1" text="1---2---etc---" text1="/12"  id="input" id1="1---2---etc---" height="6%" x="100%" howMany="12" horizontalAlign="right" y="0"/>
+					
+	<button group="pleaseUpdateButtonGroup" text="next" fontSize="18" start="-1" height="6%" width="6%" x="71%" howMany="12" horizontalAlign="right" y="0" id="next" id1="1---2---etc---" key=" ">
+		<action>
+			lund.get('action')(stim, 'readjusted');
 		</action>
 	</button>
 	
-	<shuffle groups="g1" />
-    
-	<sound id="sound" resource="clarinet|piano|trombone|viola" resource1=".wav"  />
-    
-	<results dv="${sound.get('resource')}" />
+	<popup title=""   start="-1" id="popup" forceSize="true" height="80%" width="90%" resource="popup1.png">
+		<action>
+			lund.get('action')(stim, 'shift');
+		</action>
+	</popup>
 	
-	<trialCounter height="60" depth="0" y="99%" total="26" textAlign="center" />
+	
+	<popup title=""  start="-1" id="popupSummary" forceSize="true" height="40%" width="90%" resource="popup2.png">
+		<action>
+			lund.get('action')(stim, 'after_popupSummary');
+		</action>
+	</popup>
+	
+
+	
+	<text text="open minded" height="100" y="1%" start="-1" width="20%" textAlign="center" group="finalQGroup" verticalAlign="top" x="39%" fontSize="20" />	
+	<box x="39%" width="12%" y="8%---16%---etc---" start="-1" group="finalQGroup" height="6%" howMany="12" alpha=".5" color="green"/>
+	
+		
+	<image howMany="3" start="-1" resource="Clinton.png---Green.png---Trump.png" width="5%"  x="71%---81%---91%" y="25%" group="finalQGroup" />		
+	<text width="30%" height="70" start="-1" group="finalQGroup" text="Your summary score is:" x="81%" textAlign="center" y="14%"/>	
+	<text width="10%" height="70" start="-1" group="finalQGroup" text="Clinton---open minded---Trump" howMany="3" x="71%---81%---91%" textAlign="center" y="35%"/>
+	<text width="7%" height="6%" start="-1" text="-"  fontSize="17" group="finalQGroup" id="clintonCnt---moderateCnt---trumpCnt" howMany="3" x="71%---81%---91%" textAlign="center" y="37%"/>
+	
+	<input y="80%" x="82%" start="-1" group="openminded" width="35%" id="openminded_input" type="cross" height="9%" text="..." />
+	<button text="next" fontSize="18" x="81%" y="48%" start="-1" group="finalQGroup" width="250" height="70">
+		<action>
+			stim.end();
+			lund.get('action')(stim, 'openminded_start');
+		</action>
+	</button>
+	<text width="35%" height="170" start="-1" group="openminded" id="openminded_txt" fontSize="17"
+		  text="" 
+		x="82%" y="67%"/>			
+			
+			
+	<button text="some final questions" x="82%" y="95%" start="-1" group="openminded" id="next_openminded" width="200" height="50">
+		<action>
+			//if(openminded.isValid){
+				lund.get('action')(stim, 'openminded_end');
+			//}
+		</action>
+	</button>
+	
+	<text howMany="2" start="-1" height="10%" id="bigq1_title---bigq2_title" fontSize="20" width="100%" text="HOW WOULD YOU COMPARE THE TWO CANDIDATES?---WHAT DO YOU THINK IS MOST IMPORTANT FOR ELECTING A PRESIDENT: THE PERSONALITY OF THE CANDIDATE, OR THE POLITICAL POLICIES OF THE CANDIDATE?" y="10%" />
+
+	<text howMany="2" start="-1" height="40%" id="bigq1_info---bigq2_info" fontSize="20" width="100%" text="If you are a 100% in favor of Trump, then draw your X at the very end next to Trump. If you are 100% in favor of Clinton then draw your X at the very end next to Clinton. If you are anywhere in between, draw your X at the appropriate position. If you are undecided or find the two candidates equally good, draw your X at the center of the scale.---If you think only the Policies are important then draw your X at the end next to the 100% Policies  label. If you think only Personality is important then draw your X at the end next to the 100% Personality label. If you are anywhere in between, draw your X at the appropriate position. If you are undecided, or find that personality and policies are equally important, draw your X at the center of the scale." y="40%" />
+	
+	<drawnLineScale start="-1" howMany="2" disabled="false" y="60%" width="40%" type="cross" height="6%" labels="---100%,100%" id="howCompare---howImportant" />
+		
+	<text howMany="2" id="pp1---pp2" text="personality---policies" y="60%"  width="100" x="28%---72%" textAlign="right---left" start="-1" />
+		
+
+	<button text="next" fontSize="18" howMany="2" y="92%" start="-1"  id="bigq1_bttn---bigq2_bttn" width="100" height="70">
+		<action>
+			lund.get('action')(stim, 'big_q_answered');
+		</action>
+	</button>
+	
+	<image  start="-1" resource="Clinton.png" width="5%" x="27.5%" y="60%"  id="bigq1_clinton" />
+	<image  start="-1" resource="Trump.png" width="5%" x="72.5%" y="60%"  id="bigq1_trump" />
+
+		
+	<shuffle howMany="2" stims="bigq1_clinton,bigq1_trump---bigq2_clinton,bigq2_trump" id="howCompareShuffle---howImportantShuffle" save="x" />
+		
+	<text start="-1" width="35%" x="82%" fontSize="16" height="95%" y="0" verticalAlign="top" howMany="2" id="debrief_txt1---debrief_txt2">
+		
+		<.text>THANK YOU VERY MUCH FOR YOUR PARTICIPATING IN OUR STUDY.
+In this study we are interested in character assessment of the two presidential candidates in the current US election, and to what extent people might be open-minded about these issues during an extremely polarizing election campaign, and in an extremely polarized media climate.
+To investigate this, the survey you just completed contained as special twist, where some of the answers you originally gave were moved into the center of the scale before you reviewed them again. Thus, changing your position from being in favor of one of the candidates to being neutral between them.
+Here you can see an image of the survey you answered before, where the BLACK crosses show how the survey looked to you after we changed some of the answers, and the GREEN crosses show what those answers actually looked like.
+We have found in previous studies that alterations of the kind we showed you above often go unnoticed, in all kinds of decision tasks, such as consumer choice and attractiveness judgements.---This phenomenon, which we call “choice blindness” is not something particular to you. As far as we know, it is not related to working memory or attentional capacity, or any personality traits, or any socioeconomic variables, like age, sex, education or income. More likely, it is a basic feature of the human cognitive system that not all decisions and opinions are as specific and ingrained as most people think.
+The purpose of this study was not to change your mind in any particular political direction (indeed, all the changes were made randomly between your answers), but to see whether people in general might be more flexible and open minded than suggested by the current polarized campaign and media climate. When you described yourself as (more or less) open minded after the summary score, this was not a reflection of what you first answered, but it was certainly a reflection of what you could have answered if the original survey had encouraged you to think about the pros and cons of the different positions, and allowed you to discuss this complexity.
+		</.text>
+	</text>
+		
+	<button start="-1" y="100%" verticalAlign="bottom" text="next" id="debrief_btn1" x="80%" width="100" height="50" fontSize="18" >
+		<action>
+			stim.end();
+			debrief_txt1.end();
+			debrief_txt2.begin();
+			end.begin();
+		</action>
+	</button>
+		
+	<button start="-1" y="100%" verticalAlign="bottom" text="next" id="end" x="80%" width="100" height="50" fontSize="18" >
+		<action>
+			Experiment.nextTrial();
+		</action>
+	</button>
+
+	
 </TRIAL>
 	
-<TRIAL order="random" trials="4" block="10,4">
-	<text textAlign="center" fontSize="18" width="100%" height="100" verticalAlign="top"  y="0" text="By adjusting the line scale you will change the pitch of a tone. Please adjust the pitch so that you feel it matches the description below. To start, move your mouse over the line and a triangle will appear. To adjust the scale, move the triangle."/>
+<TRIAL block="90">
+	<text fontSize="17" text="The goal of the current study is to help us understand choice blindness, both as a general feature of human cognitive systems, and as a way to be able to design surveys and polls that give people a better chance of expressing the nuances of their views. If you have thoughts about this study, please let us know below. Any feedback that allow us to improve the design and the experience of future participants is most welcome." width="100%" y="0%" verticalAlign="0" height="30%" />
 	
-
-	<text fontSize="18" width="50%" height="40" textAlign="center" y="30%" text="cold & refreshing|fruity|biscuit & malty|bitter" />
-
-	<synth id="synth" />
-
-	<linescale y="60%" id="linescale" width="80%" labels="lower pitch,higher pitch">
-		<onChange>
-			synth.get('play')(stim.value);
-		</onChange>
-	</linescale>    
+	<input width="80%" y="40%" height="10%" id="feedback" />
 	
-	<results  />
-	
-	<trialCounter height="60" depth="0" y="95%" total="26" textAlign="center" />
-	
-	<nextTrialButton y="100%"  key=" " verticalAlign="bottom" text="next (SPACE)" width="170" height="40"  fontSize="18" />
-	
-</TRIAL>
-	
-
-
-
-	
-<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
-
-<text  colour="black" timeStart="0" width="80%" y="40%" height="70%" fontSize="16">
-	<.text>Trust online    
-Thank-you for completing our study!     
-The aim of this research was to investigate how the different properties of beer may link with different shapes, sounds and colours.
-      If you have any further questions, please contact Dr Andy Woods (Email: andy@flyingfishresearch.com).         
-PLEASE REMEMBER TO VISIT THE BELOW LINK SO PROLFIC ACADEMIC KNOWS YOU HAVE COMPLETED THE STUDY. THANKS.
-</.text>
-</text>
-
-<link text="Prolific Academic Link" fontSize="50" y="80%" url="https://prolificacademic.co.uk/submissions/5759630f7e608d0006cf6987/complete?cc=02T4RHTF" />
+	<button y="80%" text="next">
+		<action>
+			Experiment.nextTrial();
+		</action>
+	</button>
 
 </TRIAL>	
+		
+		
+<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
+
+<text  colour="black" timeStart="0" width="100%" y="40%" height="70%" fontSize="20">
+	<.text>
+The purpose of this study was not to change your mind in any particular political direction (indeed, all the changes were made randomly between your answers), but to see whether people in general might be more flexible and open minded than suggested by the current polarized campaign and media climate. When you described yourself as (more or less) open minded after the summary score, this was not a reflection of what you first answered, but it was certainly a reflection of what you could have answered if the original survey had encouraged you to think about the pros and cons of the different positions, and allowed you to express these nuances.
+Importantly, we are not judging whether choice blindness is a good or bad thing. A political representative might be disappointed that your convictions are not so firm as to be resistant to change, and a nonpartisan observer might be very happy that you can be open minded and adopt different perspectives (one can even think of the alternations here as a unique opportunity for you to argue with yourself). Our purpose is to understand choice blindness, both as a general feature of human cognitive systems, and as a way to be able to design surveys and polls that give people a better chance of expressing these nuances. Hopefully, this study will contribute towards these goals.
+If you have any thoughts about this study, please let us know below. Any feedback that allow us to improve the design and the experience of future participants is most welcome.
+</.text>
+</text>
 	
-</expt>
+<nextTrialButton y="95%" x="50%" width="200" height="50" horizontalAlign="center"  fontSize="18" />
+		<image resource="Lund.jpg" width="10%" x="100%" horizontalAlign="right" verticalAlign="bottom" y="100%"   />
+	
+</TRIAL>	
+		
+<TRIAL TYPE="Trial" hideResults="false" block="100" order="fixed" trials="1">
+
+	<text  colour="black" timeStart="0" width="100%" y="40%" height="90%" fontSize="20">
+	<.text>
+For more information on our previous work, see our website:
+http://www.lucs.lu.se/choice-blindness-group/
+There you can find all our publications on choice blindness. The following to articles are of particular interest to the current study.
+Johansson, P., Hall, L., Sikström, S., & Olsson, A. (2005). Failure to Detect Mismatches Between Intention and Outcome in a Simple Decision Task. Science, 310, 116-119.
+Hall, L., Strandberg, T., Pärnamets, P., Lind, A., Tärning, B. & Johansson, P. (2013). How the Polls Can Be Both Spot On and Dead Wrong: Using Choice Blindness to Shift Political Attitudes and Voter Intentions. PLoS ONE, 8(4): e60554. doi:10.1371/journal.pone.0060554
+If you have any questions about the study, please contact the lead researcher
+Petter Johansson, Lund University Cognitive Science, LUX, Helgonavägen, 3d, 223 62 Lund, Sweden
+Petter.johansson@lucs.lu.se
+We would very kindly ask that you do not tell anyone the specific details of this study, as this will confound our results if that person(s) also chooses to participate in this study.  Your help is very much appreciated.
+PLEASE DO NOT FORGET TO VISIT THE BELOW PROLIFIC ACADEMIC SITE. 
+</.text>
+	</text>
+
+	<link text="Prolific Academic Link" fontSize="50" y="95%" url="https://prolificacademic.co.uk/submissions/581d069c5c8d0a0001f1627f/complete?cc=4L6PD6MF" />
+		<image resource="Lund.jpg" width="10%" x="100%" horizontalAlign="right" verticalAlign="bottom" y="100%"   />
+</TRIAL>	
+		
+
+</exptA>
 	
