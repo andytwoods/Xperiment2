@@ -72,7 +72,7 @@ class StimDrawnLineScale extends StimulusBuilder {
 	}
 	
 	public function duplicateAt(color:Int, pos_percent:Float) {
-		var pixelChange:Float = lineScale.scoreableWidth() * (pos_percent - stim.value) / 100;
+		var pixelChange:Float = lineScale.scoreableWidth() * (stim.value - pos_percent) / 100;
 		lineScale.bufferZone.duplicateAtShiftedLocation(color, pixelChange, 0);
 	}
 	
