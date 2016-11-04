@@ -17,6 +17,7 @@ class StimShuffle extends StimulusBuilder_nonvisual {
     private var _shuffleAdded:Bool = false;
     private var _shuffled:Bool = false;
     private var stims:Array<Stimulus>;
+	private var my_results:Map<String,String>;
 	
     public function new() {
         super();
@@ -77,7 +78,7 @@ class StimShuffle extends StimulusBuilder_nonvisual {
 		}
 		
         _shuffled = true;
-		results();
+		log_results();
     }
 	
 
@@ -87,17 +88,20 @@ class StimShuffle extends StimulusBuilder_nonvisual {
 	}
 	
 	override public function results():Map<String,String> {
+		return my_results;
+	}
+	
+	function log_results() {
 
-		if (exists('save') == false) return null;
+		if (exists('save') == false) return;
 
 		var saveArr:Array<String> = getStringArray('save', null);
 		if (saveArr == null || saveArr.length == 0) return null;
 		
-		var my_results:Map<String,String> = new Map<String,String>();
+		my_results = new Map<String,String>();
 		var key:String;
 		var val:String;
 		
-
 		for (saveKey in saveArr) {
 			for (_stim in stims) {	
 				key = stim.id + "_" + _stim.id + "_" + saveKey;
@@ -106,7 +110,6 @@ class StimShuffle extends StimulusBuilder_nonvisual {
 				
 			}
 		}
-		return my_results;
 	}
 	
 

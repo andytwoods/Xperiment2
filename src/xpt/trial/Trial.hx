@@ -99,7 +99,6 @@ class Trial {
 			stimuli.push(stim);
 			stim.builder.trial = this;
 		}
-		 
 		TimingManager.instance.add(stim);
 		
 	}
@@ -114,6 +113,19 @@ class Trial {
 	
 	public function getStim(stimId):Stimulus {
 		return findStimulus(stimId);
+	}
+	
+	public function getStims(stimIds:Array<String>):Array<Stimulus> {
+		var arr:Array<Stimulus> = new Array<Stimulus>();
+		var my_stim:Stimulus;
+		for (stim_id in stimIds) {
+			my_stim = findStimulus(stim_id); 
+			if (my_stim != null) arr.push(my_stim);
+			else throw 'was asked to find a stimulus but not in trial!: '+stim_id;
+			
+		}
+		
+		return arr;
 	}
 	
     public function findStimulus(stimId:String):Stimulus {

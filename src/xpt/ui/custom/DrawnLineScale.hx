@@ -115,8 +115,6 @@ class DrawnLineScale extends StateComponent {
 		}
 	}
 	
-
-	
 	private function _onMouseOut(e:MouseEvent):Void {
 		_onMouseUp(e);
 	}

@@ -71,6 +71,11 @@ class StimDrawnLineScale extends StimulusBuilder {
 		lineScale.noInput();
 	}
 	
+	public function duplicateAt(color:Int, pos_percent:Float) {
+		var pixelChange:Float = lineScale.scoreableWidth() * (pos_percent - stim.value) / 100;
+		lineScale.bufferZone.duplicateAtShiftedLocation(color, pixelChange, 0);
+	}
+	
 
 	@:access(xpt.ui.custom.DrawnLineScale)
 	private function mouseOverL(e:MouseEvent):Void 

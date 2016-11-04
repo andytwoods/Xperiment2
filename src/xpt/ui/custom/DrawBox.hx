@@ -41,23 +41,49 @@ class DrawBox extends Box {
 		_sprite.graphics.drawRect(0, 0, _width, _height);
 		_sprite.graphics.lineStyle(lineWidth, lineColour, 1);	
 		
+		draw_lines(lines, 0, 0);
+	}
+	
+	inline function draw_lines(my_lines:Array<PointLine>, x_shift:Float, y_shift:Float) {
 		var next:Point;
 		var point:Point;
 		var currentLine:PointLine;		
 		
-		for(line in lines){		
+		for(line in my_lines){		
 			if (line.length() > 1) {
 				point = line.first();
 				
 				for (i in 1...line.length()) {
 					next = line.get(i);
-					_sprite.graphics.moveTo(point.x, point.y);
-					_sprite.graphics.lineTo(next.x, next.y);
+					_sprite.graphics.moveTo(point.x+ x_shift, point.y + y_shift);
+					_sprite.graphics.lineTo(next.x + x_shift, next.y + y_shift);
 					point = next;
 				}
 			}
-		}
+		}	
 	}
+	
+		
+	public function duplicateAtShiftedLocation(color:Int, pixel_shift_x:Float, pixel_shift_y:Float) {
+		if (lines.length == 0) return;
+		var startingPoint:Point = null;
+		var currentLine:PointLine;
+	
+		for (lines_i in 0...lines.length) {
+			currentLine = lines[lines_i];
+			for (line_i in 0...currentLine.length()) {
+				startingPoint = currentLine.line[line_i]; 
+				if (startingPoint != null) break;
+			}
+			if (startingPoint != null) break;
+		}
+		
+		if (startingPoint == null) return;
+		_sprite.graphics.moveTo(startingPoint.x+ pixel_shift_x, startingPoint.y + pixel_shift_y);
+		_sprite.graphics.lineStyle(lineWidth, color, 1);
+		draw_lines(lines, pixel_shift_x, pixel_shift_y);
+	}
+	
 	
 	public function check_intersects(y_ratio:Float, x_offset):Point {
 		var my_y:Float = y_ratio * this.height;

@@ -12,6 +12,7 @@ class StimText extends StimulusBuilder {
 		private var pixel:Sprite;
 	#end
 	var text:Text;
+	var txt:String;
 		
 	public function new() {
 		super();
@@ -22,6 +23,10 @@ class StimText extends StimulusBuilder {
 	}
 	
 	private override function applyProperties(c:Component) {
+		if (txt != null) {
+			stim.set('text', txt);
+			txt = null;
+		}
 		super.applyProperties(c);
 		text = cast c;
 		text.text = get("text");
@@ -36,21 +41,25 @@ class StimText extends StimulusBuilder {
 			text.textAlign = get("textAlign");
 		}
 	}
-	
-	
-		public override function onAddedToTrial() {
-			#if html5
-				if (text.sprite.stage != null) {
-					XTools.delay(50, function(){
-						if (text.sprite.stage.contains(pixel)) text.sprite.stage.removeChild(pixel);
-						pixel = new Sprite();
-						pixel.graphics.drawRect(0, 0, 1, 1);
-						text.sprite.addChild(pixel);
-					});
-				}
-			#end
+		
+	public override function set_text(_txt:String) {
+		if (text != null) text.text = _txt;
+		else txt = _txt;
+	}
+
+	public override function onAddedToTrial() {
+		#if html5
+			if (text.sprite.stage != null) {
+				XTools.delay(50, function(){
+					if (text.sprite.stage.contains(pixel)) text.sprite.stage.removeChild(pixel);
+					pixel = new Sprite();
+					pixel.graphics.drawRect(0, 0, 1, 1);
+					text.sprite.addChild(pixel);
+				});
+			}
+		#end
 		super.onAddedToTrial();
-    }
+	}
     
 
 }

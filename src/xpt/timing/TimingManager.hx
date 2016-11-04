@@ -56,7 +56,6 @@ class TimingManager {
 		var stop:Float = stim.stop;
 		var duration:Float = stim.duration;
 		
-		
 		if (start == -1) return;
 		
 		if (duration == -1) {
@@ -68,6 +67,7 @@ class TimingManager {
 		addTimingEvent(start, duration, function(e:TimingEvent) {
 		
 			if (stim == null) return;
+
 			switch (e) {
 				case TimingEvent.SHOW:
 					addToTrial(stim);
@@ -101,7 +101,7 @@ class TimingManager {
 				
 			});
 		}
-		
+	
 		// programmatically added midtrial
 		if (started) {
 
@@ -119,6 +119,7 @@ class TimingManager {
 	private function addToTrial(stim:Stimulus) {
 
 		if (RootManager.instance.currentRoot.contains(stim.component) == false) {
+			
 			DebugManager.instance.stimulus("Adding stimulus, type: " + stim.get("stimType"));
             DiagnosticsManager.add(DiagnosticsManager.STIMULUS_SHOW, stim.id, stim.get("stimType"));
             stim.component.addEventListener(UIEvent.ADDED_TO_STAGE, onStimAddedToStage);
@@ -128,6 +129,7 @@ class TimingManager {
 			updateDepths(stim);
 			
             stim.onAddedToTrial();
+
 		}
 	}
 	
@@ -135,7 +137,10 @@ class TimingManager {
 		for (s in _stims) {
 				if(s.depth < stim.depth){
 					if (RootManager.instance.currentRoot.contains(s.component)) {
+						
 						s.component.parent.setChildIndex(s.component, s.component.parent.numChildren - 1);
+					
+						
 					}
 				}
 			}
