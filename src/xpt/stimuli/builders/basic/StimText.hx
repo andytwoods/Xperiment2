@@ -23,13 +23,19 @@ class StimText extends StimulusBuilder {
 	}
 	
 	private override function applyProperties(c:Component) {
-		if (txt != null) {
-			stim.set('text', txt);
-			txt = null;
-		}
+		
 		super.applyProperties(c);
 		text = cast c;
-		text.text = get("text");
+		
+		if (txt != null) {
+			stim.set('text', txt);
+			text.text = txt;
+			txt = null;
+		}
+		else {
+			text.text = get("text");
+		}
+		
 		var bg = getColor('background', -1);
 		if(bg!=-1){
 			text.style.backgroundColor = bg;			
@@ -44,7 +50,7 @@ class StimText extends StimulusBuilder {
 		
 	public override function set_text(_txt:String) {
 		if (text != null) text.text = _txt;
-		else txt = _txt;
+		txt = _txt;
 	}
 
 	public override function onAddedToTrial() {

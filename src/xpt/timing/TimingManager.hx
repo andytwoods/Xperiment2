@@ -129,21 +129,18 @@ class TimingManager {
 			updateDepths(stim);
 			
             stim.onAddedToTrial();
-
 		}
 	}
 	
 	private	function updateDepths(stim:Stimulus) {
 		for (s in _stims) {
-				if(s.depth < stim.depth){
-					if (RootManager.instance.currentRoot.contains(s.component)) {
-						
-						s.component.parent.setChildIndex(s.component, s.component.parent.numChildren - 1);
-					
-						
-					}
+			if(s.depth < stim.depth){
+				if (RootManager.instance.currentRoot.contains(s.component)) {
+					//WARNING if depth=0, led to probolems with StimDrawnLineScale 4/11/2016
+					RootManager.instance.currentRoot.setChildIndex(s.component, RootManager.instance.currentRoot.numChildren - 1);		
 				}
 			}
+		}
 	}
     
     private function onStimAddedToStage(event:UIEvent) {
