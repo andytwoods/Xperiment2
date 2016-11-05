@@ -244,6 +244,7 @@ class Stimulus {
 				for (key in myResults.keys()) {
 				
 					if (key.length == 0) label = id;
+					else if (key == id) label = key;
 					else label = id + "_" + key;
 					
 
