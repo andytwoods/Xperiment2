@@ -23,7 +23,12 @@ class ComputerInfo
 		
 		#if html5
 			map.set('browser', untyped window.navigator.userAgent);
+			map.set('resX', untyped window.screen.availWidth);
+			map.set('resY', untyped window.screen.availHeight);
+			map.set('innerWidth', untyped window.innerWidth);
+			map.set('innerHeight', untyped window.innerHeight);
 		#end
+		
 		return map;
 	}
 	

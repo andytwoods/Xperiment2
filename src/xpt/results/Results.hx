@@ -1,4 +1,5 @@
 package xpt.results;
+
 import haxe.Serializer;
 import thx.Bools;
 import xpt.comms.CommsResult;
@@ -8,6 +9,7 @@ import haxe.ds.StringMap;
 import xpt.comms.services.PackageRESTservices_Tool;
 import xpt.comms.services.REST_Service;
 import xpt.debug.DebugManager;
+import xpt.screenManager.ScreenManager;
 import xpt.tools.Base64;
 import xpt.tools.XRandom;
 import xpt.tools.XTools;
@@ -92,11 +94,18 @@ class Results
 				case Special_Trial.First_Submit:
 					
 					//required
-					trialResults.addMultipleResults(ComputerInfo.GET(), specialTag);					
-					trialResults.addMultipleResults(Xpt2Info.GET(), specialTag);
+					var moreResults:Map<String,String> = ComputerInfo.GET();
+					trialResults.addMultipleResults(moreResults, specialTag);		
+					trialResults.addMultipleResults(moreResults, '');
+					
+					moreResults = Xpt2Info.GET();
+					trialResults.addMultipleResults(moreResults, specialTag);		
+					trialResults.addMultipleResults(moreResults, '');
+					
 					trialResults.addResult(specialTag+"ip",'ip');
 					trialResults.addResult(specialTag + 'overSJs', ExptWideSpecs.IS("overSJs"));
 					trialResults.addResult('random_seed', XRandom.getSeed());
+					trialResults.addResult('scaling', Std.string(ScreenManager.instance.stageScale));
 					#if html5
 						var tzOffset = untyped Date.now().getTimezoneOffset();
 						trialResults.addResult(specialTag + "timeZone", tzOffset);
