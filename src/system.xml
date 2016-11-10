@@ -84,7 +84,13 @@
 			<text>my popup</text>
 			<forceSize>false</forceSize>
 		</popup>
-		
+		<screenTest builder="xpt.stimuli.builders.basic.StimScreenTest">
+			<text>This experiment needs to be run in a browser window of atleast 1024 x 768 pixels in size. Please maximise your browser window to achieve this (you may need to run the browser in full-screen mode). If your browser cannot show the experiment in a window at this size, we are very sorry, but unfortunately you cannot take part. In terms of required size your experiment window is currently: </text>
+			<valid>equals(1)</valid>
+			<width>80%</width>
+			<height>30%</height>
+			<fontSize>17</fontSize>
+		</screenTest>
 		
 		<!-- ***********************************************************************************
 			NON-VISUAL STIMULI
@@ -161,6 +167,7 @@
 			CLIENT STIMULI
 		************************************************************************************ -->
 		<lundController builder="xpt.stimuli.builders.client.StimLundController" />
+		<lundControllerPoliticalIssues builder="xpt.stimuli.builders.client.StimLundControllerPI" />
 		
 		<!-- ***********************************************************************************
 			ALIAS STIMULI

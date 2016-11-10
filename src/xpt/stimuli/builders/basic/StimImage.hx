@@ -54,7 +54,12 @@ class StimImage extends StimulusBuilder {
 		}
 	}
 	
-	
+	override public function results():Map<String,String> {
+		if (getBool('save', false) == true) {
+			return [stim.id => get("resource")];
+		}
+		return null;
+	}
 	
 	
 	private function setBitmap(bmp:Bitmap, image:Image) {

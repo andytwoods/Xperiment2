@@ -75,6 +75,13 @@ class StimDrawnLineScale extends StimulusBuilder {
 		lineScale.disable(false);
 	}
 	
+	override public function results():Map<String,String> {
+		var map:Map<String,String> = new Map<String,String>();
+		if(stim.value==null)map.set(stim.id, '');
+		else map.set(stim.id, stim.value);
+		return map;
+	}
+	
 	public function noInput() {
 		lineScale.noInput();
 	}

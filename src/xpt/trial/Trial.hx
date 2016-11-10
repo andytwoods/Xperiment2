@@ -104,11 +104,11 @@ class Trial {
 	}
 	
 	public function removeStimulus(stim:Stimulus) {
-		if(stimuli.remove(stim) == true){
-			if (testing == false) {
+		//if(stimuli.remove(stim) == true){
+		//	if (testing == false) {
 				TimingManager.instance.remove(stim);
-			}
-		}
+		//	}
+		//}
 	}
 	
 	public function getStim(stimId):Stimulus {
@@ -118,6 +118,7 @@ class Trial {
 	public function getStims(stimIds:Array<String>):Array<Stimulus> {
 		var arr:Array<Stimulus> = new Array<Stimulus>();
 		var my_stim:Stimulus;
+
 		for (stim_id in stimIds) {
 			my_stim = findStimulus(stim_id); 
 			if (my_stim != null) arr.push(my_stim);

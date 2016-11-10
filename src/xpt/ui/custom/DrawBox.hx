@@ -6,10 +6,12 @@ import haxe.ui.toolkit.controls.Text;
 import haxe.ui.toolkit.core.Component;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
+import openfl.display.Shape;
 import openfl.geom.Point;
 import openfl.geom.Rectangle;
 import Thx.ArrayInts;
 import xpt.tools.XTools;
+import xpt.ui.custom.DrawBox.PointLine;
 
 class DrawBox extends Box {
 	private var labels1:Array<Text>;
@@ -19,6 +21,7 @@ class DrawBox extends Box {
 	public var line:PointLine;
 	public var lines:Array<PointLine>;
 	public var my_duration:Float = -1;
+	var greenZone:Shape;
 	
 	public function new(width:Int = -1, col:Int =-1) {
 		
@@ -63,6 +66,27 @@ class DrawBox extends Box {
 		}	
 	}
 	
+	public function addGreen(zone:Float, col:Int) {
+		if (greenZone != null && this.sprite.contains(greenZone)) this.sprite.removeChild(greenZone);
+		greenZone = new Shape();
+		greenZone.graphics.beginFill(col, .5);
+		var my_w:Float = width - 2 * offsetX;
+		greenZone.graphics.drawRect(0, 0, my_w / 100 * zone, _height);
+		greenZone.x = _width * .5 - greenZone.width * .5;
+		this.sprite.addChild(greenZone);	
+	}
+	
+	public function removeGreen() {
+		if (greenZone != null && this.sprite.contains(greenZone)) this.sprite.removeChild(greenZone);
+
+	}
+	
+	public function add_dot(x_pos:Float, col:Int) {
+		_sprite.graphics.lineStyle(1, 0x000000, 1);
+		_sprite.graphics.beginFill(col, 1);
+		_sprite.graphics.drawCircle(x_pos, _height *.5, 5);
+	}
+	
 		
 	public function duplicateAtShiftedLocation(color:Int, pixel_shift_x:Float, pixel_shift_y:Float) {
 		if (lines.length == 0) return;
@@ -84,6 +108,26 @@ class DrawBox extends Box {
 		draw_lines(lines, pixel_shift_x, pixel_shift_y);
 	}
 	
+	public function drawOtherLines(otherLines:Array<PointLine>, color:Int) {
+		
+		var startingPoint:Point = null;
+		var currentLine:PointLine;
+	
+		for (lines_i in 0...otherLines.length) {
+			currentLine = otherLines[lines_i];
+			for (line_i in 0...currentLine.length()) {
+				startingPoint = currentLine.line[line_i]; 
+				if (startingPoint != null) break;
+			}
+			if (startingPoint != null) break;
+		}
+		
+		if (startingPoint == null) return;
+		
+		_sprite.graphics.moveTo(startingPoint.x, startingPoint.y);
+		_sprite.graphics.lineStyle(lineWidth, color, 1);
+		draw_lines(otherLines, 0, 0);
+	}
 	
 	public function check_intersects(y_ratio:Float, x_offset):Point {
 		var my_y:Float = y_ratio * this.height;
@@ -168,6 +212,7 @@ class DrawBox extends Box {
 		if (point != null) line.push(point);
 		lines.push(line);
 	}
+
 	
 	public function keep(remainingLines:Int) {
 		while (lines.length > remainingLines) {
@@ -213,6 +258,17 @@ class PointLine {
 			point.x += by_x;
 			point.y += by_y;
 		}
+	}
+	
+	public function duplicate():PointLine {
+		var p:PointLine = new PointLine();
+		p.start = start;
+		p.latest = latest;
+		
+		for (point in line) {
+			p.line.push(new Point(point.x, point.y));
+		}
+		return p;
 	}
 	
 	public function getBitmapData(width:Int, height:Int) {

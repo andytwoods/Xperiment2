@@ -28,7 +28,7 @@ import xpt.tools.XTools;
 
 class LineScale extends StateComponent {
 	private var _selection:Triangle;
-	private var _line:Line;
+	public var _line:Line;
 	private var bounds:Rectangle;
 	public var bufferZone:Box;
 	public var triangleMoveCallBack:Float->Void;

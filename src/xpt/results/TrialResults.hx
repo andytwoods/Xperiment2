@@ -16,6 +16,8 @@ class TrialResults
 	public var trialBlock:Int;
 	public var info:Map<String,String> = new Map<String,String>();
 	
+	public static var do_not_prepend_data = false;
+	
 	public function new() 
 	{
 		
@@ -122,13 +124,12 @@ class TrialResults
 	
 	static private inline function extract_helper(trial:Trial,trialResults:TrialResults):TrialResults {
 		
-
 		var stimRes:Map<String,String> = trial.results();
 		var stimulus:Stimulus;
 				
 		var prepend_trial_id:String = null;
 		
-		if (ExptWideSpecs.IS('do_not_prepend_data') == 'false') {
+		if (do_not_prepend_data == false) {
 			prepend_trial_id = 'b' + Std.string(trial.trialBlock) + 'i' + Std.string(trial.trialNum) + "_";
 		}
 		else {
@@ -141,7 +142,6 @@ class TrialResults
 		
 		for (i in 0...trial.stimuli.length) {
 			stimulus = trial.stimuli[i]; //ensures order
-
 			if (stimulus.hideResults == false) {
 				stimRes = stimulus.results(prepend_trial_id);
 				trialResults.addMultipleResults(stimRes);		

@@ -37,11 +37,9 @@ Button:over {
 }
 
 Button:down {
-	backgroundColor: #D2D2D2;
-	backgroundColorGradientEnd: #C2C2C2;
+	backgroundColor: #646464;
 	color: #000000;
 	borderColor: #7F7F7F;
-	filter: dropShadow(1, 45, 0x999999, 1, 1, 1, 1, 1, true);
 }
 
 Button:disabled {

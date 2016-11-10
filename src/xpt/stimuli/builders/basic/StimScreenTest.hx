@@ -64,14 +64,12 @@ class StimScreenTest extends StimText {
     }
 	
 	private function listen(yes:Bool) {
-	
 		if (yes) {
 			ScreenManager.instance.callbacks.push(callback);
 		}
 		else {
 			ScreenManager.instance.callbacks.remove(callback);
 		}
-		
 	}
 	
 	private function callback(_bla1:Float, _bla2:Float) {

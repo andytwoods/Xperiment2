@@ -50,6 +50,8 @@ class StimLineScale extends StimulusBuilder {
 			
 		}
 		
+		lineScale._line.style.borderColor = getColor('sliderColour', 0x000000);
+		
 		sortLabels(lineScale, get("labels",""), get("labelPositions",""));
 		sortStartPosition(lineScale, get('startPosition'));
 		
@@ -125,6 +127,12 @@ class StimLineScale extends StimulusBuilder {
 		super.onAddedToTrial();
     }
     
+	override public function results():Map<String,String> {
+		var map:Map<String,String> = new Map<String,String>();
+		if(stim.value==null)map.set(stim.id, '');
+		else map.set(stim.id, stim.value);
+		return map;
+	}
 	
 	 override public function onRemovedFromTrial() {
 		super.onRemovedFromTrial();

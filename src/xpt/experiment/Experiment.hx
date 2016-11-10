@@ -119,7 +119,7 @@ class Experiment extends EventDispatcher {
 		Shortcuts_Command.permitted = [ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep];
 		TrialOrder.setLabels(ExptWideSpecs.trial_sep);
 		ETCs.setLabels(ExptWideSpecs.stim_sep, ExptWideSpecs.trial_sep);
-		if(testing==false) ScreenManager.instance.callbacks.push(StimulusBuilder.updateTrial_XY);
+		if (testing == false) ScreenManager.instance.callbacks.push(StimulusBuilder.updateTrial_XY);
 	}
 
 		
@@ -131,6 +131,7 @@ class Experiment extends EventDispatcher {
 		EvolveCommsManager.setup(ExptWideSpecs.IS("uuid"), ExptWideSpecs.IS('csrftoken'), ExptWideSpecs.IS('evolveUrl'));
 		Results.url = ExptWideSpecs.IS('cloudUrl');
 		Trial._ITI = Std.int(ExptWideSpecs.IS("ITI"));
+		TrialResults.do_not_prepend_data = ExptWideSpecs.IS('do_not_prepend_data') != 'false';
 	}
 	
 	public function setupTrials(script:Xml) {

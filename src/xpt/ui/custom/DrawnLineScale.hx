@@ -114,6 +114,11 @@ class DrawnLineScale extends StateComponent {
 				throw 'unknown type' + typeStr;
 		}
 	}
+
+	public function addModifiedAsDot(pospercent:Float, color) {
+		var dist:Float = scoreableWidth() * pospercent / 100 + _line.offsetX;
+		bufferZone.add_dot(dist, color);
+	}
 	
 	private function _onMouseOut(e:MouseEvent):Void {
 		_onMouseUp(e);
@@ -185,6 +190,7 @@ class DrawnLineScale extends StateComponent {
 				'';
 		}
 	}
+	
 
 	private function _onMouseDown(e:MouseEvent):Void {
 		mouseDown = true;

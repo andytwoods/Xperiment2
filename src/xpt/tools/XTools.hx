@@ -244,6 +244,10 @@ class XTools
 	
 	static public inline function delay(time:Int, f:Void -> Void) 
 	{
+		if (time == 0) {
+			f();
+			return;
+		}
 		var t:Timer = new Timer(time,0);
 		function timerEnd(e:TimerEvent){
 			t.removeEventListener(TimerEvent.TIMER, timerEnd);

@@ -118,7 +118,6 @@ class ScreenManager
 	
 	
 	private function onResize(e:Event):Void {
-		
 		refresh();
 	}
 	
@@ -129,7 +128,6 @@ class ScreenManager
 	{
 		//if (height_multiplier > 1) mobileDeviceRefresh();
 		webRefresh();
-		
 		for (callBack in callbacks) {
 			callBack(root.x, root.y);
 		}
@@ -140,7 +138,7 @@ class ScreenManager
 		stageScaleX = stage.stageWidth / NOMINAL_WIDTH;
 		stageScaleY = stage.stageHeight / NOMINAL_HEIGHT;
 		stageScale = Math.min(stageScaleX, stageScaleY);
-		
+
 		if (stageScale > 1) stageScale = 1;
 		
 

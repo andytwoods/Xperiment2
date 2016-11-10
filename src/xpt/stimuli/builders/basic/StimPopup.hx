@@ -47,14 +47,12 @@ class StimPopup extends StimulusBuilder_nonvisual
 			controller = new PopupController(stim.__properties);
 			RootManager.instance.currentRoot.addEventListener(Event.ADDED, _onAddedToStage);
 
-			
 			var config = {
 				buttons: PopupButton.CLOSE,
 				modal: true,
 				fontSize: get('fontSize',null) //NB BROKEN IN HTML
 			};
 			
-
 			popupWindow = PopupManager.instance.showCustom(controller.view, get("title"), config, function(e) {	
 				runScriptEvent("action", new Event(Event.CLOSE));
 				removePopup();

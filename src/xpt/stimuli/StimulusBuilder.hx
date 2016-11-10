@@ -41,7 +41,7 @@ class StimulusBuilder {
 	}
 	
 	public function kill() {
-		stim = null;
+		//stim = null;
 	}
 	
 	public function set_text(txt:String) {
