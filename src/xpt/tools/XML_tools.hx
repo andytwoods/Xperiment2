@@ -497,7 +497,6 @@ class XML_tools
 	
 	
 	static public inline function addAbsentChildren(bossList:Iterator<Xml>, slave:Xml) {
-		var nam:String;
 		for (boss in bossList) {
 			boss = simpleXML(boss);
 			for (child in getChildren(slave)) {			

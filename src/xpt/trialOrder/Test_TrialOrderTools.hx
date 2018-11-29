@@ -113,7 +113,6 @@ class Test_TrialOrderTools
 					trialBlocks.push(block);
 				}
 				
-				
 				BlockDepthOrdering.DO(trialBlocks);
 
 				var trialList:Array<Int> = [];
@@ -139,14 +138,14 @@ class Test_TrialOrderTools
 			}
 			var xml:Xml = Xml.parse("<x><SETUP><A blockDepthOrder='1,2=fixed 1,2,3=fixed 1,2,4=fixed'/></SETUP></x>");
 			ExptWideSpecs.set(xml);
-			
+
 			Assert.isTrue(makeTrialBlocks(new MyTest(
 				null,
 				['1,2','1,2,3','1,2,4'],
 				[2,2,2],
 				[0,1,2,3,4,5]
 			)));
-			
+
 			ExptWideSpecs.__testSet("blockDepthOrder", "1,2=fixed 1,2,*=reversed");
 			
 
@@ -197,11 +196,13 @@ class Test_TrialOrderTools
 				Xml.parse("<CBCondition1><TRIAL block='20' order='fixed' forcePositionInBlock = '1' trials='2'/><TRIAL block='0' order='fixed' trials='1'/></CBCondition1>"))._0;
 			Assert.isTrue(myTest(result,[2,0,1]));
 
+			trace("-----------");
 			result = trialOrder.COMPOSE(
-			Xml.parse("<CBCondition1><TRIAL block='20,2' order='fixed' forceBlockDepthPositions = '1' trials='2'/><TRIAL block='20,1' order='fixed' trials='1'/></CBCondition1>"))._0;
+			Xml.parse("<CBCondition1><TRIAL block='20,2' order='fixed' forceBlockDepthPositions = '1' trials='2'/><TRIAL block='20,1' order='fixed' trials='1'/></CBCondition1>"))._0;	
+			trace(result, 222);
 			Assert.isTrue(myTest(result,[0,1,2]));
-			
-
+			trace("-----------------");
+			return;
 			result = trialOrder.COMPOSE(
 				Xml.parse("<CBCondition1><TRIAL block='20,6' order='fixed' forceBlockDepthPositions = '1/3' trials='1'/><TRIAL block='20,6' order='fixed' forceBlockDepthPositions = '2/3' trials='1'/><TRIAL block='20,3' order='fixed' trials='5'/><TRIAL block='20,2' order='fixed' trials='5'/><TRIAL block='20,1' order='fixed' trials='5'/></CBCondition1>"))._0;
 		

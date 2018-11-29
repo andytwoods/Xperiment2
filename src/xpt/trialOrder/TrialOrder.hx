@@ -43,6 +43,7 @@ class TrialOrder
 				trialBlocks[trialBlocks.length] = trialBlock;
 				counter += trialBlock.numTrials;
 			}
+			
 			skeletons[skeletons.length] = new TrialSkeleton(trialBlock);
 			
 		}

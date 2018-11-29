@@ -18,17 +18,13 @@ class BlockDepthOrdering
 	{
 		
 		var depths:String = ExptWideSpecs.IS("blockDepthOrder");
-		
 		__depthNodes = new DepthNodeBoss(depths);
-		
-		
 		
 		//generated outside of orderDepths as orderDepths is iterative, calling tiself
 		var deepestDepth:Int = getDeepest(trialBlocks);
 
-		
-		__orderDepths(trialBlocks, deepestDepth);
 
+		__orderDepths(trialBlocks, deepestDepth);
 
 		__depthNodes.kill();
 		__depthNodes = null;
@@ -50,14 +46,12 @@ class BlockDepthOrdering
 	
 	public static function __orderDepths(trialBlocks:Array<TrialBlock>,deepestDepth:Int):Void
 	{
-		
 	
 		var atDepth:Array<TrialBlock>=[];
 		var remainder:Array<TrialBlock>=[];
 
 		//gather all the trials at each depth
 		for (i in 0...trialBlocks.length) {
-
 			if (trialBlocks[i].alive && trialBlocks[i].blocksVect.length - 1 == deepestDepth) {
 				atDepth.push(trialBlocks[i]);	
 			}
@@ -172,14 +166,14 @@ class BlockDepthOrdering
 	
 	public static function __flatten(atDepth_trialBlocks:Array<TrialBlock>):Void
 	{
-		
+			
 		for(i in 1 ... atDepth_trialBlocks.length){
 
 			atDepth_trialBlocks[0].addTrials(atDepth_trialBlocks[i].trials);
 			
 			if (atDepth_trialBlocks[i].forcePositionInBlockDepth != null) {
 				
-				//trace(111, atDepth_trialBlocks[i].forcePositionInBlockDepth);
+				trace(111, atDepth_trialBlocks[i].forcePositionInBlockDepth);
 				atDepth_trialBlocks[0].pass_forcePositionInBlockDepth(atDepth_trialBlocks[i].forceBlockDepthPositions);
 			}
 			atDepth_trialBlocks[i].alive = false;
@@ -187,7 +181,6 @@ class BlockDepthOrdering
 		
 
 		atDepth_trialBlocks[0].do_forcePositionInBlockDepth();
-
 	}		
 	
 	//function seems redundent;
